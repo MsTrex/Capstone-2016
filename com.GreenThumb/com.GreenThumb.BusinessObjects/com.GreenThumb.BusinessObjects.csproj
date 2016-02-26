@@ -39,10 +39,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="AccessToken.cs" />
     <Compile Include="IUserInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
+=======
+    <Compile Include="Class1.cs" />
+    <Compile Include="GardenGuide.cs" />
+    <Compile Include="GardenPlan.cs" />
+    <Compile Include="Gardens.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="Nutrient.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Question.cs" />
+    <Compile Include="Recipe.cs" />
+    <Compile Include="Response.cs" />
+    <Compile Include="Template.cs" />
+>>>>>>> refs/remotes/origin/master
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

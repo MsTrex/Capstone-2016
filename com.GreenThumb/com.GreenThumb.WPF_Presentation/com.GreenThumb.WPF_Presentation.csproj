@@ -73,21 +73,30 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+<<<<<<< HEAD
     <Page Include="NewUserCreation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NewUserInformation.xaml">
+=======
+    <Page Include="pages\admin_profile.xaml">
+>>>>>>> refs/remotes/origin/master
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="NewUserCreation.xaml.cs">
       <DependentUpon>NewUserCreation.xaml</DependentUpon>
     </Compile>
     <Compile Include="NewUserInformation.xaml.cs">
       <DependentUpon>NewUserInformation.xaml</DependentUpon>
+=======
+    <Compile Include="pages\admin_profile.xaml.cs">
+      <DependentUpon>admin_profile.xaml</DependentUpon>
+>>>>>>> refs/remotes/origin/master
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
