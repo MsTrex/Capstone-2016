@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess
+namespace com.GreenThumb.DataAccess
 {
     internal class DBConnection  // this is the only place to get a sqlconnection
     {

@@ -1,5 +1,5 @@
-﻿using BusinessObjects;
-using DataAccess;
+﻿using com.GreenThumb.BusinessObjects;
+using com.GreenThumb.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace BusinessLogic
+namespace com.GreenThumb.BusinesssLogic
 {
     public class Security
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessObjects
+namespace com.GreenThumb.BusinessObjects
 {
     public sealed class AccessToken : User
     {

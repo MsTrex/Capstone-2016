@@ -1,5 +1,5 @@
-﻿using BusinessLogic;
-using BusinessObjects;
+﻿using com.GreenThumb.BusinesssLogic;
+using com.GreenThumb.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
