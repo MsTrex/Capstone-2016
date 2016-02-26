@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PresentationLayer
+namespace com.GreenThumb.WPF_Presentation
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
