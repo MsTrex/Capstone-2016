@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace com.GreenThumb.WPF_Presentation
+namespace PresentationLayer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,6 +23,18 @@ namespace com.GreenThumb.WPF_Presentation
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Login_Click(object sender, RoutedEventArgs e)
+        {
+            Login _login = new Login();
+            _login.ShowDialog();
+        }
+
+        private void NewUser_Click(object sender, RoutedEventArgs e)
+        {
+            NewUserCreation _newUser = new NewUserCreation();
+            _newUser.ShowDialog();
         }
     }
 }

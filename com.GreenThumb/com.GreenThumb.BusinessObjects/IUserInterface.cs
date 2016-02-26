@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace com.GreenThumb.BusinessObjects
+namespace BusinessObjects
 {
-    public class Class1
+    public interface IUserInterface
     {
+        string User(IEnumerable<User> users);
     }
 }
