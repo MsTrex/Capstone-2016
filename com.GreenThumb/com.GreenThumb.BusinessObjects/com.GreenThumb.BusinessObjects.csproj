@@ -40,21 +40,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessToken.cs" />
+    <Compile Include="ActivityLog.cs" />
     <Compile Include="Equipment.cs" />
     <Compile Include="EquipmentDonated.cs" />
     <Compile Include="EquipmentNeeded.cs" />
     <Compile Include="EquipmentPending.cs" />
     <Compile Include="Group.cs" />
+    <Compile Include="GroupRequest.cs" />
     <Compile Include="IUserInterface.cs" />
     <Compile Include="Land.cs" />
     <Compile Include="LandDonated.cs" />
     <Compile Include="LandNeeded.cs" />
     <Compile Include="LandPending.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Money.cs" />
     <Compile Include="MoneyDonated.cs" />
     <Compile Include="MoneyNeeded.cs" />
     <Compile Include="MoneyPending.cs" />
     <Compile Include="Organization.cs" />
+    <Compile Include="PostThread.cs" />
+    <Compile Include="Region.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Seed.cs" />
     <Compile Include="SeedDonated.cs" />
@@ -68,6 +73,7 @@
     <Compile Include="SupplyDonated.cs" />
     <Compile Include="SupplyNeeded.cs" />
     <Compile Include="SupplyPending.cs" />
+    <Compile Include="Task.cs" />
     <Compile Include="TimePledge.cs" />
     <Compile Include="TimePledgeDonated.cs" />
     <Compile Include="TimePledgeNeeded.cs" />
@@ -82,6 +88,7 @@
     <Compile Include="Recipe.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="Template.cs" />
+    <Compile Include="WorkLog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

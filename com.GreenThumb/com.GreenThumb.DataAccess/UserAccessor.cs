@@ -35,9 +35,9 @@ namespace com.GreenThumb.DataAccess
                         UserName = reader.GetString(0),
                         FirstName = reader.GetString(1),
                         LastName = reader.GetString(2),
-                        Zip = reader.GetInt32(3),
+                        Zip = reader.GetString(3),
                         EmailAddress = reader.GetString(4),
-                        RegionId = reader.GetString(5),
+                        RegionId = reader.GetInt32(5),
                         Active = reader.GetBoolean(5)
                     };
                 }
