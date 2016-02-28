@@ -24,5 +24,17 @@ namespace com.GreenThumb.WPF_Presentation
         {
             InitializeComponent();
         }
+
+        private void Login_Click(object sender, RoutedEventArgs e)
+        {
+            Login _login = new Login();
+            _login.ShowDialog();
+        }
+
+        private void NewUser_Click(object sender, RoutedEventArgs e)
+        {
+            NewUserCreation _newUser = new NewUserCreation();
+            _newUser.ShowDialog();
+        }
     }
 }

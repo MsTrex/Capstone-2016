@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace com.GreenThumb.BusinessObjects
 {
-    public class Class1
+    public class TimePledge
     {
+        public string GardenAffiliation { get; set; }
+        public bool Active { get; set; }
     }
 }
