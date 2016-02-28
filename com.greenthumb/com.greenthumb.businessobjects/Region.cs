@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace com.GreenThumb.BusinessObjects
 {
-   public class Region
+    public class Region
     {
         public int RegionID { get; set; }
         //public string GardenID { get; set; }

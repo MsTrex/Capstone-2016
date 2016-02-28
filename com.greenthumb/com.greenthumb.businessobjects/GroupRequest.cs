@@ -1,6 +1,4 @@
-﻿// Added by Poonam Dubey on 02/27/2016
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +8,7 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class GroupRequest
     {
+        // Added by Poonam Dubey on 02/27/2016
         public int RequestID { get; set; }
         public int UserID { get; set; }
         public string RequestStatus { get; set; }
