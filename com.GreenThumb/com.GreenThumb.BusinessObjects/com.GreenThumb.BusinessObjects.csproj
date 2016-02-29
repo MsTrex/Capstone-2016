@@ -40,8 +40,6 @@
   </ItemGroup>
   <ItemGroup>
 
-    <Compile Include="ActivityLog.cs" />
-    <Compile Include="Class1.cs" />
 
     <Compile Include="AccessToken.cs" />
     <Compile Include="ActivityLog.cs" />
@@ -62,7 +60,6 @@
     <Compile Include="MoneyNeeded.cs" />
     <Compile Include="MoneyPending.cs" />
     <Compile Include="Organization.cs" />
-    <Compile Include="PostThread.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Seed.cs" />
@@ -87,19 +84,14 @@
     <Compile Include="GardenGuide.cs" />
     <Compile Include="GardenPlan.cs" />
     <Compile Include="Gardens.cs" />
-    <Compile Include="GroupRequest.cs" />
     <Compile Include="Item.cs" />
-    <Compile Include="Message.cs" />
     <Compile Include="Nutrient.cs" />
 
     <Compile Include="PostThread.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
 
     <Compile Include="Question.cs" />
     <Compile Include="Recipe.cs" />
-    <Compile Include="Region.cs" />
     <Compile Include="Response.cs" />
-    <Compile Include="Task.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="WorkLog.cs" />
 
