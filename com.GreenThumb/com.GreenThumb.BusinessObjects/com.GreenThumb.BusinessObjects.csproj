@@ -42,10 +42,16 @@
     <Compile Include="AccessToken.cs" />
     <Compile Include="ActivityLog.cs" />
     <Compile Include="AdministratorAccount.cs" />
+    <Compile Include="BecomeExpert.cs" />
+    <Compile Include="Category.cs" />
     <Compile Include="Equipment.cs" />
     <Compile Include="EquipmentDonated.cs" />
     <Compile Include="EquipmentNeeded.cs" />
     <Compile Include="EquipmentPending.cs" />
+    <Compile Include="Expertise.cs" />
+    <Compile Include="ForumContent.cs" />
+    <Compile Include="ForumEntry.cs" />
+    <Compile Include="GardenType.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="GroupRequest.cs" />
     <Compile Include="IAdminAccount.cs" />
@@ -59,7 +65,9 @@
     <Compile Include="MoneyDonated.cs" />
     <Compile Include="MoneyNeeded.cs" />
     <Compile Include="MoneyPending.cs" />
+    <Compile Include="Notification.cs" />
     <Compile Include="Organization.cs" />
+    <Compile Include="Plant.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Seed.cs" />
