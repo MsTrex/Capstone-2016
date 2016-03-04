@@ -260,6 +260,117 @@ namespace com.GreenThumb.DataAccess
             return rowCount;
         }
 
+        /// <summary>
+        /// Rhett Allen
+        /// Created: 2016/02/26
+        /// 
+        /// Edits the data fields for a user object in the database
+        /// </summary>
+        /// <param name="updateUser">The user that includes all of the updated fields</param>
+        /// <param name="originalUser">The original user object to be checked for concurrency</param>
+        /// <returns>A boolean based on if the user has been updated successfully</returns>
+        public static bool EditUser(User updatedUser, User originalUser)
+        {
+            var conn = DBConnection.GetDBConnection();
+            var query = "Admin.spUpdateUser";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserID", updatedUser.UserID);
+            cmd.Parameters.AddWithValue("@FirstName", updatedUser.FirstName);
+            cmd.Parameters.AddWithValue("@LastName", updatedUser.LastName);
+            cmd.Parameters.AddWithValue("@Zip", updatedUser.Zip);
+            cmd.Parameters.AddWithValue("@EmailAddress", updatedUser.EmailAddress);
+            cmd.Parameters.AddWithValue("@UserName", updatedUser.UserName);
+            cmd.Parameters.AddWithValue("@PassWord", updatedUser.Password);
+            cmd.Parameters.AddWithValue("@Active", updatedUser.Active);
+            cmd.Parameters.AddWithValue("@RegionID", updatedUser.RegionId);
+
+            cmd.Parameters.AddWithValue("@OriginalFirstName", originalUser.FirstName);
+            cmd.Parameters.AddWithValue("@OriginalLastName", originalUser.LastName);
+            cmd.Parameters.AddWithValue("@OriginalZip", originalUser.Zip);
+            cmd.Parameters.AddWithValue("@OriginalEmailAddress", originalUser.EmailAddress);
+            cmd.Parameters.AddWithValue("@OriginalUserName", originalUser.UserName);
+            cmd.Parameters.AddWithValue("@OriginalPassWord", originalUser.Password);
+            cmd.Parameters.AddWithValue("@OriginalActive", originalUser.Active);
+            cmd.Parameters.AddWithValue("@OriginalRegionID", originalUser.RegionId);
+
+            bool updated = false;
+
+            try
+            {
+                conn.Open();
+
+                if (cmd.ExecuteNonQuery() == 1)
+                {
+                    updated = true;
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return updated;
+        }
+
+        /// <summary>
+        /// Rhett Allen
+        /// Created: 2016/02/26
+        /// 
+        /// Get a single user based on the id in the database
+        /// </summary>
+        /// <param name="userID">The UserID in the database</param>
+        /// <returns>The specified plant object</returns>
+        public static User RetrieveUserByID(int userID)
+        {
+            User user = new User();
+
+            var conn = DBConnection.GetDBConnection();
+            var query = @"Admin.spSelectUser";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserID", userID);
+
+            try
+            {
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    user = new User()
+                    {
+                        UserID = reader.GetInt32(0),
+                        FirstName = reader.GetString(1),
+                        LastName = reader.GetString(2),
+                        Zip = reader.GetString(3),
+                        EmailAddress = reader.GetString(4),
+                        UserName = reader.GetString(5),
+                        Password = reader.GetString(6),
+                        Active = reader.GetBoolean(7),
+                        RegionId = reader.GetInt32(8)
+                    };
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return user;
+        }
+
         ///<summary>
         ///Author: Chris Schwebach
         ///FetchUserPersonalInfo gets a database connection and retrieves user personal information 
