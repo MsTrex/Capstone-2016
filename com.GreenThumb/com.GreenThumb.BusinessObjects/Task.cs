@@ -12,17 +12,17 @@ namespace com.GreenThumb.BusinessObjects
     {
         public int TaskID { get; set; }
         public string TaskDescription { get; set; }
-        public bool TaskActive { get; set; }
+        public bool Active { get; set; }
         //public DateTime TaskLastRevision { get; set; }
 
         public Task() { }
         public Task(int taskID,
                      string taskDescription,
-                     bool taskActive)
+                     bool active)
         {
             TaskID = taskID;
             TaskDescription = taskDescription;
-            TaskActive = taskActive;
+            Active = active;
         }
     }
 }

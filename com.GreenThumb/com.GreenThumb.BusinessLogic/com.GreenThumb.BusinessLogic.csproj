@@ -40,7 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FakeStuff\FakeGroupManager.cs" />
+    <Compile Include="GardenManager.cs" />
     <Compile Include="GroupManager.cs" />
+    <Compile Include="Interfaces\IGardenManager.cs" />
     <Compile Include="Interfaces\IGroupManager.cs" />
     <Compile Include="Interfaces\IEquipmentDonationManager.cs" />
     <Compile Include="Interfaces\IEquipmentNeedManager.cs" />

@@ -91,7 +91,7 @@
     <Compile Include="User.cs" />
     <Compile Include="GardenGuide.cs" />
     <Compile Include="GardenPlan.cs" />
-    <Compile Include="Gardens.cs" />
+    <Compile Include="Garden.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Nutrient.cs" />
     <Compile Include="PostThread.cs" />

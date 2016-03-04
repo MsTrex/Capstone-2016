@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="AdminAccessor.cs" />
     <Compile Include="DBConnection.cs" />
+    <Compile Include="GardenAccessor.cs" />
     <Compile Include="GroupAccessor.cs" />
     <Compile Include="PlantAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
