@@ -1,4 +1,5 @@
-﻿using System;
+﻿using com.GreenThumb.BusinessObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace com.GreenThumb.WPF_Presentation
     /// </summary>
     public partial class MainWindow : Window
     {
+        private AccessToken _accessToken;
         public MainWindow()
         {
             InitializeComponent();
@@ -63,5 +65,18 @@ namespace com.GreenThumb.WPF_Presentation
                 mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
             }
         }
+
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Interaction logic for UserEditPersonalInfo.xaml
+        /// Date: 3/3/16
+        /// </summary>
+        private void Button_Click_PersonalInfo(object sender, RoutedEventArgs e)
+        {
+            UserEditPersonalInfo _userEditPersonalInfo = new UserEditPersonalInfo(_accessToken);
+            _userEditPersonalInfo.ShowDialog();
+            Close();
+        }
+        
     }
 }

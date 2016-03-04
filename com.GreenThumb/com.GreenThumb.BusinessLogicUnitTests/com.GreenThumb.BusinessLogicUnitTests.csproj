@@ -54,6 +54,7 @@
     <Compile Include="GardenManagerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GroupManagerUnitTest.cs" />
+    <Compile Include="UserManagerUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\com.GreenThumb.BusinessLogic\com.GreenThumb.BusinessLogic.csproj">
