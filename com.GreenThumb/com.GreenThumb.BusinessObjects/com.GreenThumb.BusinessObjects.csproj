@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="AccessToken.cs" />
     <Compile Include="ActivityLog.cs" />
+    <Compile Include="Advice.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="AdministratorAccount.cs" />
     <Compile Include="BecomeExpert.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="HashMethods.cs" />
     <Compile Include="IAdminAccount.cs" />
     <Compile Include="IUserInterface.cs" />
+    <Compile Include="Jobs.cs" />
     <Compile Include="Land.cs" />
     <Compile Include="LandDonated.cs" />
     <Compile Include="LandNeeded.cs" />
