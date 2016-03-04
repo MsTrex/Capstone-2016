@@ -8,6 +8,12 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class Response
     {
+        /// <summary>
+        /// Author: Luke Frahm
+        /// Data Transfer Object to represent a Response from Users
+        /// from the Database
+        /// </summary>
+
         public int QuestionID { get; set; }
         public DateTime Date { get; set; }
         public string UserResponse { get; set; }

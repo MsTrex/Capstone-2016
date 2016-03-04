@@ -8,6 +8,12 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class Nutrient
     {
+        /// <summary>
+        /// Author: Luke Frahm
+        /// Data Transfer Object to represent Nutrient information
+        /// from the Database
+        /// </summary>
+        
         public int NutrientID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
