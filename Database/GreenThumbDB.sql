@@ -613,6 +613,17 @@ create table Gardens.GroupLeaders(
 	CONSTRAINT [PK_GroupLeaders] PRIMARY KEY ( UserID, GroupID ASC )
 );
 
+--added by nick king 9-4-16
+create table Gardens.GroupLeaderRequests(
+	RequestID int identity(1000,1) primary key not null,
+	UserID int not null,
+	GroupID int not null,
+	RequestActive bit not null,
+	RequestDate smalldatetime not null,
+	ModifiedDate smalldatetime null,
+	ModifiedBy int null	
+);
+
 --modified by trent 2-23-16
 create table Gardens.GroupMembers(
 	GroupID int not null,
@@ -1250,6 +1261,28 @@ REFERENCES Gardens.Groups(GroupID);
 GO
 ALTER TABLE Gardens.GroupLeaders CHECK CONSTRAINT [FK_GroupLeaders_GroupID];
 GO
+
+--Added by Nick King 3-4-16
+ALTER TABLE Gardens.GroupLeaderRequests WITH NOCHECK ADD  CONSTRAINT [FK_GroupLeaderRequests_UserID] FOREIGN KEY(UserID)
+REFERENCES Admin.Users(UserID);
+GO
+ALTER TABLE Gardens.GroupLeaderRequests CHECK CONSTRAINT FK_GroupLeaderRequests_UserID;
+GO
+
+--Added by Nick King 3-4-16
+ALTER TABLE Gardens.GroupLeaderRequests WITH NOCHECK ADD  CONSTRAINT [FK_GroupLeaderRequests_GroupID] FOREIGN KEY(GroupID)
+REFERENCES Gardens.Groups(GroupID);
+GO
+ALTER TABLE Gardens.GroupLeaderRequests CHECK CONSTRAINT FK_GroupLeaderRequests_GroupID;
+GO
+
+--Added by Nick King 3-4-16
+ALTER TABLE Gardens.GroupLeaderRequests WITH NOCHECK ADD  CONSTRAINT [FK_GroupLeaderRequests_ModifiedBy] FOREIGN KEY(ModifiedBy)
+REFERENCES Admin.Users(UserID);
+GO
+ALTER TABLE Gardens.GroupLeaderRequests CHECK CONSTRAINT FK_GroupLeaderRequests_ModifiedBy;
+GO
+
 
 ALTER TABLE Gardens.GroupMembers WITH NOCHECK ADD  CONSTRAINT [FK_GroupMembers_GroupID] FOREIGN KEY(GroupID)
 REFERENCES Gardens.Groups(GroupID);
@@ -2877,6 +2910,38 @@ insert into Gardens.GroupLeaders(
 values(
 	@UserID,
 	@GroupID);
+	return @@ROWCOUNT;
+end;
+go
+
+------------------------------------------
+-------Gardens.GroupLeaderRequests--------
+------------------------------------------
+
+--added by nick king 3-4-16
+create procedure Gardens.spInsertGroupLeaderRequest(
+	@UserID int,
+	@GroupID int,
+	@RequestDate smalldatetime,
+	@ModifiedDate smalldatetime,
+	@ModifiedBy int,
+	@RequestActive bit)
+as
+begin
+insert into Gardens.GroupLeaderRequests(
+	UserID, 
+	GroupID,
+	RequestDate,
+	ModifiedDate,
+	ModifiedBy,
+	RequestActive)
+values(
+	@UserID,
+	@GroupID,
+	@RequestDate,
+	@ModifiedDate,
+	@ModifiedBy,
+	@RequestActive);
 	return @@ROWCOUNT;
 end;
 go

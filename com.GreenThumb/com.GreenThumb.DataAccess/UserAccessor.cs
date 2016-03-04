@@ -20,12 +20,11 @@ namespace com.GreenThumb.DataAccess
 {
     public class UserAccessor
     {
-        //private IUserInterface iUser;
         public static User RetrieveUserByUsername(string username)
         {
             User user;
             var conn = DBConnection.GetDBConnection();
-            var query = @"Admin.spRetrieveUser";
+            var query = @"Admin.spSelectUserWithUsername";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -41,13 +40,14 @@ namespace com.GreenThumb.DataAccess
                     reader.Read();
                     user = new User()
                     {
-                        UserName = reader.GetString(0),
-                        FirstName = reader.GetString(1),
-                        LastName = reader.GetString(2),
-                        Zip = reader.GetString(3),
-                        EmailAddress = reader.GetString(4),
-                        RegionId = reader.GetInt32(5),
-                        Active = reader.GetBoolean(6)
+                        UserID = reader.GetInt32(0),
+                        UserName = reader.GetString(1),
+                        FirstName = reader.GetString(2),
+                        LastName = reader.GetString(3),
+                        Zip = reader.GetString(4),
+                        EmailAddress = reader.GetString(5),
+                        RegionId = reader.GetInt32(6),
+                        Active = reader.GetBoolean(7)
                     };
                 }
                 else
@@ -70,7 +70,8 @@ namespace com.GreenThumb.DataAccess
         {
             int count = 0;
             var conn = DBConnection.GetDBConnection();
-            var query = @"Admin.spSelectUserWithUsername";
+            var query = @"Admin.spSelectUserWithUsernameAndPassword";
+
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -165,7 +166,8 @@ namespace com.GreenThumb.DataAccess
         {
             var roles = new List<Role>();
             var conn = DBConnection.GetDBConnection();
-            var query = @"Admin.spRetrieveRoles";
+
+            var query = @"Admin.spSelectRoles";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;

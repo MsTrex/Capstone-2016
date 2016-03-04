@@ -17,6 +17,13 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class Role
     {
+        /// <summary>
+        /// Author: Ryan Taylor
+        /// Basic Data Transfer Object to represent Role for Users
+        /// from the Database
+        /// 
+        /// Added 3/3 By Trevor Glisch
+        /// </summary>
         public string RoleID { get; set; }
         public string Description { get; set; }
         public int CreatedBy { get; set; }

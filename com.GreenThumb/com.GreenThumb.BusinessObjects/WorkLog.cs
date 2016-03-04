@@ -10,6 +10,13 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class WorkLog
     {
+        /// <summary>
+        /// Author: Poonam Dubey
+        /// Data Transfer Object to represent A WorkLog Item from the
+        /// Database
+        /// 
+        /// Added 3/3 By Trevor Glisch
+        /// </summary>
         public int WorkLogID { get; set; }
         public int UserID { get; set; }
         public int TaskID { get; set; }
