@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="FakeStuff\FakeGroupManager.cs" />
     <Compile Include="GardenManager.cs" />
+    <Compile Include="GroupLeaderRequestManager.cs" />
     <Compile Include="GroupManager.cs" />
     <Compile Include="Interfaces\IGardenManager.cs" />
     <Compile Include="Interfaces\IGroupManager.cs" />
