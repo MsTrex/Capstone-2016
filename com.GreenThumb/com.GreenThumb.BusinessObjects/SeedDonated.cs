@@ -8,6 +8,13 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class SeedDonated : Seed
     {
+        /// <summary>
+        /// Author: Ryan Taylor
+        /// Data Transfer Object to represent Seeds Available for donation
+        /// from the Database
+        /// 
+        /// Added 3/3 By Trevor Glisch
+        /// </summary>
         public int DonationID { get; set; }
         public int Quantity { get; set; }
         public DateTime Date { get; set; }

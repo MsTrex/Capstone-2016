@@ -8,6 +8,13 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class SoilNeeded : Soil
     {
+        /// <summary>
+        /// Author: Poonam
+        /// Data Transfer Object to represent Soil Available for donation
+        /// from the Database
+        /// 
+        /// Added 3/3 By Trevor Glisch
+        /// </summary>
         public int NeededID { get; set; }
         public int Quantity { get; set; }
         public DateTime Date { get; set; }
