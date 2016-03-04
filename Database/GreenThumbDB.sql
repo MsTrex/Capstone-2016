@@ -107,6 +107,7 @@ create table Admin.Roles(
 	Description varchar(100) not null,
 	CreatedBy int not null,
 	CreatedDate smalldatetime not null
+
 );
 go
 
@@ -114,7 +115,8 @@ Create table Admin.UserRoles(
 	UserID int not null,
 	RoleID varchar(30) not null,
 	CreatedBy int not null,
-	CreatedDate smalldatetime not null
+	CreatedDate smalldatetime not null,
+	Active bit default 1 not null
 
 	CONSTRAINT [PK_UserRoles] PRIMARY KEY ( UserID, RoleID ASC )
 );
@@ -126,7 +128,7 @@ create table Admin.Users(
 	Zip char(9) null,
 	EmailAddress varchar(100) null,
 	UserName varchar(20) not null,
-	PassWord varchar(150) not null,
+	PassWord varchar(150) default 'NEWUSER' not null,
 	Active bit not null default 1,
 	RegionID int null
 );
@@ -609,6 +611,17 @@ create table Gardens.GroupLeaders(
 	Active bit not null default 1
 
 	CONSTRAINT [PK_GroupLeaders] PRIMARY KEY ( UserID, GroupID ASC )
+);
+
+--added by nick king 9-4-16
+create table Gardens.GroupLeaderRequests(
+	RequestID int identity(1000,1) primary key not null,
+	UserID int not null,
+	GroupID int not null,
+	RequestActive bit not null,
+	RequestDate smalldatetime not null,
+	ModifiedDate smalldatetime null,
+	ModifiedBy int null	
 );
 
 --modified by trent 2-23-16
@@ -1249,6 +1262,28 @@ GO
 ALTER TABLE Gardens.GroupLeaders CHECK CONSTRAINT [FK_GroupLeaders_GroupID];
 GO
 
+--Added by Nick King 3-4-16
+ALTER TABLE Gardens.GroupLeaderRequests WITH NOCHECK ADD  CONSTRAINT [FK_GroupLeaderRequests_UserID] FOREIGN KEY(UserID)
+REFERENCES Admin.Users(UserID);
+GO
+ALTER TABLE Gardens.GroupLeaderRequests CHECK CONSTRAINT FK_GroupLeaderRequests_UserID;
+GO
+
+--Added by Nick King 3-4-16
+ALTER TABLE Gardens.GroupLeaderRequests WITH NOCHECK ADD  CONSTRAINT [FK_GroupLeaderRequests_GroupID] FOREIGN KEY(GroupID)
+REFERENCES Gardens.Groups(GroupID);
+GO
+ALTER TABLE Gardens.GroupLeaderRequests CHECK CONSTRAINT FK_GroupLeaderRequests_GroupID;
+GO
+
+--Added by Nick King 3-4-16
+ALTER TABLE Gardens.GroupLeaderRequests WITH NOCHECK ADD  CONSTRAINT [FK_GroupLeaderRequests_ModifiedBy] FOREIGN KEY(ModifiedBy)
+REFERENCES Admin.Users(UserID);
+GO
+ALTER TABLE Gardens.GroupLeaderRequests CHECK CONSTRAINT FK_GroupLeaderRequests_ModifiedBy;
+GO
+
+
 ALTER TABLE Gardens.GroupMembers WITH NOCHECK ADD  CONSTRAINT [FK_GroupMembers_GroupID] FOREIGN KEY(GroupID)
 REFERENCES Gardens.Groups(GroupID);
 GO
@@ -1609,6 +1644,18 @@ values(
 end;
 go
 
+CREATE PROCEDURE Admin.spSelectRoles (
+    @userID INT
+)
+AS
+BEGIN
+    SELECT Admin.UserRoles.RoleID, Admin.Roles.Description, Admin.UserRoles.Active 
+    FROM [Admin].[Roles], [Admin].[UserRoles]
+    WHERE UserRoles.UserID = @userID
+    AND Roles.roleID = UserRoles.roleID;
+END;
+GO
+
 ------------------------------------------
 -----------Admin.UserRoles----------------
 ------------------------------------------
@@ -1737,6 +1784,33 @@ BEGIN
 END;
 go
 
+--created by Ryan Taylor 3-4-16
+CREATE PROCEDURE Admin.spSelectUserByUserName (
+    @username VARCHAR(20)
+)
+AS
+BEGIN
+	SELECT UserName, FirstName, LastName, Zip, EmailAddress, RegionID, Active
+    FROM [Admin].[Users]
+    WHERE username = @username
+END
+GO
+
+--created by Ryan Taylor 3-4-16
+CREATE PROCEDURE Admin.spSelectUserWithUsernameAndPassword (
+    @username VARCHAR(20),
+    @password VARCHAR(150)
+)
+AS
+BEGIN
+    SELECT COUNT(UserName)
+    FROM [Admin].[Users]
+    WHERE username = @username
+    AND password = @password
+    AND active = 1;
+END;
+GO
+
 --Created by Chris Schwebach 2-25-16
 CREATE PROCEDURE Admin.spUpdateUserPersonalInfo (
 	@UserID int,
@@ -1758,6 +1832,17 @@ BEGIN
 END;
 go
 
+Create procedure Admin.spSelectUserPersonalInfo (
+	@UserID int
+)
+as
+begin
+	SELECT FirstName, LastName, Zip, EmailAddress, RegionID
+	FROM Admin.Users
+	WHERE UserID = @UserID;
+end;
+go
+
 --created by ibrahim 2-19-16
 CREATE PROCEDURE Admin.spUpdateUserRemove (
 @userID int)
@@ -1770,6 +1855,22 @@ BEGIN
 	return @@ROWCOUNT; 
 END;
 go
+ --created by Ryan Taylor 3-4-16 
+CREATE PROCEDURE Admin.spUpdatePassword (
+    @username VARCHAR(20),
+    @oldPassword VARCHAR(150),
+    @newPassword VARCHAR(150)
+)
+AS
+BEGIN
+    UPDATE Admin.Users
+    SET password = @newPassword
+    WHERE username = @username
+    AND password = @oldPassword
+    AND active = 1
+    RETURN @@rowcount;
+END;
+GO
 
 ------------------------------------------
 -----------Donations.EquipmentDonated-----
@@ -1794,7 +1895,7 @@ insert into Donations.EquipmentDonated(
 	StateLocated)
 values(
 	@EquipmentName,
-	@EquipmentQuntity,
+	@EquipmentQuntity,--
 	@DateDonated,
 	@UserID,
 	@ShippingNotes,
@@ -2814,6 +2915,38 @@ end;
 go
 
 ------------------------------------------
+-------Gardens.GroupLeaderRequests--------
+------------------------------------------
+
+--added by nick king 3-4-16
+create procedure Gardens.spInsertGroupLeaderRequest(
+	@UserID int,
+	@GroupID int,
+	@RequestDate smalldatetime,
+	@ModifiedDate smalldatetime,
+	@ModifiedBy int,
+	@RequestActive bit)
+as
+begin
+insert into Gardens.GroupLeaderRequests(
+	UserID, 
+	GroupID,
+	RequestDate,
+	ModifiedDate,
+	ModifiedBy,
+	RequestActive)
+values(
+	@UserID,
+	@GroupID,
+	@RequestDate,
+	@ModifiedDate,
+	@ModifiedBy,
+	@RequestActive);
+	return @@ROWCOUNT;
+end;
+go
+
+------------------------------------------
 -----------Gardens.GroupMembers-----------
 ------------------------------------------
 
@@ -2885,7 +3018,17 @@ values(
 	@ContactPhone);
 	return @@ROWCOUNT;
 end;
+go
 
+--created by Kris Johnson 3-4-16
+create procedure Gardens.spSelectOrganization(
+	@OrganizationID int)
+as 
+begin
+select GroupID,GroupName,GroupLeaderID
+from Gardens.Groups 
+where  OrganizationID = @OrganizationID;
+end;
 go
 
 ------------------------------------------
@@ -2960,8 +3103,47 @@ go
 
 --create procedure Gardens.sp
 
+------------------------------------------
+-----------Gardens.Tasks------------------
+------------------------------------------
 
+--created by Nasr 3-4-16
+CREATE PROCEDURE Gardens.spUpdateTasks 
+	(@TaskID INT,
+	@Description VARCHAR(100),
+	@Active BIT,
+	@OriginalTaskID INT,
+	@OriginalDescription VARCHAR(100),
+	@OriginalActive BIT)
+ AS
+ BEGIN 
+	UPDATE Gardens.Tasks
+	SET   
+		Description = @Description,
+		Active = @Active
+		WHERE TaskID = @TaskID
+		and Description = @OriginalDescription
+		and Active = @OriginalActive;
+	
+	RETURN @@ROWCOUNT;
+END;
+GO
 
+--created by Nasr 3-4-16
+CREATE PROCEDURE Gardens.spInsertTasks 
+	(@TaskID INT,
+	@Description VARCHAR(100))	
+AS
+BEGIN
+INSERT INTO Gardens.Tasks
+    (TaskID,
+    Description)
+	
+VALUES
+   (@TaskID,
+    @Description);	
+END;
+GO
 
 
 /**********************************************************************************/

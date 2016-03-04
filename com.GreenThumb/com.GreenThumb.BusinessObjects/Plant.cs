@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace com.GreenThumb.BusinessObjects
 {
+    // Rhett Allen 3/3/16 - added Active property, empty constructor, modified constructor to include Active
     public class Plant
     {
 
@@ -19,9 +20,10 @@ namespace com.GreenThumb.BusinessObjects
         public DateTime CreatedDate { get; set; }
         public int? ModifiedBy { get; set; }
         public DateTime ModifiedDate { get; set; }
+        public bool Active { get; set; }
 
         public Plant(int PlantID, string Name, string Type, string Category, string Description, string Season,
-                      int CreatedBy, DateTime CreatedDate, int ModifiedBy, DateTime ModifiedDate)
+                      int CreatedBy, DateTime CreatedDate, int ModifiedBy, DateTime ModifiedDate, bool Active)
         {
 
             this.PlantID = PlantID;
@@ -34,8 +36,9 @@ namespace com.GreenThumb.BusinessObjects
             this.CreatedDate = CreatedDate;
             this.ModifiedBy = ModifiedBy;
             this.ModifiedDate = ModifiedDate;
-
+            this.Active = Active;
         }
 
+        public Plant() { }
     }
 }

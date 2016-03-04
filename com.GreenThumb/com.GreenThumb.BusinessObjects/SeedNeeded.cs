@@ -8,6 +8,13 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class SeedNeeded : Seed
     {
+        /// <summary>
+        /// Author: Poonam
+        /// Data Transfer Object to represent Seed Needed for donation
+        /// from the Database
+        /// 
+        /// Added 3/3 By Trevor Glisch
+        /// </summary>
         public int NeededID { get; set; }
         public int Quantity { get; set; }
         public DateTime Date { get; set; }

@@ -1,4 +1,13 @@
-﻿using com.GreenThumb.BusinessObjects;
+﻿/// <summary>
+/// Ryan Taylor
+/// Created: 2016/02/26
+/// Data Access methods relating to User objects
+/// </summary>
+/// <remarks>
+/// Updated by Ryan Taylor 2016/03/03
+/// </remarks>
+
+using com.GreenThumb.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,12 +20,11 @@ namespace com.GreenThumb.DataAccess
 {
     public class UserAccessor
     {
-        //private IUserInterface iUser;
         public static User RetrieveUserByUsername(string username)
         {
             User user;
             var conn = DBConnection.GetDBConnection();
-            var query = @"spSelectuser";
+            var query = @"Admin.spSelectUserWithUsername";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -32,13 +40,14 @@ namespace com.GreenThumb.DataAccess
                     reader.Read();
                     user = new User()
                     {
-                        UserName = reader.GetString(0),
-                        FirstName = reader.GetString(1),
-                        LastName = reader.GetString(2),
-                        Zip = reader.GetString(3),
-                        EmailAddress = reader.GetString(4),
-                        RegionId = reader.GetInt32(5),
-                        Active = reader.GetBoolean(5)
+                        UserID = reader.GetInt32(0),
+                        UserName = reader.GetString(1),
+                        FirstName = reader.GetString(2),
+                        LastName = reader.GetString(3),
+                        Zip = reader.GetString(4),
+                        EmailAddress = reader.GetString(5),
+                        RegionId = reader.GetInt32(6),
+                        Active = reader.GetBoolean(7)
                     };
                 }
                 else
@@ -57,17 +66,12 @@ namespace com.GreenThumb.DataAccess
             return user;
         }
 
-        public static object RetrieveRolesByUserName(string userName)
-        {
-            throw new NotImplementedException();
-        }
-
-
         public static int FindUserByUsernameAndPassword(string username, string password)
         {
             int count = 0;
             var conn = DBConnection.GetDBConnection();
-            var query = @"spValidateActiveUser";
+            var query = @"Admin.spSelectUserWithUsernameAndPassword";
+
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -95,7 +99,7 @@ namespace com.GreenThumb.DataAccess
         {
             int count = 0;
             var conn = DBConnection.GetDBConnection();
-            var query = @"spUpdatePassword";
+            var query = @"Admin.spUpdatePassword";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -119,10 +123,6 @@ namespace com.GreenThumb.DataAccess
             }
             return count;
         }
-
-
-
-
 
         public static int InsertUser(User user)
         {
@@ -161,5 +161,50 @@ namespace com.GreenThumb.DataAccess
             }
             return count;
         }
+
+        public static List<Role> RetrieveRolesByUserID(int userID)
+        {
+            var roles = new List<Role>();
+            var conn = DBConnection.GetDBConnection();
+
+            var query = @"Admin.spSelectRoles";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@userID", userID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        roles.Add(new Role()
+                        {
+                            RoleID = reader.GetString(0),
+                            Description = reader.GetString(1),
+                            Active = reader.GetBoolean(2)
+                        });
+                    }
+                }
+                else
+                {
+                    throw new ApplicationException("Data not found.");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return roles;
+        }
+       
     }
 }

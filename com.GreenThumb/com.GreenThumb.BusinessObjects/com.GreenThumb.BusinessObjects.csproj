@@ -41,6 +41,8 @@
   <ItemGroup>
     <Compile Include="AccessToken.cs" />
     <Compile Include="ActivityLog.cs" />
+    <Compile Include="Advice.cs" />
+    <Compile Include="Enum.cs" />
     <Compile Include="AdministratorAccount.cs" />
     <Compile Include="BecomeExpert.cs" />
     <Compile Include="Category.cs" />
@@ -51,11 +53,14 @@
     <Compile Include="Expertise.cs" />
     <Compile Include="ForumContent.cs" />
     <Compile Include="ForumEntry.cs" />
+    <Compile Include="GardenAnnoucement.cs" />
     <Compile Include="GardenType.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="GroupRequest.cs" />
+    <Compile Include="HashMethods.cs" />
     <Compile Include="IAdminAccount.cs" />
     <Compile Include="IUserInterface.cs" />
+    <Compile Include="Jobs.cs" />
     <Compile Include="Land.cs" />
     <Compile Include="LandDonated.cs" />
     <Compile Include="LandNeeded.cs" />
@@ -90,7 +95,7 @@
     <Compile Include="User.cs" />
     <Compile Include="GardenGuide.cs" />
     <Compile Include="GardenPlan.cs" />
-    <Compile Include="Gardens.cs" />
+    <Compile Include="Garden.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Nutrient.cs" />
     <Compile Include="PostThread.cs" />

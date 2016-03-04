@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+
     <Page Include="AdminMessages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -62,6 +63,28 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+
+    <Page Include="Expert.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GardenPages\CreateGarden.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gardens.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HomeContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+
+    <Compile Include="ViewGroups.xaml.cs">
+      <DependentUpon>ViewGroups.xaml</DependentUpon>
+    </Compile>
+
     <Page Include="Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -79,6 +102,17 @@
     </Compile>
     <Compile Include="Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
+    <Compile Include="Expert.xaml.cs">
+      <DependentUpon>Expert.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\CreateGarden.xaml.cs">
+      <DependentUpon>CreateGarden.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gardens.xaml.cs">
+      <DependentUpon>Gardens.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HomeContent.xaml.cs">
+      <DependentUpon>HomeContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -94,6 +128,10 @@
     <Page Include="NewUserInformation.xaml">
     </Page>
     <Page Include="pages\admin_profile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewGroups.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,6 +182,12 @@
       <Name>com.GreenThumb.BusinessObjects</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\organic-vegetable-garden-1319014.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

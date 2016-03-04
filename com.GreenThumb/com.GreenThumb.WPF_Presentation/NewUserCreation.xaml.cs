@@ -35,7 +35,7 @@ namespace com.GreenThumb.WPF_Presentation
             try
             {
 
-                _accessToken = Security.ValidateNewUser(username, password);
+                _accessToken = SecurityManager.ValidateNewUser(username, password);
                 this.DialogResult = true;
                 MessageBox.Show("Created New User. Please Log in.");
 
@@ -44,7 +44,7 @@ namespace com.GreenThumb.WPF_Presentation
                     this.DialogResult = true;
                     NewUserInformation _newInfo = new NewUserInformation();
                     _newInfo.ShowDialog();
-                    _accessToken = Security.ValidateNewUser(username, password);
+                    _accessToken = SecurityManager.ValidateNewUser(username, password);
                     this.DialogResult = true;
                     MessageBox.Show("Created New User. Please Log in.");
                     this.Close();

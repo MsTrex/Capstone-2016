@@ -1,4 +1,12 @@
-﻿using com.GreenThumb.BusinessObjects;
+﻿/// <summary>
+/// Ryan Taylor and ... 
+/// Created: 2016/02/25
+/// </summary> 
+/// <remarks>
+/// Updated code and added more methods - Ryan Taylor 2016/03/03
+/// </remarks>
+
+using com.GreenThumb.BusinessObjects;
 using com.GreenThumb.DataAccess;
 using System;
 using System.Collections.Generic;
@@ -6,10 +14,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace com.GreenThumb.BusinesssLogic
 {
-    public class Security
+    public class SecurityManager
     {
         const int MIN_USERNAME = 5;
         const int MIN_PASSWORD = 5;
@@ -24,11 +31,12 @@ namespace com.GreenThumb.BusinesssLogic
 
             try
             {
-                if (1 == UserAccessor.FindUserByUsernameAndPassword(username, password))
+                if (1 == UserAccessor.FindUserByUsernameAndPassword(username, password.HashSha256()))
                 {
                     var user = UserAccessor.RetrieveUserByUsername(username);
-                    var roles = UserAccessor.RetrieveRolesByUserName(user.UserName);
-                    accessToken = new AccessToken();
+                    var roles = UserAccessor.RetrieveRolesByUserID(user.UserID);
+                    var activeRoles = roles.Where(r => r.Active == true).ToList();
+                    accessToken = new AccessToken(user, activeRoles);
                 }
                 else
                 {
@@ -46,7 +54,7 @@ namespace com.GreenThumb.BusinesssLogic
             // check for new user
             if (1 == UserAccessor.FindUserByUsernameAndPassword(username, "NEWUSER"))
             {
-                UserAccessor.SetPasswordForUsername(username, "NEWUSER", newPassword);
+                UserAccessor.SetPasswordForUsername(username, "NEWUSER", newPassword.HashSha256());
             }
             else
             {

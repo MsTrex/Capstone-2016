@@ -23,6 +23,7 @@ namespace com.GreenThumb.WPF_Presentation
         public MainWindow()
         {
             InitializeComponent();
+            mainFrame.NavigationService.Navigate(new Uri("HomeContent.xaml", UriKind.Relative));
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
@@ -35,6 +36,32 @@ namespace com.GreenThumb.WPF_Presentation
         {
             NewUserCreation _newUser = new NewUserCreation();
             _newUser.ShowDialog();
+        }
+
+        private void btnGardens_click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new Uri("Gardens.xaml", UriKind.Relative));
+            btnSideBar1.Content = "Create a Garden";
+        }
+
+        private void btnExpert_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new Uri("Expert.xaml", UriKind.Relative));
+            btnSideBar1.Content = "btnSideBar1";
+        }
+
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new Uri("HomeContent.xaml", UriKind.Relative));
+            btnSideBar1.Content = "btnSideBar1";
+        }
+
+        private void btnSideBar1_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnSideBar1.Content.ToString() == "Create a Garden")
+            {
+                mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
+            }
         }
     }
 }
