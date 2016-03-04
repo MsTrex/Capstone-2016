@@ -56,7 +56,7 @@
     <Compile Include="Interfaces\ISupplyNeedManager.cs" />
     <Compile Include="Interfaces\ITimePledgeDonationManager.cs" />
     <Compile Include="Interfaces\ITimePledgeNeedManager.cs" />
-    <Compile Include="Security.cs" />
+    <Compile Include="SecurityManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

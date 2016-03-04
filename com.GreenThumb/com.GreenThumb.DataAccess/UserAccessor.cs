@@ -1,4 +1,13 @@
-﻿using com.GreenThumb.BusinessObjects;
+﻿/// <summary>
+/// Ryan Taylor
+/// Created: 2016/02/26
+/// Data Access methods relating to User objects
+/// </summary>
+/// <remarks>
+/// Updated by Ryan Taylor 2016/03/03
+/// </remarks>
+
+using com.GreenThumb.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,7 +25,7 @@ namespace com.GreenThumb.DataAccess
         {
             User user;
             var conn = DBConnection.GetDBConnection();
-            var query = @"spSelectuser";
+            var query = @"spRetrieveUser";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -38,7 +47,7 @@ namespace com.GreenThumb.DataAccess
                         Zip = reader.GetString(3),
                         EmailAddress = reader.GetString(4),
                         RegionId = reader.GetInt32(5),
-                        Active = reader.GetBoolean(5)
+                        Active = reader.GetBoolean(6)
                     };
                 }
                 else
@@ -57,17 +66,11 @@ namespace com.GreenThumb.DataAccess
             return user;
         }
 
-        public static object RetrieveRolesByUserName(string userName)
-        {
-            throw new NotImplementedException();
-        }
-
-
         public static int FindUserByUsernameAndPassword(string username, string password)
         {
             int count = 0;
             var conn = DBConnection.GetDBConnection();
-            var query = @"spValidateActiveUser";
+            var query = @"spRetrieveUserWithUsernameAndPassword";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -120,10 +123,6 @@ namespace com.GreenThumb.DataAccess
             return count;
         }
 
-
-
-
-
         public static int InsertUser(User user)
         {
             int count = 0;
@@ -160,6 +159,49 @@ namespace com.GreenThumb.DataAccess
                 conn.Close();
             }
             return count;
+        }
+
+        public static List<Role> RetrieveRolesByUserID(int userID)
+        {
+            var roles = new List<Role>();
+            var conn = DBConnection.GetDBConnection();
+            var query = @"spRetrieveRoles";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@userID", userID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        roles.Add(new Role()
+                        {
+                            RoleID = reader.GetString(0),
+                            Description = reader.GetString(1),
+                            Active = reader.GetBoolean(2)
+                        });
+                    }
+                }
+                else
+                {
+                    throw new ApplicationException("Data not found.");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return roles;
         }
        
     }
