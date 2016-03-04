@@ -73,9 +73,14 @@
     <Compile Include="Interfaces\ISupplyNeedManager.cs" />
     <Compile Include="Interfaces\ITimePledgeDonationManager.cs" />
     <Compile Include="Interfaces\ITimePledgeNeedManager.cs" />
+<<<<<<< HEAD
+    <Compile Include="MessageManager.cs" />
+    <Compile Include="Security.cs" />
+=======
     <Compile Include="Interfaces\IUserManager.cs" />
     <Compile Include="Interfaces\IWorkTaskAssignmentManager.cs" />
     <Compile Include="Interfaces\IWorkTaskManager.cs" />
+>>>>>>> origin/master
     <Compile Include="JobManager.cs" />
     <Compile Include="OrgRequestsManager.cs" />
     <Compile Include="OrgUserManager.cs" />
