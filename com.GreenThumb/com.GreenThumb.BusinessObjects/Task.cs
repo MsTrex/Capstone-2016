@@ -10,6 +10,13 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class Task
     {
+        /// <summary>
+        /// Author: Poonam
+        /// Data Transfer Object to represent a Task from the
+        /// Database
+        /// 
+        /// Added 3/3 By Trevor Glisch
+        /// </summary>
         public int TaskID { get; set; }
         public string TaskDescription { get; set; }
         public bool TaskActive { get; set; }
