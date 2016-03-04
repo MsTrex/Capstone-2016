@@ -8,6 +8,7 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class Template
     {
+
         public int TemplateID { get; set; }
         public int UserID { get; set; }
         public string Description { get; set; }

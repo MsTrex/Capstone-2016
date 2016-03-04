@@ -73,6 +73,8 @@
     <Compile Include="UserEditPersonalInfo.xaml.cs">
       <DependentUpon>UserEditPersonalInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OrgGroupLeaderManager.xaml.cs" />
+    <Compile Include="OrgManageUserGroups.xaml.cs" />
     <Compile Include="ViewGroups.xaml.cs">
       <DependentUpon>ViewGroups.xaml</DependentUpon>
     </Compile>
@@ -112,6 +114,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NewUserInformation.xaml">
+    </Page>
+    <Page Include="OrgGroupLeaderManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OrgManageUserGroups.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="pages\admin_profile.xaml">
       <SubType>Designer</SubType>

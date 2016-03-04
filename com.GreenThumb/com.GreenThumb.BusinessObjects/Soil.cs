@@ -8,6 +8,13 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class Soil : Item
     {
+        /// <summary>
+        /// Author: Ryan Taylor
+        /// Basic Data Transfer Object to represent Soil from the
+        /// Database
+        /// 
+        /// Added 3/3 By Trevor Glisch
+        /// </summary>
         public string SoilType { get; set; }
         public int UserID { get; set; }
         public bool Active { get; set; }

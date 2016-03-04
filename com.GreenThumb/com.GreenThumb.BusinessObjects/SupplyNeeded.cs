@@ -8,6 +8,13 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class SupplyNeeded : Supply
     {
+        /// <summary>
+        /// Author: Ryan Taylor
+        /// Data Transfer Object to represent Supply Needed from the
+        /// Database
+        /// 
+        /// Added 3/3 By Trevor Glisch
+        /// </summary>
         public int NeededID { get; set; }
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }

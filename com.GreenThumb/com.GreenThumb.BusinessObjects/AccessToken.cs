@@ -25,7 +25,7 @@ namespace com.GreenThumb.BusinessObjects
             {
                 throw new ApplicationException("Invalid User");
             }
-            base.UserID = user.UserID;
+
             base.FirstName = user.FirstName;
             base.LastName = user.LastName;
             base.Zip = user.Zip;
@@ -33,6 +33,7 @@ namespace com.GreenThumb.BusinessObjects
             base.RegionId = user.RegionId;
             base.UserName = user.UserName;
             base.Active = user.Active;
+            base.UserID = user.UserID;
 
             Roles = roles;
         }
