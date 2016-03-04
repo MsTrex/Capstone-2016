@@ -8,6 +8,13 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class MoneyPending : Money
     {
+        /// <summary>
+        /// Author: Ryan Taylor
+        /// Data Transfer Object to represent Pending Money Donations  from the
+        /// Database
+        /// 
+        /// Added 3/3 By Trevor Glisch
+        /// </summary>
         public int DonationID { get; set; }
         public int NeedID { get; set; }
         public DateTime Date { get; set; }

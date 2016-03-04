@@ -8,6 +8,13 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class SeedPending : Seed
     {
+        /// <summary>
+        /// Author: Ryan Taylor
+        /// Data Transfer Object to represent Pending Seed Donations  from the
+        /// Database
+        /// 
+        /// Added 3/3 By Trevor Glisch
+        /// </summary>
         public int DonationID { get; set; }
         public int NeededID { get; set; }
         public DateTime Date { get; set; }
