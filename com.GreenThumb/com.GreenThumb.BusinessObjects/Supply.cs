@@ -8,6 +8,13 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class Supply : Item
     {
+        /// <summary>
+        /// Author: Ryan Taylor
+        /// Data Transfer Object to represent Supplies from the
+        /// Database
+        /// 
+        /// Added 3/3 By Trevor Glisch
+        /// </summary>
         public int UserID { get; set; }
         public bool Active { get; set; }
 

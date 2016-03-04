@@ -8,6 +8,13 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class SoilDonated : Soil
     {
+        /// <summary>
+        /// Author: Ryan Taylor
+        /// Data Transfer Object to represent Soil to be Donated from the
+        /// Database
+        /// 
+        /// Added 3/3 By Trevor Glisch
+        /// </summary>
         public int DonatedID { get; set; }
         public int Quantity { get; set; }
         public DateTime Date { get; set; }

@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminAccessor.cs" />
+    <Compile Include="AnnoucementAccessor.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="GardenAccessor.cs" />
     <Compile Include="GroupAccessor.cs" />

@@ -8,6 +8,13 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class SupplyDonated : Supply
     {
+        /// <summary>
+        /// Author: Ryan Taylor
+        /// Data Transfer Object to represent Supplies Donated from the
+        /// Database
+        /// 
+        /// Added 3/3 By Trevor Glisch
+        /// </summary>
         public int DonatedID { get; set; }
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }

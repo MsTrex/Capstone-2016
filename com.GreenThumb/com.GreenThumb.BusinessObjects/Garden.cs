@@ -16,7 +16,7 @@ namespace com.GreenThumb.BusinessObjects
 
         public Garden() { }
 
-        public Garden(int gardenID, int groupID, int userID, string gardenDescription, string  gardenRegion)
+        public Garden(int gardenID, int groupID, int userID, string gardenDescription, string gardenRegion)
         {
             GardenID = gardenID;
             GroupID = groupID;

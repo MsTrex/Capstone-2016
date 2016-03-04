@@ -10,6 +10,13 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class User
     {
+        /// <summary>
+        /// Author: Poonam
+        /// Data Transfer Object to represent a User from the
+        /// Database
+        /// 
+        /// Added 3/3 By Trevor Glisch
+        /// </summary>
         public int UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
