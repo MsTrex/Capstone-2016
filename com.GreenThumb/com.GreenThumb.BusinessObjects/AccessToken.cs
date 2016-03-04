@@ -1,4 +1,12 @@
-﻿using System;
+﻿/// <summary>
+/// Ryan Taylor
+/// Created: 2016/03/01
+/// </summary>
+/// <remarks>
+/// Updated by Ryan Taylor 2016/03/03
+/// </remarks>
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +16,12 @@ namespace com.GreenThumb.BusinessObjects
 {
     public sealed class AccessToken : User
     {
-        
+        public List<Role> Roles { get; private set; }
 
         public AccessToken() { }
-        public AccessToken(User user)
+        public AccessToken(User user, List<Role> roles)
         {
-            if (user == null || !user.Active)
+            if (user == null || roles == null || roles.Count == 0 || !user.Active)
             {
                 throw new ApplicationException("Invalid User");
             }
@@ -25,7 +33,7 @@ namespace com.GreenThumb.BusinessObjects
             base.UserName = user.UserName;
             base.Active = user.Active;
 
-
+            Roles = roles;
         }
 
 
