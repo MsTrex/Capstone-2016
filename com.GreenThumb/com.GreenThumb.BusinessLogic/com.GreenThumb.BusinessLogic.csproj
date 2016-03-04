@@ -42,6 +42,20 @@
     <Compile Include="FakeStuff\FakeGroupManager.cs" />
     <Compile Include="GroupManager.cs" />
     <Compile Include="Interfaces\IGroupManager.cs" />
+    <Compile Include="Interfaces\IEquipmentDonationManager.cs" />
+    <Compile Include="Interfaces\IEquipmentNeedManager.cs" />
+    <Compile Include="Interfaces\ILandDonationManager.cs" />
+    <Compile Include="Interfaces\ILandNeedManager.cs" />
+    <Compile Include="Interfaces\IMoneyDonationManager.cs" />
+    <Compile Include="Interfaces\IMoneyNeedManager.cs" />
+    <Compile Include="Interfaces\ISeedDonationManager.cs" />
+    <Compile Include="Interfaces\ISeedNeedManager.cs" />
+    <Compile Include="Interfaces\ISoilDonationManager.cs" />
+    <Compile Include="Interfaces\ISoilNeedManager.cs" />
+    <Compile Include="Interfaces\ISupplyDonationManager.cs" />
+    <Compile Include="Interfaces\ISupplyNeedManager.cs" />
+    <Compile Include="Interfaces\ITimePledgeDonationManager.cs" />
+    <Compile Include="Interfaces\ITimePledgeNeedManager.cs" />
     <Compile Include="Security.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
