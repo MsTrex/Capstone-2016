@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //Dat Tran
-namespace BusinessObjects
+namespace com.GreenThumb.BusinessObjects
 {
-    public class Gardens : BusinessObjects.IGardens
+    public class Gardens
     {
 
         public int AnnouncementID { get; set; }
