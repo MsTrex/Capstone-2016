@@ -20,12 +20,11 @@ namespace com.GreenThumb.DataAccess
 {
     public class UserAccessor
     {
-        //private IUserInterface iUser;
         public static User RetrieveUserByUsername(string username)
         {
             User user;
             var conn = DBConnection.GetDBConnection();
-            var query = @"spRetrieveUser";
+            var query = @"spSelectUserWithUsername";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -70,7 +69,7 @@ namespace com.GreenThumb.DataAccess
         {
             int count = 0;
             var conn = DBConnection.GetDBConnection();
-            var query = @"spRetrieveUserWithUsernameAndPassword";
+            var query = @"spSelectUserWithUsernameAndPassword";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -165,7 +164,7 @@ namespace com.GreenThumb.DataAccess
         {
             var roles = new List<Role>();
             var conn = DBConnection.GetDBConnection();
-            var query = @"spRetrieveRoles";
+            var query = @"spSelectRoles";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
