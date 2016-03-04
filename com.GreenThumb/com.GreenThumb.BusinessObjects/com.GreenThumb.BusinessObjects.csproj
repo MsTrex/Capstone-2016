@@ -56,6 +56,8 @@
     <Compile Include="GardenAnnoucement.cs" />
     <Compile Include="GardenType.cs" />
     <Compile Include="Group.cs" />
+    <Compile Include="GroupLeaderRequest.cs" />
+    <Compile Include="GroupMember.cs" />
     <Compile Include="GroupRequest.cs" />
     <Compile Include="HashMethods.cs" />
     <Compile Include="IAdminAccount.cs" />

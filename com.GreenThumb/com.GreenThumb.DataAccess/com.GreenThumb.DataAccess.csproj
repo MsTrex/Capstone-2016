@@ -50,6 +50,7 @@
     <Compile Include="Interfaces\IGroupLeader.cs" />
     <Compile Include="Interfaces\ILoneGardner.cs" />
     <Compile Include="JobAccessor.cs" />
+    <Compile Include="OrgUserAccessor.cs" />
     <Compile Include="PlantAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserAccessor.cs" />

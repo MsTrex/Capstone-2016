@@ -13,5 +13,7 @@ namespace com.GreenThumb.BusinessObjects
         public string ContactName { get; set; }
         public string ContactPhone { get; set; }
         public bool Active { get; set; }
+        public User OrganizationLeader { get; set; }
+        public IEnumerable<Group> OrganizationGroups { get; set; }
     }
 }

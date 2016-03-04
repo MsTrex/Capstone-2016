@@ -63,7 +63,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-
     <Page Include="Expert.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -80,11 +79,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-
+    <Compile Include="OrgGroupLeaderManager.xaml.cs" />
+    <Compile Include="OrgManageUserGroups.xaml.cs" />
     <Compile Include="ViewGroups.xaml.cs">
       <DependentUpon>ViewGroups.xaml</DependentUpon>
     </Compile>
-
     <Page Include="Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -126,6 +125,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NewUserInformation.xaml">
+    </Page>
+    <Page Include="OrgGroupLeaderManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OrgManageUserGroups.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="pages\admin_profile.xaml">
       <SubType>Designer</SubType>
