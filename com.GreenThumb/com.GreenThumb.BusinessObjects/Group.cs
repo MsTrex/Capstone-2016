@@ -14,6 +14,7 @@ namespace com.GreenThumb.BusinessObjects
         public bool Active { get; set; }
         public List<User> UserList { get; set; }
         public DateTime CreatedDate { get; set; }
+        public GroupMember GroupLeader { get; set; } // Added by: Trent Cullinan
 
 
         ///Kristine Johnson Added

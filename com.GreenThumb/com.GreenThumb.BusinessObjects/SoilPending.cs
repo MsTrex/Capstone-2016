@@ -8,6 +8,13 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class SoilPending : Soil
     {
+        /// <summary>
+        /// Author: Ryan Taylor
+        /// Data Transfer Object to represent Pending Soil Donations  from the
+        /// Database
+        /// 
+        /// Added 3/3 By Trevor Glisch
+        /// </summary>
         public int DonatedID { get; set; }
         public int NeededID { get; set; }
         public DateTime Date { get; set; }
