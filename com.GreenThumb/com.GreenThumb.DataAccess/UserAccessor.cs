@@ -40,13 +40,14 @@ namespace com.GreenThumb.DataAccess
                     reader.Read();
                     user = new User()
                     {
-                        UserName = reader.GetString(0),
-                        FirstName = reader.GetString(1),
-                        LastName = reader.GetString(2),
-                        Zip = reader.GetString(3),
-                        EmailAddress = reader.GetString(4),
-                        RegionId = reader.GetInt32(5),
-                        Active = reader.GetBoolean(6)
+                        UserID = reader.GetInt32(0),
+                        UserName = reader.GetString(1),
+                        FirstName = reader.GetString(2),
+                        LastName = reader.GetString(3),
+                        Zip = reader.GetString(4),
+                        EmailAddress = reader.GetString(5),
+                        RegionId = reader.GetInt32(6),
+                        Active = reader.GetBoolean(7)
                     };
                 }
                 else
