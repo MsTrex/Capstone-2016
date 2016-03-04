@@ -25,7 +25,7 @@ namespace com.GreenThumb.DataAccess
         {
             User user;
             var conn = DBConnection.GetDBConnection();
-            var query = @"spRetrieveUser";
+            var query = @"Admin.spRetrieveUser";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -70,7 +70,7 @@ namespace com.GreenThumb.DataAccess
         {
             int count = 0;
             var conn = DBConnection.GetDBConnection();
-            var query = @"spRetrieveUserWithUsernameAndPassword";
+            var query = @"Admin.spSelectUserWithUsername";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -98,7 +98,7 @@ namespace com.GreenThumb.DataAccess
         {
             int count = 0;
             var conn = DBConnection.GetDBConnection();
-            var query = @"spUpdatePassword";
+            var query = @"Admin.spUpdatePassword";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -165,7 +165,7 @@ namespace com.GreenThumb.DataAccess
         {
             var roles = new List<Role>();
             var conn = DBConnection.GetDBConnection();
-            var query = @"spRetrieveRoles";
+            var query = @"Admin.spRetrieveRoles";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
