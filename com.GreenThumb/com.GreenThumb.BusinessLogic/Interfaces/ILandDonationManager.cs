@@ -1,8 +1,7 @@
-/*
-* Author: Chris Schwebach
-* Land Donations Interface for the Buisness Logic Layer
-*
-*/
+///<summary>
+///Author: Chris Schwebach
+///Land Donation Interface for the Buisness Logic Layer
+///</summary>
 
 using System;
 using System.Collections.Generic;

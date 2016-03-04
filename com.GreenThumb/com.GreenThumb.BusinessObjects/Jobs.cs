@@ -1,4 +1,5 @@
 ﻿// Added By Poonam Dubey on 02/27/2016
+//Update file in project
 
 using System;
 using System.Collections.Generic;
@@ -8,21 +9,21 @@ using System.Threading.Tasks;
 
 namespace com.GreenThumb.BusinessObjects
 {
-    public class Task
+    public class Job
     {
-        public int TaskID { get; set; }
-        public string TaskDescription { get; set; }
+        public int JobID { get; set; }
+        public string Description { get; set; }
         public bool Active { get; set; }
         //public DateTime TaskLastRevision { get; set; }
 
-        public Task() { }
-        public Task(int taskID,
+        public Job() { }
+        public Job(int jobID,
                      string taskDescription,
-                     bool active)
+                     bool taskActive)
         {
-            TaskID = taskID;
-            TaskDescription = taskDescription;
-            Active = active;
+            JobID = jobID;
+            Description = taskDescription;
+            Active = taskActive;
         }
     }
 }

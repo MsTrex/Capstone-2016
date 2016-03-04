@@ -19,7 +19,7 @@ namespace com.GreenThumb.BusinessObjects
         public DateTime PostDateTime { get; set; }
         public string PostContent { get; set; }
         public string PostTitle { get; set; }
-        public bool IsActive { get; set; }
+        public bool Active { get; set; }
         //public int RoleID { get; set; }
         //public DateTime PostEdit { get; set; }
 
@@ -34,7 +34,7 @@ namespace com.GreenThumb.BusinessObjects
                            DateTime postDateTime,
                            string postContent,
                            string postTitle,
-                           bool isActive)
+                           bool active)
         {
             PostID = postID;
             PostType = postType;
@@ -46,7 +46,7 @@ namespace com.GreenThumb.BusinessObjects
             PostDateTime = postDateTime;
             PostContent = postContent;
             PostTitle = postTitle;
-            IsActive = isActive;
+            Active = active;
         }
     }
 }

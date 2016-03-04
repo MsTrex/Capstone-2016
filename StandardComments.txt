@@ -1,49 +1,61 @@
+Last Update: Ryan Taylor 2016/03/03
 
-Standard Presentation layer method header comments.
+Use these standard comments when creating your code.
+For complete coverage we should be not only adding comments on the class,
+but also on the METHOD HEADER for each public method in those classes.
 
-/// <summary>
-/// Hunter Lind
-/// Created: 2015/02/20
-/// 
-/// Constructs and submits a new event using a form filled out by a user.
-/// </summary>
-/// <remarks>
-/// Ryan Blake
-/// Updated: yyyy/mm/dd
-/// 
-/// Fixed your code
-/// </remarks>
-/// <param name="sender"></param>
-/// <param name="e"></param>
+Any CSharp class files you create:
+place starting on first line of file.
+	/// <summary>
+	/// Your Name
+	/// Created: yyyy/mm/dd
+	/// 
+	/// Actual summary of the class if needed, example is for DTO
+	/// Class for the creation of User Objects with set data fields
+	/// </summary>
+	///
+	/// <remarks>
+	/// Updater Name
+	/// Updated: yyyy/mm/dd
+	/// </remarks>
+	
+	using....
+	
+
+Standard Presentation layer METHOD HEADER comments:
+	/// <summary>
+	/// Your Name
+	/// Created: yyyy/mm/dd
+	/// 
+	/// Actual summary of the class if needed.
+	/// </summary>
+	///
+	/// <remarks>
+	/// Updater Name
+	/// Updated: yyyy/mm/dd 
+	/// example: Fixed a problem when user inputs bad data
+	/// </remarks>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
+	public bool ExampleMethod()...
 
 
-Standard DAL/BLL method header commenting
+Standard DAL/BLL METHOD HEADER commenting:
+	/// <summary>
+	/// Your Name
+	/// Created: yyyy/mm/dd
+	/// 
+	/// Actual summary of the class.
+	/// </summary>
+	///
+	/// <remarks>
+	/// Updater Name
+	/// Updated: yyyy/mm/dd
+	/// example: Fixed a problem when user inputs bad data
+	/// </remarks>
+	/// <param name="paramName">A description of the parameter that this method takes</param>
+	/// <exception cref="SQLException">Insert Fails (example of exception tag)</exception>
+	/// <returns>Rows edited</returns>	
 
-/// <summary>
-/// Created by Matt Lapka 2015/02/08
-/// Inserts a new Supplier Application Record into the Database
-/// </summary>
-/// <remarks>
-/// Updated by Hunter Lind 2015/02/20
-/// Used as an example in class.
-/// </remarks>
-/// <param name="supplierApplicationToAdd">A Supplier Application Object that contains all the information to be added</param>
-/// <exception cref="SQLException">Insert Fails</exception>
-/// <returns>Rows edited</returns>
 
-
-Standard Common object commenting
-
-/// <summary>
-/// Bryan Hurst
-/// Created: 2015/02/19
-/// 
-/// Class for the creation of Event Objects with set data fields
-/// </summary>
-/// <remarks>
-/// Hunter Lind
-/// Updated: yyyy/mm/dd
-/// 
-/// Used as example.
-/// </remarks>
-		
+	
