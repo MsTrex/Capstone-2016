@@ -71,6 +71,7 @@ namespace com.GreenThumb.DataAccess
             int count = 0;
             var conn = DBConnection.GetDBConnection();
             var query = @"Admin.spSelectUserWithUsernameAndPassword";
+
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -165,6 +166,7 @@ namespace com.GreenThumb.DataAccess
         {
             var roles = new List<Role>();
             var conn = DBConnection.GetDBConnection();
+
             var query = @"Admin.spSelectRoles";
             var cmd = new SqlCommand(query, conn);
 
