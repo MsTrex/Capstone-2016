@@ -8,7 +8,10 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class Message
     {
-        // Added by Poonam Dubey on 02/27/2016
+        /// <summary>
+        /// Added by Poonam Dubey on 02/27/2016
+        /// </summary>
+ 
         public int MessageID { get; set; }
         public string MessageContent { get; set; }
         public DateTime MessageDate { get; set; }
