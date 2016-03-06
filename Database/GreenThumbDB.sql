@@ -670,6 +670,8 @@ create table Gardens.PostLineItems(
 	GroupID int not null,
 	DateSent smalldatetime not null,
 	CommentContent varchar(255) not null
+
+	constraint [PK_PostLineItems] primary key ( PostID, PostLineID Asc)
 );
 
 create table Gardens.PostThreads(
@@ -689,6 +691,11 @@ create table Gardens.PostThreads(
 create table Gardens.Tasks(
 	TaskID int identity(1000,1) not null primary key,
 	Description varchar(100) not null,
+	DateAssigned smalldatetime not null,
+	DateCompleted smalldatetime null,
+	AssignedTo int not null,
+	AssignedFrom int not null,
+	userNotes varchar(250) null,
 	Active bit not null default 1
 );
 
@@ -1350,6 +1357,18 @@ ALTER TABLE Gardens.PostThreads WITH NOCHECK ADD  CONSTRAINT [FK_PostThreads_Gro
 REFERENCES Gardens.Groups(GroupID);
 GO
 ALTER TABLE Gardens.PostThreads CHECK CONSTRAINT [FK_PostThreads_GroupID];
+GO
+
+ALTER TABLE Gardens.Tasks WITH NOCHECK ADD  CONSTRAINT [FK_Tasks_AssignedTo] FOREIGN KEY(AssignedTo)
+REFERENCES Admin.Users(UserID);
+GO
+ALTER TABLE Gardens.Tasks CHECK CONSTRAINT [FK_Tasks_AssignedTo];
+GO
+
+ALTER TABLE Gardens.Tasks WITH NOCHECK ADD  CONSTRAINT [FK_Tasks_AssignedFrom] FOREIGN KEY(AssignedFrom)
+REFERENCES Admin.Users(UserID);
+GO
+ALTER TABLE Gardens.Tasks CHECK CONSTRAINT [FK_Tasks_AssignedFrom];
 GO
 
 ALTER TABLE Gardens.WorkLogs WITH NOCHECK ADD  CONSTRAINT [FK_WorkLogs_UserID] FOREIGN KEY(UserID)
@@ -3293,7 +3312,7 @@ end;
 go
 
 ------------------------------------------
------------Gardens.GardenPlants-----------
+-----------Gardens.GardenPlans------------
 ------------------------------------------
 
 create procedure Gardens.spInsertGardenPlans(
@@ -3575,17 +3594,28 @@ GO
 
 --created by Nasr 3-4-16
 CREATE PROCEDURE Gardens.spInsertTasks 
-	(@TaskID INT,
-	@Description VARCHAR(100))	
+	(@Description VARCHAR(100),
+	@dateAssigned smalldatetime,
+	@Datecompleted smalldatetime,
+	@AssignedTo int,
+	@AssignedFrom int,
+	@userNotes varchar(250))	
 AS
 BEGIN
 INSERT INTO Gardens.Tasks
-    (TaskID,
-    Description)
-	
+    (Description,
+	DateAssigned,
+	DateCompleted,
+	AssignedTo,
+	AssignedFrom,
+	userNotes)	
 VALUES
-   (@TaskID,
-    @Description);	
+   (@Description,
+   @dateAssigned,
+   @Datecompleted,
+   @AssignedTo,
+   @AssignedFrom,
+   @userNotes);	
 END;
 GO
 
