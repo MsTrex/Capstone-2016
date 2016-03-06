@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace com.GreenThumb.BusinesssLogic
+namespace com.GreenThumb.BusinessLogic
 {
     public class SecurityManager
     {
