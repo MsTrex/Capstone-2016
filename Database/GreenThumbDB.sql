@@ -131,6 +131,8 @@ create table Admin.Users(
 	PassWord varchar(150) default 'NEWUSER' not null,
 	Active bit not null default 1,
 	RegionID int null
+	
+	CONSTRAINT ck_UserName UNIQUE(UserName) 
 );
 
 --updated by Chris Schwebach 2-19-2016
@@ -1784,13 +1786,13 @@ BEGIN
 END;
 go
 
---created by Ryan Taylor 3-4-16
+--created by Ryan Taylor 3-4-16, updated by Ryan 3-4-16
 CREATE PROCEDURE Admin.spSelectUserByUserName (
     @username VARCHAR(20)
 )
 AS
 BEGIN
-	SELECT UserName, FirstName, LastName, Zip, EmailAddress, RegionID, Active
+	SELECT UserID, UserName, FirstName, LastName, Zip, EmailAddress, RegionID, Active
     FROM [Admin].[Users]
     WHERE username = @username
 END
