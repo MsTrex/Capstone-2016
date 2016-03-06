@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace com.GreenThumb.BusinessLogicUnitTests
 {
+    /// <summary>
+    /// Tests to 
+    /// </summary>
     [TestClass]
     public class GardenManagerUnitTest
     {
