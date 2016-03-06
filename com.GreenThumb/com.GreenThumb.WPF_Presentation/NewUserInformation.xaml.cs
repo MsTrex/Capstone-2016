@@ -1,4 +1,4 @@
-﻿using com.GreenThumb.BusinesssLogic;
+﻿using com.GreenThumb.BusinessLogic;
 using com.GreenThumb.BusinessObjects;
 using System;
 using System.Collections.Generic;
