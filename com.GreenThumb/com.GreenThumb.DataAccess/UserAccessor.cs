@@ -351,13 +351,39 @@ namespace com.GreenThumb.DataAccess
                         UserID = reader.GetInt32(0),
                         FirstName = reader.GetString(1),
                         LastName = reader.GetString(2),
-                        Zip = reader.GetString(3),
-                        EmailAddress = reader.GetString(4),
                         UserName = reader.GetString(5),
                         Password = reader.GetString(6),
-                        Active = reader.GetBoolean(7),
-                        RegionId = reader.GetInt32(8)
+                        Active = reader.GetBoolean(7)
                     };
+
+                    // Rhett Allen 3/6/16 - changed ExecuteReader to accept null values
+                    if (reader.IsDBNull(3))
+                    {
+                        user.Zip = null;
+                    }
+                    else
+                    {
+                        user.Zip = reader.GetString(3);
+                    }
+
+                    if (reader.IsDBNull(4))
+                    {
+                        user.EmailAddress = null;
+                    }
+                    else
+                    {
+                        user.EmailAddress = reader.GetString(4);
+                    }
+
+                    if (reader.IsDBNull(8))
+                    {
+                        user.RegionId = null;
+                    }
+                    else
+                    {
+                        user.RegionId = reader.GetInt32(8);
+                    }
+
                 }
             }
             catch (Exception)
