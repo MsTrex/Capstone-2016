@@ -92,7 +92,7 @@
             </Grid>
             <Grid Grid.Column="1">
                 <Frame Name="mainFrame" Navigated="mainFrame_Navigated"></Frame>
-                <Button Content="EditUserPersonalInfo" HorizontalAlignment="Left" Margin="771,27,0,0" VerticalAlignment="Top" Width="166" Height="47" Click="Button_Click_PersonalInfo"/>
+                <!--<Button Content="EditUserPersonalInfo" HorizontalAlignment="Left" Margin="771,27,0,0" VerticalAlignment="Top" Width="166" Height="47" Click="Button_Click_PersonalInfo"/>-->
             </Grid>
         </Grid>
     </Grid>

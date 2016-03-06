@@ -27,35 +27,82 @@ namespace com.GreenThumb.WPF_Presentation
             InitializeComponent();
             mainFrame.NavigationService.Navigate(new Uri("HomeContent.xaml", UriKind.Relative));
         }
-
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Click logic for login button
+        /// Date: 3/6/16
+        /// </summary>
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             Login _login = new Login();
             _login.ShowDialog();
         }
-
+        /// <summary>
+        /// Author: Ryan Taylor
+        /// Click logic for New user button
+        /// Date: 2/26/16
+        /// </summary>-
         private void NewUser_Click(object sender, RoutedEventArgs e)
         {
             NewUserCreation _newUser = new NewUserCreation();
             _newUser.ShowDialog();
         }
-
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Click logic for button btnGardens
+        /// Date: 3/6/16
+        /// </summary>
         private void btnGardens_click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new Uri("Gardens.xaml", UriKind.Relative));
             btnSideBar1.Content = "Create a Garden";
+            btnSideBar2.Content = "btnSideBar2";
+            btnSideBar3.Content = "btnSideBar3";
+            btnSideBar4.Content = "btnSideBar4";
+            btnSideBar5.Content = "btnSideBar5";
+            btnSideBar6.Content = "btnSideBar6";
+            btnSideBar7.Content = "btnSideBar7";
+            btnSideBar8.Content = "btnSideBar8";
+            btnSideBar9.Content = "btnSideBar9";
+            btnSideBar10.Content = "btnSideBar10";
         }
-
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Click logic for button btnExpert
+        /// Date: 3/6/16
+        /// </summary>
         private void btnExpert_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new Uri("Expert.xaml", UriKind.Relative));
             btnSideBar1.Content = "btnSideBar1";
+            btnSideBar2.Content = "btnSideBar2";
+            btnSideBar3.Content = "btnSideBar3";
+            btnSideBar4.Content = "btnSideBar4";
+            btnSideBar5.Content = "btnSideBar5";
+            btnSideBar6.Content = "btnSideBar6";
+            btnSideBar7.Content = "btnSideBar7";
+            btnSideBar8.Content = "btnSideBar8";
+            btnSideBar9.Content = "btnSideBar9";
+            btnSideBar10.Content = "btnSideBar10";
         }
-
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Click logic for button btnHome
+        /// Date: 3/6/16
+        /// </summary>
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new Uri("HomeContent.xaml", UriKind.Relative));
             btnSideBar1.Content = "btnSideBar1";
+            btnSideBar2.Content = "btnSideBar2";
+            btnSideBar3.Content = "btnSideBar3";
+            btnSideBar4.Content = "btnSideBar4";
+            btnSideBar5.Content = "btnSideBar5";
+            btnSideBar6.Content = "btnSideBar6";
+            btnSideBar7.Content = "btnSideBar7";
+            btnSideBar8.Content = "btnSideBar8";
+            btnSideBar9.Content = "btnSideBar9";
+            btnSideBar10.Content = "btnSideBar10";
         }
 
         
@@ -125,6 +172,8 @@ namespace com.GreenThumb.WPF_Presentation
         {
 
         }
+
+
 
         private void mainFrame_Navigated(object sender, NavigationEventArgs e)
         {

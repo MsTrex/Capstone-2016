@@ -362,7 +362,7 @@ create table Donations.TimeNeeded(
 	UserID int not null, 
 	DateNeeded smalldatetime not null,
 	GardenAffiliation varchar(50) null,
-	Location char(5) null,
+	Location char(9) null,
 	Date smalldatetime not null,
 	CityGardenLocated varchar(30) not null,
 	GroupID int not null,
@@ -377,7 +377,7 @@ create table Donations.TimePledge(
 	FinishTime smalldatetime null,
 	DatePledge smalldatetime null,
 	Affiliation varchar(75) null,
-	Location char(5) null,
+	Location char(9) null,
 	Date smalldatetime not null,
 	CityPledging varchar(30) not null,
 	Active bit not null default 1
@@ -1730,7 +1730,7 @@ GO
 
 create procedure Admin.spInsertUserRoles(
 	@UserID int,
-	@RoleID int,
+	@RoleID varchar(30),
 	@CreatedBy int,
 	@CreatedDate smalldatetime)
 as begin
@@ -2535,7 +2535,7 @@ create procedure Donations.spInsertTimeNeeded(
 	@UserID int, 
 	@DateNeeded smalldatetime,
 	@GardenAffiliation varchar(50),
-	@Location char(5),
+	@Location char(9),
 	@Date smalldatetime,
 	@CityGardenLocated varchar(30),
 	@GroupID int)
@@ -2572,7 +2572,7 @@ create procedure Donations.spInsertTimePledge(
 	@FinishTime smalldatetime,
 	@DatePledge smalldatetime,
 	@Affiliation varchar(75),
-	@Location char(5),
+	@Location char(9),
 	@Date smalldatetime,
 	@CityPledging varchar(30))
 as
@@ -3624,4 +3624,6 @@ GO
 /******************************* Test Data ****************************************/
 /**********************************************************************************/
 
-exec Admin.spInsertUsers 'Jeff', 'Jeff', '11111', 'E@E.com', 'jeff', 'xxxx', null
+exec Admin.spInsertUsers 'Jeff', 'Bridges', '11111', 'E@E.com', 'jeffb', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', null;
+exec Admin.spInsertRoles 'Admin', 'Administrator', 1000, '3-6-2016';
+exec Admin.spInsertUserRoles 1000, 'Admin', 1000, '3-6-2016';

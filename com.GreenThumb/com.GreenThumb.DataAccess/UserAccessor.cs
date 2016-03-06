@@ -24,7 +24,7 @@ namespace com.GreenThumb.DataAccess
         {
             User user;
             var conn = DBConnection.GetDBConnection();
-            var query = @"Admin.spSelectUserWithUsername";
+            var query = @"Admin.spSelectUserByUsername";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
