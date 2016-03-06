@@ -89,6 +89,9 @@
     </Compile>
     <Compile Include="OrgGroupLeaderManager.xaml.cs" />
     <Compile Include="OrgManageUserGroups.xaml.cs" />
+    <Compile Include="UserRole.xaml.cs">
+      <DependentUpon>UserRole.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewGroups.xaml.cs">
       <DependentUpon>ViewGroups.xaml</DependentUpon>
     </Compile>
@@ -156,6 +159,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserEditPersonalInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserRole.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

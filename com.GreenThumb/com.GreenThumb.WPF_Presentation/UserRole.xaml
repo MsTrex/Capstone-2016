@@ -1,0 +1,20 @@
+﻿<Window x:Class="com.GreenThumb.WPF_Presentation.UserRole"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="UserRole" Height="422" Width="756">
+    <Grid Cursor="Arrow" Margin="0,7,0,-50" >
+        <Button x:Name="Display_Data" Content="Display Data" HorizontalAlignment="Left" Margin="428,339,0,0" VerticalAlignment="Top" Width="118" Height="32" Click="Button_Click" Cursor="Arrow"/>
+        <DataGrid x:Name="grdUserList" HorizontalAlignment="Left" Margin="35,199,0,0" VerticalAlignment="Top" Width="693" Height="135"/>
+        <DataGrid x:Name="grdRoleList" HorizontalAlignment="Left" Margin="410,33,0,0" VerticalAlignment="Top" Width="318" Height="125"/>
+        <DataGrid x:Name="grdUserRoleList" HorizontalAlignment="Left" Margin="35,33,0,0" VerticalAlignment="Top" Width="349" Height="125" SelectionChanged="DataGrid_SelectionChanged"/>
+        <Label Content="Users" HorizontalAlignment="Left" Margin="309,168,0,0" VerticalAlignment="Top" Width="188" IsEnabled="False"/>
+        <Label Content="Roles" HorizontalAlignment="Left" Margin="528,0,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label Content="User Roles" HorizontalAlignment="Left" Margin="136,0,0,0" VerticalAlignment="Top" Width="99"/>
+        <Button x:Name="btnSave" Content="SAVE" HorizontalAlignment="Left" Margin="193,339,0,0" VerticalAlignment="Top" Width="117" Height="32" Click="btnSave_Click"/>
+        <Label x:Name="lblUserCount" Content="" HorizontalAlignment="Left" Margin="410,168,0,0" VerticalAlignment="Top" Height="26" Width="87"/>
+        <Label x:Name="lblUserRoleCount" Content="" HorizontalAlignment="Left" Margin="240,0,0,407" VerticalAlignment="Bottom" Height="28" Width="122"/>
+        <Label x:Name="lblRoleCount" Content="" HorizontalAlignment="Left" Margin="607,0,0,0" VerticalAlignment="Top" Height="26" Width="90"/>
+
+
+    </Grid>
+</Window>

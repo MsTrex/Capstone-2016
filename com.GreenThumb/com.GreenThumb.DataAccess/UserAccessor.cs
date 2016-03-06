@@ -422,7 +422,161 @@ namespace com.GreenThumb.DataAccess
                 conn.Close();
             }
             return user;
-        }      
-       
+        }
+
+        /// <summary>
+        /// Author: Ibrahim Abuzaid
+        /// Data Transfer Object to represent a User from the
+        /// Database
+        /// 
+        /// Added 3/4 By Ibarahim
+        /// </summary>
+        public static List<User> FetchUserList(Active group = Active.active)
+        {
+            // create a list to hold the returned data
+            var userList = new List<User>();
+
+            // get a connection to the database
+            var conn = DBConnection.GetDBConnection();
+
+            // create a query to send through the connection
+
+            string query = @"SELECT UserID, FirstName, LastName, " +
+                           @"Zip, EmailAddress, UserName, PassWord, Active, RegionID " +
+                           @"FROM Admin.Users ";
+
+            query += @"ORDER BY LastName ";
+
+            // create a command object
+            var cmd = new SqlCommand(query, conn);
+
+            // be safe, not sorry! use a try-catch
+            try
+            {
+                // open connection
+                conn.Open();
+
+                // execute the command and return a data reader
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                // before trying to read the reader, be sure it has data
+                if (reader.HasRows)
+                {
+                    // now we just need a loop to process the reader
+                    while (reader.Read())
+                    {
+                        User currentUser = new User()
+                        {
+                            UserID = reader.GetInt32(0),
+                            FirstName = reader.GetString(1),
+                            LastName = reader.GetString(2),
+                            Zip = reader.GetString(3),
+                            EmailAddress = reader.GetString(4),
+                            UserName = reader.GetString(5),
+                            Password = reader.GetString(6),
+                            Active = reader.GetBoolean(7)
+                            //    RegionID = reader.GetInt32(8) 
+
+                        };
+
+                        userList.Add(currentUser);
+
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                // rethrow all Exceptions, let the logic layer sort them out
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            // this list may be empty, if so, the logic layer will need to deal with it
+            return userList;
+        }
+
+        public static int FetchUserCount(Active group = Active.active)
+        {
+            int count = 0;
+
+            // let's try a scalar query
+
+            // start with a connection object
+            var conn = DBConnection.GetDBConnection();
+
+            // write some command text
+            string query = @"SELECT COUNT(*) " +
+                           @"FROM Admin.Users ";
+
+            // include our WHERE logic
+            if (group == Active.active)
+            {
+                query += @"WHERE Active = 1 ";
+            }
+            else if (group == Active.inactive)
+            {
+                query += @"WHERE Active = 0 ";
+            }
+
+            // create a command object
+            var cmd = new SqlCommand(query, conn);
+
+            try
+            {
+                conn.Open();
+
+                count = (int)cmd.ExecuteScalar();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return count;
+        }
+
+        public static int UpdateUser(User usr)
+        {
+            int rowsAffected = 0;
+
+            var conn = DBConnection.GetDBConnection();
+
+            string query = @"UPDATE Admin.Users SET " +
+                        @"FirstName = @FirstName, LastName = @LastName,  Zip = @Zip, EmailAddress = @EmailAddress, " +
+                        @"PassWord = @PassWord, Active = @Active, RegionID = @RegionID " +
+                        @"WHERE UserID = @UserID ";
+
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.Parameters.AddWithValue("@UserID", usr.UserID);
+            cmd.Parameters.AddWithValue("@FirstName", usr.FirstName);
+            cmd.Parameters.AddWithValue("@LastName", usr.LastName);
+            cmd.Parameters.AddWithValue("@Zip", usr.Zip);
+            cmd.Parameters.AddWithValue("@EmailAddress", usr.EmailAddress);
+            cmd.Parameters.AddWithValue("@UserName", usr.UserName);
+            cmd.Parameters.AddWithValue("@PassWord", usr.Password);
+            cmd.Parameters.AddWithValue("@Active", usr.Active);
+            cmd.Parameters.AddWithValue("@RegionID", usr.RegionId);
+
+
+            try
+            {
+                conn.Open();
+                rowsAffected = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rowsAffected;
+        }
+
     }
 }
