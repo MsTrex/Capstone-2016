@@ -80,18 +80,18 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Button FontSize="15" Grid.Row="0" Margin="0, 20, 0, 5" Name="btnSideBar1" Content="btnSideBar1" Click="btnSideBar1_Click"></Button>
-                <Button FontSize="15" Grid.Row="1" Margin="0, 10, 0, 5" Name="btnSideBar2" Content="btnSideBar2"></Button>
-                <Button FontSize="15" Grid.Row="2" Margin="0, 10, 0, 5" Name="btnSideBar3" Content="btnSideBar3"></Button>
-                <Button FontSize="15" Grid.Row="3" Margin="0, 10, 0, 5" Name="btnSideBar4" Content="btnSideBar4"></Button>
-                <Button FontSize="15" Grid.Row="4" Margin="0, 10, 0, 5" Name="btnSideBar5" Content="btnSideBar5"></Button>
-                <Button FontSize="15" Grid.Row="5" Margin="0, 10, 0, 5" Name="btnSideBar6" Content="btnSideBar6"></Button>
-                <Button FontSize="15" Grid.Row="6" Margin="0, 10, 0, 5" Name="btnSideBar7" Content="btnSideBar7"></Button>
-                <Button FontSize="15" Grid.Row="7" Margin="0, 10, 0, 5" Name="btnSideBar8" Content="btnSideBar8"></Button>
-                <Button FontSize="15" Grid.Row="8" Margin="0, 10, 0, 5" Name="btnSideBar9" Content="btnSideBar9"></Button>
-                <Button FontSize="15" Grid.Row="9" Margin="0, 10, 0, 5" Name="btnSideBar10" Content="btnSideBar10"></Button>
+                <Button FontSize="15" Grid.Row="1" Margin="0, 10, 0, 5" Name="btnSideBar2" Content="btnSideBar2" Click="btnSideBar2_Click"></Button>
+                <Button FontSize="15" Grid.Row="2" Margin="0, 10, 0, 5" Name="btnSideBar3" Content="btnSideBar3" Click="btnSideBar3_Click"></Button>
+                <Button FontSize="15" Grid.Row="3" Margin="0, 10, 0, 5" Name="btnSideBar4" Content="btnSideBar4" Click="btnSideBar4_Click"></Button>
+                <Button FontSize="15" Grid.Row="4" Margin="0, 10, 0, 5" Name="btnSideBar5" Content="btnSideBar5" Click="btnSideBar5_Click"></Button>
+                <Button FontSize="15" Grid.Row="5" Margin="0, 10, 0, 5" Name="btnSideBar6" Content="btnSideBar6" Click="btnSideBar6_Click"></Button>
+                <Button FontSize="15" Grid.Row="6" Margin="0, 10, 0, 5" Name="btnSideBar7" Content="btnSideBar7" Click="btnSideBar7_Click"></Button>
+                <Button FontSize="15" Grid.Row="7" Margin="0, 10, 0, 5" Name="btnSideBar8" Content="btnSideBar8" Click="btnSideBar8_Click"></Button>
+                <Button FontSize="15" Grid.Row="8" Margin="0, 10, 0, 5" Name="btnSideBar9" Content="btnSideBar9" Click="btnSideBar9_Click"></Button>
+                <Button FontSize="15" Grid.Row="9" Margin="0, 10, 0, 5" Name="btnSideBar10" Content="btnSideBar10" Click="btnSideBar10_Click"></Button>
             </Grid>
             <Grid Grid.Column="1">
-                <Frame Name="mainFrame"></Frame>
+                <Frame Name="mainFrame" Navigated="mainFrame_Navigated"></Frame>
                 <Button Content="EditUserPersonalInfo" HorizontalAlignment="Left" Margin="771,27,0,0" VerticalAlignment="Top" Width="166" Height="47" Click="Button_Click_PersonalInfo"/>
             </Grid>
         </Grid>

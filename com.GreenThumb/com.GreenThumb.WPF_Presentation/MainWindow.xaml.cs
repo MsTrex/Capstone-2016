@@ -58,6 +58,22 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar1.Content = "btnSideBar1";
         }
 
+        
+
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Interaction logic for UserEditPersonalInfo.xaml
+        /// Date: 3/3/16
+        /// </summary>
+        /// 
+
+
+        private void Button_Click_PersonalInfo(object sender, RoutedEventArgs e)
+        {
+            UserEditPersonalInfo _userEditPersonalInfo = new UserEditPersonalInfo(_accessToken);
+            _userEditPersonalInfo.ShowDialog();
+            Close();
+        }
         private void btnSideBar1_Click(object sender, RoutedEventArgs e)
         {
             if (btnSideBar1.Content.ToString() == "Create a Garden")
@@ -65,18 +81,54 @@ namespace com.GreenThumb.WPF_Presentation
                 mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
             }
         }
-
-        /// <summary>
-        /// Author: Chris Schwebach
-        /// Interaction logic for UserEditPersonalInfo.xaml
-        /// Date: 3/3/16
-        /// </summary>
-        private void Button_Click_PersonalInfo(object sender, RoutedEventArgs e)
+        private void btnSideBar2_Click(object sender, RoutedEventArgs e)
         {
-            UserEditPersonalInfo _userEditPersonalInfo = new UserEditPersonalInfo(_accessToken);
-            _userEditPersonalInfo.ShowDialog();
-            Close();
+
         }
-        
+
+        private void btnSideBar3_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSideBar4_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSideBar5_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSideBar6_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSideBar7_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSideBar8_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSideBar9_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSideBar10_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void mainFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+
+        }
     }
 }

@@ -1629,16 +1629,19 @@ go
 ------------------------------------------
  
  create procedure Admin.spInsertRoles(
+	@roleID varchar(30),
 	@Description varchar(100),
 	@CreatedBy int,
 	@CreatedDate smalldatetime)
 as 
 begin
 insert into Admin.Roles(
+	roleID,
 	Description, 
 	CreatedBy,
 	CreatedDate)
 values(
+	@roleID,		
 	@Description,
 	@CreatedBy,
 	@CreatedDate);
