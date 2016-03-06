@@ -105,6 +105,7 @@
     <Compile Include="Recipe.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="Template.cs" />
+    <Compile Include="UserRole.cs" />
     <Compile Include="WorkLog.cs" />
   </ItemGroup>
   <ItemGroup>

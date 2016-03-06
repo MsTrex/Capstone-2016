@@ -81,5 +81,104 @@ namespace com.GreenThumb.BusinessLogic
                 throw new ApplicationException("No records found");
             }
         }
+
+        /// <summary>
+        /// Author: Ibrahim Abuzaid
+        /// Data Transfer Object to represent a User from the
+        /// Database
+        /// 
+        /// Added 3/4 By Ibarahim
+        /// </summary>
+       public List<User> GetUserList(Active group = Active.active)
+        {
+            try
+            {
+                var userList = UserAccessor.FetchUserList(group);
+
+                if (userList.Count > 0)
+                {
+                    return userList;
+                }
+                else
+                {
+                    throw new ApplicationException("There were no records found.");
+                }
+            }
+            
+            catch (Exception)
+            {
+                // *** we should sort the possible exceptions and return friendly messages for each
+                throw;
+            }
+        }
+
+        public int GetUserCount(Active group = Active.active)
+        {
+            try
+            {
+                return UserAccessor.FetchUserCount(group);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public bool AddNewUser(string firstName,
+                                   string lastName,
+                                   string zip,
+                                   string emailAddress,
+                                   string userName,
+                                   string passWord,
+                                   bool   active,
+                                   int    regionID)
+        {
+            try
+            {
+                var usr = new User()
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Zip = zip,
+                    EmailAddress = emailAddress,
+                    UserName = userName,
+                    Password = passWord,
+                    Active = active,
+                    RegionId= regionID
+                };
+                if (UserAccessor.InsertUser(usr) == 1)
+                {
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return false;
+        }
+        public bool ChangeUserData(User usr)
+        {
+           //                 var usr = new User()
+
+            if (usr.UserID < 1000)
+            {
+                throw new ApplicationException("Invalid UserID");
+            }
+            
+            try
+            {
+                if(UserAccessor.UpdateUser(usr)==1)
+                {
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return false;
+        }
     }
 }
