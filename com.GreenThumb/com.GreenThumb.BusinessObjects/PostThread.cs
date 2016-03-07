@@ -8,8 +8,11 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class PostThread
     {
-        // Added by Poonam Dubey on 02/27/2016
-        public int PostID { get; set; }
+        /// <summary>
+        /// Added by Poonam Dubey on 02/27/2016
+
+        /// </summary>
+         public int PostID { get; set; }
         public string PostType { get; set; }
         public bool GroupCommnets { get; set; }
         public int? NoComments { get; set; }

@@ -8,6 +8,12 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class GardenPlan
     {
+        /// <summary>
+        /// Author: Luke Frahm
+        /// Data Transfer Object to represent a Garden Plan
+        /// from the Database
+        /// </summary>
+
         public int GardenPlanID { get; set; }
         public int UserID { get; set; }
         public string Description { get; set; }

@@ -149,7 +149,7 @@ namespace com.GreenThumb.DataAccess
         public static bool EditPlant(Plant plant, Plant originalPlant)
         {
             var conn = DBConnection.GetDBConnection();
-            var query = "Expert.spUpdatePlants";
+            var query = "Expert.spUpdatePlant";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure;

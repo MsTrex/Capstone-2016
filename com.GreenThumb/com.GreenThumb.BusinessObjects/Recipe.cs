@@ -8,6 +8,12 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class Recipe
     {
+        /// <summary>
+        /// Author: Luke Frahm
+        /// Data Transfer Object to represent a submitted Recipe
+        /// from the Database
+        /// </summary>
+
         public int RecipeID { get; set; }
         public string Title { get; set; }
         public string Category { get; set; }

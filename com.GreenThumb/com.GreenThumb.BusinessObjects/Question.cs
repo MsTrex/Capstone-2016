@@ -8,6 +8,12 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class Question
     {
+        /// <summary>
+        /// Author: Luke Frahm
+        /// Data Transfer Object to represent a Question from Users
+        /// from the Database
+        /// </summary>
+
         public int QuestionID { get; set; }
         public string Title { get; set; }
         public string Category { get; set; }

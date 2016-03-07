@@ -24,7 +24,7 @@ namespace com.GreenThumb.DataAccess
         {
             User user;
             var conn = DBConnection.GetDBConnection();
-            var query = @"Admin.spSelectUserWithUsername";
+            var query = @"Admin.spSelectUserByUsername";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -260,6 +260,143 @@ namespace com.GreenThumb.DataAccess
             return rowCount;
         }
 
+        /// <summary>
+        /// Rhett Allen
+        /// Created: 2016/02/26
+        /// 
+        /// Edits the data fields for a user object in the database
+        /// </summary>
+        /// <param name="updateUser">The user that includes all of the updated fields</param>
+        /// <param name="originalUser">The original user object to be checked for concurrency</param>
+        /// <returns>A boolean based on if the user has been updated successfully</returns>
+        public static bool EditUser(User updatedUser, User originalUser)
+        {
+            var conn = DBConnection.GetDBConnection();
+            var query = "Admin.spUpdateUser";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserID", updatedUser.UserID);
+            cmd.Parameters.AddWithValue("@FirstName", updatedUser.FirstName);
+            cmd.Parameters.AddWithValue("@LastName", updatedUser.LastName);
+            cmd.Parameters.AddWithValue("@Zip", updatedUser.Zip);
+            cmd.Parameters.AddWithValue("@EmailAddress", updatedUser.EmailAddress);
+            cmd.Parameters.AddWithValue("@UserName", updatedUser.UserName);
+            cmd.Parameters.AddWithValue("@PassWord", updatedUser.Password);
+            cmd.Parameters.AddWithValue("@Active", updatedUser.Active);
+            cmd.Parameters.AddWithValue("@RegionID", updatedUser.RegionId);
+
+            cmd.Parameters.AddWithValue("@OriginalFirstName", originalUser.FirstName);
+            cmd.Parameters.AddWithValue("@OriginalLastName", originalUser.LastName);
+            cmd.Parameters.AddWithValue("@OriginalZip", originalUser.Zip);
+            cmd.Parameters.AddWithValue("@OriginalEmailAddress", originalUser.EmailAddress);
+            cmd.Parameters.AddWithValue("@OriginalUserName", originalUser.UserName);
+            cmd.Parameters.AddWithValue("@OriginalPassWord", originalUser.Password);
+            cmd.Parameters.AddWithValue("@OriginalActive", originalUser.Active);
+            cmd.Parameters.AddWithValue("@OriginalRegionID", originalUser.RegionId);
+
+            bool updated = false;
+
+            try
+            {
+                conn.Open();
+
+                if (cmd.ExecuteNonQuery() == 1)
+                {
+                    updated = true;
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return updated;
+        }
+
+        /// <summary>
+        /// Rhett Allen
+        /// Created: 2016/02/26
+        /// 
+        /// Get a single user based on the id in the database
+        /// </summary>
+        /// <param name="userID">The UserID in the database</param>
+        /// <returns>The specified plant object</returns>
+        public static User RetrieveUserByID(int userID)
+        {
+            User user = new User();
+
+            var conn = DBConnection.GetDBConnection();
+            var query = @"Admin.spSelectUser";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserID", userID);
+
+            try
+            {
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    user = new User()
+                    {
+                        UserID = reader.GetInt32(0),
+                        FirstName = reader.GetString(1),
+                        LastName = reader.GetString(2),
+                        UserName = reader.GetString(5),
+                        Password = reader.GetString(6),
+                        Active = reader.GetBoolean(7)
+                    };
+
+                    // Rhett Allen 3/6/16 - changed ExecuteReader to accept null values
+                    if (reader.IsDBNull(3))
+                    {
+                        user.Zip = null;
+                    }
+                    else
+                    {
+                        user.Zip = reader.GetString(3);
+                    }
+
+                    if (reader.IsDBNull(4))
+                    {
+                        user.EmailAddress = null;
+                    }
+                    else
+                    {
+                        user.EmailAddress = reader.GetString(4);
+                    }
+
+                    if (reader.IsDBNull(8))
+                    {
+                        user.RegionId = null;
+                    }
+                    else
+                    {
+                        user.RegionId = reader.GetInt32(8);
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return user;
+        }
+
         ///<summary>
         ///Author: Chris Schwebach
         ///FetchUserPersonalInfo gets a database connection and retrieves user personal information 
@@ -311,7 +448,161 @@ namespace com.GreenThumb.DataAccess
                 conn.Close();
             }
             return user;
-        }      
-       
+        }
+
+        /// <summary>
+        /// Author: Ibrahim Abuzaid
+        /// Data Transfer Object to represent a User from the
+        /// Database
+        /// 
+        /// Added 3/4 By Ibarahim
+        /// </summary>
+        public static List<User> FetchUserList(Active group = Active.active)
+        {
+            // create a list to hold the returned data
+            var userList = new List<User>();
+
+            // get a connection to the database
+            var conn = DBConnection.GetDBConnection();
+
+            // create a query to send through the connection
+
+            string query = @"SELECT UserID, FirstName, LastName, " +
+                           @"Zip, EmailAddress, UserName, PassWord, Active, RegionID " +
+                           @"FROM Admin.Users ";
+
+            query += @"ORDER BY LastName ";
+
+            // create a command object
+            var cmd = new SqlCommand(query, conn);
+
+            // be safe, not sorry! use a try-catch
+            try
+            {
+                // open connection
+                conn.Open();
+
+                // execute the command and return a data reader
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                // before trying to read the reader, be sure it has data
+                if (reader.HasRows)
+                {
+                    // now we just need a loop to process the reader
+                    while (reader.Read())
+                    {
+                        User currentUser = new User()
+                        {
+                            UserID = reader.GetInt32(0),
+                            FirstName = reader.GetString(1),
+                            LastName = reader.GetString(2),
+                            Zip = reader.GetString(3),
+                            EmailAddress = reader.GetString(4),
+                            UserName = reader.GetString(5),
+                            Password = reader.GetString(6),
+                            Active = reader.GetBoolean(7)
+                            //    RegionID = reader.GetInt32(8) 
+
+                        };
+
+                        userList.Add(currentUser);
+
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                // rethrow all Exceptions, let the logic layer sort them out
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            // this list may be empty, if so, the logic layer will need to deal with it
+            return userList;
+        }
+
+        public static int FetchUserCount(Active group = Active.active)
+        {
+            int count = 0;
+
+            // let's try a scalar query
+
+            // start with a connection object
+            var conn = DBConnection.GetDBConnection();
+
+            // write some command text
+            string query = @"SELECT COUNT(*) " +
+                           @"FROM Admin.Users ";
+
+            // include our WHERE logic
+            if (group == Active.active)
+            {
+                query += @"WHERE Active = 1 ";
+            }
+            else if (group == Active.inactive)
+            {
+                query += @"WHERE Active = 0 ";
+            }
+
+            // create a command object
+            var cmd = new SqlCommand(query, conn);
+
+            try
+            {
+                conn.Open();
+
+                count = (int)cmd.ExecuteScalar();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return count;
+        }
+
+        public static int UpdateUser(User usr)
+        {
+            int rowsAffected = 0;
+
+            var conn = DBConnection.GetDBConnection();
+
+            string query = @"UPDATE Admin.Users SET " +
+                        @"FirstName = @FirstName, LastName = @LastName,  Zip = @Zip, EmailAddress = @EmailAddress, " +
+                        @"PassWord = @PassWord, Active = @Active, RegionID = @RegionID " +
+                        @"WHERE UserID = @UserID ";
+
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.Parameters.AddWithValue("@UserID", usr.UserID);
+            cmd.Parameters.AddWithValue("@FirstName", usr.FirstName);
+            cmd.Parameters.AddWithValue("@LastName", usr.LastName);
+            cmd.Parameters.AddWithValue("@Zip", usr.Zip);
+            cmd.Parameters.AddWithValue("@EmailAddress", usr.EmailAddress);
+            cmd.Parameters.AddWithValue("@UserName", usr.UserName);
+            cmd.Parameters.AddWithValue("@PassWord", usr.Password);
+            cmd.Parameters.AddWithValue("@Active", usr.Active);
+            cmd.Parameters.AddWithValue("@RegionID", usr.RegionId);
+
+
+            try
+            {
+                conn.Open();
+                rowsAffected = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rowsAffected;
+        }
+
     }
 }

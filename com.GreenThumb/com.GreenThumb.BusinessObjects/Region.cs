@@ -1,6 +1,4 @@
-﻿// Added by Poonam Dubey on 02/27/2016
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace com.GreenThumb.BusinessObjects
 {
+    /// <summary>
+    /// Added by Poonam Dubey on 02/27/2016
+    /// </summary>
     public class Region
     {
         public int RegionID { get; set; }

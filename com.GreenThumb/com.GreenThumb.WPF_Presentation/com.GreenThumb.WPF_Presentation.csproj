@@ -54,7 +54,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-
     <Page Include="AdminMessages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -79,11 +78,20 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="pages\CreateGarden.xaml.cs">
+      <DependentUpon>CreateGarden.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RequestGroupLeader.xaml.cs">
+      <DependentUpon>RequestGroupLeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserEditPersonalInfo.xaml.cs">
       <DependentUpon>UserEditPersonalInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="OrgGroupLeaderManager.xaml.cs" />
     <Compile Include="OrgManageUserGroups.xaml.cs" />
+    <Compile Include="UserRole.xaml.cs">
+      <DependentUpon>UserRole.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewGroups.xaml.cs">
       <DependentUpon>ViewGroups.xaml</DependentUpon>
     </Compile>
@@ -142,7 +150,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="pages\CreateGarden.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RequestGroupLeader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserEditPersonalInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserRole.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,7 +222,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="AdminPages\" />
+    <Folder Include="ExpertPages\" />
+    <Folder Include="ProfilePages\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets. -->

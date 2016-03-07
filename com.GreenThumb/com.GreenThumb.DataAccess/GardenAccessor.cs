@@ -4,10 +4,14 @@ using System.Data.SqlClient;
 
 namespace com.GreenThumb.DataAccess
 {
+    /// <summary>
+    /// Garden Accessor by Poonam Dubey
+    /// </summary>
     public class GardenAccessor
     {
         /// <summary>
-        /// Function used to create Gardens by Poonam Dubey
+        /// Function used to create Gardens
+        /// Author: Poonam Dubey
         /// </summary>
         /// <param name="garden"></param>
         /// <returns></returns>
