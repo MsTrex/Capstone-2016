@@ -38,15 +38,25 @@ namespace com.GreenThumb.DataAccess
                 if (reader.HasRows)
                 {
                     reader.Read();
+                    int regionID = 0;
+                    string zip = "";
+                    if (!reader.IsDBNull(4))
+                    {
+                        zip = reader.GetString(4);
+                    }
+                    if (!reader.IsDBNull(6))
+                    {
+                        reader.GetInt32(6);
+                    }
                     user = new User()
                     {
                         UserID = reader.GetInt32(0),
                         UserName = reader.GetString(1),
                         FirstName = reader.GetString(2),
                         LastName = reader.GetString(3),
-                        Zip = reader.GetString(4),
+                        Zip = zip,
                         EmailAddress = reader.GetString(5),
-                        RegionId = reader.GetInt32(6),
+                        RegionId = regionID,
                         Active = reader.GetBoolean(7)
                     };
                 }
