@@ -33,7 +33,7 @@
                     </MenuItem>
                     <MenuItem Header="_Help" Grid.Column="1"></MenuItem>
                     <MenuItem Header="New User Login" Click="NewUser_Click" Grid.Column="3"></MenuItem>
-                    <MenuItem Header="Current User Login" Click="Login_Click" Grid.Column="4"></MenuItem>
+                    <MenuItem x:Name="btnLogin" Header="Log In" Click="Login_Click" Grid.Column="4"></MenuItem>
                 </Menu>
             </Grid>
         </DockPanel>
