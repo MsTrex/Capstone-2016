@@ -153,21 +153,21 @@ namespace com.GreenThumb.WPF_Presentation
         }
 
         
-
         /// <summary>
         /// Author: Chris Schwebach
         /// Interaction logic for UserEditPersonalInfo.xaml
         /// Date: 3/3/16
+        /// ///Updated Date: 3/8/16
         /// </summary>
         /// 
-
-
         private void Button_Click_PersonalInfo(object sender, RoutedEventArgs e)
         {
+            this.Hide();
             UserEditPersonalInfo _userEditPersonalInfo = new UserEditPersonalInfo(_accessToken);
             _userEditPersonalInfo.ShowDialog();
-            Close();
+            this.Show();
         }
+
         private void btnSideBar1_Click(object sender, RoutedEventArgs e)
         {
             if (btnSideBar1.Content.ToString() == "Create a Garden")

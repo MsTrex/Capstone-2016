@@ -31,7 +31,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             string lastName = "Smith";
             string zip = "123456789";
             string emailAddress = "hello@gmail.com";
-            int? regionId = 7;
+            int? regionId = null;
 
             //act
             bool result = userManager.EditUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, regionId);
@@ -96,7 +96,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             string lastName = "";
             string zip = "123456789";
             string emailAddress = "";
-            int? regionId = 7;
+            int? regionId = null;
 
             //act
             bool result = userManager.EditUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, regionId);
@@ -107,6 +107,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
         ///Author: Chris Schwebach
         ///Test for UserManager GetPersonalInfo valid userID 
         ///Date: 3/3/16
+        /// ///</summary>
         [TestMethod]
         public void TestGetUserPersonInfoListReturnInfo()
         {

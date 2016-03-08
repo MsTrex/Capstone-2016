@@ -221,6 +221,8 @@ namespace com.GreenThumb.DataAccess
         ///UpdateUserPersonalInfo gets a database connection and updates information 
         ///in the DB where _accessToken.UserID = UserID 
         ///Date: 3/3/16
+        ///Updated Date: 3/8/16
+        ///Updated regionID data retrieval 
         ///</summary>
         public static int UpdateUserPersonalInfo(int userID, string firstName, string lastName, string zip, string emailAddress, int? regionId)
         {
@@ -269,6 +271,62 @@ namespace com.GreenThumb.DataAccess
 
             return rowCount;
         }
+
+        ///<summary>
+        ///Author: Chris Schwebach
+        ///FetchUserPersonalInfo gets a database connection and retrieves user personal information 
+        ///information in the DB where _accessToken.UserID = UserID 
+        ///Date: 3/3/16
+        ///Updated Date: 3/8/16
+        ///Updated regionID data retrieval 
+        ///</summary>
+        public static List<User> FetchPersonalInfo(int userID)
+        {
+
+            var user = new List<User>();
+
+            var conn = DBConnection.GetDBConnection();
+            var query = @"Admin.spSelectUserPersonalInfo";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@UserID", userID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    User currentUser = new User()
+                    {
+                        FirstName = reader.GetString(0),
+                        LastName = reader.GetString(1),
+                        Zip = reader.GetString(2),
+                        EmailAddress = reader.GetString(3),
+                        RegionId = ((reader["RegionID"] != DBNull.Value) ? Convert.ToInt32(reader.GetInt32(4)) : 0)
+
+                    };
+                    user.Add(currentUser);
+                }
+                else
+                {
+                    throw new ApplicationException("Data not found");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return user;
+        }
+
 
         /// <summary>
         /// Rhett Allen
@@ -407,59 +465,7 @@ namespace com.GreenThumb.DataAccess
             return user;
         }
 
-        ///<summary>
-        ///Author: Chris Schwebach
-        ///FetchUserPersonalInfo gets a database connection and retrieves user personal information 
-        ///information in the DB where _accessToken.UserID = UserID 
-        ///Date: 3/3/16
-        ///</summary>
-        public static List<User> FetchPersonalInfo(int userID)
-        {
-
-            var user = new List<User>();
-
-            var conn = DBConnection.GetDBConnection();
-            var query = @"Admin.spSelectUserPersonalInfo";
-            var cmd = new SqlCommand(query, conn);
-
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@UserID", userID);
-
-            try
-            {
-                conn.Open();
-                var reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    reader.Read();
-                    User currentUser = new User()
-                    {
-                        FirstName = reader.GetString(0),
-                        LastName = reader.GetString(1),
-                        Zip = reader.GetString(2),
-                        EmailAddress = reader.GetString(3),
-                        RegionId = reader.GetInt32(4)
-
-                    };
-                    user.Add(currentUser);
-                }
-                else
-                {
-                    throw new ApplicationException("Data not found");
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return user;
-        }
-
+       
         /// <summary>
         /// Author: Ibrahim Abuzaid
         /// Data Transfer Object to represent a User from the
