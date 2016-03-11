@@ -63,7 +63,6 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 _accessToken = null;
                 this.btnLogin.Header = "Log In";
-				this.btnEditPersonalInfo.Visibility = Visibility.Hidden;
                 // change things back to default here.
             } 
         }
@@ -166,10 +165,6 @@ namespace com.GreenThumb.WPF_Presentation
         /// Click logic for button btnProfile
         /// Date: 3/9/16
         /// </summary>
-        private void btnProfile_Click(object sender, RoutedEventArgs e)
-        {
-             mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
-        }
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
