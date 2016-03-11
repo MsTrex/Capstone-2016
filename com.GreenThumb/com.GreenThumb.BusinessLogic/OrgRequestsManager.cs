@@ -87,9 +87,13 @@ namespace com.GreenThumb.BusinessLogic
                 int result = orgUserAccessor.AddLeaderToGroup(accessToken, request.Group, groupMember) +
                     orgUserAccessor.ProcessRequest(accessToken, request);
 
-                this.orgRequests = this.orgRequests.Except(this.orgRequests.Where(r => r.RequestID == request.RequestID));
-
                 flag = 2 == result; // 2 rows should be affected.
+
+                if (flag)
+                {
+                    // Remove request.
+                    this.orgRequests = this.orgRequests.Except(this.orgRequests.Where(r => r.RequestID == request.RequestID));
+                }
             }
             else
             {
@@ -115,8 +119,11 @@ namespace com.GreenThumb.BusinessLogic
                 // Do nothing with request.
                 flag = 1 == orgUserAccessor.ProcessRequest(accessToken, request); // 1 row should be affected.
 
-                // Remove request.
-                this.orgRequests = this.orgRequests.Except(this.orgRequests.Where(r => r.RequestID == request.RequestID));
+                if (flag)
+                {
+                    // Remove request.
+                    this.orgRequests = this.orgRequests.Except(this.orgRequests.Where(r => r.RequestID == request.RequestID));
+                }
             }
             else
             {
