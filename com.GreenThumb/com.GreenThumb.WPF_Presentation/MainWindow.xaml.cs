@@ -164,6 +164,20 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar10.Content = "btnSideBar10";
         }
 
+        private void btnProfile_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
+            btnSideBar1.Content = "btnSideBar1";
+            btnSideBar2.Content = "btnSideBar2";
+            btnSideBar3.Content = "btnSideBar3";
+            btnSideBar4.Content = "btnSideBar4";
+            btnSideBar5.Content = "btnSideBar5";
+            btnSideBar6.Content = "btnSideBar6";
+            btnSideBar7.Content = "btnSideBar7";
+            btnSideBar8.Content = "btnSideBar8";
+            btnSideBar9.Content = "btnSideBar9";
+            btnSideBar10.Content = "btnSideBar10";
+        }
         
         /// <summary>
         /// Author: Chris Schwebach
