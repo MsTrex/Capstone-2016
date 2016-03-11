@@ -8,6 +8,11 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class Template
     {
+        /// <summary>
+        /// Author: Luke Frahm
+        /// Data Transfer Object to represent a Garden Template
+        /// from the Database
+        /// </summary>
 
         public int TemplateID { get; set; }
         public int UserID { get; set; }

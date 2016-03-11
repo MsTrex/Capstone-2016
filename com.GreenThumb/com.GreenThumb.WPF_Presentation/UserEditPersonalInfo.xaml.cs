@@ -20,6 +20,9 @@ namespace com.GreenThumb.WPF_Presentation
     /// Author: Chris Schwebach
     /// Interaction logic for UserEditPersonalInfo.xaml
     /// Date: 3/3/16
+    /// ///Updated Date: 3/8/16
+    /// Added accessToken info retrieval
+    /// Window retrieval/closing features updated
     /// </summary>
     public partial class UserEditPersonalInfo : Window
     {
@@ -39,6 +42,19 @@ namespace com.GreenThumb.WPF_Presentation
             txtZip.Clear();
             txtEmailAddress.Clear();
             txtRegionID.Clear();
+
+            txtFirstName.Text = _accessToken.FirstName;
+            txtLastName.Text = _accessToken.LastName;
+            txtZip.Text = _accessToken.Zip;
+            txtEmailAddress.Text = _accessToken.EmailAddress;
+            if (_accessToken.RegionId == 0)
+            {
+                txtRegionID.Text = "";
+            }
+            else
+            {
+                txtRegionID.Text = _accessToken.RegionId.ToString();
+            }
         }
 
         private void DisplayPersonalInfo()
@@ -57,21 +73,18 @@ namespace com.GreenThumb.WPF_Presentation
 
         private void btnReturnHome_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow _mainWindow = new MainWindow();
-            _mainWindow.Show();
-            Close();
+            this.Close();
         }
 
         private void btnCancelEdit_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow _mainWindow = new MainWindow();
             txtFirstName.Clear();
             txtLastName.Clear();
             txtZip.Clear();
             txtEmailAddress.Clear();
             txtRegionID.Clear();
-            _mainWindow.Show();
-            Close();
+           
+            this.Close();
         }
 
         private void btnEditPersonalInfo_Click(object sender, RoutedEventArgs e)
@@ -97,6 +110,7 @@ namespace com.GreenThumb.WPF_Presentation
                     txtRegionID.Clear();
                     lblRegionIDError.Content = "";
                     MessageBox.Show("Profile changed!");
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
@@ -119,6 +133,7 @@ namespace com.GreenThumb.WPF_Presentation
                     txtRegionID.Clear();
                     lblRegionIDError.Content = "";
                     MessageBox.Show("Profile changed!");
+                    this.Close();
 
                 }
                 catch (Exception ex)
@@ -131,11 +146,6 @@ namespace com.GreenThumb.WPF_Presentation
                 lblRegionIDError.Content = "RegionID must be a numeric value!";
             }
 
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            DisplayPersonalInfo();
         }
 
 

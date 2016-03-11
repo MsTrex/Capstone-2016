@@ -14,13 +14,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace com.GreenThumb.BusinesssLogic
+namespace com.GreenThumb.BusinessLogic
 {
-    public class SecurityManager
+    public class SecurityManager : com.GreenThumb.BusinessLogic.Interfaces.ISecurityManager
     {
         const int MIN_USERNAME = 5;
         const int MIN_PASSWORD = 5;
-        public static AccessToken ValidateExistingUser(string username, string password)
+        public AccessToken ValidateExistingUser(string username, string password)
         {
             AccessToken accessToken;
 
@@ -49,7 +49,7 @@ namespace com.GreenThumb.BusinesssLogic
             }
             return accessToken;
         }
-        public static AccessToken ValidateNewUser(string username, string newPassword)
+        public AccessToken ValidateNewUser(string username, string newPassword)
         {
             // check for new user
             if (1 == UserAccessor.FindUserByUsernameAndPassword(username, "NEWUSER"))

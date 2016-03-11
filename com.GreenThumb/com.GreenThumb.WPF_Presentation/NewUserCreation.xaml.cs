@@ -1,5 +1,5 @@
 ﻿using com.GreenThumb.BusinessObjects;
-using com.GreenThumb.BusinesssLogic;
+using com.GreenThumb.BusinessLogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using com.GreenThumb.BusinessLogic.Interfaces;
 
 namespace com.GreenThumb.WPF_Presentation
 {
@@ -22,6 +23,7 @@ namespace com.GreenThumb.WPF_Presentation
     public partial class NewUserCreation : Window
     {
         static AccessToken _accessToken;
+        private ISecurityManager _security = new SecurityManager();
         public NewUserCreation()
         {
             InitializeComponent();
@@ -35,7 +37,7 @@ namespace com.GreenThumb.WPF_Presentation
             try
             {
 
-                _accessToken = SecurityManager.ValidateNewUser(username, password);
+                _accessToken = _security.ValidateNewUser(username, password);
                 this.DialogResult = true;
                 MessageBox.Show("Created New User. Please Log in.");
 
@@ -44,7 +46,7 @@ namespace com.GreenThumb.WPF_Presentation
                     this.DialogResult = true;
                     NewUserInformation _newInfo = new NewUserInformation();
                     _newInfo.ShowDialog();
-                    _accessToken = SecurityManager.ValidateNewUser(username, password);
+                    _accessToken = _security.ValidateNewUser(username, password);
                     this.DialogResult = true;
                     MessageBox.Show("Created New User. Please Log in.");
                     this.Close();

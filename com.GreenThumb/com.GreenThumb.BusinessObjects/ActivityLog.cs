@@ -8,7 +8,10 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class ActivityLog
     {
-        // Added by Poonam Dubey on 02/27/2016
+        /// <summary>
+        /// Added by Poonam Dubey on 02/27/2016
+        /// </summary>
+
         public int ActivityLogID { get; set; }
         public int UserID { get; set; }
         public DateTime ActivityDate { get; set; }

@@ -131,6 +131,8 @@ create table Admin.Users(
 	PassWord varchar(150) default 'NEWUSER' not null,
 	Active bit not null default 1,
 	RegionID int null
+	
+	CONSTRAINT ck_UserName UNIQUE(UserName) 
 );
 
 --updated by Chris Schwebach 2-19-2016
@@ -360,7 +362,7 @@ create table Donations.TimeNeeded(
 	UserID int not null, 
 	DateNeeded smalldatetime not null,
 	GardenAffiliation varchar(50) null,
-	Location char(5) null,
+	Location char(9) null,
 	Date smalldatetime not null,
 	CityGardenLocated varchar(30) not null,
 	GroupID int not null,
@@ -375,7 +377,7 @@ create table Donations.TimePledge(
 	FinishTime smalldatetime null,
 	DatePledge smalldatetime null,
 	Affiliation varchar(75) null,
-	Location char(5) null,
+	Location char(9) null,
 	Date smalldatetime not null,
 	CityPledging varchar(30) not null,
 	Active bit not null default 1
@@ -668,6 +670,8 @@ create table Gardens.PostLineItems(
 	GroupID int not null,
 	DateSent smalldatetime not null,
 	CommentContent varchar(255) not null
+
+	constraint [PK_PostLineItems] primary key ( PostID, PostLineID Asc)
 );
 
 create table Gardens.PostThreads(
@@ -687,6 +691,11 @@ create table Gardens.PostThreads(
 create table Gardens.Tasks(
 	TaskID int identity(1000,1) not null primary key,
 	Description varchar(100) not null,
+	DateAssigned smalldatetime not null,
+	DateCompleted smalldatetime null,
+	AssignedTo int not null,
+	AssignedFrom int not null,
+	userNotes varchar(250) null,
 	Active bit not null default 1
 );
 
@@ -1350,6 +1359,18 @@ GO
 ALTER TABLE Gardens.PostThreads CHECK CONSTRAINT [FK_PostThreads_GroupID];
 GO
 
+ALTER TABLE Gardens.Tasks WITH NOCHECK ADD  CONSTRAINT [FK_Tasks_AssignedTo] FOREIGN KEY(AssignedTo)
+REFERENCES Admin.Users(UserID);
+GO
+ALTER TABLE Gardens.Tasks CHECK CONSTRAINT [FK_Tasks_AssignedTo];
+GO
+
+ALTER TABLE Gardens.Tasks WITH NOCHECK ADD  CONSTRAINT [FK_Tasks_AssignedFrom] FOREIGN KEY(AssignedFrom)
+REFERENCES Admin.Users(UserID);
+GO
+ALTER TABLE Gardens.Tasks CHECK CONSTRAINT [FK_Tasks_AssignedFrom];
+GO
+
 ALTER TABLE Gardens.WorkLogs WITH NOCHECK ADD  CONSTRAINT [FK_WorkLogs_UserID] FOREIGN KEY(UserID)
 REFERENCES Admin.Users(UserID);
 GO
@@ -1619,24 +1640,71 @@ BEGIN
 END;
 go
 
+------------------------------------------
+-----------Admin.Regions------------------
+------------------------------------------
 
---chris - no stored procs for region yet
+--added by Sara Nanke 3/5/16
+create procedure Admin.spInsertRegions(
+	@RegionID int,
+	@SoilType varchar(20),
+	@AverageTempSummer decimal,
+	@AverageTempFall decimal,
+	@AverageTempWinter decimal,
+	@AverageTempSpring decimal,
+	@AverageRainfall decimal,
+	@CreatedBy int,
+	@CreatedDate smalldatetime,
+	@ModifiedBy int,
+	@ModifiedDate smalldatetime)
+as
+begin
+insert into Admin.Regions(
+	RegionID,
+	SoilType,
+	AverageTempSummer,
+	AverageTempFall,
+	AverageTempWinter,
+	AverageTempSpring,
+	AverageRainfall,
+	CreatedBy,
+	CreatedDate,
+	ModifiedBy,
+	ModifiedDate)
+values(
+	@RegionID,
+	@SoilType,
+	@AverageTempSummer,
+	@AverageTempFall,
+	@AverageTempWinter,
+	@AverageTempSpring,
+	@AverageRainfall,
+	@CreatedBy,
+	@CreatedDate,
+	@ModifiedBy,
+	@ModifiedDate);
+	return @@ROWCOUNT;
+end;
+go
 
 ------------------------------------------
 -----------Admin.Roles--------------------
 ------------------------------------------
  
  create procedure Admin.spInsertRoles(
+	@roleID varchar(30),
 	@Description varchar(100),
 	@CreatedBy int,
 	@CreatedDate smalldatetime)
 as 
 begin
 insert into Admin.Roles(
+	roleID,
 	Description, 
 	CreatedBy,
 	CreatedDate)
 values(
+	@roleID,		
 	@Description,
 	@CreatedBy,
 	@CreatedDate);
@@ -1662,7 +1730,7 @@ GO
 
 create procedure Admin.spInsertUserRoles(
 	@UserID int,
-	@RoleID int,
+	@RoleID varchar(30),
 	@CreatedBy int,
 	@CreatedDate smalldatetime)
 as begin
@@ -1784,13 +1852,13 @@ BEGIN
 END;
 go
 
---created by Ryan Taylor 3-4-16
+--created by Ryan Taylor 3-4-16, updated by Ryan 3-4-16
 CREATE PROCEDURE Admin.spSelectUserByUserName (
     @username VARCHAR(20)
 )
 AS
 BEGIN
-	SELECT UserName, FirstName, LastName, Zip, EmailAddress, RegionID, Active
+	SELECT UserID, UserName, FirstName, LastName, Zip, EmailAddress, RegionID, Active
     FROM [Admin].[Users]
     WHERE username = @username
 END
@@ -2136,8 +2204,10 @@ go
 -----------Donations.MoneyPendingTrans----
 ------------------------------------------
 
+-- motified by Sara Nanke 3/5/16
+-- monet > money
 --updated due to Chris Schwebach's table update by Chris Sheehan 2-19-2016
-create procedure Donations.spInsertMonetPendingTrans(
+create procedure Donations.spInsertMoneyPendingTrans(
 	@NeedID int,
 	@DonationID int,
 	@UserID int,
@@ -2193,6 +2263,396 @@ values(
 end;
 go
 
+------------------------------------------
+-----------Donations.SeedsNeeded----------
+------------------------------------------
+
+
+--added by Sara Nanke 3/5/16
+create procedure Donations.spInsertSeedsNeeded(
+	@UserID int,
+	@NeededAmount int,
+	@SeedType varchar(50),
+	@Date smalldatetime,
+	@RecievingNotes varchar(255),
+	@StateLocated char(2),
+	@GroupID int)
+as
+begin
+insert into Donations.SeedsNeeded (
+	UserID,
+	NeededAmount,
+	SeedType,
+	Date,
+	RecievingNotes,
+	StateLocated,
+	GroupID)
+values(
+	@UserID,
+	@NeededAmount,
+	@SeedType,
+	@Date,
+	@RecievingNotes,
+	@StateLocated,
+	@GroupID);
+	return @@ROWCOUNT;
+end;
+go
+
+------------------------------------------
+-----------Donations.SeedsPendingTrans----
+------------------------------------------
+
+--added by Sara Nanke 3/5/16
+create procedure Donations.spInsertSeedsPendingTrans(
+	@SeedsDonatedID int,
+	@SeedsNeededID int,
+	@UserID int,
+	@Date smalldatetime,
+	@GroupID int)
+as
+begin
+insert into Donations.SeedsPendingTrans (
+	SeedsDonatedID,
+	SeedsNeededID,
+	UserID,
+	Date,
+	GroupID)
+values(
+	@SeedsDonatedID,
+	@SeedsNeededID,
+	@UserID,
+	@Date,
+	@GroupID);
+	return @@ROWCOUNT;
+end;
+go
+
+------------------------------------------
+-----------Donations.SoilDonated----------
+------------------------------------------
+
+--added by Sara Nanke 3/5/16
+create procedure Donations.spInsertSoilDonated(
+	@SoilType varchar(50),
+	@UserID int,
+	@SoilName varchar(75),
+	@Quantity int,
+	@Date smalldatetime,
+	@ShippingNotes varchar(255),
+	@StateLocated char(2))
+as
+begin
+insert into Donations.SoilDonated(
+	SoilType,
+	UserID,
+	SoilName,
+	Quantity,
+	Date,
+	ShippingNotes,
+	StateLocated)
+values(
+	@SoilType,
+	@UserID,
+	@SoilName,
+	@Quantity,
+	@Date,
+	@ShippingNotes,
+	@StateLocated);
+	return @@ROWCOUNT;
+end;
+go
+
+------------------------------------------
+-----------Donations.SoilNeeded-----------
+------------------------------------------
+
+--added by Sara Nanke 3/5/16
+create procedure Donations.spInsertSoilNeeded(
+	@SoilType varchar(50),
+	@UserID int,
+	@SoilName varchar(75),
+	@Quantity int,
+	@Date smalldatetime,
+	@RecievingNotes varchar(255),
+	@StateLocated char(2),
+	@GroupID int)
+as
+begin
+insert into Donations.SoilNeeded(
+	SoilType,
+	UserID,
+	SoilName,
+	Quantity,
+	Date,
+	RecievingNotes,
+	StateLocated,
+	GroupID)
+values(
+	@SoilType,
+	@UserID,
+	@SoilName,
+	@Quantity,
+	@Date,
+	@RecievingNotes,
+	@StateLocated,
+	@GroupID);
+	return @@ROWCOUNT;
+end;
+go
+
+------------------------------------------
+-----------Donations.SoilPendingTrans-----
+------------------------------------------
+
+--added by Sara Nanke 3/5/16
+create procedure Donations.spInsertSoilPendingTrans(
+	@SoilNeededID int,
+	@SoilDonatedID int,
+	@UserID int,
+	@Date smalldatetime,
+	@GroupID int)
+as
+begin
+insert into Donations.SoilPendingTrans(
+	SoilNeededID,
+	SoilDonatedID,
+	UserID,
+	Date,
+	GroupID)
+values(
+	@SoilNeededID,
+	@SoilDonatedID,
+	@UserID,
+	@Date,
+	@GroupID);
+	return @@ROWCOUNT;
+end;
+go
+
+------------------------------------------
+-----------Donations.SupplyDonated--------
+------------------------------------------
+
+--added by Sara Nanke 3/5/16
+create procedure Donations.spInsertSupplyDonated(
+	@userID int,
+	@SupplyName varchar(50),
+	@SupplyAmount decimal,
+	@Date smalldatetime,
+	@ShippingNotes varchar(255),
+	@StateLocated char(2))
+as
+begin
+insert into Donations.SupplyDonated(
+	userID,
+	SupplyName,
+	SupplyAmount,
+	Date,
+	ShippingNotes,
+	StateLocated)
+values (
+	@userID,
+	@SupplyName,
+	@SupplyAmount,
+	@Date,
+	@ShippingNotes,
+	@StateLocated);
+	return @@ROWCOUNT;
+end;
+go
+
+------------------------------------------
+-----------Donations.SupplyNeeded---------
+------------------------------------------
+
+--added by Sara Nanke 3/5/16
+create procedure Donations.spInsertSupplyNeeded(
+	@userID int,
+	@SupplyName varchar(50),
+	@SupplyAmount decimal,
+	@Date smalldatetime,
+	@RecievingNotes varchar(255),
+	@StateLocated char(2),
+	@GroupID int)
+as
+begin
+insert into Donations.SupplyNeeded(
+	userID,
+	SupplyName,
+	SupplyAmount,
+	Date,
+	RecievingNotes,
+	StateLocated,
+	GroupID)
+values(
+	@userID,
+	@SupplyName,
+	@SupplyAmount,
+	@Date,
+	@RecievingNotes,
+	@StateLocated,
+	@GroupID);
+	return @@ROWCOUNT;
+end;
+go
+
+------------------------------------------
+-----------Donations.SupplyPendingTrans---
+------------------------------------------
+
+--added by Sara Nanke 3/5/16
+create procedure Donations.spInsertSupplyPendingTrans(
+	@SupplyNeededID int,
+	@SupplyDonatedID int,
+	@UserID int,
+	@Date smalldatetime,
+	@GroupID int)
+as
+begin
+insert into Donations.SupplyPendingTrans(
+	SupplyNeededID,
+	SupplyDonatedID,
+	UserID,
+	Date,
+	GroupID)
+values(
+	@SupplyNeededID,
+	@SupplyDonatedID,
+	@UserID,
+	@Date,
+	@GroupID);
+	return @@ROWCOUNT;
+end;
+go
+
+------------------------------------------
+-----------Donations.TimeNeeded-----------
+------------------------------------------
+
+--added by Sara Nanke 3/5/16
+create procedure Donations.spInsertTimeNeeded(
+	@UserID int, 
+	@DateNeeded smalldatetime,
+	@GardenAffiliation varchar(50),
+	@Location char(9),
+	@Date smalldatetime,
+	@CityGardenLocated varchar(30),
+	@GroupID int)
+as
+begin
+insert into Donations.TimeNeeded(
+	UserID, 
+	DateNeeded,
+	GardenAffiliation,
+	Location,
+	Date,
+	CityGardenLocated,
+	GroupID)
+values(
+	@UserID, 
+	@DateNeeded,
+	@GardenAffiliation,
+	@Location,
+	@Date,
+	@CityGardenLocated,
+	@GroupID);
+	return @@ROWCOUNT;
+end;
+go
+
+------------------------------------------
+-----------Donations.TimePledge-----------
+------------------------------------------
+	
+--added by Sara Nanke 3/5/16
+create procedure Donations.spInsertTimePledge(
+	@UserID int,
+	@StartTime smalldatetime,
+	@FinishTime smalldatetime,
+	@DatePledge smalldatetime,
+	@Affiliation varchar(75),
+	@Location char(9),
+	@Date smalldatetime,
+	@CityPledging varchar(30))
+as
+begin
+insert into Donations.TimePledge(
+	UserID,
+	StartTime,
+	FinishTime,
+	DatePledge,
+	Affiliation,
+	Location,
+	Date,
+	CityPledging)
+values(
+	@UserID,
+	@StartTime,
+	@FinishTime,
+	@DatePledge,
+	@Affiliation,
+	@Location,
+	@Date,
+	@CityPledging);
+	return @@ROWCOUNT;
+end;
+go
+
+------------------------------------------
+------Donations.TimePledgePendingTrans----
+------------------------------------------
+
+--added by Sara Nanke 3/5/16
+create procedure Donations.spInsertTimePledgeTrans(
+	@TimePledgeID int,
+	@TimeNeededID int,
+	@DateMatched smalldatetime,
+	@City varchar(30),
+	@GroupID int)
+as
+begin
+insert into Donations.TimePledgeTrans(
+	TimePledgeID,
+	TimeNeededID,
+	DateMatched,
+	City,
+	GroupID)
+values(
+	@TimePledgeID,
+	@TimeNeededID,
+	@DateMatched,
+	@City,
+	@GroupID);
+	return @@ROWCOUNT;
+end;
+go
+
+------------------------------------------
+-----------Donations.VolunteeerHours------
+------------------------------------------
+
+--added by Sara Nanke 3/5/16
+create procedure Donations.spInsertVolunteerHours(
+	@UserID int,
+	@Date smalldatetime,
+	@HoursVolunteered int,
+	@City varchar(30))
+as
+begin
+insert into Donations.VolunteerHours(
+	UserID,
+	Date,
+	HoursVolunteered,
+	City)
+values(
+	@UserID,
+	@Date,
+	@HoursVolunteered,
+	@City);
+	return @@ROWCOUNT;
+end;
+go
 
 ------------------------------------------
 -----------Expert.BecomeAnExpert----------
@@ -2436,13 +2896,16 @@ go
 -----------Expert.Notifications-----------
 ------------------------------------------
 
-create procedure Expert.spInsertNotofications(
+-- motified by Sara Nanke 3/5/16
+-- Notofications > Notifications
+-- ModifiedDte > ModifiedDate
+create procedure Expert.spInsertNotifications(
 	@Type varchar(50),
 	@Description varchar(255),
 	@CreatedBy int,
 	@CreatedDate smalldatetime,
 	@ModifiedBy int,
-	@ModifiedDte smalldatetime)
+	@ModifiedDate smalldatetime)
 as
 begin
 insert into Expert.Notifications(
@@ -2458,7 +2921,7 @@ values(
 	@CreatedBy,
 	@CreatedDate,
 	@ModifiedBy,
-	@ModifiedDte);
+	@ModifiedDate);
 	return @@ROWCOUNT;
 end;
 go
@@ -2849,7 +3312,7 @@ end;
 go
 
 ------------------------------------------
------------Gardens.GardenPlants-----------
+-----------Gardens.GardenPlans------------
 ------------------------------------------
 
 create procedure Gardens.spInsertGardenPlans(
@@ -3131,17 +3594,28 @@ GO
 
 --created by Nasr 3-4-16
 CREATE PROCEDURE Gardens.spInsertTasks 
-	(@TaskID INT,
-	@Description VARCHAR(100))	
+	(@Description VARCHAR(100),
+	@dateAssigned smalldatetime,
+	@Datecompleted smalldatetime,
+	@AssignedTo int,
+	@AssignedFrom int,
+	@userNotes varchar(250))	
 AS
 BEGIN
 INSERT INTO Gardens.Tasks
-    (TaskID,
-    Description)
-	
+    (Description,
+	DateAssigned,
+	DateCompleted,
+	AssignedTo,
+	AssignedFrom,
+	userNotes)	
 VALUES
-   (@TaskID,
-    @Description);	
+   (@Description,
+   @dateAssigned,
+   @Datecompleted,
+   @AssignedTo,
+   @AssignedFrom,
+   @userNotes);	
 END;
 GO
 
@@ -3150,4 +3624,6 @@ GO
 /******************************* Test Data ****************************************/
 /**********************************************************************************/
 
-exec Admin.spInsertUsers 'Jeff', 'Jeff', '11111', 'E@E.com', 'jeff', 'xxxx', null
+exec Admin.spInsertUsers 'Jeff', 'Bridges', '11111', 'E@E.com', 'jeffb', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', null;
+exec Admin.spInsertRoles 'Admin', 'Administrator', 1000, '3-6-2016';
+exec Admin.spInsertUserRoles 1000, 'Admin', 1000, '3-6-2016';

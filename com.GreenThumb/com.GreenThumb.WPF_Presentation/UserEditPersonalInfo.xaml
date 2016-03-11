@@ -3,7 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="UserEditPersonalInfo" Height="500" Width="700" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid x:Name="grdPersonalInfo" HorizontalAlignment="Left" Margin="44,72,0,0" VerticalAlignment="Top" Width="609" Height="63"/>
+        <DataGrid x:Name="grdPersonalInfo" HorizontalAlignment="Left" Margin="86,71,0,0" VerticalAlignment="Top" Width="500" Height="63" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First Name" Width="100" Binding="{Binding Path=FirstName}" />
+                <DataGridTextColumn Header="Last Name" Width="100" Binding="{Binding Path=LastName}" />
+                <DataGridTextColumn Header="Zip" Width="100" Binding="{Binding Path=Zip}" />
+                <DataGridTextColumn Header="Email Address" Width="100" Binding="{Binding Path=EmailAddress}" />
+                <DataGridTextColumn Header="RegionID" Width="100" Binding="{Binding Path=RegionId}" />
+            </DataGrid.Columns>
+        </DataGrid>
         <Label Content="Edit Personal Information" HorizontalAlignment="Left" Margin="23,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
         <Label Content="First Name:" HorizontalAlignment="Left" Margin="27,173,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtFirstName" HorizontalAlignment="Left" Height="30" Margin="112,173,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140" />
