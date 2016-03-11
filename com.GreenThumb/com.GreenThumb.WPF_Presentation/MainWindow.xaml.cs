@@ -27,7 +27,6 @@ namespace com.GreenThumb.WPF_Presentation
         public MainWindow()
         {
             InitializeComponent();
-            this.btnEditPersonalInfo.Visibility = Visibility.Hidden;
             mainFrame.NavigationService.Navigate(new Uri("HomeContent.xaml", UriKind.Relative));
         }
 
@@ -50,7 +49,6 @@ namespace com.GreenThumb.WPF_Presentation
                 if (_login.ShowDialog() == true && _accessToken != null) // login succeeded
                 {
                     this.btnLogin.Header = "Log Out";
-                    this.btnEditPersonalInfo.Visibility = Visibility.Visible;
                     // this is where we will set the initial privilages based on roles
 
                 }
@@ -67,7 +65,7 @@ namespace com.GreenThumb.WPF_Presentation
                 this.btnLogin.Header = "Log In";
 				this.btnEditPersonalInfo.Visibility = Visibility.Hidden;
                 // change things back to default here.
-            }     
+            } 
         }
 
         /// <summary>
@@ -150,7 +148,9 @@ namespace com.GreenThumb.WPF_Presentation
         //        mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
         //    }
         //}
-            btnSideBar1.Content = "btnSideBar1";
+        private void btnAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            btnSideBar1.Content = "User Edit";
             btnSideBar2.Content = "btnSideBar2";
             btnSideBar3.Content = "btnSideBar3";
             btnSideBar4.Content = "btnSideBar4";
@@ -170,8 +170,20 @@ namespace com.GreenThumb.WPF_Presentation
         {
              mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
         }
-
-
+        private void btnProfile_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
+            btnSideBar1.Content = "btnSideBar1";
+            btnSideBar2.Content = "btnSideBar2";
+            btnSideBar3.Content = "btnSideBar3";
+            btnSideBar4.Content = "btnSideBar4";
+            btnSideBar5.Content = "btnSideBar5";
+            btnSideBar6.Content = "btnSideBar6";
+            btnSideBar7.Content = "btnSideBar7";
+            btnSideBar8.Content = "btnSideBar8";
+            btnSideBar9.Content = "btnSideBar9";
+            btnSideBar10.Content = "btnSideBar10";
+        }
         /// <summary>
         /// Author: Chris Schwebach
         /// Interaction logic for UserEditPersonalInfo.xaml
@@ -179,21 +191,6 @@ namespace com.GreenThumb.WPF_Presentation
         /// ///Updated Date: 3/8/16
         /// </summary>
         /// 
-        private void Button_Click_PersonalInfo(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-            UserEditPersonalInfo _userEditPersonalInfo = new UserEditPersonalInfo(_accessToken);
-            _userEditPersonalInfo.ShowDialog();
-            this.Show();
-        }
-
-        private void btnSideBar1_Click(object sender, RoutedEventArgs e)
-        {
-            if (btnSideBar1.Content.ToString() == "Create a Garden")
-            {
-                mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
-            }
-        }
         private void btnSideBar2_Click(object sender, RoutedEventArgs e)
         {
 
@@ -255,13 +252,12 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 mainFrame.NavigationService.Navigate(new Uri("GardenPages/AdminMessages.xaml", UriKind.Relative));
             }
+            else if (btnSideBar1.Content == "User Edit")
+            {
+                UserEditPersonalInfo uepi = new UserEditPersonalInfo(_accessToken);
+                uepi.ShowDialog();
+            }
             
         }
-
-        private void mainFrame_Navigated(object sender, NavigationEventArgs e)
-        {
-
-        }
-        
     }
 }

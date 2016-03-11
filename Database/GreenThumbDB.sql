@@ -3646,6 +3646,7 @@ GO
 -----------Gardens.WorkLogs---------------
 ------------------------------------------
 
+--added by Sara Nanke 3/5/16
 create procedure Gardens.spInsertWorkLogs(
 	@UserID int,
 	@TaskID int,
@@ -3667,7 +3668,6 @@ values(
 end;
 go
 
-
 /**********************************************************************************/
 /******************************* Test Data ****************************************/
 /**********************************************************************************/
@@ -3677,7 +3677,9 @@ exec Admin.spInsertRoles 'Admin', 'Administrator', 1000, '3-6-2016';
 exec Admin.spInsertUserRoles 1000, 'Admin', 1000, '3-6-2016';
 
 
+
 --inserts added by Sara Nanke 3/5/16
+
 -----------------------------ADMIN-------------------------------------
 print 'admin'
 GO
@@ -3702,7 +3704,7 @@ exec Admin.spInsertMessage				'This is a message, wahoo!!'	,'3/2/38'					,'Testi
 --* spInsertMessageLineItems			@MessageID int,	@SenderID int,	@DateSent smalldatetime,	@ReadBy int,	@DateRead smalldatetime,	@MessageContent varchar(250)
 exec Admin.spInsertMessageLineItems		1000			,1001			,'1/23/52'					,1002			,'1/4/99'					,'This is a test message'
 
---* spInsertRoles						@RoleID				@Description varchar(100),	@CreatedBy int,	@CreatedDate smalldatetime   
+--* spInsertRoles						@RoleID				@Description varchar(100),	@CreatedBy int,	@CreatedDate smalldatetime 
 exec Admin.spInsertRoles				'Guest'				,'Guest'					,1003			,'1/4/99'
 exec Admin.spInsertRoles				'User'				,'User'						,1003			,'1/4/99'
 			
@@ -3713,6 +3715,9 @@ exec Admin.spInsertUserRoles			1001			,'Admin'		,1000			,'5/23/65'
 exec Admin.spInsertUserRoles			1002			,'Guest'		,1000			,'5/23/65'
 exec Admin.spInsertUserRoles			1003			,'User'			,1000			,'5/23/65'
 exec Admin.spInsertUserRoles			1003			,'Admin'		,1000			,'5/23/65'
+
+--* spInsertUserRoles           		@UserID int,	@RoleID int,	@CreatedBy int,	@CreatedDate smalldatetime    
+exec Admin.spInsertUserRoles			1000			,1000			,1000			,'5/23/65'
 
 -----------------------------GARDENS--------------------------------------
 print 'gardens'

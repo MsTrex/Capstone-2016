@@ -1,12 +1,12 @@
 ﻿using com.GreenThumb.BusinessObjects;
-using com.GreenThumb.DataAccess;
+using com.GreenThumb.DataAccessor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace com.GreenThumb.BusinessLogic
+namespace com.GreenThumb.BussinessLogic
 {
     public class UserRoleManager
     {
@@ -89,6 +89,26 @@ namespace com.GreenThumb.BusinessLogic
             try
             {
                 if (UserRoleAccessor.UpdateUserRole(userRole) == 1)
+                {
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return false;
+        }
+        public bool DeleteUserRole(int usr, string role)
+        {
+            if (usr < 1000)
+            {
+                throw new ApplicationException("Invalid userID");
+            }
+
+            try
+            {
+                if (UserRoleAccessor.UpdateUserRoleRemove(usr, role) == 1)
                 {
                     return true;
                 }

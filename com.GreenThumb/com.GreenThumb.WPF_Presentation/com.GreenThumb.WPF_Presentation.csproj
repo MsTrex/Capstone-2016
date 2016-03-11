@@ -55,9 +55,24 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="GardenPages\AdminMessages.xaml">
-    <Page Include="AdminMessages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreatePlant.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CreateUser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EditPlantEntry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EditUserEntry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Layout.xaml">
       <SubType>Designer</SubType>
@@ -79,6 +94,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="CreatePlant.xaml.cs">
+      <DependentUpon>CreatePlant.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreateUser.xaml.cs">
+      <DependentUpon>CreateUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditPlantEntry.xaml.cs">
+      <DependentUpon>EditPlantEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditUserEntry.xaml.cs">
+      <DependentUpon>EditUserEntry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pages\CreateGarden.xaml.cs">
       <DependentUpon>CreateGarden.xaml</DependentUpon>
     </Compile>

@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+﻿using com.GreenThumb.BusinessObjects;
+using System;
+>>>>>>> origin/master
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +17,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+<<<<<<< HEAD
 using com.GreenThumb.BusinessObjects;
+=======
+>>>>>>> origin/master
 
 namespace com.GreenThumb.WPF_Presentation.ProfilePages
 {
@@ -28,7 +36,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             {
                 lblTest.Content = "Hello " + _accessToken.FirstName + "welcome to the profile tab main page!";
             }
-            
+            lblTitle.Content = "Profile Main Page " + _accessToken.FirstName; 
         }
     }
 }
