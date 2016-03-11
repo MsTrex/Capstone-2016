@@ -1,9 +1,94 @@
 ﻿<Window x:Class="com.GreenThumb.WPF_Presentation.MainWindow" WindowStartupLocation="CenterScreen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="GreenThumb Gardens" Height="800" Width="1200">
-    <Grid Name="LayoutRoot"
-          Background="White">
+        Title="GreenThumb Gardens" WindowState="Maximized" >
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="#FFD1F7BB"/>
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF19320B" Offset="0"/>
+                        <GradientStop Color="#FF45593A" Offset="0.5"/>
+                        <GradientStop Color="#FF213A12" Offset="0.579"/>
+                        <GradientStop Color="#FF19320B" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+          <Setter.Value>
+              <ControlTemplate TargetType="Button">
+                  <Grid>
+                      <VisualStateManager.VisualStateGroups>
+                          <VisualStateGroup x:Name="CommonStates">
+                              <VisualState x:Name="Normal"/>
+                              <VisualState x:Name="MouseOver">
+                                  <Storyboard>
+                                      <DoubleAnimation Duration="0" Storyboard.TargetName="BackgroundAnimation" Storyboard.TargetProperty="Opacity" To="1"/>
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundGradient" Storyboard.TargetProperty="(Rectangle.Fill).(GradientBrush.GradientStops)[1].(GradientStop.Color)" To="#FF213A12"/>
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundGradient" Storyboard.TargetProperty="(Rectangle.Fill).(GradientBrush.GradientStops)[2].(GradientStop.Color)" To="#FF19320B"/>
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundGradient" Storyboard.TargetProperty="(Rectangle.Fill).(GradientBrush.GradientStops)[3].(GradientStop.Color)" To="#FFa0b893"/>
+                                  </Storyboard>
+                              </VisualState>
+                              <VisualState x:Name="Pressed">
+                                  <Storyboard>
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="Background" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#FF45593A"/>
+                                      <DoubleAnimation Duration="0" Storyboard.TargetName="BackgroundAnimation" Storyboard.TargetProperty="Opacity" To="1"/>
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundGradient" Storyboard.TargetProperty="(Rectangle.Fill).(GradientBrush.GradientStops)[0].(GradientStop.Color)" To="#FF45593A"/>
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundGradient" Storyboard.TargetProperty="(Rectangle.Fill).(GradientBrush.GradientStops)[1].(GradientStop.Color)" To="#FF3f7d1c"/>
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundGradient" Storyboard.TargetProperty="(Rectangle.Fill).(GradientBrush.GradientStops)[2].(GradientStop.Color)" To="#FF2a5412"/>
+                                            <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundGradient" Storyboard.TargetProperty="(Rectangle.Fill).(GradientBrush.GradientStops)[3].(GradientStop.Color)" To="#FF19320B"/>
+                                  </Storyboard>
+                              </VisualState>
+                              <VisualState x:Name="Disabled">
+                                  <Storyboard>
+                                      <DoubleAnimation Duration="0" Storyboard.TargetName="DisabledVisualElement" Storyboard.TargetProperty="Opacity" To=".55"/>
+                                  </Storyboard>
+                              </VisualState>
+                          </VisualStateGroup>
+                          <VisualStateGroup x:Name="FocusStates">
+                              <VisualState x:Name="Focused">
+                                  <Storyboard>
+                                      <DoubleAnimation Duration="0" Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="Opacity" To="1"/>
+                                  </Storyboard>
+                              </VisualState>
+                              <VisualState x:Name="Unfocused" />
+                          </VisualStateGroup>
+                      </VisualStateManager.VisualStateGroups>
+                      <Border x:Name="Background" CornerRadius="0" Background="White" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                          <Grid Background="{TemplateBinding Background}"  Margin="1">
+                              <Border Opacity="0"  x:Name="BackgroundAnimation" Background="#FF448DCA" />
+                              <Rectangle x:Name="BackgroundGradient" >
+                                  <Rectangle.Fill>
+                                      <LinearGradientBrush StartPoint=".7,0" EndPoint=".7,1">
+                                            <GradientStop Color="#FF19320B" Offset="0" />
+                                                <GradientStop Color="#ff2a5412" Offset="0.375" />
+                                                <GradientStop Color="#ff356917" Offset="0.625" />
+                                            <GradientStop Color="#FF213A12" Offset="1" />
+                                        </LinearGradientBrush>
+                                  </Rectangle.Fill>
+                              </Rectangle>
+                          </Grid>
+                      </Border>
+                      <ContentPresenter
+                              x:Name="contentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"/>
+                      <Rectangle x:Name="DisabledVisualElement" RadiusX="3" RadiusY="3" Fill="#FFFFFFFF" Opacity="0" IsHitTestVisible="false" />
+                            <Rectangle x:Name="FocusVisualElement" RadiusX="0" RadiusY="0" Margin="2" Stroke="#FFD1F7BB" StrokeThickness="3" Opacity="0" IsHitTestVisible="false" /> <!--FF19320B-->
+                  </Grid>
+              </ControlTemplate>
+          </Setter.Value>
+      </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Name="LayoutRoot" Background="White" >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -37,11 +122,11 @@
                 </Menu>
             </Grid>
         </DockPanel>
-        <Grid Grid.Row="1">
-            <Image Height="95" Width="135" Source="/com.GreenThumb.WPF_Presentation;component/Images/organic-vegetable-garden-1319014.jpg" HorizontalAlignment="Left" Margin="10,10,10,10"></Image>
+        <Grid Grid.Row="1" Background="#FFD1F7BB">
+            <Image Height="95" Width="135" Source="/com.GreenThumb.WPF_Presentation;component/Images/greenThumb.png" HorizontalAlignment="Left" Margin="10,10,10,10"></Image>
             <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" FontSize="60" VerticalAlignment="Center" Content="Green Thumb Gardens" />
         </Grid>
-        <Grid Grid.Row="2" Background="LightGray">
+        <Grid Grid.Row="2" Background="#FF19320B">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto"/>
@@ -52,46 +137,47 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Name="btnHome" Padding="20, 5 ,20, 5" FontSize="22"  Content="Home" Background="DarkGray" Grid.Column="0" HorizontalAlignment="Left" Click="btnHome_Click"></Button>
-            <Button Name="btnGardens" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="1" Background="LightGray" HorizontalAlignment="Left" Content="Gardens" Click="btnGardens_click" ></Button>
-            <Button Name="btnExpert" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="2" Background="LightGray" HorizontalAlignment="Left" Content="Expert Advice" Click="btnExpert_Click" Height="41" VerticalAlignment="Top" ></Button>
-            <Button Name="btnDonations" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="3" Background="LightGray" HorizontalAlignment="Left" Content="Donations" ></Button>
-            <Button Name="btnVolunteer" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="4" Background="LightGray" HorizontalAlignment="Left" Content="Volunteering" ></Button>
-            <Button Name="btnProfile" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="5" Background="LightGray" HorizontalAlignment="Left" Content="Profile" ></Button>
-            <Button Name="btnAdmin" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="5" Background="LightGray" HorizontalAlignment="Left" Content="Admin" ></Button>
+            <Button Name="btnHome" Padding="20, 5 ,20, 5" FontSize="22"  Content="Home" Grid.Column="0" HorizontalAlignment="Left" Click="btnHome_Click"></Button>
+            <Button Name="btnGardens" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="1" HorizontalAlignment="Left" Content="Gardens" Click="btnGardens_click" ></Button>
+            <Button Name="btnExpert" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="2" HorizontalAlignment="Left" Content="Expert Advice" Click="btnExpert_Click" ></Button>
+            <Button Name="btnDonations" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="3" HorizontalAlignment="Left" Content="Donations" ></Button>
+            <Button Name="btnVolunteer" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="4" HorizontalAlignment="Left" Content="Volunteering" ></Button>
+            <Button Name="btnProfile" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="5" HorizontalAlignment="Left" Content="Profile" ></Button>
+            <Button Name="btnAdmin" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="5" HorizontalAlignment="Left" Content="Admin" ></Button>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Background="LightGoldenrodYellow">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Button FontSize="15" Grid.Row="0" Margin="0, 20, 0, 5" Name="btnSideBar1" Content="btnSideBar1" Click="btnSideBar1_Click"></Button>
-                <Button FontSize="15" Grid.Row="1" Margin="0, 10, 0, 5" Name="btnSideBar2" Content="btnSideBar2"></Button>
-                <Button FontSize="15" Grid.Row="2" Margin="0, 10, 0, 5" Name="btnSideBar3" Content="btnSideBar3"></Button>
-                <Button FontSize="15" Grid.Row="3" Margin="0, 10, 0, 5" Name="btnSideBar4" Content="btnSideBar4"></Button>
-                <Button FontSize="15" Grid.Row="4" Margin="0, 10, 0, 5" Name="btnSideBar5" Content="btnSideBar5"></Button>
-                <Button FontSize="15" Grid.Row="5" Margin="0, 10, 0, 5" Name="btnSideBar6" Content="btnSideBar6"></Button>
-                <Button FontSize="15" Grid.Row="6" Margin="0, 10, 0, 5" Name="btnSideBar7" Content="btnSideBar7"></Button>
-                <Button FontSize="15" Grid.Row="7" Margin="0, 10, 0, 5" Name="btnSideBar8" Content="btnSideBar8"></Button>
-                <Button FontSize="15" Grid.Row="8" Margin="0, 10, 0, 5" Name="btnSideBar9" Content="btnSideBar9"></Button>
-                <Button FontSize="15" Grid.Row="9" Margin="0, 10, 0, 5" Name="btnSideBar10" Content="btnSideBar10"></Button>
-            </Grid>
+            <StackPanel Grid.Column="0" Background="#FF2D5517">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="BorderBrush" Value="#FF45593A" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="#FFA4F07A" />
+                                <Setter Property="Foreground" Value="#FF19320B" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Resources>
+                <Label FontSize="15" Margin="0, 20, 0, 0" Name="btnSideBar1" Content="btnSideBar1" MouseDown="btnSideBar1_MouseDown" ></Label>
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar2" Content="btnSideBar2"></Label>
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar3" Content="btnSideBar3"></Label>
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar4" Content="btnSideBar4"></Label>
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar5" Content="btnSideBar5"></Label>
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar6" Content="btnSideBar6"></Label>
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar7" Content="btnSideBar7"></Label>
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar8" Content="btnSideBar8"></Label>
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar9" Content="btnSideBar9"></Label>
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar10" Content="btnSideBar10"></Label>
+            </StackPanel>
             <Grid Grid.Column="1">
-                <Frame Name="mainFrame"></Frame>
+                <Frame Name="mainFrame" Margin="0,0,-0.4,0" Navigated="mainFrame_Navigated"></Frame>
                 <Button Content="EditUserPersonalInfo" HorizontalAlignment="Left" Margin="771,27,0,0" VerticalAlignment="Top" Width="166" Height="47" Click="Button_Click_PersonalInfo"/>
             </Grid>
         </Grid>

@@ -49,22 +49,22 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnExpert_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new Uri("Expert.xaml", UriKind.Relative));
-            btnSideBar1.Content = "btnSideBar1";
+            btnSideBar1.Content = "Become an Expert";
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new Uri("HomeContent.xaml", UriKind.Relative));
-            btnSideBar1.Content = "btnSideBar1";
+            btnSideBar1.Content = "Messages";
         }
 
-        private void btnSideBar1_Click(object sender, RoutedEventArgs e)
-        {
-            if (btnSideBar1.Content.ToString() == "Create a Garden")
-            {
-                mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
-            }
-        }
+        //private void btnSideBar1_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (btnSideBar1.Content.ToString() == "Create a Garden")
+        //    {
+        //        mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
+        //    }
+        //}
 
         /// <summary>
         /// Author: Chris Schwebach
@@ -76,6 +76,24 @@ namespace com.GreenThumb.WPF_Presentation
             UserEditPersonalInfo _userEditPersonalInfo = new UserEditPersonalInfo(_accessToken);
             _userEditPersonalInfo.ShowDialog();
             Close();
+        }
+
+        private void btnSideBar1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (btnSideBar1.Content == "Create Garden")
+            {
+                mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
+            }
+            else if (btnSideBar1.Content == "Messages")
+            {
+                mainFrame.NavigationService.Navigate(new Uri("GardenPages/AdminMessages.xaml", UriKind.Relative));
+            }
+            
+        }
+
+        private void mainFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+
         }
         
     }

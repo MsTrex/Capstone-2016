@@ -14,12 +14,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace com.GreenThumb.WPF_Presentation
+namespace com.GreenThumb.WPF_Presentation.GardenPages
 {
     /// <summary>
     /// Interaction logic for AdminMessages.xaml
     /// </summary>
-    public partial class AdminMessages : Window
+    public partial class AdminMessages : Page
     {
         private Message message = new Message();
         private static MessageManager messageManager = new MessageManager();
