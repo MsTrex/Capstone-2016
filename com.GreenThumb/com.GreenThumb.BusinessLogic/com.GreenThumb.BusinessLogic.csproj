@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="FakeStuff\FakeGardenManager.cs" />
     <Compile Include="FakeStuff\FakeGroupManager.cs" />
+    <Compile Include="FakeStuff\FakeSecurityManager.cs" />
     <Compile Include="GardenManager.cs" />
     <Compile Include="GroupLeaderRequestManager.cs" />
     <Compile Include="GroupManager.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Interfaces\ISupplyNeedManager.cs" />
     <Compile Include="Interfaces\ITimePledgeDonationManager.cs" />
     <Compile Include="Interfaces\ITimePledgeNeedManager.cs" />
+    <Compile Include="Interfaces\ISecurityManager.cs" />
     <Compile Include="MessageManager.cs" />
     <Compile Include="Interfaces\IUserManager.cs" />
     <Compile Include="Interfaces\IWorkTaskAssignmentManager.cs" />

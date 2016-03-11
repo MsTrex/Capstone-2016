@@ -27,6 +27,7 @@ namespace com.GreenThumb.WPF_Presentation
         public MainWindow()
         {
             InitializeComponent();
+            this.btnEditPersonalInfo.Visibility = Visibility.Hidden;
             mainFrame.NavigationService.Navigate(new Uri("HomeContent.xaml", UriKind.Relative));
         }
 
@@ -49,6 +50,7 @@ namespace com.GreenThumb.WPF_Presentation
                 if (_login.ShowDialog() == true && _accessToken != null) // login succeeded
                 {
                     this.btnLogin.Header = "Log Out";
+                    this.btnEditPersonalInfo.Visibility = Visibility.Visible;
                     // this is where we will set the initial privilages based on roles
 
                 }
@@ -64,6 +66,7 @@ namespace com.GreenThumb.WPF_Presentation
                 _accessToken = null;
                 this.btnLogin.Header = "Log In";
                 // change things back to default here.
+                this.btnEditPersonalInfo.Visibility = Visibility.Hidden;
             }
             
             
