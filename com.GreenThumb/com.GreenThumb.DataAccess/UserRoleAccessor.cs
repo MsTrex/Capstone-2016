@@ -1,4 +1,5 @@
 ﻿using com.GreenThumb.BusinessObjects;
+using com.GreenThumb.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace com.GreenThumb.DataAccess
+namespace com.GreenThumb.DataAccessor
 {
     public class UserRoleAccessor
     {
@@ -28,24 +29,24 @@ namespace com.GreenThumb.DataAccess
 
             // create a query to send through the connection
 
-            string query = @"SELECT UserID, RoleID, CreatedBy, CreatedDate " +
-                           @"FROM Admin.UserRoles ";
+            /*         string query = @"SELECT UserID, RoleID, CreatedBy, CreatedDate " +
+                                    @"FROM Admin.UserRoles ";
    
-            query += @"ORDER BY UserID, RoleID "; 
-       //     string cmdText = "spDisplayUserRole";
+                     query += @"ORDER BY UserID, RoleID "; */
+            string cmdText = "Admin.spSelectUserRole";
 
             // create a command object
-            var cmd = new SqlCommand(query, conn);
-    //        cmd.CommandType = CommandType.StoredProcedure;
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
 
-      
+
             // Try catch block to deal with the data
             try
             {
                 // open connection
-                
+
                 conn.Open();
-               
+
                 // execute the command and return a data reader
                 SqlDataReader reader = cmd.ExecuteReader();
 
@@ -62,11 +63,11 @@ namespace com.GreenThumb.DataAccess
                             CreatedBy = reader.GetInt32(2),
                             CreatedDate = reader.GetDateTime(3)
                         };
-                      
+
                         userRoleList.Add(currentUserRole);
                     }
                 }
-           
+
             }
             catch (Exception)
             {
@@ -118,14 +119,20 @@ namespace com.GreenThumb.DataAccess
             var conn = DBConnection.GetDBConnection();
 
             // What comes next is a command text
-            string query = @"INSERT INTO Admin.UserRoles " +
-                           @"(UserID, RoleID, CreatedBy, CreatedDate " +
-                           @"VALUES " +
-                           @"('" + userRole.UserID + "', '" + userRole.RoleID + "', '" + 
-                           @"', '" + userRole.CreatedBy + "', '" + userRole.CreatedDate + "') ";
+            /*    string query = @"INSERT INTO Admin.UserRoles " +
+                               @"(UserID, RoleID, CreatedBy, CreatedDate " +
+                               @"VALUES " +
+                               @"('" + userRole.UserID + "', '" + userRole.RoleID + "', '" + 
+                               @"', '" + userRole.CreatedBy + "', '" + userRole.CreatedDate + "') ";*/
+            var cmdText = "Admin.spInsertUserRoles";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
 
             // get a command object
-            var cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@UserID", userRole.UserID);
+            cmd.Parameters.AddWithValue("@RoleID", userRole.RoleID);
+            cmd.Parameters.AddWithValue("@CreatedBy", userRole.CreatedBy);
+            cmd.Parameters.AddWithValue("@CreatedDate", userRole.CreatedDate);
 
             try
             {
@@ -154,7 +161,7 @@ namespace com.GreenThumb.DataAccess
             var conn = DBConnection.GetDBConnection();
 
             // get some commandText
-            string cmdText = "spUpdateUserRoles";
+            string cmdText = "Admin.spUpdateUserRoles";
 
             // create a command object
             var cmd = new SqlCommand(cmdText, conn);
@@ -166,10 +173,57 @@ namespace com.GreenThumb.DataAccess
             // we need to construct and add the parameters
 
             // this is the all-at-once way
-            cmd.Parameters.Add(new SqlParameter("UserD", SqlDbType.Int)).Value = userRole.UserID;
-            cmd.Parameters.Add(new SqlParameter("RoleID", SqlDbType.VarChar)).Value = userRole.RoleID;
-            cmd.Parameters.Add(new SqlParameter("CreatedBy", SqlDbType.Int)).Value = userRole.CreatedBy;
-            cmd.Parameters.Add(new SqlParameter("CreatedDate", SqlDbType.VarChar)).Value = userRole.CreatedDate;
+            cmd.Parameters.AddWithValue("@UserID", userRole.UserID);
+            cmd.Parameters.AddWithValue("@RoleID", userRole.RoleID);
+            cmd.Parameters.AddWithValue("@CreatedBy", userRole.CreatedBy );
+            cmd.Parameters.AddWithValue("@CreatedDate", userRole.CreatedDate);
+
+            // we can also create an output parameter
+            var o = new SqlParameter("Rowcount", SqlDbType.Int);
+            o.Direction = ParameterDirection.ReturnValue;
+            cmd.Parameters.Add(o);
+
+            try
+            {
+                // open the connection
+                conn.Open();
+
+                // execute  the command
+                rowCount = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rowCount;
+        }
+
+        public static int UpdateUserRoleRemove(int usr, String role)
+        {
+            int rowCount = 0;
+
+            // begin with a connection
+            var conn = DBConnection.GetDBConnection();
+
+            // get some commandText
+            string cmdText = "Admin.spUpdateUserRoleRemove";
+
+            // create a command object
+            var cmd = new SqlCommand(cmdText, conn);
+
+            // here is where things change a bit
+            // first, we need to set the command type
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            // we need to construct and add the parameters
+
+            // this is the all-at-once way
+            cmd.Parameters.AddWithValue("@UserID", usr);
+            cmd.Parameters.AddWithValue("@RoleID", role);
 
             // we can also create an output parameter
             var o = new SqlParameter("Rowcount", SqlDbType.Int);
