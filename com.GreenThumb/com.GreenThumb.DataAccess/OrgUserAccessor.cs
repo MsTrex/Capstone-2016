@@ -50,6 +50,7 @@ namespace com.GreenThumb.DataAccess
                 users = new List<GroupMember>();
 
                 var conn = DBConnection.GetDBConnection();
+
                 var cmd = new SqlCommand("Admin.spSelectUsersByOrganization", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -118,6 +119,7 @@ namespace com.GreenThumb.DataAccess
                 groups = new List<Group>();
 
                 var conn = DBConnection.GetDBConnection();
+
                 var cmd = new SqlCommand("Admin.spSelectOrgGroups", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -190,6 +192,7 @@ namespace com.GreenThumb.DataAccess
             if (CheckAccessToken(accessToken, this.organization))
             {
                 var conn = DBConnection.GetDBConnection();
+
                 var cmd = new SqlCommand("Gardens.spUpdateUserOrgGroupLeader", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -203,6 +206,7 @@ namespace com.GreenThumb.DataAccess
                 try
                 {
                     conn.Open();
+
                     rowsAffected = cmd.ExecuteNonQuery();
                 }
                 catch (SqlException)
@@ -236,6 +240,7 @@ namespace com.GreenThumb.DataAccess
             if (CheckAccessToken(accessToken, this.organization))
             {
                 var conn = DBConnection.GetDBConnection();
+
                 var cmd = new SqlCommand("Gardens.spSelectUserGroupCount", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -282,6 +287,7 @@ namespace com.GreenThumb.DataAccess
             if (CheckAccessToken(accessToken, this.organization))
             {
                 var conn = DBConnection.GetDBConnection();
+
                 var cmd = new SqlCommand("Gardens.spUpdatePrimaryGroupLeader", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -391,6 +397,7 @@ namespace com.GreenThumb.DataAccess
                 orgRequests = new List<GroupLeaderRequest>();
 
                 var conn = DBConnection.GetDBConnection();
+
                 var cmd = new SqlCommand("Gardens.spSelectGroupLeaderRequests", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -465,6 +472,7 @@ namespace com.GreenThumb.DataAccess
             if (CheckAccessToken(accessToken, this.organization))
             {
                 var conn = DBConnection.GetDBConnection();
+
                 var cmd = new SqlCommand("Gardens.spUpdateOrgGroupLeaderRequest", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -476,6 +484,7 @@ namespace com.GreenThumb.DataAccess
                 try
                 {
                     conn.Open();
+
                     rowsAffected = cmd.ExecuteNonQuery();
                 }
                 catch (SqlException)
@@ -511,6 +520,7 @@ namespace com.GreenThumb.DataAccess
                 userLeads = new List<Group>();
 
                 var conn = DBConnection.GetDBConnection();
+
                 var cmd = new SqlCommand("Gardens.spSelectOrgUserLeads", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -565,6 +575,7 @@ namespace com.GreenThumb.DataAccess
             int rowsAffected = 0;
 
             var conn = DBConnection.GetDBConnection();
+
             var cmd = new SqlCommand("Gardens.spUpdateGroupLeader", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -578,6 +589,7 @@ namespace com.GreenThumb.DataAccess
             try
             {
                 conn.Open();
+
                 rowsAffected = cmd.ExecuteNonQuery();
             }
             catch (SqlException)

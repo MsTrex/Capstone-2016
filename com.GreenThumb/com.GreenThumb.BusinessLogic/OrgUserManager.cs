@@ -32,6 +32,7 @@ namespace com.GreenThumb.BusinessLogic
                 try
                 {
                     orgUserAccessor = new OrgUserAccessor(accessToken, organization);
+
                     organization.OrganizationGroups = orgUserAccessor.RetrieveOrgGroups(accessToken);
                 }
                 catch (SqlException)
@@ -276,7 +277,7 @@ namespace com.GreenThumb.BusinessLogic
                 throw new Exception("User is not the leader of the organization.");
             }
 
-            return orgUsers.Select(g => g).Where(g => g.User.UserID == user.UserID).Single();
+            return orgUsers.Single(g => g.User.UserID == user.UserID);
         }
 
         // Created By: Trent Cullinan 02/24/2016

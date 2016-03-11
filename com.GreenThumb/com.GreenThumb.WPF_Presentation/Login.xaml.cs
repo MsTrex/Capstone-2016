@@ -19,12 +19,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using com.GreenThumb.BusinessLogic.Interfaces;
 
 namespace com.GreenThumb.WPF_Presentation
 {
     public partial class Login : Window
     {
         static AccessToken _accessToken;
+        private ISecurityManager _security = new SecurityManager();
         public Login()
         {
             InitializeComponent();
@@ -40,48 +42,20 @@ namespace com.GreenThumb.WPF_Presentation
         {
             string username = this.txtUsername.Text;
             string password = this.txtPassword.Password;
-            string passConfirm = this.txtConfirmPassword.Password;
 
             try
             {
-                if (this.chkNewUser.IsChecked == true)
-                {
-                    if (0 != string.Compare(password, passConfirm))
-                    {
-                        throw new ApplicationException("Passwords don't match.");
-                    }
-                    _accessToken = SecurityManager.ValidateNewUser(username, password);
-                    this.DialogResult = true;
-                }
-                else
-                {
-                    _accessToken = SecurityManager.ValidateExistingUser(username, password);
-                    this.DialogResult = true;
-                }
+                _accessToken = _security.ValidateExistingUser(username, password);
+                this.DialogResult = true;
             }
             catch (Exception ex) // login failed
             {
                 MessageBox.Show("Login failed:\n" + ex.Message);
-                this.txtConfirmPassword.Clear();
                 this.txtPassword.Clear();
                 this.txtUsername.Focus();
                 this.txtUsername.SelectionStart = 0;
                 this.txtUsername.SelectionLength = this.txtUsername.Text.Length;
             }
-        }
-
-        private void chkNewUser_Checked(object sender, RoutedEventArgs e)
-        {
-            lblConfirmPassword.Visibility = Visibility.Visible;
-            txtConfirmPassword.Visibility = Visibility.Visible;
-            lblPassword.Content = "Choose Password:";
-        }
-
-        private void chkNewUser_Unchecked(object sender, RoutedEventArgs e)
-        {
-            lblConfirmPassword.Visibility = Visibility.Hidden;
-            txtConfirmPassword.Visibility = Visibility.Hidden;
-            lblPassword.Content = "Password:";
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

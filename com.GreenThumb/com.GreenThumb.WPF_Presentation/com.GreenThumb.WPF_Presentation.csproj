@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="GardenPages\AdminMessages.xaml">
     <Page Include="AdminMessages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -106,7 +107,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AdminMessages.xaml.cs">
+    <Compile Include="GardenPages\AdminMessages.xaml.cs">
       <DependentUpon>AdminMessages.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
@@ -225,6 +226,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\greenThumb.png" />
     <Content Include="Images\organic-vegetable-garden-1319014.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

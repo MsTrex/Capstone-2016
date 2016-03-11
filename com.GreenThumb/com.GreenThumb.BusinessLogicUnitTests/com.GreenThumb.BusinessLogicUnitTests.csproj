@@ -54,6 +54,7 @@
     <Compile Include="GardenManagerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GroupManagerUnitTest.cs" />
+    <Compile Include="SecurityManagerUnitTests.cs" />
     <Compile Include="UserManagerUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
