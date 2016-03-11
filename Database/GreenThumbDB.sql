@@ -3353,6 +3353,8 @@ values(
 end;
 go
 
+
+
 ------------------------------------------
 -----------Gardens.Gardens----------------
 ------------------------------------------
@@ -3397,6 +3399,28 @@ values(
 end;
 go
 
+-- Created By: Trent Cullinan 02/20/2016
+CREATE PROCEDURE Gardens.spUpdateGroupLeader (
+	@GroupID		INT,
+	@UserID			INT,
+	@Active			INT = 1
+)
+AS 
+BEGIN
+	IF (SELECT 1 FROM Gardens.GroupLeaders WHERE UserID = @UserID AND GroupID = @GroupID) IS NOT NULL
+		BEGIN
+			UPDATE Gardens.GroupLeaders
+			SET Active = @Active
+			WHERE GroupID = @GroupID AND UserID = @UserID;
+		END;
+	ELSE
+		BEGIN
+			INSERT INTO Gardens.GroupLeaders (GroupID, UserID, Active)
+			VALUES (@GroupID, @UserID, @Active);
+		END;
+END;
+GO
+
 ------------------------------------------
 -------Gardens.GroupLeaderRequests--------
 ------------------------------------------
@@ -3429,6 +3453,37 @@ values(
 end;
 go
 
+-- Created By: Trent Cullinan 02/20/2016
+CREATE PROCEDURE Gardens.spSelectGroupLeaderRequests (
+	@OrganizationID		INT
+)
+AS
+BEGIN
+	SELECT glr.RequestID, glr.UserID, g.GroupID, g.GroupName, u.UserName, u.FirstName, u.LastName, u.EmailAddress, glr.RequestDate
+	FROM Gardens.GroupLeaderRequests AS glr
+	INNER JOIN Admin.Users AS u
+		ON glr.UserID = u.UserID AND u.Active = 1
+	INNER JOIN Gardens.Groups AS g
+		ON glr.GroupID = g.GroupID AND g.Active = 1
+	WHERE g.OrganizationID = @OrganizationID AND glr.RequestActive = 1
+END;
+GO
+
+-- Created By: Trent Cullinan 02/20/2016
+CREATE PROCEDURE Gardens.spUpdateOrgGroupLeaderRequest (
+	@RequestID	INT,
+	@UserID		INT
+)
+AS 
+BEGIN
+	UPDATE Gardens.GroupLeaderRequests 
+	SET RequestActive = 0,
+		ModifiedDate = GETDATE(),
+		ModifiedBy = @UserID
+	WHERE RequestID = @RequestID;
+END;
+GO
+
 ------------------------------------------
 -----------Gardens.GroupMembers-----------
 ------------------------------------------
@@ -3458,6 +3513,23 @@ values(
 end;
 go
 
+-- Created By: Trent Cullinan 02/20/2016
+CREATE PROCEDURE Gardens.spUpdateUserOrgGroupLeader (
+	@OrganizationID		INT,
+	@UserID				INT,
+	@Leader				BIT
+)
+AS
+BEGIN
+	UPDATE gm
+	SET Leader = @Leader
+	FROM Gardens.GroupMembers AS gm
+	INNER JOIN Gardens.Groups AS g
+		ON gm.GroupID = g.GroupID
+	WHERE gm.UserID = @UserID AND g.OrganizationID = @OrganizationID AND g.Active = 1;
+END;
+GO
+
 ------------------------------------------
 -----------Gardens.Groups-----------------
 ------------------------------------------
@@ -3479,6 +3551,65 @@ values(
 	return @@ROWCOUNT;
 end;
 go
+
+
+-- Created By: Trent Cullinan 02/20/2016
+CREATE PROCEDURE Gardens.spSelectUserGroupCount (
+	@UserID				INT,
+	@OrganizationID		INT
+)
+AS
+BEGIN
+	SELECT COUNT(*)
+	FROM Gardens.Groups AS g
+	INNER JOIN Gardens.GroupMembers AS gm
+		ON g.GroupID = gm.GroupID
+	WHERE gm.UserID = @UserID AND g.OrganizationID = @OrganizationID AND g.Active = 1
+END;
+GO
+
+-- Created By: Trent Cullinan 02/20/2016
+CREATE PROCEDURE Gardens.spSelectOrgUserLeads (
+	@UserID				INT,
+	@OrganizationID		INT
+)
+AS 
+BEGIN
+	SELECT g.GroupID, g.GroupName
+	FROM Gardens.Groups AS g
+	INNER JOIN Gardens.GroupLeaders AS gl
+		ON g.GroupID = gl.GroupID
+	WHERE g.OrganizationID = @OrganizationID AND gl.UserID = @UserID AND gl.Active = 1
+END;
+GO
+
+-- Created By: Trent Cullinan 02/20/2016
+CREATE PROCEDURE Admin.spSelectOrgGroups (
+	@OrganizationID		INT
+)
+AS 
+BEGIN
+	SELECT g.GroupID, g.GroupName, g.GroupLeaderID, g.Active, u.UserName, u.FirstName, u.LastName, u.EmailAddress
+	FROM Gardens.Groups AS g
+	INNER JOIN Admin.Users AS u
+		ON g.GroupLeaderID = u.UserID
+	WHERE g.OrganizationID = @OrganizationID AND u.Active = 1 AND g.Active = 1;
+END;
+GO
+
+
+-- Created By: Trent Cullinan 02/20/2016
+CREATE PROCEDURE Gardens.spUpdatePrimaryGroupLeader (
+	@GroupID		INT,
+	@UserID			INT
+)
+AS 
+BEGIN
+	UPDATE Gardens.Groups
+	SET GroupLeaderID = @UserID
+	WHERE GroupID = @GroupID;
+END;
+GO
 
 ------------------------------------------
 -----------Gardens.Organizations----------
