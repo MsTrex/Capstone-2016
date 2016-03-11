@@ -84,6 +84,7 @@
     <Compile Include="JobManager.cs" />
     <Compile Include="OrgRequestsManager.cs" />
     <Compile Include="OrgUserManager.cs" />
+    <Compile Include="PlantManager.cs" />
     <Compile Include="RoleManager.cs" />
     <Compile Include="SecurityManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

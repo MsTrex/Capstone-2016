@@ -186,5 +186,78 @@ namespace com.GreenThumb.BusinessLogic
             }
             return false;
         }
-    }
+
+        ///<summary>
+        ///Author: Stenner Kvindlog         
+        ///GetUserByUserName gets a user by username 
+		//calling to the user accessor
+        ///Date: 3/4/16
+		///</summary>
+
+        public User GetUserByUserName(string username)
+        {
+            try
+            {
+                return UserAccessor.RetrieveUserByUsername(username);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+		///<summary>
+        ///Author: Stenner Kvindlog         
+        ///fetchUser gets a user by userID 
+		//calling to the user accessor
+        ///Date: 3/4/16
+		///</summary>
+        public User FetchUser(int userId)
+        {
+            return UserAccessor.RetrieveUserByID(userId);
+        }
+
+
+		///<summary>
+        ///Author: Stenner Kvindlog         
+        ///createUser sends user to database to be created  
+		//calling to the user accessor
+        ///Date: 3/4/16
+		///</summary>
+        public int createUser(User newUser)
+        {
+            try
+            {
+                int num = UserAccessor.InsertUser(newUser);
+                return num;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+		///<summary>
+        ///Author: Stenner Kvindlog         
+        ///editUser sends old and new user to database to edit user 
+		//calling to the user accessor
+        ///Date: 3/4/16
+		///</summary>
+        public bool EditUser(User newUser, User oldUser)
+        {
+            try
+            {
+                bool flag = UserAccessor.EditUser(newUser, oldUser);
+                return flag;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+      }
 }
