@@ -8,13 +8,16 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="ProfileMain">
 
-    <Grid Background="WhiteSmoke">
-        <Label Name="lblTest" Content="Profile MAIN page"></Label>
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-	Title="ProfileMain">
-
     <Grid>
-        <Label x:Name="lblTitle">This is the Profile Main Page</Label>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Label Name="lblTest" Content="Profile MAIN page"></Label>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Label x:Name="lblTitle"></Label>
+        </Grid>
     </Grid>
 </Page>
