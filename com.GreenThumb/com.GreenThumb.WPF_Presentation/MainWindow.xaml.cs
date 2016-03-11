@@ -64,10 +64,7 @@ namespace com.GreenThumb.WPF_Presentation
                 _accessToken = null;
                 this.btnLogin.Header = "Log In";
                 // change things back to default here.
-            }
-            
-            
-            
+            }         
         }
 
         /// <summary>
@@ -151,8 +148,17 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar9.Content = "btnSideBar9";
             btnSideBar10.Content = "btnSideBar10";
         }
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Click logic for button btnProfile
+        /// Date: 3/9/16
+        /// </summary>
+        private void btnProfile_Click(object sender, RoutedEventArgs e)
+        {
+             mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
+        }
 
-        
+
         /// <summary>
         /// Author: Chris Schwebach
         /// Interaction logic for UserEditPersonalInfo.xaml
@@ -226,5 +232,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
 
         }
+
+        
     }
 }

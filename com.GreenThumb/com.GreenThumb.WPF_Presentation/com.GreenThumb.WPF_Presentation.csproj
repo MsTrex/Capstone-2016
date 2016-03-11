@@ -81,6 +81,9 @@
     <Compile Include="pages\CreateGarden.xaml.cs">
       <DependentUpon>CreateGarden.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProfilePages\ProfileMain.xaml.cs">
+      <DependentUpon>ProfileMain.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RequestGroupLeader.xaml.cs">
       <DependentUpon>RequestGroupLeader.xaml</DependentUpon>
     </Compile>
@@ -151,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pages\CreateGarden.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProfilePages\ProfileMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -225,7 +232,6 @@
   <ItemGroup>
     <Folder Include="AdminPages\" />
     <Folder Include="ExpertPages\" />
-    <Folder Include="ProfilePages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
