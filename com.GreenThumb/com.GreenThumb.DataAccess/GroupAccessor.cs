@@ -90,8 +90,8 @@ namespace com.GreenThumb.DataAccess
             cmd.Parameters.AddWithValue("@groupID", groupID);
             cmd.Parameters.AddWithValue("@RequestDate", time);
             cmd.Parameters.AddWithValue("@ModifiedDate", DBNull.Value);
-            cmd.Parameters.AddWithValue("@ModifiedDate", DBNull.Value);
-            cmd.Parameters.AddWithValue("@RequestAvtive", 1);
+            cmd.Parameters.AddWithValue("@ModifiedBy", DBNull.Value);
+            cmd.Parameters.AddWithValue("@RequestActive", 1);
 
             try
             {
@@ -120,7 +120,7 @@ namespace com.GreenThumb.DataAccess
 
             var conn = DBConnection.GetDBConnection();
 
-            string cmdText = @"Garden.spSelectUserGroups";
+            string cmdText = @"Gardens.spSelectUserGroups";
 
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;

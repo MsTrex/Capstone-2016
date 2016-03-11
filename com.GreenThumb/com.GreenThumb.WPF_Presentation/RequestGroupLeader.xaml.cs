@@ -24,7 +24,7 @@ namespace com.GreenThumb.WPF_Presentation
         private GroupLeaderRequestManager _manager;
         private AccessToken _acctoken;
         private List<Group> _userGroups = null;
-        private string selectedGroup = "";
+        private string _selectedGroup = "";
 
         public RequestGroupLeader(AccessToken acctoken)
         {
@@ -41,8 +41,14 @@ namespace com.GreenThumb.WPF_Presentation
 
         private void btnRequestLeader_Click(object sender, RoutedEventArgs e)
         {
-            string msg = _manager.AddGroupLeaderRequest(selectedGroup);
+            string msg = _manager.AddGroupLeaderRequest(_selectedGroup);
             lblMessage.Content = msg;
+            btnBack.Content = "Back";
+        }
+
+        private void cmbGroupList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _selectedGroup = cmbGroupList.SelectedValue.ToString();
         }
     }
 }

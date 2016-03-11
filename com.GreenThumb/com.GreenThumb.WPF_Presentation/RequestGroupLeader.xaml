@@ -4,8 +4,8 @@
         Title="RequestGroupLeader" Height="340.171" Width="522.222">
     <Grid>
         <Button x:Name="btnRequestLeader" Content="Request to be a leader" HorizontalAlignment="Left" Margin="267,82,0,0" VerticalAlignment="Top" Width="176" Click="btnRequestLeader_Click"/>
-        <ComboBox x:Name="cmbGroupList" HorizontalAlignment="Left" Margin="92,82,0,0" VerticalAlignment="Top" ItemsSource="{Binding _GroupList}" Width="120"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="324,145,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>
+        <ComboBox x:Name="cmbGroupList" HorizontalAlignment="Left" Margin="92,82,0,0" VerticalAlignment="Top" ItemsSource="{Binding _GroupList}" Width="120" SelectionChanged="cmbGroupList_SelectionChanged"/>
+        <Button x:Name="btnBack" Content="Cancel" HorizontalAlignment="Left" Margin="324,145,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>
         <Label x:Name="lblMessage" Content="" HorizontalAlignment="Left" Margin="92,203,0,0" VerticalAlignment="Top" Width="351"/>
 
     </Grid>
