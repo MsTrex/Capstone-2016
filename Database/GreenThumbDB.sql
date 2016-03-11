@@ -53,6 +53,19 @@ create table Admin.ActivityLog(
 );
 go
 
+create table Admin.ExpertRequest(
+	RequestID int identity(1000,1) primary key not null,
+	UserID int not null,
+	RequestStatus char(1) not null,
+	RequestDate smalldatetime not null,
+	RequestedBy int not null,
+	ApprovedDate smalldatetime null,
+	ApprovedBy int null,
+	ApplicationTitle varchar(20) null,
+	ApplicationDescription varchar(255) null
+);
+go
+
 create table Admin.GroupRequest(
 	RequestID int identity(1000,1) primary key not null,
 	UserID int not null,
@@ -1438,6 +1451,50 @@ end;
 go
 
 ------------------------------------------
+-----------Admin.ExpertRequest------------
+------------------------------------------
+
+create procedure Admin.spInsertExpertRequest(
+@UserID int, 
+@RequestStatus char(1),
+@RequestDate smalldatetime,
+@RequestedBy int,
+@ApprovedDate smalldatetime,
+@ApprovedBy int,
+@ApplicationTitle varchar,
+@ApplicationDescription varchar
+)
+as
+begin
+insert into Admin.ExpertRequest(
+UserID, 
+RequestStatus,
+RequestDate,
+RequestedBy,
+ApprovedDate,
+ApprovedBy,
+ApplicationTitle,
+ApplicationDescription
+
+)
+values
+(
+@UserID,
+@RequestStatus,
+@RequestDate,
+@RequestedBy,
+@ApprovedDate,
+@ApprovedBy,   
+@ApplicationTitle,
+@ApplicationDescription
+);
+
+return @@ROWCOUNT;
+end;
+go
+
+
+------------------------------------------
 -----------Admin.GroupRequest-------------
 ------------------------------------------
 
@@ -1748,11 +1805,62 @@ values(
 end;
 go
 
+--created by ibrahim 3-11-16
+CREATE PROCEDURE Admin.spUpdateUserRoleRemove (
+@userID int,
+@RoleID varchar(30))
+AS
+BEGIN
+      UPDATE Admin.UserRoles 
+	    SET Active = 0 
+		WHERE UserID = @UserID   AND
+                      RoleID = @RoleID;
+
+	return @@ROWCOUNT;  
+END;
+go
+
+--created by ibrahim 3-11-16
+CREATE PROCEDURE Admin.spSelectUserRole
+AS
+Begin
+
+   Select [UserID]
+      ,[RoleID]
+      ,[CreatedBy]
+      ,[CreatedDate]
+      ,[Active] 
+	  from Admin.UserRoles;
+end;
+go
+
+--created by ibrahim 3-11-16
+CREATE PROCEDURE [Admin].[spUpdateUserRoles] (
+@UserID int,
+@RoleID varchar(30),
+@CreatedBy int,
+@CreatedDate smallDateTime
+)
+
+AS
+BEGIN
+        UPDATE Admin.UserRoles
+		     SET     
+			      CreatedBy = @CreatedBy,
+				CreatedDate = @CreatedDate
+						 
+			WHERE    userID = @userID AND
+			        RoleID  = @RoleID;
+				 
+	return @@ROWCOUNT;     
+END;
+go
+
 ------------------------------------------
 -----------Admin.Users--------------------
 ------------------------------------------
 
-create procedure Admin.spInsertUsers(
+create procedure Admin.spInsertUsers (
 	@FirstName varchar(50),
 	@LastName varchar(100),
 	@Zip char(9) ,
@@ -3611,6 +3719,19 @@ BEGIN
 END;
 GO
 
+--created by Nick King 3-9-16
+CREATE Procedure Gardens.spSelectUserGroups(
+	@UserID int
+)
+AS
+BEGIN
+	SELECT Gardens.Groups.GroupID, Gardens.Groups.GroupName 
+    FROM Gardens.Groups, Gardens.GroupMembers
+    WHERE Gardens.GroupMembers.userID = @userID
+    AND Gardens.Groups.GroupID = Gardens.GroupMembers.GroupID; 
+END;
+Go
+
 ------------------------------------------
 -----------Gardens.Organizations----------
 ------------------------------------------
@@ -3804,8 +3925,7 @@ go
 /**********************************************************************************/
 
 exec Admin.spInsertUsers 'Jeff', 'Bridges', '11111', 'E@E.com', 'jeffb', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', null;
-exec Admin.spInsertRoles 'Admin', 'Administrator', 1000, '3-6-2016';
-exec Admin.spInsertUserRoles 1000, 'Admin', 1000, '3-6-2016';
+exec Admin.spInsertRoles 'Admin', 'Admin', 1000, '3-6-2016';
 
 
 
@@ -3826,7 +3946,7 @@ exec Admin.spInsertUsers				'Al'					,'Chipper'				,'293829103'	,'al.chipper@gma
 --* spInsertActivityLog					@UserID int, 	@date smalldatetime,	@LogEntry varchar(250)	@UserAction varchar(100)
 exec Admin.spInsertActivityLog			1000, 			'12/12/15', 			'This is a log entry',	'logged'
 		
---* spInsertGroupRequest				@UserID int,	@RequestStatus char(1),	@RequestDate smalldatetime,	@RequestedBy int,	@ApprovedDate smalldatetime,	@ApprovedBy int
+-----* spInsertGroupRequest				@UserID int,	@RequestStatus char(1),	@RequestDate smalldatetime,	@RequestedBy int,	@ApprovedDate smalldatetime,	@ApprovedBy int
 exec Admin.spInsertGroupRequest			1000			,'a'						,'04/05/53'				,1000				,'2/5/87'						,1001
 
 --* spInsertMessages					@MessageContent varchar(250),	@MessageDate smalldatetime,	@Subject varchar(100),	@MessageSender int
@@ -3838,6 +3958,10 @@ exec Admin.spInsertMessageLineItems		1000			,1001			,'1/23/52'					,1002			,'1/4
 --* spInsertRoles						@RoleID				@Description varchar(100),	@CreatedBy int,	@CreatedDate smalldatetime 
 exec Admin.spInsertRoles				'Guest'				,'Guest'					,1003			,'1/4/99'
 exec Admin.spInsertRoles				'User'				,'User'						,1003			,'1/4/99'
+--exec Admin.spInsertRoles				'Admin'				,'Admin'					,1003			,'1/4/99'
+exec Admin.spInsertRoles				'Expert'			,'Expert'					,1003			,'1/4/99'
+exec Admin.spInsertRoles				'GroupMember'		,'Group Member'				,1003			,'1/4/99'
+exec Admin.spInsertRoles				'GroupLeader'	    ,'Group Leader'				,1003			,'1/4/99'
 			
 --* spInsertUserRoles           		@UserID int,	@RoleID int,	@CreatedBy int,	@CreatedDate smalldatetime    
 exec Admin.spInsertUserRoles			1000			,'Guest'		,1000			,'5/23/65'
