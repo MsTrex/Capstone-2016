@@ -124,7 +124,7 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnExpert_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new Uri("Expert.xaml", UriKind.Relative));
-            btnSideBar1.Content = "btnSideBar1";
+            btnSideBar1.Content = "Become an Expert";
             btnSideBar2.Content = "btnSideBar2";
             btnSideBar3.Content = "btnSideBar3";
             btnSideBar4.Content = "btnSideBar4";
@@ -143,6 +143,16 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new Uri("HomeContent.xaml", UriKind.Relative));
+            btnSideBar1.Content = "Messages";
+        }
+
+        //private void btnSideBar1_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (btnSideBar1.Content.ToString() == "Create a Garden")
+        //    {
+        //        mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
+        //    }
+        //}
             btnSideBar1.Content = "btnSideBar1";
             btnSideBar2.Content = "btnSideBar2";
             btnSideBar3.Content = "btnSideBar3";
@@ -229,5 +239,24 @@ namespace com.GreenThumb.WPF_Presentation
         {
 
         }
+
+        private void btnSideBar1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (btnSideBar1.Content == "Create Garden")
+            {
+                mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
+            }
+            else if (btnSideBar1.Content == "Messages")
+            {
+                mainFrame.NavigationService.Navigate(new Uri("GardenPages/AdminMessages.xaml", UriKind.Relative));
+            }
+            
+        }
+
+        private void mainFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+
+        }
+        
     }
 }
