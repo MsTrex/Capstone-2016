@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs964E.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs964E.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -78,7 +80,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Expert.xaml">
+    <Page Include="ExpertPages\Expert.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,7 +146,7 @@
     <Compile Include="Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Expert.xaml.cs">
+    <Compile Include="ExpertPages\Expert.xaml.cs">
       <DependentUpon>Expert.xaml</DependentUpon>
     </Compile>
     <Compile Include="GardenPages\CreateGarden.xaml.cs">
@@ -260,7 +262,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AdminPages\" />
-    <Folder Include="ExpertPages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

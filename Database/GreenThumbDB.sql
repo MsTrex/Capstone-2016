@@ -703,6 +703,7 @@ create table Gardens.PostThreads(
 
 create table Gardens.Tasks(
 	TaskID int identity(1000,1) not null primary key,
+	GardenID int not null,
 	Description varchar(100) not null,
 	DateAssigned smalldatetime not null,
 	DateCompleted smalldatetime null,
@@ -1377,6 +1378,13 @@ REFERENCES Admin.Users(UserID);
 GO
 ALTER TABLE Gardens.Tasks CHECK CONSTRAINT [FK_Tasks_AssignedTo];
 GO
+
+ALTER TABLE Gardens.Tasks WITH NOCHECK ADD  CONSTRAINT [FK_Tasks_GardenID] FOREIGN KEY(GardenID)
+REFERENCES Gardens.Gardens(GardenID);
+GO
+ALTER TABLE Gardens.Tasks CHECK CONSTRAINT [FK_Tasks_GardenID];
+GO
+
 
 ALTER TABLE Gardens.Tasks WITH NOCHECK ADD  CONSTRAINT [FK_Tasks_AssignedFrom] FOREIGN KEY(AssignedFrom)
 REFERENCES Admin.Users(UserID);
@@ -3848,8 +3856,10 @@ go
 --created by Nasr 3-4-16
 CREATE PROCEDURE Gardens.spUpdateTasks 
 	(@TaskID INT,
+	@gardenID int,
 	@Description VARCHAR(100),
 	@Active BIT,
+	@originalGardenID int,
 	@OriginalTaskID INT,
 	@OriginalDescription VARCHAR(100),
 	@OriginalActive BIT)
@@ -3857,19 +3867,23 @@ CREATE PROCEDURE Gardens.spUpdateTasks
  BEGIN 
 	UPDATE Gardens.Tasks
 	SET   
+		Gardenid = @gardenID,
 		Description = @Description,
 		Active = @Active
 		WHERE TaskID = @TaskID
 		and Description = @OriginalDescription
-		and Active = @OriginalActive;
-	
+		and Active = @OriginalActive
+		and gardenID = @originalGardenID;
 	RETURN @@ROWCOUNT;
 END;
 GO
 
+
+
 --created by Nasr 3-4-16
 CREATE PROCEDURE Gardens.spInsertTasks 
-	(@Description VARCHAR(100),
+	(@GardenID int,
+	@Description VARCHAR(100),
 	@dateAssigned smalldatetime,
 	@Datecompleted smalldatetime,
 	@AssignedTo int,
@@ -3878,14 +3892,16 @@ CREATE PROCEDURE Gardens.spInsertTasks
 AS
 BEGIN
 INSERT INTO Gardens.Tasks
-    (Description,
+    (GardenID,
+	Description,
 	DateAssigned,
 	DateCompleted,
 	AssignedTo,
 	AssignedFrom,
 	userNotes)	
 VALUES
-   (@Description,
+   (@GardenID,
+   @Description,
    @dateAssigned,
    @Datecompleted,
    @AssignedTo,
@@ -4014,8 +4030,8 @@ exec Gardens.spInsertPostLineItems			1000				,1					,1000				,1000			,'10/10/10'
 --* spInsertTasks                			@Description VARCHAR(100),	@dateAssigned smalldatetime,	@Datecompleted smalldatetime,	@AssignedTo int,	@AssignedFrom int,	@userNotes varchar(250))
 exec Gardens.spInsertTasks					'Watering the garden'		,'4/4/44'						,'4/4/04'						,1001				,1002				,'Poppy said do this, Sally'
 			
---* spInsertWorkLogs             			@UserID int,	@TaskID int,	@TimeBegun smalldatetime,	@TimeFinished smalldatetime
-exec Gardens.spInsertWorkLogs				1000			,1000			,'9/25/57'					,'9/26/57'
+--* spInsertWorkLogs             			@UserID int,	@TaskID int,	@GardenID int,	@TimeBegun smalldatetime,	@TimeFinished smalldatetime
+exec Gardens.spInsertWorkLogs				1000			,1000			,1000				,'9/25/57'					,'9/26/57'
 
 ----------------------------DONATIONS------------------------------------
 print 'donations'

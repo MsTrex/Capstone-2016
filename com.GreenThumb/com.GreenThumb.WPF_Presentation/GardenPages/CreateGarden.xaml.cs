@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using com.GreenThumb.BusinessObjects;
 
 namespace com.GreenThumb.WPF_Presentation.GardenPages
 {
@@ -20,9 +21,13 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
     /// </summary>
     public partial class CreateGarden : Page
     {
-        public CreateGarden()
+        public CreateGarden(AccessToken _accessToken)
         {
             InitializeComponent();
+            if (_accessToken != null)
+            {
+                lblMessage.Content = _accessToken.FirstName + " " + _accessToken.LastName + " Welcome to the the Create Garden page";
+            }
         }
     }
 }

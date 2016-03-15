@@ -10,7 +10,7 @@
         
     <Grid>
         <Grid Background="Aqua">
-            <Label FontSize="25" Content="Create a Garden Page Content"></Label>
+            <Label Name="lblMessage" FontSize="25" Content="Create a Garden Page Content"></Label>
         </Grid>
     </Grid>
 </Page>

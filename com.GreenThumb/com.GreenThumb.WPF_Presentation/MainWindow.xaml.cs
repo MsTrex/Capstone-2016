@@ -57,6 +57,7 @@ namespace com.GreenThumb.WPF_Presentation
                     // clear the access token reference
                     _accessToken = null;
                     MessageBox.Show("Login Failed.");
+                    lblLoggedIn.Header = "";
                 }
             }
             else // somebody is already logged in
@@ -64,6 +65,7 @@ namespace com.GreenThumb.WPF_Presentation
                 _accessToken = null;
                 this.btnLogin.Header = "Log In";
                 // change things back to default here.
+                lblLoggedIn.Header = "";
             } 
         }
 
@@ -79,6 +81,7 @@ namespace com.GreenThumb.WPF_Presentation
             if (sender == _login)
             {
                 this._accessToken = a;
+                lblLoggedIn.Header = "Logged in as " + a.FirstName + " " + a.LastName;
             }
         }
         /// <summary>
@@ -117,7 +120,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnExpert_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.NavigationService.Navigate(new Uri("Expert.xaml", UriKind.Relative));
+            //mainFrame.NavigationService.Navigate(new Uri("Expert.xaml", UriKind.Relative));
             btnSideBar1.Content = "Become an Expert";
             btnSideBar2.Content = "btnSideBar2";
             btnSideBar3.Content = "btnSideBar3";
@@ -140,13 +143,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar1.Content = "Messages";
         }
 
-        //private void btnSideBar1_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (btnSideBar1.Content.ToString() == "Create a Garden")
-        //    {
-        //        mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
-        //    }
-        //}
+        
         private void btnAdmin_Click(object sender, RoutedEventArgs e)
         {
             btnSideBar1.Content = "User Edit";
@@ -179,13 +176,19 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar9.Content = "btnSideBar9";
             btnSideBar10.Content = "btnSideBar10";
         }
+
         /// <summary>
-        /// Author: Chris Schwebach
-        /// Interaction logic for UserEditPersonalInfo.xaml
-        /// Date: 3/3/16
-        /// ///Updated Date: 3/8/16
+        /// Author: Chris Sheehan
+        /// Click logic for sidebar 1 button
+        /// Date: 3/9/16
         /// </summary>
-        /// 
+        //private void btnSideBar1_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (btnSideBar1.Content.ToString() == "Create a Garden")
+        //    {
+        //        mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
+        //    }
+        //}
         private void btnSideBar2_Click(object sender, RoutedEventArgs e)
         {
 
@@ -239,15 +242,17 @@ namespace com.GreenThumb.WPF_Presentation
         }
         private void btnSideBar1_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (btnSideBar1.Content == "Create Garden")
+            if (btnSideBar1.Content.ToString() == "Create Garden")
             {
-                mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
+                //mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
+                mainFrame.NavigationService.Navigate(new GardenPages.CreateGarden(_accessToken));
+
             }
-            else if (btnSideBar1.Content == "Messages")
+            else if (btnSideBar1.Content.ToString() == "Messages")
             {
                 mainFrame.NavigationService.Navigate(new Uri("GardenPages/AdminMessages.xaml", UriKind.Relative));
             }
-            else if (btnSideBar1.Content == "User Edit")
+            else if (btnSideBar1.Content.ToString() == "User Edit")
             {
                 UserEditPersonalInfo uepi = new UserEditPersonalInfo(_accessToken);
                 uepi.ShowDialog();

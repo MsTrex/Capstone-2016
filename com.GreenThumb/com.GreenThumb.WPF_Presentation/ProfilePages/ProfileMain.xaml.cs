@@ -26,9 +26,13 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             InitializeComponent();
             if (_accessToken != null)
             {
-                lblTest.Content = "Hello " + _accessToken.FirstName + "welcome to the profile tab main page!";
+                lblTest.Content = "Hello " + _accessToken.FirstName + " " + _accessToken.LastName + ", welcome to the profile tab main page!";
             }
-            lblTitle.Content = "Profile Main Page " + _accessToken.FirstName; 
+            else
+            {
+                lblTest.Content = "Hello welcome to the profile tab main page!";
+            }
+            //lblTitle.Content = "Profile Main Page "; 
         }
     }
 }
