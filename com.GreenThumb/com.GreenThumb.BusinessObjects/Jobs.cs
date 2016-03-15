@@ -1,4 +1,6 @@
-﻿//Update file in project
+﻿// Created By Poonam Dubey on 02/27/2016
+// Updated by Nasr Mohammed on 3/4/2016 and change the object name from task to job
+//Update file in project
 
 using System;
 using System.Collections.Generic;
@@ -11,18 +13,32 @@ namespace com.GreenThumb.BusinessObjects
     public class Job
     {
         public int JobID { get; set; }
+        public int GardenID { get; set; }
         public string Description { get; set; }
+        public DateTime DateAssigned { get; set; }
+        public DateTime DateCompleted { get; set; }
+        public int AssignedTo { get; set; }
+        public int AssignedFrom { get; set; }
+        public string UserNotes { get; set; }
         public bool Active { get; set; }
-        //public DateTime TaskLastRevision { get; set; }
+
 
         public Job() { }
-        public Job(int jobID,
-                     string taskDescription,
-                     bool taskActive)
+        public Job(int jobID, int gardenID,
+                     string description,
+                     DateTime dateAssigned, DateTime dateCompleted,
+                    int assignedTo, int assignedFrom, string userNotes, bool active)
         {
             JobID = jobID;
-            Description = taskDescription;
-            Active = taskActive;
+            GardenID = gardenID;
+            Description = description;
+            DateAssigned = dateAssigned;
+            DateCompleted = dateCompleted;
+            AssignedTo = assignedTo;
+            AssignedFrom = assignedFrom;
+            UserNotes = userNotes;
+            Active = active;
+
         }
     }
 }

@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace com.GreenThumb.BusinessLogic
 {
+    /// <summary>
+    /// Retrieve, select and update a task for a garden
+    /// Created By: Nasr Mohammed 3/4/2016 
+    /// Modified on: 3/15/2016
+    /// </summary>
     public class JobManager
     {
-        public bool AddNewTask(int taskID, string description, bool active)
+
+        public bool AddNewTask(Job job)
         {
-            var job = new Job()
-            {
-                JobID = taskID,
-                Description = description,
-                Active = active
-            };
 
             try
             {
-                if (JobAccessor.InsertTak(job) == 1)
+                if (JobAccessor.CreateTask(job) == 1)
                 {
                     return true;
                 }
@@ -36,6 +36,39 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
-       
+        public List<Job> GetTaskList()
+        {
+
+            try
+            {
+                return JobAccessor.FetchTasks();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException(" No records Found!.", ex);
+            }
+
+        }
+
+        public bool ChangeTask(Job job, Job oldJob)
+        {
+
+            try
+            {
+                bool myJob = JobAccessor.UpdateTask(job, oldJob);
+
+                return myJob;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public Job FetchJob(int jobId)
+        {
+            return JobAccessor.RetrieveJob(jobId);
+        }
     }
 }

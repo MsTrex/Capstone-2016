@@ -6,21 +6,32 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using com.GreenThumb.DataAccess;
 
 namespace com.GreenThumb.DataAccess
 {
+    /// <summary>
+    /// Retrieve, select and update a task for a garden
+    /// Created By: Nasr Mohammed 3/4/2016 
+    /// Modified on: 3/15/2016
+    /// </summary>
     public class JobAccessor
     {
-        public static Job SelectTaskByTaskID(int taskID, Active recordType = Active.active)
+        /// <summary>
+        /// Retrieve a list of tasks.
+        /// Created By: Nasr Mohammed 3/4/2016 Modified 3/15/2016
+        /// </summary>
+        /// <returns>A list of tasks.</returns>
+        public static List<Job> FetchTasks()
         {
-            Job job;
+
+            var jobs = new List<Job>();
             var conn = DBConnection.GetDBConnection();
-            var query = @"spSelectTasks";
+            // var query = @"spSelectTasks";
+            string query = @"SELECT TaskID, GardenID,  Description , DateAssigned, DateCompleted, AssignedTo, AssignedFrom, UserNotes, Active " +
+                         @"FROM Gardens.Tasks ";
+
             var cmd = new SqlCommand(query, conn);
-
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@taskID", taskID);
 
             try
             {
@@ -28,13 +39,22 @@ namespace com.GreenThumb.DataAccess
                 var reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    reader.Read();
-                    job = new Job()
+                    while (reader.Read())
                     {
-                        JobID = reader.GetInt32(0),
-                        Description = reader.GetString(1),
-                        Active = reader.GetBoolean(2)
-                    };
+                        var job = new Job();
+
+                        job.JobID = reader.GetInt32(0);
+                        job.GardenID = reader.GetInt32(1);
+                        job.Description = reader.GetString(2);
+                        job.DateAssigned = reader.GetDateTime(3);
+                        job.DateCompleted = reader.GetDateTime(4);
+                        job.AssignedTo = reader.GetInt32(5);
+                        job.AssignedFrom = reader.GetInt32(6);
+                        job.UserNotes = reader.GetString(7);
+                        job.Active = reader.GetBoolean(8);
+
+                        jobs.Add(job);
+                    }
                 }
                 else
                 {
@@ -49,38 +69,56 @@ namespace com.GreenThumb.DataAccess
             {
                 conn.Close();
             }
-            return job;
+            return jobs;
         }
 
-        public static int UpdateTak(int taskID, string description, bool active)
+        /// <summary>
+        /// Update a task in a garden.
+        /// Created By: Nasr Mohammed 3/4/2016 
+        /// Modified on: 3/15/2016
+        /// </summary>
+        /// <param name="job">The task field that should be updated </param>
+        /// <param name="originalJob">The orignial taks field</param>
+        /// <returns>A boolean if the task updated successfully</returns>
+        public static bool UpdateTask(Job job, Job originalJob)
         {
-            int rowCount = 0;
 
-            // get a connection
             var conn = DBConnection.GetDBConnection();
+            var query = "Gardens.spUpdateTasks";
+            var cmd = new SqlCommand(query, conn);
 
-            // we need a command object (the command text is in the stored procedure)
-            var cmd = new SqlCommand("spUpdateTasks", conn);
-
-            // set the command type for stored procedure
             cmd.CommandType = CommandType.StoredProcedure;
 
-            // we need to manually add any input or output parameters
-            cmd.Parameters.Add(new SqlParameter("JobID", SqlDbType.Int));
-            cmd.Parameters.Add(new SqlParameter("Description", SqlDbType.VarChar, 100));
-            cmd.Parameters.Add(new SqlParameter("Active", SqlDbType.Bit));
+            cmd.Parameters.AddWithValue("@taskID", job.JobID);
+            cmd.Parameters.AddWithValue("@gardenID", job.GardenID);
+            cmd.Parameters.AddWithValue("@description", job.Description);
+            cmd.Parameters.AddWithValue("@dateAssigned", job.DateAssigned);
+            cmd.Parameters.AddWithValue("@dateCompleted", job.DateCompleted);
+            cmd.Parameters.AddWithValue("@assignedTo", job.AssignedTo);
+            cmd.Parameters.AddWithValue("@assignedFrom", job.AssignedFrom);
+            cmd.Parameters.AddWithValue("@userNotes", job.UserNotes);
+            cmd.Parameters.AddWithValue("@active", job.Active);
 
-            cmd.Parameters["taskID"].Value = taskID;
-            cmd.Parameters["description"].Value = description;
-            cmd.Parameters["active"].Value = active;
+            cmd.Parameters.AddWithValue("@OriginaltaskID", originalJob.JobID);
+            cmd.Parameters.AddWithValue("@OriginalgardenID", originalJob.GardenID);
+            cmd.Parameters.AddWithValue("@OriginalDescription", originalJob.Description);
+            cmd.Parameters.AddWithValue("@OriginalDateAssigned", originalJob.DateAssigned);
+            cmd.Parameters.AddWithValue("@OriginalDateCompleted", originalJob.DateCompleted);
+            cmd.Parameters.AddWithValue("@OriginalAssignedTo", originalJob.AssignedTo);
+            cmd.Parameters.AddWithValue("@OriginalAssignedFrom", originalJob.AssignedFrom);
+            cmd.Parameters.AddWithValue("@OriginalUserNotes", originalJob.UserNotes);
+            cmd.Parameters.AddWithValue("@active", originalJob.Active);
 
-            cmd.Parameters.Add(new SqlParameter("RowCount", SqlDbType.Int));
-            cmd.Parameters["RowCount"].Direction = ParameterDirection.ReturnValue;
+            bool flag = false;
 
             try
             {
                 conn.Open();
-                rowCount = (int)cmd.ExecuteNonQuery();
+                if (cmd.ExecuteNonQuery() == 1)
+                {
+                    flag = true;
+                }
+
             }
             catch (Exception)
             {
@@ -90,30 +128,39 @@ namespace com.GreenThumb.DataAccess
             {
                 conn.Close();
             }
-            return rowCount;
+            return flag;
         }
 
-        public static int InsertTak(Job task)
+        /// <summary>
+        /// Insert a task in a garden.
+        /// Created By: Nasr Mohammed 3/4/2016 
+        /// Modified on: 3/15/2016
+        /// </summary>
+        /// <param name="job">The task that should be created </param>
+        /// <returns>A rowsAffected if it's inserted successfully</returns>
+        public static int CreateTask(Job job)
         {
-            int rowCount = 0;
+            int rowsAffected = 0;
 
-            // get a connection
             var conn = DBConnection.GetDBConnection();
 
-            string cmdText = @"INSERT INTO Task " +
-             @"(JobID, Description, Active) " +
-              @"VALUES " +
-                @"( '" + task.JobID + "' ,'" + task.Description + "' ,'" + task.Active + "') ";
-
-
+            var cmdText = @"Gardens.spInsertTasks";
             var cmd = new SqlCommand(cmdText, conn);
 
+            cmd.CommandType = CommandType.StoredProcedure;
 
+            cmd.Parameters.AddWithValue("@gardenID", job.GardenID);
+            cmd.Parameters.AddWithValue("@description", job.Description);
+            cmd.Parameters.AddWithValue("@dateAssigned", job.DateAssigned);
+            cmd.Parameters.AddWithValue("@dateCompleted", job.DateCompleted);
+            cmd.Parameters.AddWithValue("@assignedTo", job.AssignedTo);
+            cmd.Parameters.AddWithValue("@assignedFrom", job.AssignedFrom);
+            cmd.Parameters.AddWithValue("@userNotes", job.UserNotes);
 
             try
             {
                 conn.Open();
-                rowCount = (int)cmd.ExecuteNonQuery();
+                rowsAffected = (int)cmd.ExecuteNonQuery();
             }
             catch (Exception)
             {
@@ -123,8 +170,58 @@ namespace com.GreenThumb.DataAccess
             {
                 conn.Close();
             }
-            return rowCount;
+            return rowsAffected;
         }
 
+        /// <summary>
+        /// Select a task based on task ID.
+        /// Created By: Nasr Mohammed 3/4/2016 Modified 3/15/2016
+        /// </summary>
+        /// <param name="job">The taskID should be passed to retrive a task </param>
+        /// <returns>specific task.</returns>
+        public static Job RetrieveJob(int jobId)
+        {
+            Job job = new Job();
+
+            var conn = DBConnection.GetDBConnection();
+            var query = @"SELECT TaskID, GardenID, Description , DateAssigned, DateCompleted, AssignedTo, AssignedFrom, UserNotes, Active " +
+                         @"FROM Gardens.Tasks ";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@JobID", jobId);
+
+            try
+            {
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    job = new Job()
+                    {
+                        JobID = reader.GetInt32(0),
+                        GardenID = reader.GetInt32(1),
+                        Description = reader.GetString(2),
+                        DateAssigned = reader.GetDateTime(3),
+                        DateCompleted = reader.GetDateTime(4),
+                        AssignedTo = reader.GetInt32(5),
+                        AssignedFrom = reader.GetInt32(6),
+                        UserNotes = reader.GetString(7),
+                        Active = reader.GetBoolean(8)
+                    };
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return job;
+        }
     }
 }
