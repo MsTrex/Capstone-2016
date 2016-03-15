@@ -1,6 +1,4 @@
-﻿using com.GreenThumb.BusinessLogic;
-using com.GreenThumb.BusinessObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +10,10 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using com.GreenThumb.BusinessLogic;
+using com.GreenThumb.BusinessObjects;
 
 namespace com.GreenThumb.WPF_Presentation
 {
@@ -20,7 +21,7 @@ namespace com.GreenThumb.WPF_Presentation
     /// Interaction logic for OrgGroupLeaderManager.xaml
     /// Created By: Trent Cullinan 02/24/2016
     /// </summary>
-    public partial class OrgGroupLeaderManager : Window
+    public partial class OrgGroupLeaderManager : Page
     {
         private AccessToken accessToken;
         private OrgUserManager orgUserManager;
@@ -69,7 +70,7 @@ namespace com.GreenThumb.WPF_Presentation
         private void dgrdUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             lblResponseMessage.Content = string.Empty;
-            btnActionOne.Content = ((GroupMember)dgrdUsers.SelectedItem).Leader ? 
+            btnActionOne.Content = ((GroupMember)dgrdUsers.SelectedItem).Leader ?
                 "Demote" : "Promote";
         }
 
@@ -133,9 +134,7 @@ namespace com.GreenThumb.WPF_Presentation
                     OrgManageUserGroups orgManageUserGroups = new OrgManageUserGroups(
                         this.accessToken, this.orgUserManager, user);
 
-                    this.Hide();
-                    orgManageUserGroups.ShowDialog();
-                    this.Show();
+                    NavigationService.Navigate(orgManageUserGroups);
                 }
                 catch (Exception ex)
                 {
@@ -168,7 +167,7 @@ namespace com.GreenThumb.WPF_Presentation
         }
 
         // Created By: Trent Cullinan 02/24/2016
-        private void BindLeaderRequests() 
+        private void BindLeaderRequests()
         {
             try
             {

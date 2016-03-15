@@ -1,6 +1,4 @@
-﻿using com.GreenThumb.BusinessLogic;
-using com.GreenThumb.BusinessObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +10,10 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using com.GreenThumb.BusinessLogic;
+using com.GreenThumb.BusinessObjects;
 
 namespace com.GreenThumb.WPF_Presentation
 {
@@ -20,7 +21,7 @@ namespace com.GreenThumb.WPF_Presentation
     /// Interaction logic for OrgManageUserGroups.xaml
     /// Created By: Trent Cullinan 02/24/2016
     /// </summary>
-    public partial class OrgManageUserGroups : Window
+    public partial class OrgManageUserGroups : Page
     {
         private AccessToken accessToken;
         private OrgUserManager orgUserManager;

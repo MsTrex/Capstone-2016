@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs964E.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Trent\AppData\Local\Temp\vsE314.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs964E.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Trent\AppData\Local\Temp\vsE314.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -108,6 +108,12 @@
     <Compile Include="EditUserEntry.xaml.cs">
       <DependentUpon>EditUserEntry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OrgGroupLeaderManager.xaml.cs">
+      <DependentUpon>OrgGroupLeaderManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OrgManageUserGroups.xaml.cs">
+      <DependentUpon>OrgManageUserGroups.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pages\CreateGarden.xaml.cs">
       <DependentUpon>CreateGarden.xaml</DependentUpon>
     </Compile>
@@ -120,8 +126,6 @@
     <Compile Include="UserEditPersonalInfo.xaml.cs">
       <DependentUpon>UserEditPersonalInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OrgGroupLeaderManager.xaml.cs" />
-    <Compile Include="OrgManageUserGroups.xaml.cs" />
     <Compile Include="UserRole.xaml.cs">
       <DependentUpon>UserRole.xaml</DependentUpon>
     </Compile>
@@ -172,12 +176,12 @@
     <Page Include="NewUserInformation.xaml">
     </Page>
     <Page Include="OrgGroupLeaderManager.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OrgManageUserGroups.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pages\admin_profile.xaml">
       <SubType>Designer</SubType>
