@@ -168,16 +168,17 @@
                         </Style.Triggers>
                     </Style>
                 </StackPanel.Resources>
-                <Label FontSize="15" Margin="0, 20, 0, 0" Name="btnSideBar1" Content="btnSideBar1" MouseDown="btnSideBar1_MouseDown" ></Label>
-                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar2" Content="btnSideBar2"></Label>
-                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar3" Content="btnSideBar3"></Label>
-                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar4" Content="btnSideBar4"></Label>
-                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar5" Content="btnSideBar5"></Label>
-                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar6" Content="btnSideBar6"></Label>
-                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar7" Content="btnSideBar7"></Label>
-                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar8" Content="btnSideBar8"></Label>
-                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar9" Content="btnSideBar9"></Label>
-                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar10" Content="btnSideBar10"></Label>
+                <Label FontSize="15" Margin="0, 20, 0, 0" Name="btnSideBar1" Content="btnSideBar1" MouseDown="btnSideBar1_MouseDown" />
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar2" Content="btnSideBar2" MouseDown="btnSideBar2_MouseDown" />
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar3" Content="btnSideBar3" MouseDown="btnSideBar3_MouseDown" />
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar4" Content="btnSideBar4" MouseDown="btnSideBar4_MouseDown" />
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar5" Content="btnSideBar5" MouseDown="btnSideBar5_MouseDown" />
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar6" Content="btnSideBar6" MouseDown="btnSideBar6_MouseDown" />
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar7" Content="btnSideBar7" MouseDown="btnSideBar7_MouseDown" />
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar8" Content="btnSideBar8" MouseDown="btnSideBar8_MouseDown" />
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar9" Content="btnSideBar9" MouseDown="btnSideBar9_MouseDown" />
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar10" Content="btnSideBar10" MouseDown="btnSideBar10_MouseDown" />
+
             </StackPanel>
             <Grid Grid.Column="1">
                 <Frame Name="mainFrame" Margin="0,0,-0.4,0" NavigationUIVisibility="Hidden" Navigated="mainFrame_Navigated"></Frame>

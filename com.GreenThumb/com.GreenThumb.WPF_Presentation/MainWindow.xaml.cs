@@ -66,7 +66,7 @@ namespace com.GreenThumb.WPF_Presentation
                 this.btnLogin.Header = "Log In";
                 // change things back to default here.
                 lblLoggedIn.Header = "";
-            } 
+            }
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar1.Content = "Messages";
         }
 
-        
+
         private void btnAdmin_Click(object sender, RoutedEventArgs e)
         {
             btnSideBar1.Content = "User Edit";
@@ -176,70 +176,15 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar9.Content = "btnSideBar9";
             btnSideBar10.Content = "btnSideBar10";
         }
-
-        /// <summary>
-        /// Author: Chris Sheehan
-        /// Click logic for sidebar 1 button
-        /// Date: 3/9/16
-        /// </summary>
-        //private void btnSideBar1_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (btnSideBar1.Content.ToString() == "Create a Garden")
-        //    {
-        //        mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
-        //    }
-        //}
-        private void btnSideBar2_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnSideBar3_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnSideBar4_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnSideBar5_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnSideBar6_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnSideBar7_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnSideBar8_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnSideBar9_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnSideBar10_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
-
         private void mainFrame_Navigated(object sender, NavigationEventArgs e)
         {
 
         }
+        /// <summary>
+        /// Author: Sara Nanke
+        /// Click logic for the btnsidebarclick event
+        /// Date: 3/9/16
+        /// </summary>
         private void btnSideBar1_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (btnSideBar1.Content.ToString().ToLowerInvariant() == "create a garden")
@@ -257,7 +202,78 @@ namespace com.GreenThumb.WPF_Presentation
                 UserEditPersonalInfo uepi = new UserEditPersonalInfo(_accessToken);
                 uepi.ShowDialog();
             }
-            
+
         }
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Click logic for the btnsidebarclick event
+        /// Date: 3/9/16
+        /// </summary>
+        private void btnSideBar2_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+        }
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Click logic for the btnsidebarclick event
+        /// Date: 3/9/16
+        /// </summary>
+        private void btnSideBar3_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+        }
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Click logic for the btnsidebarclick event
+        /// Date: 3/9/16
+        /// </summary>
+        private void btnSideBar4_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+        }
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Click logic for the btnsidebarclick event
+        /// Date: 3/9/16
+        /// </summary>
+        private void btnSideBar5_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+        }
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Click logic for the btnsidebarclick event
+        /// Date: 3/9/16
+        /// </summary>
+        private void btnSideBar6_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+        }
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Click logic for the btnsidebarclick event
+        /// Date: 3/9/16
+        /// </summary>
+        private void btnSideBar7_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+        }
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Click logic for the btnsidebarclick event
+        /// Date: 3/9/16
+        /// </summary>
+        private void btnSideBar8_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+        }
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Click logic for the btnsidebarclick event
+        /// Date: 3/9/16
+        /// </summary>
+        private void btnSideBar9_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+        }
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Click logic for the btnsidebarclick event
+        /// Date: 3/9/16
+        /// </summary>
+        private void btnSideBar10_MouseDown(object sender, MouseButtonEventArgs e)
+        { }
     }
 }
