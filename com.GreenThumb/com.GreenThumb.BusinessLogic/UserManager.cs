@@ -131,14 +131,14 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
-        public bool AddNewUser(string firstName,
+        public int AddNewUser(string firstName,
                                    string lastName,
                                    string zip,
                                    string emailAddress,
                                    string userName,
                                    string passWord,
                                    bool   active,
-                                   int    regionID)
+                                   int?    regionID)
         {
             try
             {
@@ -153,16 +153,12 @@ namespace com.GreenThumb.BusinessLogic
                     Active = active,
                     RegionId= regionID
                 };
-                if (UserAccessor.InsertUser(usr) == 1)
-                {
-                    return true;
-                }
+                return UserAccessor.InsertUser(usr);
             }
             catch (Exception)
             {
                 throw;
             }
-            return false;
         }
         public bool ChangeUserData(User usr)
         {

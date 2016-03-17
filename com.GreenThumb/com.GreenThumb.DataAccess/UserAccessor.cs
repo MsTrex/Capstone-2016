@@ -133,7 +133,13 @@ namespace com.GreenThumb.DataAccess
             }
             return count;
         }
-
+        
+        /// <summary>
+        /// Function to insert new user by : Poonam Dubey 
+        /// Dated : 16th March 2016
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public static int InsertUser(User user)
         {
             int count = 0;
@@ -141,17 +147,18 @@ namespace com.GreenThumb.DataAccess
             // What comes first...a connection! Eureka!
             var conn = DBConnection.GetDBConnection();
 
-            // What comes next is a command text
-            string query = @"INSERT INTO Users " +
-                           @"(FirstName, LastName, Phone, " +
-                           @"EmailAddress, UserName, Password, RegionId ) " +
-                           @"VALUES " +
-                           @"('" + user.FirstName + "', '" + user.LastName +
-                           @"', '" + user.Zip + "', '" + user.EmailAddress +
-                           @"', '" + user.UserName + "', '" + user.Password + "','" + user.RegionId + ") ";
-
-            // get a command object
+            var query = @"Admin.spInsertUsers";
             var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
+            cmd.Parameters.AddWithValue("@LastName", user.LastName);
+            cmd.Parameters.AddWithValue("@Zip", user.Zip);
+            cmd.Parameters.AddWithValue("@EmailAddress", user.EmailAddress);
+            cmd.Parameters.AddWithValue("@UserName", user.UserName);
+            cmd.Parameters.AddWithValue("@Password", user.Password);
+            cmd.Parameters.AddWithValue("@RegionID", ((object)user.RegionId) ?? DBNull.Value);
 
             try
             {

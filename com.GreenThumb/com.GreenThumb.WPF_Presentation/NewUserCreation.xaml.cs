@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using com.GreenThumb.BusinessLogic.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace com.GreenThumb.WPF_Presentation
 {
@@ -22,8 +23,7 @@ namespace com.GreenThumb.WPF_Presentation
     /// </summary>
     public partial class NewUserCreation : Window
     {
-        static AccessToken _accessToken;
-        private ISecurityManager _security = new SecurityManager();
+        private UserManager _userManagerObj = new UserManager();
         public NewUserCreation()
         {
             InitializeComponent();
@@ -31,32 +31,64 @@ namespace com.GreenThumb.WPF_Presentation
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
+            string fName = this.txtFName.Text;
+            string lName = this.txtLName.Text;
             string username = this.txtnewUsername.Text;
-            string password = this.txtnewPassword.Text;
-            string passConfirm = this.txtPassConfirm.Text;
+            string password = this.txtnewPassword.Password;
+            string passConfirm = this.txtPassConfirm.Password;
+            bool isActive = true;
+            bool isRegexMatch = true;
             try
             {
-
-                _accessToken = _security.ValidateNewUser(username, password);
-                this.DialogResult = true;
-                MessageBox.Show("Created New User. Please Log in.");
-
-                if (password == passConfirm)
+                if (!string.IsNullOrEmpty(fName) && !string.IsNullOrEmpty(lName) && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(passConfirm))
                 {
-                    this.DialogResult = true;
-                    NewUserInformation _newInfo = new NewUserInformation();
-                    _newInfo.ShowDialog();
-                    _accessToken = _security.ValidateNewUser(username, password);
-                    this.DialogResult = true;
-                    MessageBox.Show("Created New User. Please Log in.");
-                    this.Close();
+                //    if (Regex.IsMatch(fName, @"(?i)^[a-z]+"))
+                //        isRegexMatch = true;
+                //    else
+                //    {
+                //        isRegexMatch = false;
+                //        MessageBox.Show("Please enter only characters in first name");
+                //    }
 
+                //    if (Regex.IsMatch(lName, @"(?i)^[a-z]+"))
+                //        isRegexMatch = true;
+                //    else
+                //    {
+                //        isRegexMatch = false;
+                //        MessageBox.Show("Please enter only characters in last name");
+                //    }
+
+                //    if (Regex.IsMatch(password, @"^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z]).{6}$"))
+                //        isRegexMatch = true;
+                //    else
+                //    {
+                //        isRegexMatch = false;
+                //        MessageBox.Show("Password should contain 1 uppercase, 2 lowercase, 1 digit and a special character");
+                //    }
+
+                    if (isRegexMatch)
+                    {
+                        if (password != passConfirm)
+                            MessageBox.Show("Passwords dont match!");
+                        else
+                        {
+                            if (_userManagerObj.AddNewUser(fName, lName, string.Empty, string.Empty, username, password.HashSha256(), isActive, null) == 1)
+                            {
+                                MessageBox.Show("User has been created successfully!!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Username entered already exists. Please try a different username.");
+                            }
+                        }
+                    }
                 }
                 else
                 {
-                    txtnewPassword.Text = "Passwords Don't Match!";
-                    txtPassConfirm.Text = "Passwords Don't Match!";
+                    MessageBox.Show("Please enter all the fields");
                 }
+
+
             }
             catch (Exception ex)
             {
@@ -66,7 +98,12 @@ namespace com.GreenThumb.WPF_Presentation
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            //this.Close();
+            this.txtFName.Text = string.Empty;
+            this.txtLName.Text = string.Empty;
+            this.txtnewUsername.Text = string.Empty;
+            this.txtnewPassword.Password = string.Empty;
+            this.txtPassConfirm.Password = string.Empty;
         }
     }
 }

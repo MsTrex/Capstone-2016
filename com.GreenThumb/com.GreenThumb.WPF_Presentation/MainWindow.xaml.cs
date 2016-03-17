@@ -242,10 +242,10 @@ namespace com.GreenThumb.WPF_Presentation
         }
         private void btnSideBar1_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (btnSideBar1.Content.ToString() == "Create Garden")
+            if (btnSideBar1.Content.ToString().ToLowerInvariant() == "create a garden")
             {
                 //mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
-                mainFrame.NavigationService.Navigate(new GardenPages.CreateGarden(_accessToken));
+                mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
 
             }
             else if (btnSideBar1.Content.ToString() == "Messages")
