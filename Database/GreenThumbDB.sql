@@ -4027,11 +4027,11 @@ exec Gardens.spInsertPostThreads			'plant question'		,1 					,2 					,1 				,100
 --* spInsertPostLineItems        			@PostID				@PostLineID int,	@UserID int,	@GroupID int,@DateSent smalldatetime,	@CommentContent varchar(255)
 exec Gardens.spInsertPostLineItems			1000				,1					,1000				,1000			,'10/10/10'				,'Yes'
 				
---* spInsertTasks                			@Description VARCHAR(100),	@dateAssigned smalldatetime,	@Datecompleted smalldatetime,	@AssignedTo int,	@AssignedFrom int,	@userNotes varchar(250))
-exec Gardens.spInsertTasks					'Watering the garden'		,'4/4/44'						,'4/4/04'						,1001				,1002				,'Poppy said do this, Sally'
+--* spInsertTasks                			@gardenID int not null,		@Description VARCHAR(100),	@dateAssigned smalldatetime,	@Datecompleted smalldatetime,	@AssignedTo int,	@AssignedFrom int,	@userNotes varchar(250))
+exec Gardens.spInsertTasks					1000	,						'Watering the garden'		,'4/4/44'						,'4/4/04'						,1001				,1002				,'Poppy said do this, Sally'
 			
---* spInsertWorkLogs             			@UserID int,	@TaskID int,	@GardenID int,	@TimeBegun smalldatetime,	@TimeFinished smalldatetime
-exec Gardens.spInsertWorkLogs				1000			,1000			,1000				,'9/25/57'					,'9/26/57'
+--* spInsertWorkLogs             			@UserID int,	@TaskID int,	@TimeBegun smalldatetime,	@TimeFinished smalldatetime
+exec Gardens.spInsertWorkLogs				1000			,1000			,'9/25/57'					,'9/26/57'
 
 ----------------------------DONATIONS------------------------------------
 print 'donations'
