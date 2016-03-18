@@ -1881,7 +1881,7 @@ create procedure [Admin].[spInsertUsers] (
 AS
 BEGIN
 
-IF ((SELECT COUNT(*) FROM Admin.Users AU WHERE AU.UserName = @UserName) > 0)
+IF ((SELECT COUNT(*) FROM Admin.Users AU WHERE LOWER(AU.UserName) = LOWER(@UserName)) > 0)
 	BEGIN
 		RETURN 2		
 	END
@@ -3950,7 +3950,7 @@ go
 /******************************* Test Data ****************************************/
 /**********************************************************************************/
 
-exec Admin.spInsertUsers 'Jeff', 'Bridges', '11111', 'E@E.com', 'jeffb', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', null;
+exec Admin.spInsertUsers 'Jeff', 'Bridges', '11111', 'E@E.com', 'jeffB', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', null;
 
 
 

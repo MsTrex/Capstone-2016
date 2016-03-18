@@ -7,7 +7,7 @@
       d:DesignHeight="300" d:DesignWidth="900"
 	Title="CreateGarden">
 
-    <Grid Background="Aqua" Margin="0,0,0,0">
+    <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -21,7 +21,7 @@
         </Grid.ColumnDefinitions>
 
 
-        <Grid Background="Aqua" Grid.Row="0" Grid.ColumnSpan="2" Margin="50,0,50,0" >
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="50,0,50,0" >
 
             <Label FontSize="15" Content="Create a Garden Page Content -- Fields Needed To Insert Data into Garden Table"></Label>
         </Grid>

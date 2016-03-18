@@ -103,7 +103,7 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new HomeContent(_accessToken));
-            btnSideBar1.Content = "Messages";
+            btnSideBar1.Content = "btnSideBar1";
             btnSideBar2.Content = "btnSideBar2";
             btnSideBar3.Content = "btnSideBar3";
             btnSideBar4.Content = "btnSideBar4";
@@ -141,7 +141,6 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnExpert_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new ExpertPages.ExpertHome(_accessToken));
-            //mainFrame.NavigationService.Navigate(new Uri("Expert.xaml", UriKind.Relative));
             btnSideBar1.Content = "Become an Expert";
             btnSideBar2.Content = "btnSideBar2";
             btnSideBar3.Content = "btnSideBar3";
@@ -158,8 +157,9 @@ namespace com.GreenThumb.WPF_Presentation
 
         private void btnAdmin_Click(object sender, RoutedEventArgs e)
         {
+            mainFrame.NavigationService.Navigate(new AdminPages.AdminHome(_accessToken));
             btnSideBar1.Content = "User Edit";
-            btnSideBar2.Content = "btnSideBar2";
+            btnSideBar2.Content = "Messages";
             btnSideBar3.Content = "btnSideBar3";
             btnSideBar4.Content = "btnSideBar4";
             btnSideBar5.Content = "btnSideBar5";
@@ -188,6 +188,8 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar9.Content = "btnSideBar9";
             btnSideBar10.Content = "btnSideBar10";
         }
+        
+            
 
 
         /// <summary>
@@ -199,13 +201,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             if (btnSideBar1.Content.ToString().ToLowerInvariant() == "create a garden")
             {
-                //mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
-                mainFrame.NavigationService.Navigate(new Uri("GardenPages/CreateGarden.xaml", UriKind.Relative));
-
-            }
-            else if (btnSideBar1.Content.ToString() == "Messages")
-            {
-                mainFrame.NavigationService.Navigate(new Uri("GardenPages/AdminMessages.xaml", UriKind.Relative));
+                mainFrame.NavigationService.Navigate(new GardenPages.CreateGarden(_accessToken));
             }
             else if (btnSideBar1.Content.ToString() == "User Edit")
             {
@@ -220,7 +216,11 @@ namespace com.GreenThumb.WPF_Presentation
         /// Date: 3/9/16
         /// </summary>
         private void btnSideBar2_MouseDown(object sender, MouseButtonEventArgs e)
-        {
+        {            
+            if (btnSideBar1.Content.ToString() == "Messages")
+            {
+                mainFrame.NavigationService.Navigate(new Uri("GardenPages/AdminMessages.xaml", UriKind.Relative));
+            }
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -229,6 +229,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar3_MouseDown(object sender, MouseButtonEventArgs e)
         {
+
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -237,6 +238,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar4_MouseDown(object sender, MouseButtonEventArgs e)
         {
+
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -245,6 +247,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar5_MouseDown(object sender, MouseButtonEventArgs e)
         {
+
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -253,6 +256,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar6_MouseDown(object sender, MouseButtonEventArgs e)
         {
+
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -261,6 +265,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar7_MouseDown(object sender, MouseButtonEventArgs e)
         {
+
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -269,6 +274,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar8_MouseDown(object sender, MouseButtonEventArgs e)
         {
+
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -277,6 +283,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar9_MouseDown(object sender, MouseButtonEventArgs e)
         {
+
         }
         /// <summary>
         /// Author: Chris Sheehan

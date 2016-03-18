@@ -12,17 +12,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using com.GreenThumb.BusinessObjects;
 
-namespace com.GreenThumb.WPF_Presentation
+
+namespace com.GreenThumb.WPF_Presentation.AdminPages
 {
     /// <summary>
-    /// Interaction logic for Gardens.xaml
+    /// Interaction logic for AdminHome.xaml
     /// </summary>
-    public partial class Gardens : Page
+    public partial class AdminHome : Page
     {
-        public Gardens()
+        public AdminHome(AccessToken _accessToken)
         {
             InitializeComponent();
+            if (_accessToken != null)
+            {
+
+            }
+            else
+            {
+
+            }
         }
     }
 }

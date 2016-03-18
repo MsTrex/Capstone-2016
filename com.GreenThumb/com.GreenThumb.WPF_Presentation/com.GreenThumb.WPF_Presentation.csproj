@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AdminPages\AdminHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ExpertPages\ExpertHome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -92,14 +96,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Gardens.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="HomeContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="AdminPages\AdminHome.xaml.cs">
+      <DependentUpon>AdminHome.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CreatePlant.xaml.cs">
       <DependentUpon>CreatePlant.xaml</DependentUpon>
     </Compile>
@@ -165,9 +168,6 @@
     </Compile>
     <Compile Include="GardenPages\CreateGarden.xaml.cs">
       <DependentUpon>CreateGarden.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gardens.xaml.cs">
-      <DependentUpon>Gardens.xaml</DependentUpon>
     </Compile>
     <Compile Include="HomeContent.xaml.cs">
       <DependentUpon>HomeContent.xaml</DependentUpon>
@@ -278,9 +278,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AdminPages\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets. -->

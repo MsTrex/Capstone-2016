@@ -29,6 +29,13 @@ namespace com.GreenThumb.WPF_Presentation
         private UserManager myUserManager = new UserManager();
 
         private AccessToken _accessToken;
+
+        /// <summary>
+        /// Author: Chris Schwebach	
+        /// Updated by Chris Sheehan
+        /// Update date: 3/18/2016
+        /// Update reason: update access token logic for when not logged in, disable submit button if not logged in
+        /// </summary>
         public UserEditPersonalInfo(AccessToken _accessToken)
         {
             this._accessToken = _accessToken;
@@ -43,18 +50,26 @@ namespace com.GreenThumb.WPF_Presentation
             txtEmailAddress.Clear();
             txtRegionID.Clear();
 
-            txtFirstName.Text = _accessToken.FirstName;
-            txtLastName.Text = _accessToken.LastName;
-            txtZip.Text = _accessToken.Zip;
-            txtEmailAddress.Text = _accessToken.EmailAddress;
-            if (_accessToken.RegionId == 0)
-            {
-                txtRegionID.Text = "";
+
+            
+            if (_accessToken != null)
+            { 
+                txtFirstName.Text = _accessToken.FirstName;
+                txtLastName.Text = _accessToken.LastName;
+                txtZip.Text = _accessToken.Zip;
+                txtEmailAddress.Text = _accessToken.EmailAddress;
+                if (_accessToken.RegionId == 0 || _accessToken.RegionId == null)
+                {
+                    txtRegionID.Text = "";
+                }
+                else
+                {
+                    txtRegionID.Text = _accessToken.RegionId.ToString();
+                }
+              
             }
-            else
-            {
-                txtRegionID.Text = _accessToken.RegionId.ToString();
-            }
+            else { btnEditPersonalInfo.IsEnabled = false; }
+            
         }
 
         private void DisplayPersonalInfo()

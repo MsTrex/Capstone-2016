@@ -37,13 +37,18 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
         /// <summary>
         /// Empty Constructor for Create Garden class.
         /// </summary>
-        public CreateGarden()
+        public CreateGarden(AccessToken _accessToken)
         {
+            
             InitializeComponent();
-            organization = new Organization();/// Need to provide OrganizationID  
-            accessToken = new AccessToken();/// Need to provide UserID
-            organization.OrganizationID = 1000;
-            FillGroupData(organization.OrganizationID);
+            if (_accessToken != null)
+            {
+                organization = new Organization();/// Need to provide OrganizationID  
+                accessToken = _accessToken;/// Need to provide UserID
+                organization.OrganizationID = 1000;
+                FillGroupData(organization.OrganizationID);
+            }
+            else { btnSubmit.IsEnabled = false; }
         }
 
         /// <summary>
@@ -102,7 +107,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                 {
 
                     garden.GroupID = groupId;
-                    garden.UserID = 1002;//accessToken.UserID;
+                    garden.UserID = accessToken.UserID;
                     garden.GardenDescription = gDesc;
                     garden.GardenRegion = gRegion;
 
