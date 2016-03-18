@@ -181,7 +181,7 @@
 
             </StackPanel>
             <Grid Grid.Column="1">
-                <Frame Name="mainFrame" Margin="0,0,-0.4,0" NavigationUIVisibility="Hidden" Navigated="mainFrame_Navigated"></Frame>
+                <Frame Name="mainFrame" Margin="0,0,-0.4,0" NavigationUIVisibility="Hidden" ></Frame>
             </Grid>
         </Grid>
     </Grid>

@@ -12,17 +12,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using com.GreenThumb.BusinessObjects;
 
-namespace com.GreenThumb.WPF_Presentation
+namespace com.GreenThumb.WPF_Presentation.ExpertPages
 {
     /// <summary>
-    /// Interaction logic for Expert.xaml
+    /// Interaction logic for ExpertHome.xaml
     /// </summary>
-    public partial class Expert : Page
+    public partial class ExpertHome : Page
     {
-        public Expert()
+        public ExpertHome(AccessToken _accessToken)
         {
             InitializeComponent();
+            if (_accessToken != null)
+            {
+
+            }
+            else
+            {
+
+            }
         }
     }
 }

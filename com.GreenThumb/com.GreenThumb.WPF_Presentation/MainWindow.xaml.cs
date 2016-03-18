@@ -27,7 +27,7 @@ namespace com.GreenThumb.WPF_Presentation
         public MainWindow()
         {
             InitializeComponent();
-            mainFrame.NavigationService.Navigate(new Uri("HomeContent.xaml", UriKind.Relative));
+            mainFrame.NavigationService.Navigate(new HomeContent(_accessToken));
         }
 
         /// <summary>
@@ -94,6 +94,26 @@ namespace com.GreenThumb.WPF_Presentation
             NewUserCreation _newUser = new NewUserCreation();
             _newUser.ShowDialog();
         }
+
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Click logic for button btnHome
+        /// Date: 3/6/16
+        /// </summary>
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new HomeContent(_accessToken));
+            btnSideBar1.Content = "Messages";
+            btnSideBar2.Content = "btnSideBar2";
+            btnSideBar3.Content = "btnSideBar3";
+            btnSideBar4.Content = "btnSideBar4";
+            btnSideBar5.Content = "btnSideBar5";
+            btnSideBar6.Content = "btnSideBar6";
+            btnSideBar7.Content = "btnSideBar7";
+            btnSideBar8.Content = "btnSideBar8";
+            btnSideBar9.Content = "btnSideBar9";
+            btnSideBar10.Content = "btnSideBar10";
+        }
         /// <summary>
         /// Author: Chris Sheehan
         /// Click logic for button btnGardens
@@ -101,7 +121,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnGardens_click(object sender, RoutedEventArgs e)
         {
-            mainFrame.NavigationService.Navigate(new Uri("Gardens.xaml", UriKind.Relative));
+            mainFrame.NavigationService.Navigate(new GardenPages.GardenMain(_accessToken));
             btnSideBar1.Content = "Create a Garden";
             btnSideBar2.Content = "btnSideBar2";
             btnSideBar3.Content = "btnSideBar3";
@@ -120,6 +140,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnExpert_Click(object sender, RoutedEventArgs e)
         {
+            mainFrame.NavigationService.Navigate(new ExpertPages.ExpertHome(_accessToken));
             //mainFrame.NavigationService.Navigate(new Uri("Expert.xaml", UriKind.Relative));
             btnSideBar1.Content = "Become an Expert";
             btnSideBar2.Content = "btnSideBar2";
@@ -132,16 +153,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar9.Content = "btnSideBar9";
             btnSideBar10.Content = "btnSideBar10";
         }
-        /// <summary>
-        /// Author: Chris Sheehan
-        /// Click logic for button btnHome
-        /// Date: 3/6/16
-        /// </summary>
-        private void btnHome_Click(object sender, RoutedEventArgs e)
-        {
-            mainFrame.NavigationService.Navigate(new Uri("HomeContent.xaml", UriKind.Relative));
-            btnSideBar1.Content = "Messages";
-        }
+        
 
 
         private void btnAdmin_Click(object sender, RoutedEventArgs e)
@@ -176,10 +188,8 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar9.Content = "btnSideBar9";
             btnSideBar10.Content = "btnSideBar10";
         }
-        private void mainFrame_Navigated(object sender, NavigationEventArgs e)
-        {
 
-        }
+
         /// <summary>
         /// Author: Sara Nanke
         /// Click logic for the btnsidebarclick event
@@ -206,7 +216,7 @@ namespace com.GreenThumb.WPF_Presentation
         }
         /// <summary>
         /// Author: Chris Sheehan
-        /// Click logic for the btnsidebarclick event
+        /// Click logic for the btnsidebar2click event
         /// Date: 3/9/16
         /// </summary>
         private void btnSideBar2_MouseDown(object sender, MouseButtonEventArgs e)
@@ -214,7 +224,7 @@ namespace com.GreenThumb.WPF_Presentation
         }
         /// <summary>
         /// Author: Chris Sheehan
-        /// Click logic for the btnsidebarclick event
+        /// Click logic for the btnsidebar3click event
         /// Date: 3/9/16
         /// </summary>
         private void btnSideBar3_MouseDown(object sender, MouseButtonEventArgs e)
@@ -222,7 +232,7 @@ namespace com.GreenThumb.WPF_Presentation
         }
         /// <summary>
         /// Author: Chris Sheehan
-        /// Click logic for the btnsidebarclick event
+        /// Click logic for the btnsidebar4click event
         /// Date: 3/9/16
         /// </summary>
         private void btnSideBar4_MouseDown(object sender, MouseButtonEventArgs e)
@@ -230,7 +240,7 @@ namespace com.GreenThumb.WPF_Presentation
         }
         /// <summary>
         /// Author: Chris Sheehan
-        /// Click logic for the btnsidebarclick event
+        /// Click logic for the btnsidebar5click event
         /// Date: 3/9/16
         /// </summary>
         private void btnSideBar5_MouseDown(object sender, MouseButtonEventArgs e)
@@ -238,7 +248,7 @@ namespace com.GreenThumb.WPF_Presentation
         }
         /// <summary>
         /// Author: Chris Sheehan
-        /// Click logic for the btnsidebarclick event
+        /// Click logic for the btnsidebar6click event
         /// Date: 3/9/16
         /// </summary>
         private void btnSideBar6_MouseDown(object sender, MouseButtonEventArgs e)
@@ -246,7 +256,7 @@ namespace com.GreenThumb.WPF_Presentation
         }
         /// <summary>
         /// Author: Chris Sheehan
-        /// Click logic for the btnsidebarclick event
+        /// Click logic for the btnsidebar7click event
         /// Date: 3/9/16
         /// </summary>
         private void btnSideBar7_MouseDown(object sender, MouseButtonEventArgs e)
@@ -254,7 +264,7 @@ namespace com.GreenThumb.WPF_Presentation
         }
         /// <summary>
         /// Author: Chris Sheehan
-        /// Click logic for the btnsidebarclick event
+        /// Click logic for the btnsidebar8click event
         /// Date: 3/9/16
         /// </summary>
         private void btnSideBar8_MouseDown(object sender, MouseButtonEventArgs e)
@@ -262,7 +272,7 @@ namespace com.GreenThumb.WPF_Presentation
         }
         /// <summary>
         /// Author: Chris Sheehan
-        /// Click logic for the btnsidebarclick event
+        /// Click logic for the btnsidebar9click event
         /// Date: 3/9/16
         /// </summary>
         private void btnSideBar9_MouseDown(object sender, MouseButtonEventArgs e)
@@ -270,10 +280,12 @@ namespace com.GreenThumb.WPF_Presentation
         }
         /// <summary>
         /// Author: Chris Sheehan
-        /// Click logic for the btnsidebarclick event
+        /// Click logic for the btnsidebar10click event
         /// Date: 3/9/16
         /// </summary>
         private void btnSideBar10_MouseDown(object sender, MouseButtonEventArgs e)
-        { }
+        {
+
+        }
     }
 }

@@ -9,7 +9,7 @@
       Title="HomeContent">
 
     <Grid>
-        <Grid Background="Aqua">
+        <Grid>
             <Label FontSize="25" Content="Home Tab HOME Page Content"></Label>
 
         </Grid>

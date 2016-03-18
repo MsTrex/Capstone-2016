@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ExpertPages\ExpertHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GardenPages\AdminMessages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -76,11 +80,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Layout.xaml">
+    <Page Include="GardenPages\GardenMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ExpertPages\Expert.xaml">
+    <Page Include="Layout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -107,6 +111,12 @@
     </Compile>
     <Compile Include="EditUserEntry.xaml.cs">
       <DependentUpon>EditUserEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertPages\ExpertHome.xaml.cs">
+      <DependentUpon>ExpertHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\GardenMain.xaml.cs">
+      <DependentUpon>GardenMain.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageTask.xaml.cs">
       <DependentUpon>ManageTask.xaml</DependentUpon>
@@ -152,9 +162,6 @@
     </Compile>
     <Compile Include="Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ExpertPages\Expert.xaml.cs">
-      <DependentUpon>Expert.xaml</DependentUpon>
     </Compile>
     <Compile Include="GardenPages\CreateGarden.xaml.cs">
       <DependentUpon>CreateGarden.xaml</DependentUpon>

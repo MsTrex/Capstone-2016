@@ -14,15 +14,16 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using com.GreenThumb.BusinessObjects;
 
-namespace com.GreenThumb.WPF_Presentation
+namespace com.GreenThumb.WPF_Presentation.GardenPages
 {
     /// <summary>
-    /// Interaction logic for HomeContent.xaml
+    /// Interaction logic for GardenMain.xaml
     /// </summary>
-    public partial class HomeContent : Page
+    public partial class GardenMain : Page
     {
-        public HomeContent(AccessToken _accessToken)
+        public GardenMain(AccessToken _accessToken)
         {
+
             InitializeComponent();
             if (_accessToken != null)
             {
@@ -32,6 +33,7 @@ namespace com.GreenThumb.WPF_Presentation
             {
 
             }
+
         }
     }
 }

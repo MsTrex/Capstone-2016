@@ -1868,7 +1868,9 @@ go
 -----------Admin.Users--------------------
 ------------------------------------------
 
-create procedure Admin.spInsertUsers (
+--Modified By : Poonam Dubey 
+--Modified Date : 16th March 2016 
+create procedure [Admin].[spInsertUsers] (
 	@FirstName varchar(50),
 	@LastName varchar(100),
 	@Zip char(9) ,
@@ -1876,28 +1878,36 @@ create procedure Admin.spInsertUsers (
 	@UserName varchar(20),
 	@Password varchar(150),
 	@RegionID int)
-as
-begin
-insert into Admin.Users(
-	FirstName,
-	LastName,
-	Zip ,
-	EmailAddress,
-	UserName,
-	Password,
-	RegionID)
-values(
-	@FirstName,
-	@LastName,
-	@Zip ,
-	@EmailAddress,
-	@UserName,
-	@Password,
-	@RegionID);
-	return @@ROWCOUNT;
-end;
-go
+AS
+BEGIN
 
+IF ((SELECT COUNT(*) FROM Admin.Users AU WHERE AU.UserName = @UserName) > 0)
+	BEGIN
+		RETURN 2		
+	END
+ELSE
+	BEGIN
+		INSERT INTO Admin.Users(
+			FirstName,
+			LastName,
+			Zip ,
+			EmailAddress,
+			UserName,
+			Password,
+			RegionID)
+		VALUES(
+			@FirstName,
+			@LastName,
+			@Zip ,
+			@EmailAddress,
+			@UserName,
+			@Password,
+			@RegionID);
+
+			RETURN @@ROWCOUNT;
+	END;
+END;
+go
 
 CREATE PROCEDURE Admin.spUpdateUser (
 @UserID int,
@@ -3941,28 +3951,27 @@ go
 /**********************************************************************************/
 
 exec Admin.spInsertUsers 'Jeff', 'Bridges', '11111', 'E@E.com', 'jeffb', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', null;
-exec Admin.spInsertRoles 'Admin', 'Admin', 1000, '3-6-2016';
 
 
 
---inserts added by Sara Nanke 3/5/16
+/*inserts added by Sara Nanke 3/5/16 */
 
 -----------------------------ADMIN-------------------------------------
-print 'admin'
+print 'admin';
 GO
 
 --* spInsertRegions               		RegionID int,	SoilType varchar(20),	AverageTempSummer decimal,	AverageTempFall decimal,	AverageTempWinter decimal,	AverageTempSpring decimal,	AverageRainfall decimal,	CreatedBy int,	CreatedDate smalldatetime,	ModifiedBy int,	ModifiedDate smalldatetime
-exec Admin.spInsertRegions				1					,'dry'					,99.3						,66.2 						,40.5 						,58.5 						,5.8 						,1000 			,'3/7/89' 					,1000 			,'4/8/98'
-
+exec Admin.spInsertRegions				1					,'dry'					,99.3						,66.2 						,40.5 						,58.5 						,5.8 						,1000 			,'3/7/89' 					,1000 			,'4/8/98';
+go
 --* spInsertUsers						@FirstName varchar(50),	@LastName varchar(100),	@Zip char(9) ,	@EmailAddress varchar(100),	@UserName varchar(20),	@Password varchar(150),	@RegionID int
-exec Admin.spInsertUsers				'Sally'					,'Smith'				,'634529919'	,'sally.smith@gmail.com'	,'sSmith'				,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'				,1
-exec Admin.spInsertUsers				'Steve'					,'Poppers'				,'293428282'	,'steve.popper@yahoo.com'	,'sPopper'				,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'				,1
-exec Admin.spInsertUsers				'Al'					,'Chipper'				,'293829103'	,'al.chipper@gmail.com'		,'aChipper'				,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'				,1	
-
+exec Admin.spInsertUsers				'Sally'					,'Smith'				,'634529919'	,'sally.smith@gmail.com'	,'sSmith'				,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'				,null;
+exec Admin.spInsertUsers				'Steve'					,'Poppers'				,'293428282'	,'steve.popper@yahoo.com'	,'sPopper'				,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'				,null;
+exec Admin.spInsertUsers				'Al'					,'Chipper'				,'293829103'	,'al.chipper@gmail.com'		,'aChipper'				,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'				,null;
+go
 --* spInsertActivityLog					@UserID int, 	@date smalldatetime,	@LogEntry varchar(250)	@UserAction varchar(100)
 exec Admin.spInsertActivityLog			1000, 			'12/12/15', 			'This is a log entry',	'logged'
-		
------* spInsertGroupRequest				@UserID int,	@RequestStatus char(1),	@RequestDate smalldatetime,	@RequestedBy int,	@ApprovedDate smalldatetime,	@ApprovedBy int
+
+--* spInsertGroupRequest				@UserID int,	@RequestStatus char(1),	@RequestDate smalldatetime,	@RequestedBy int,	@ApprovedDate smalldatetime,	@ApprovedBy int
 exec Admin.spInsertGroupRequest			1000			,'a'						,'04/05/53'				,1000				,'2/5/87'						,1001
 
 --* spInsertMessages					@MessageContent varchar(250),	@MessageDate smalldatetime,	@Subject varchar(100),	@MessageSender int
@@ -3974,7 +3983,7 @@ exec Admin.spInsertMessageLineItems		1000			,1001			,'1/23/52'					,1002			,'1/4
 --* spInsertRoles						@RoleID				@Description varchar(100),	@CreatedBy int,	@CreatedDate smalldatetime 
 exec Admin.spInsertRoles				'Guest'				,'Guest'					,1003			,'1/4/99'
 exec Admin.spInsertRoles				'User'				,'User'						,1003			,'1/4/99'
---exec Admin.spInsertRoles				'Admin'				,'Admin'					,1003			,'1/4/99'
+exec Admin.spInsertRoles				'Admin'				,'Admin'					,1003			,'1/4/99'
 exec Admin.spInsertRoles				'Expert'			,'Expert'					,1003			,'1/4/99'
 exec Admin.spInsertRoles				'GroupMember'		,'Group Member'				,1003			,'1/4/99'
 exec Admin.spInsertRoles				'GroupLeader'	    ,'Group Leader'				,1003			,'1/4/99'
@@ -3988,7 +3997,7 @@ exec Admin.spInsertUserRoles			1003			,'User'			,1000			,'5/23/65'
 exec Admin.spInsertUserRoles			1003			,'Admin'		,1000			,'5/23/65'
 
 --* spInsertUserRoles           		@UserID int,	@RoleID int,	@CreatedBy int,	@CreatedDate smalldatetime    
-exec Admin.spInsertUserRoles			1000			,1000			,1000			,'5/23/65'
+exec Admin.spInsertUserRoles			1000			,'Admin'		,1000			,'5/23/65'
 
 -----------------------------GARDENS--------------------------------------
 print 'gardens'
