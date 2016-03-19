@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs6445.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Chris\AppData\Local\Temp\vs6677.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +34,11 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs6445.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Chris\AppData\Local\Temp\vs6677.tmp\Release\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -133,6 +137,9 @@
     <Compile Include="pages\CreateGarden.xaml.cs">
       <DependentUpon>CreateGarden.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProfilePages\EditPersonalInfo.xaml.cs">
+      <DependentUpon>EditPersonalInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ProfilePages\ProfileMain.xaml.cs">
       <DependentUpon>ProfileMain.xaml</DependentUpon>
     </Compile>
@@ -202,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="pages\CreateGarden.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProfilePages\EditPersonalInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

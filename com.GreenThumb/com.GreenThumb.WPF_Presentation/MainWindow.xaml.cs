@@ -158,7 +158,7 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnAdmin_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new AdminPages.AdminHome(_accessToken));
-            btnSideBar1.Content = "User Edit";
+            btnSideBar1.Content = "btnSideBar1";
             btnSideBar2.Content = "Messages";
             btnSideBar3.Content = "btnSideBar3";
             btnSideBar4.Content = "btnSideBar4";
@@ -177,7 +177,7 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
-            btnSideBar1.Content = "btnSideBar1";
+            btnSideBar1.Content = "Edit Personal Info";
             btnSideBar2.Content = "btnSideBar2";
             btnSideBar3.Content = "btnSideBar3";
             btnSideBar4.Content = "btnSideBar4";
@@ -203,10 +203,9 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 mainFrame.NavigationService.Navigate(new GardenPages.CreateGarden(_accessToken));
             }
-            else if (btnSideBar1.Content.ToString() == "User Edit")
+            else if (btnSideBar1.Content == "Edit Personal Info")
             {
-                UserEditPersonalInfo uepi = new UserEditPersonalInfo(_accessToken);
-                uepi.ShowDialog();
+                mainFrame.NavigationService.Navigate(new ProfilePages.EditPersonalInfo(_accessToken));
             }
 
         }

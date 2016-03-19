@@ -31,7 +31,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             string lastName = "Smith";
             string zip = "123456789";
             string emailAddress = "hello@gmail.com";
-            int? regionId = null;
+            int? regionId = 1;
 
             //act
             bool result = userManager.EditUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, regionId);
@@ -75,7 +75,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             string lastName = "Smith";
             string zip = "123456789";
             string emailAddress = "";
-            int? regionId = null;
+            int? regionId = 1;
 
             //act
             bool result = userManager.EditUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, regionId);

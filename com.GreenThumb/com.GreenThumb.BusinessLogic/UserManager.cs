@@ -16,7 +16,7 @@ namespace com.GreenThumb.BusinessLogic
         ///Author: Chris Schwebach
         ///EditUserPersonalInfo validates input from user calling to the UserAccessor
         ///Date: 3/3/16
-        ///Updated Date: 3/8/16
+        ///Updated Date: 3/19/16
         ///Updated regionID user input parameters
         ///</summary>
         public bool EditUserPersonalInfo(int userID, string firstName, string lastName, string zip, string emailAddress, int? regionId)
@@ -39,9 +39,9 @@ namespace com.GreenThumb.BusinessLogic
             {
                 throw new ApplicationException("Invalid Email Address! Email must be less than 100 characters in length.");
             }
-            else if (regionId < 1 || regionId > 9)
+            else if (regionId == 10)
             {
-                throw new ApplicationException("Invalid RegionID! Must be a nuemeric value between 1 and 10.");
+                throw new ApplicationException("Please choose a regionID or choose none to opt out!");
             }
 
             try
