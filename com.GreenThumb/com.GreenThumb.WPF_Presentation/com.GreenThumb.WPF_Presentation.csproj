@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\Chris\AppData\Local\Temp\vs6677.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\PDUBEY\AppData\Local\Temp\vsD874.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\Chris\AppData\Local\Temp\vs6677.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\PDUBEY\AppData\Local\Temp\vsD874.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -92,6 +92,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GardenPages\ViewGarden.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Layout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,6 +128,9 @@
     </Compile>
     <Compile Include="GardenPages\GardenMain.xaml.cs">
       <DependentUpon>GardenMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\ViewGarden.xaml.cs">
+      <DependentUpon>ViewGarden.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageTask.xaml.cs">
       <DependentUpon>ManageTask.xaml</DependentUpon>
