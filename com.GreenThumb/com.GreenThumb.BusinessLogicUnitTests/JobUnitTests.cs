@@ -33,7 +33,7 @@ namespace com.GreenThumb.UnitTests
             job.DateCompleted = new DateTime(1998, 04, 30);
             job.AssignedTo = 1000;
             job.AssignedFrom = 1000;
-            job.UserNotes = "Gardening is done";
+            job.UserNotes = "Gardening is done!";
             job.Active = true;
 
             // act
