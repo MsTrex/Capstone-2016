@@ -71,6 +71,13 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 MessageBox.Show("Your record created succssfully!");
                 DisplayTaskData();
+                txtAssignedFrom.Clear();
+                txtAssignedTo.Clear();
+                txtDateAssigned.Clear();
+                txtDateCompleted.Clear();
+                txtGardenID.Clear();
+                txtTaskDescription.Clear();
+                txtuserNotes.Clear();
 
             }
             else if (myBool == false)
