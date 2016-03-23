@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\user\AppData\Local\Temp\vs7D08.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Chris\AppData\Local\Temp\vsBC54.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\user\AppData\Local\Temp\vs7D08.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Chris\AppData\Local\Temp\vsBC54.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -65,6 +65,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExpertPages\ExpertHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExpertPages\RecipeInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,6 +129,9 @@
     </Compile>
     <Compile Include="ExpertPages\ExpertHome.xaml.cs">
       <DependentUpon>ExpertHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertPages\RecipeInput.xaml.cs">
+      <DependentUpon>RecipeInput.xaml</DependentUpon>
     </Compile>
     <Compile Include="GardenPages\GardenMain.xaml.cs">
       <DependentUpon>GardenMain.xaml</DependentUpon>
@@ -291,7 +298,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\RegionId.jpeg" />
     <Resource Include="Images\greenThumb.png" />
+    <Resource Include="Images\cutting-board-with-vegetables.jpg" />
     <Content Include="Images\organic-vegetable-garden-1319014.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

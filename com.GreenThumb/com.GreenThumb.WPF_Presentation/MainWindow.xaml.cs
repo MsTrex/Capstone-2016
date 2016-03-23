@@ -142,7 +142,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             mainFrame.NavigationService.Navigate(new ExpertPages.ExpertHome(_accessToken));
             btnSideBar1.Content = "Become an Expert";
-            btnSideBar2.Content = "btnSideBar2";
+            btnSideBar2.Content = "Insert Recipe";
             btnSideBar3.Content = "btnSideBar3";
             btnSideBar4.Content = "btnSideBar4";
             btnSideBar5.Content = "btnSideBar5";
@@ -214,11 +214,20 @@ namespace com.GreenThumb.WPF_Presentation
         /// Click logic for the btnsidebar2click event
         /// Date: 3/9/16
         /// </summary>
+        /// <remarks>
+        /// Updater Chris Schwebach
+        /// Updated: 2016/03/15
+        /// Changed btnSideBar2 event Insert Recipe 
+        /// </remarks>
         private void btnSideBar2_MouseDown(object sender, MouseButtonEventArgs e)
         {            
-            if (btnSideBar1.Content.ToString() == "Messages")
+            if (btnSideBar2.Content.ToString() == "Messages")
             {
                 mainFrame.NavigationService.Navigate(new Uri("GardenPages/AdminMessages.xaml", UriKind.Relative));
+            }
+            else if (btnSideBar2.Content == "Insert Recipe")
+            {
+                mainFrame.NavigationService.Navigate(new ExpertPages.RecipeInput(_accessToken));
             }
         }
         /// <summary>

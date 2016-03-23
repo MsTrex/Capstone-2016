@@ -4,10 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="700"
+      d:DesignHeight="500" d:DesignWidth="800"
 	Title="EditPersonalInfo">
     <Grid>
-        <DataGrid x:Name="grdPersonalInfo" HorizontalAlignment="Left" Margin="86,71,0,0" VerticalAlignment="Top" Width="500" Height="63" AutoGenerateColumns="False">
+        <DataGrid x:Name="grdPersonalInfo" HorizontalAlignment="Left" Margin="112,71,0,0" VerticalAlignment="Top" Width="500" Height="63" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="First Name" Width="100" Binding="{Binding Path=FirstName}" />
                 <DataGridTextColumn Header="Last Name" Width="100" Binding="{Binding Path=LastName}" />
@@ -17,20 +17,20 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Edit Personal Information" HorizontalAlignment="Left" Margin="23,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-        <Label Content="First Name:" HorizontalAlignment="Left" Margin="27,173,0,0" VerticalAlignment="Top"/>
+        <Label Content="First Name:" HorizontalAlignment="Left" Margin="27,177,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtFirstName" HorizontalAlignment="Left" Height="30" Margin="112,173,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140" />
-        <Label Content="Last Name:" HorizontalAlignment="Left" Margin="348,173,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtLastName" HorizontalAlignment="Left" Height="30" Margin="432,173,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140"/>
-        <Label Content="Zip:" HorizontalAlignment="Left" Margin="68,231,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtZip" HorizontalAlignment="Left" Height="30" Margin="112,231,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140"/>
-        <Label Content="(optional)" HorizontalAlignment="Left" Margin="257,235,0,0" VerticalAlignment="Top" FontSize="10" Background="#FFF6F7FD" Foreground="#FF0B15F5"/>
-        <Label Content="RegionID:" HorizontalAlignment="Left" Margin="356,231,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtEmailAddress" HorizontalAlignment="Left" Height="30" Margin="112,288,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140"/>
-        <Label Content="(optional)" HorizontalAlignment="Left" Margin="257,291,0,0" VerticalAlignment="Top" FontSize="10" Background="#FFF6F7FD" Foreground="#FF0B15F5"/>
-        <Label Content="Email Address:" HorizontalAlignment="Left" Margin="10,288,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.654"/>
-        <Button x:Name="btnEditPersonalInfo" Content="Submit" HorizontalAlignment="Left" Margin="177,365,0,0" VerticalAlignment="Top" Width="75" Click="btnEditPersonalInfo_Click"/>
-        <Button x:Name="btnCancelEdit" Content="Cancel" HorizontalAlignment="Left" Margin="372,365,0,0" VerticalAlignment="Top" Width="75" Click="btnCancelEdit_Click"/>
-        <ComboBox HorizontalAlignment="Left" Margin="432,235,0,0" VerticalAlignment="Top" Width="69" Height="26" SelectedIndex="0">
+        <Label Content="Last Name:" HorizontalAlignment="Left" Margin="28,234,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtLastName" HorizontalAlignment="Left" Height="30" Margin="112,230,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140"/>
+        <Label Content="Zip:" HorizontalAlignment="Left" Margin="68,293,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtZip" HorizontalAlignment="Left" Height="30" Margin="112,289,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140"/>
+        <Label Content="(optional)" HorizontalAlignment="Left" Margin="257,296,0,0" VerticalAlignment="Top" FontSize="10" Background="#FFF6F7FD" Foreground="#FF0B15F5"/>
+        <Label Content="RegionID:" HorizontalAlignment="Left" Margin="355,177,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtEmailAddress" HorizontalAlignment="Left" Height="30" Margin="112,345,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140"/>
+        <Label Content="(optional)" HorizontalAlignment="Left" Margin="257,351,0,0" VerticalAlignment="Top" FontSize="10" Background="#FFF6F7FD" Foreground="#FF0B15F5"/>
+        <Label Content="Email Address:" HorizontalAlignment="Left" Margin="10,349,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.654"/>
+        <Button x:Name="btnEditPersonalInfo" Content="Submit" HorizontalAlignment="Left" Margin="68,414,0,0" VerticalAlignment="Top" Width="75" Click="btnEditPersonalInfo_Click"/>
+        <Button x:Name="btnCancelEdit" Content="Cancel" HorizontalAlignment="Left" Margin="199,414,0,0" VerticalAlignment="Top" Width="75" Click="btnCancelEdit_Click"/>
+        <ComboBox HorizontalAlignment="Left" Margin="421,173,0,0" VerticalAlignment="Top" Width="69" Height="26" SelectedIndex="0">
             <ComboBoxItem Content="" HorizontalAlignment="Left" Width="93" Selected="Na_Item_Selected"/>
             <ComboBoxItem Content="None" HorizontalAlignment="Left" Width="93" Selected="None_Item_Selected"/>
             <ComboBoxItem Content="1" HorizontalAlignment="Left" Width="118" Selected="one_Item_Selected"/>
@@ -43,5 +43,6 @@
             <ComboBoxItem Content="8" HorizontalAlignment="Left" Width="118" Selected="eight_Item_Selected"/>
             <ComboBoxItem Content="9" HorizontalAlignment="Left" Width="118" Selected="nine_Item_Selected"/>
         </ComboBox>
+        <Image HorizontalAlignment="Left" Margin="355,230,0,0" VerticalAlignment="Top" Source="/com.GreenThumb.WPF_Presentation;component/Images/RegionId.jpeg"/>
     </Grid>
 </Page>
