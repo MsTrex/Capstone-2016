@@ -219,7 +219,7 @@ namespace com.GreenThumb.WPF_Presentation
         {            
             if (btnSideBar1.Content.ToString() == "Messages")
             {
-                mainFrame.NavigationService.Navigate(new Uri("GardenPages/AdminMessages.xaml", UriKind.Relative));
+                mainFrame.NavigationService.Navigate(new GardenPages.AdminMessages(_accessToken));
             }
         }
         /// <summary>
