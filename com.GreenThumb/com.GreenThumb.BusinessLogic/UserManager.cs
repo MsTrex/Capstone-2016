@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using com.GreenThumb.BusinessObjects;
 using com.GreenThumb.DataAccess;
+using BusinessLogic.Interfaces;
 
 namespace com.GreenThumb.BusinessLogic
 {
@@ -138,7 +139,7 @@ namespace com.GreenThumb.BusinessLogic
                                    string userName,
                                    string passWord,
                                    bool   active,
-                                   int?    regionID)
+                                   int?   regionID)
         {
             try
             {
