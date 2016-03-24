@@ -55,6 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecipeAccessor.cs" />
     <Compile Include="RoleAccessor.cs" />
+    <Compile Include="TimePledgedAccessor.cs" />
     <Compile Include="UserAccessor.cs" />
     <Compile Include="UserRoleAccessor.cs" />
   </ItemGroup>

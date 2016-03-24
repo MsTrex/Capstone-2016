@@ -152,7 +152,26 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar9.Content = "btnSideBar9";
             btnSideBar10.Content = "btnSideBar10";
         }
-        
+
+        /// <summary>
+        /// Author: Emily West
+        /// Click logic for button btnVolunteer
+        /// </summary>
+        private void btnVolunteer_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new VolunteerPages.VolunteerHome(_accessToken));
+            btnSideBar1.Content = "Edit Volunteer Availability";
+            btnSideBar2.Content = "btnSideBar2";
+            btnSideBar3.Content = "btnSideBar3";
+            btnSideBar4.Content = "btnSideBar4";
+            btnSideBar5.Content = "btnSideBar5";
+            btnSideBar6.Content = "btnSideBar6";
+            btnSideBar7.Content = "btnSideBar7";
+            btnSideBar8.Content = "btnSideBar8";
+            btnSideBar9.Content = "btnSideBar9";
+            btnSideBar10.Content = "btnSideBar10";
+
+        }
 
 
         private void btnAdmin_Click(object sender, RoutedEventArgs e)
@@ -206,6 +225,10 @@ namespace com.GreenThumb.WPF_Presentation
             else if (btnSideBar1.Content == "Edit Personal Info")
             {
                 mainFrame.NavigationService.Navigate(new ProfilePages.EditPersonalInfo(_accessToken));
+            }
+            else if(btnSideBar1.Content == "Edit Volunteer Availability")
+            {
+                mainFrame.NavigationService.Navigate(new VolunteerPages.EditVolunteerAvailability(_accessToken));
             }
 
         }
@@ -302,5 +325,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
 
         }
+
+       
     }
 }
