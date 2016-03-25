@@ -12,7 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Shapes;using com.GreenThumb.BusinessObjects;
 
 namespace com.GreenThumb.WPF_Presentation.GardenPages
 {
@@ -25,9 +25,15 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
         private static MessageManager messageManager = new MessageManager();
         private List<Message> messages = messageManager.GetUserMessages();
         
-        public AdminMessages()
+        public AdminMessages(AccessToken _assessToken)
         {
             InitializeComponent();
+            if(_assessToken != null)
+            {
+
+            }
+            else
+            { }
         }
 
         /// <summary>

@@ -58,6 +58,7 @@
     <Compile Include="RecipeManagerUnitTests.cs" />
     <Compile Include="SecurityManagerUnitTests.cs" />
     <Compile Include="UnitTest1.cs" />
+    <Compile Include="UnitTestUserRegion.cs" />
     <Compile Include="UserManagerUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>

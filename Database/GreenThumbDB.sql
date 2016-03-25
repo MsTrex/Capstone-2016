@@ -53,6 +53,21 @@ create table Admin.ActivityLog(
 );
 go
 
+--modified by trent cullinan 3-24-2016
+CREATE TABLE [Admin].[ExpertRequests](
+	RequestID		INT IDENTITY(1000,1) 		NOT NULL primary key,
+	UserID			INT							NOT NULL,
+	Title			VARCHAR(20)					NOT NULL,
+	Content			VARCHAR(MAX)				NOT NULL,
+	DateCreated		datetime					NOT NULL DEFAULT GETDATE(),
+	DateModified	datetime					NULL,
+	ModifiedBy		INT							NULL,
+	Active			BIT							NOT NULL DEFAULT 1,
+	Approved		BIT							NULL
+);
+
+--replaced by table (above) by trent cullinan 3-24-2016, kept for archive
+/*
 create table Admin.ExpertRequest(
 	RequestID int identity(1000,1) primary key not null,
 	UserID int not null,
@@ -65,6 +80,7 @@ create table Admin.ExpertRequest(
 	ApplicationDescription varchar(255) null
 );
 go
+*/
 
 create table Admin.GroupRequest(
 	RequestID int identity(1000,1) primary key not null,
@@ -731,6 +747,18 @@ ALTER TABLE Admin.ActivityLog WITH NOCHECK ADD  CONSTRAINT [FK_ActivityLog_UserI
 REFERENCES Admin.Users(UserID);
 GO
 ALTER TABLE Admin.ActivityLog CHECK CONSTRAINT FK_ActivityLog_UserID;
+GO
+
+--added by trent cullinan 3-24-16
+ALTER TABLE [Admin].[ExpertRequests] WITH NOCHECK
+	ADD CONSTRAINT [FK_ExpertRequests_UserID] FOREIGN KEY ([UserID])
+		REFERENCES [Admin].[Users] ([UserID]);
+GO
+
+--added by trent cullinan 3-24-16
+ALTER TABLE [Admin].[ExpertRequests] WITH NOCHECK
+	ADD CONSTRAINT [FK_ExpertRequests_ModifiedBy] FOREIGN KEY ([ModifiedBy])
+		REFERENCES [Admin].[Users] ([UserID]);
 GO
 
 ALTER TABLE Admin.GroupRequest WITH NOCHECK ADD  CONSTRAINT [FK_GroupRequest_UserID] FOREIGN KEY(UserID)
@@ -1463,38 +1491,38 @@ go
 ------------------------------------------
 
 create procedure Admin.spInsertExpertRequest(
+@RequestID int,
 @UserID int, 
-@RequestStatus char(1),
-@RequestDate smalldatetime,
-@RequestedBy int,
-@ApprovedDate smalldatetime,
-@ApprovedBy int,
-@ApplicationTitle varchar,
-@ApplicationDescription varchar
+@Title varchar(20),
+@Content VARCHAR(MAX),
+@DateCreated datetime, 
+@DateModified datetime,
+@ModifiedBy int,
+@Active bit,
+@Approved bit
 )
 as
 begin
 insert into Admin.ExpertRequest(
 UserID, 
-RequestStatus,
-RequestDate,
-RequestedBy,
-ApprovedDate,
-ApprovedBy,
-ApplicationTitle,
-ApplicationDescription
-
+Title,
+Content,
+DateCreated,
+DateModified,
+ModifiedBy,
+Active,
+Approved
 )
 values
 (
 @UserID,
-@RequestStatus,
-@RequestDate,
-@RequestedBy,
-@ApprovedDate,
-@ApprovedBy,   
-@ApplicationTitle,
-@ApplicationDescription
+@Title,
+@Content,
+@DateCreated,
+@DateModified,
+@ModifiedBy,   
+@Active,
+@Approved
 );
 
 return @@ROWCOUNT;
@@ -3754,10 +3782,11 @@ Go
 -----------Gardens.Organizations----------
 ------------------------------------------
 
+--modified by Kris Johnson 3-24-16
 --Modified by Chris Sheehan, removed OrganizationContact varchar(100) added OrganizationLeader int should come from userID table 2-25-16
 create procedure Gardens.spInsertOrganizations(
 	@OrganizationName varchar(100),
-	@OrganizationLeader varchar(100),
+	@OrganizationLeader int,
 	@ContactPhone char(10))
 as 
 begin
