@@ -1898,7 +1898,12 @@ go
 
 --Modified By : Poonam Dubey 
 --Modified Date : 16th March 2016 
-create procedure [Admin].[spInsertUsers] (
+--==========================================================--
+--Modified By : Poonam Dubey 
+--Modified Date : 16th March 2016 
+--Description : Added code to insert value into userrole table
+--==========================================================--
+CREATE procedure [Admin].[spInsertUsers] (
 	@FirstName varchar(50),
 	@LastName varchar(100),
 	@Zip char(9) ,
@@ -1909,9 +1914,11 @@ create procedure [Admin].[spInsertUsers] (
 AS
 BEGIN
 
+DECLARE @UserID INT = 0
+
 IF ((SELECT COUNT(*) FROM Admin.Users AU WHERE LOWER(AU.UserName) = LOWER(@UserName)) > 0)
 	BEGIN
-		RETURN 2		
+		SELECT 2 'ReturnValue'		
 	END
 ELSE
 	BEGIN
@@ -1932,9 +1939,29 @@ ELSE
 			@Password,
 			@RegionID);
 
-			RETURN @@ROWCOUNT;
+		SET @UserID = (SELECT IDENT_CURRENT('Admin.Users'))
+
+		INSERT INTO Admin.UserRoles 
+		(
+		UserID,
+		RoleID,
+		CreatedBy,
+		CreatedDate,
+		Active
+		)
+		VALUES(
+		@UserID,
+		'User',
+		1000,
+		GETDATE(),
+		1
+		);
+
+			SELECT 1 AS 'ReturnValue';
 	END;
 END;
+
+--*************************************************************
 go
 
 CREATE PROCEDURE Admin.spUpdateUser (

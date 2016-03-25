@@ -42,17 +42,14 @@ namespace com.GreenThumb.WPF_Presentation.VolunteerPages
             
         //}
 
-<<<<<<< HEAD
         //private void btnSubmitHours_Click(object sender, RoutedEventArgs e)
         //{
         //    donationManager.AddVolunteerHours(startTime, finishTime, datePledged, _accessToken.UserID);
         //}
-=======
         private void btnSubmitHours_Click(object sender, RoutedEventArgs e)
         {
             //donationManager.AddVolunteerHours(startTime, finishTime, datePledged, _accessToken.UserID);
         }
->>>>>>> 8b299c58c31adbbf40cde744be85170ea94ad87b
 
         //private void cmbbxStartTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
         //{

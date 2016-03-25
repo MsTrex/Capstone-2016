@@ -24,11 +24,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vsD8FF.tmp\Debug\</IntermediateOutputPath>
-=======
-    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs887B.tmp\Debug\</IntermediateOutputPath>
->>>>>>> 8b299c58c31adbbf40cde744be85170ea94ad87b
+    <IntermediateOutputPath>C:\Users\PDUBEY\AppData\Local\Temp\vs7B40.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,11 +35,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vsD8FF.tmp\Release\</IntermediateOutputPath>
-=======
-    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs887B.tmp\Release\</IntermediateOutputPath>
->>>>>>> 8b299c58c31adbbf40cde744be85170ea94ad87b
+    <IntermediateOutputPath>C:\Users\PDUBEY\AppData\Local\Temp\vs7B40.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -68,13 +62,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-<<<<<<< HEAD
     <Compile Include="GardenPages\CompleteTask.xaml.cs">
       <DependentUpon>CompleteTask.xaml</DependentUpon>
     </Compile>
-=======
     <Compile Include="RegionPage.xaml.cs" />
->>>>>>> 8b299c58c31adbbf40cde744be85170ea94ad87b
     <Compile Include="VolunteerPages\EditVolunteerAvailability.xaml.cs">
       <DependentUpon>EditVolunteerAvailability.xaml</DependentUpon>
     </Compile>
