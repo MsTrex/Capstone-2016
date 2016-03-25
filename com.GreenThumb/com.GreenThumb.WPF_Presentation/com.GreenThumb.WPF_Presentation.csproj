@@ -25,6 +25,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs9C5A.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vsD8FF.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vsF684.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,6 +37,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs9C5A.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vsD8FF.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vsF684.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -60,11 +64,32 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdminPages\AdminProcessExpertRequests.xaml.cs">
+      <DependentUpon>AdminProcessExpertRequests.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\CompleteTask.xaml.cs">
+      <DependentUpon>CompleteTask.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RegionPage.xaml.cs" />
+    <Compile Include="VolunteerPages\EditVolunteerAvailability.xaml.cs">
+      <DependentUpon>EditVolunteerAvailability.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VolunteerPages\VolunteerHome.xaml.cs">
+      <DependentUpon>VolunteerHome.xaml</DependentUpon>
+    </Compile>
     <Page Include="AdminPages\AdminHome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AdminPages\AdminProcessExpertRequests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ExpertPages\ExpertHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExpertPages\RecipeInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -89,6 +114,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GardenPages\GroupMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GardenPages\CompleteTask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -132,6 +161,9 @@
     </Compile>
     <Compile Include="GardenPages\GroupMain.xaml.cs">
       <DependentUpon>GroupMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertPages\RecipeInput.xaml.cs">
+      <DependentUpon>RecipeInput.xaml</DependentUpon>
     </Compile>
     <Compile Include="GardenPages\GardenMain.xaml.cs">
       <DependentUpon>GardenMain.xaml</DependentUpon>
@@ -250,6 +282,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VolunteerPages\EditVolunteerAvailability.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VolunteerPages\VolunteerHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NewUserCreation.xaml.cs">
@@ -298,7 +338,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\RegionId.jpeg" />
     <Resource Include="Images\greenThumb.png" />
+    <Resource Include="Images\cutting-board-with-vegetables.jpg" />
     <Content Include="Images\organic-vegetable-garden-1319014.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

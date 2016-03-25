@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using com.GreenThumb.BusinessObjects;
 using com.GreenThumb.DataAccess;
+using BusinessLogic.Interfaces;
 
 namespace com.GreenThumb.BusinessLogic
 {
@@ -31,9 +32,9 @@ namespace com.GreenThumb.BusinessLogic
             {
                 throw new ApplicationException("Invalid Last Name! Last name must be between 1 and 100 characters in length");
             }
-            else if (zip != "" && zip.Length != 9)
+            else if (zip != "" && zip.Length != 5)
             {
-                throw new ApplicationException("Invalid zip! Zip must be 9 characters in length.");
+                throw new ApplicationException("Invalid zip! Zip must be 5 characters in length.");
             }
             else if (emailAddress.Length > 100)
             {
@@ -138,7 +139,7 @@ namespace com.GreenThumb.BusinessLogic
                                    string userName,
                                    string passWord,
                                    bool   active,
-                                   int?    regionID)
+                                   int?   regionID)
         {
             try
             {

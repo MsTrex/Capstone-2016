@@ -165,8 +165,8 @@ namespace com.GreenThumb.DataAccess
                 // open the connection
                 conn.Open();
 
-                // execute the command with ExecuteNonQuery()
-                count = cmd.ExecuteNonQuery();
+                // execute the command with ExecuteScalar()
+                count = (int)cmd.ExecuteScalar();
             }
             catch (Exception)
             {
