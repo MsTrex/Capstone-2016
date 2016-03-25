@@ -52,5 +52,11 @@ namespace com.GreenThumb.BusinessObjects
 
         }
 
+        // Rhett Allen 3/24/16 - added ToString() override
+        public override string ToString()
+        {
+            return "Region " + RegionID;
+        }
+
     }
 }
