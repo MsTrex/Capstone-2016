@@ -1,4 +1,5 @@
-﻿using com.GreenThumb.BusinessObjects;
+﻿using com.GreenThumb.BusinessLogic;
+using com.GreenThumb.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace com.GreenThumb.WPF_Presentation
     {
         private AccessToken _accessToken = null;
         Login _login;
+        RoleManager roleManager = new RoleManager();
 
         public MainWindow()
         {
@@ -245,8 +247,8 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar1.Content = "Become an Expert";
             btnSideBar2.Content = "Insert Recipe";
             btnSideBar3.Content = "Search for Questions";
-            btnSideBar4.Content = "Ask a Question";
-            btnSideBar5.Content = "Answer Questions";
+            btnSideBar4.Content = _accessToken != null ? "Ask a Question" : "btnSideBar4";
+            btnSideBar5.Content = roleManager.IsUserThisRole(_accessToken, "Expert") ? "Answer Questions" : "btnSideBar5";
             btnSideBar6.Content = "Upload Garden Template";
             btnSideBar7.Content = "View Garden Templates";
             btnSideBar8.Content = "btnSideBar8";

@@ -24,6 +24,8 @@
     <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs92F2.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vs4941.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs9182.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u11\AppData\Local\Temp\vsE34C.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs27CB.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,6 +38,8 @@
     <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs92F2.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vs4941.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs9182.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u11\AppData\Local\Temp\vsE34C.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs27CB.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -28,6 +28,8 @@
     <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs9C5A.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vsD8FF.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs920F.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u11\AppData\Local\Temp\vsE715.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs8341.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -41,6 +43,8 @@
     <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs9C5A.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vsD8FF.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs920F.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u11\AppData\Local\Temp\vsE715.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs8341.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -80,6 +84,9 @@
     </Compile>
     <Compile Include="GardenPages\CompleteTask.xaml.cs">
       <DependentUpon>CompleteTask.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\CreateOrganization.xaml.cs">
+      <DependentUpon>CreateOrganization.xaml</DependentUpon>
     </Compile>
     <Compile Include="GardenPages\SelectTasks.xaml.cs">
       <DependentUpon>SelectTasks.xaml</DependentUpon>
@@ -146,6 +153,10 @@
     <Page Include="EditUserEntry.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GardenPages\CreateOrganization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GardenPages\GroupMain.xaml">
       <SubType>Designer</SubType>
