@@ -338,6 +338,10 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 mainFrame.NavigationService.Navigate(new VolunteerPages.EditVolunteerAvailability(_accessToken));
             }
+            else if (btnSideBar1.Content.ToString() == "Become an Expert")
+            {
+                mainFrame.NavigationService.Navigate(new ExpertPages.RequestExpert(_accessToken));
+            }
 
         }
         /// <summary>
