@@ -411,6 +411,10 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 mainFrame.NavigationService.Navigate(new ExpertPages.ExpertAdvice(_accessToken));
             }
+            else if (btnSideBar4.Content.ToString().Equals("User Role"))
+            {
+                mainFrame.NavigationService.Navigate(new Uri("AdminPages/UserRole.xaml", UriKind.Relative));
+            }
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -426,6 +430,10 @@ namespace com.GreenThumb.WPF_Presentation
             else if (btnSideBar5.Content.ToString() == "Create a Task")
             {
                 mainFrame.NavigationService.Navigate(new Uri("GardenPages/ManageTask.xaml", UriKind.Relative));
+            }
+            else if (btnSideBar5.Content.ToString().Equals("User Region"))
+            {
+                mainFrame.NavigationService.Navigate(new Uri("AdminPages/RegionPage.xaml", UriKind.Relative));
             }
         }
         /// <summary>
