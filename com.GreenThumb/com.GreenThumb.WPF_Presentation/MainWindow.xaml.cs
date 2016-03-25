@@ -284,7 +284,7 @@ namespace com.GreenThumb.WPF_Presentation
             mainFrame.NavigationService.Navigate(new AdminPages.AdminHome(_accessToken));
             btnSideBar1.Content = "btnSideBar1";
             btnSideBar2.Content = "Messages";
-            btnSideBar3.Content = "btnSideBar3";
+            btnSideBar3.Content = "Expert Requests";
             btnSideBar4.Content = "btnSideBar4";
             btnSideBar5.Content = "btnSideBar5";
             btnSideBar6.Content = "btnSideBar6";
@@ -369,7 +369,13 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar3_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if ("Expert Requests" == btnSideBar3.Content.ToString())
+            {
+                AdminPages.AdminProcessExpertRequests processExperts
+                    = new AdminPages.AdminProcessExpertRequests(_accessToken);
 
+                mainFrame.NavigationService.Navigate(processExperts);
+            }
         }
         /// <summary>
         /// Author: Chris Sheehan
