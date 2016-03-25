@@ -54,6 +54,36 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
+        /// <summary>
+        /// Rhett Allen
+        /// Created Date: 3/25/16
+        /// Checks to see if the user has a certain role
+        /// </summary>
+        /// <param name="roleName">RoleID to check</param>
+        /// <param name="accessToken">The user's access token</param>
+        /// <returns>True if the user is the role name</returns>
+        public bool IsUserThisRole(AccessToken accessToken, string roleName)
+        {
+            bool isRole = false;
+
+            List<Role> roles = new RoleManager().GetRoleList();
+            foreach (Role role in accessToken.Roles)
+            {
+                foreach (Role r in roles)
+                {
+                    if (role.RoleID == r.RoleID)
+                    {
+                        if (role.RoleID == roleName)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return isRole;
+        }
+
         public bool AddNewRole(string roleId,
                                string description,
                                int createdBy,

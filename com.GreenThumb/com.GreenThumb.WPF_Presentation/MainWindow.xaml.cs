@@ -1,4 +1,5 @@
-﻿using com.GreenThumb.BusinessObjects;
+﻿using com.GreenThumb.BusinessLogic;
+using com.GreenThumb.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace com.GreenThumb.WPF_Presentation
     {
         private AccessToken _accessToken = null;
         Login _login;
+        RoleManager roleManager = new RoleManager();
 
         public MainWindow()
         {
@@ -227,7 +229,7 @@ namespace com.GreenThumb.WPF_Presentation
 			btnSideBar2.Content = "Your Groups";
             btnSideBar3.Content = "Request to be a Group Leader";
             btnSideBar4.Content = "Complete A Task";
-            btnSideBar5.Content = "btnSideBar5";
+            btnSideBar5.Content = "Create a Task";
             btnSideBar6.Content = "btnSideBar6";
             btnSideBar7.Content = "btnSideBar7";
             btnSideBar8.Content = "btnSideBar8";
@@ -245,8 +247,8 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar1.Content = "Become an Expert";
             btnSideBar2.Content = "Insert Recipe";
             btnSideBar3.Content = "Search for Questions";
-            btnSideBar4.Content = "Ask a Question";
-            btnSideBar5.Content = "Answer Questions";
+            btnSideBar4.Content = _accessToken != null ? "Ask a Question" : "btnSideBar4";
+            btnSideBar5.Content = roleManager.IsUserThisRole(_accessToken, "Expert") ? "Answer Questions" : "btnSideBar5";
             btnSideBar6.Content = "Upload Garden Template";
             btnSideBar7.Content = "View Garden Templates";
             btnSideBar8.Content = "btnSideBar8";
@@ -285,8 +287,8 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar1.Content = "btnSideBar1";
             btnSideBar2.Content = "Messages";
             btnSideBar3.Content = "Expert Requests";
-            btnSideBar4.Content = "btnSideBar4";
-            btnSideBar5.Content = "btnSideBar5";
+            btnSideBar4.Content = "User Role";
+            btnSideBar5.Content = "User Region";
             btnSideBar6.Content = "btnSideBar6";
             btnSideBar7.Content = "btnSideBar7";
             btnSideBar8.Content = "btnSideBar8";
@@ -388,6 +390,10 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 mainFrame.NavigationService.Navigate(new ExpertPages.SearchForQuestions(_accessToken));
             }
+            else if (btnSideBar4.Content.ToString() == "Search for Questions")
+            {
+        //        mainFrame.NavigationService.Navigate(new AdminPages.UserRole(_accessToken));
+            }
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -416,6 +422,10 @@ namespace com.GreenThumb.WPF_Presentation
             if (btnSideBar5.Content.ToString() == "Answer Questions")
             {
                 mainFrame.NavigationService.Navigate(new ExpertPages.ExpertAdviceRespond(_accessToken));
+            }
+            else if (btnSideBar5.Content.ToString() == "Create a Task")
+            {
+                mainFrame.NavigationService.Navigate(new Uri("GardenPages/ManageTask.xaml", UriKind.Relative));
             }
         }
         /// <summary>

@@ -27,8 +27,12 @@
     <IntermediateOutputPath>C:\Users\Nick\AppData\Local\Temp\vs5A03.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs9C5A.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vsD8FF.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs920F.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u11\AppData\Local\Temp\vsE715.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs1C48.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs8341.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs3FE5.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vsB250.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -41,8 +45,12 @@
     <IntermediateOutputPath>C:\Users\Nick\AppData\Local\Temp\vs5A03.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs9C5A.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vsD8FF.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs920F.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u11\AppData\Local\Temp\vsE715.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs1C48.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs8341.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs3FE5.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vsB250.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -227,7 +235,7 @@
     <Compile Include="GardenPages\ViewGarden.xaml.cs">
       <DependentUpon>ViewGarden.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ManageTask.xaml.cs">
+    <Compile Include="GardenPages\ManageTask.xaml.cs">
       <DependentUpon>ManageTask.xaml</DependentUpon>
     </Compile>
     <Compile Include="OrgGroupLeaderManager.xaml.cs">
@@ -251,7 +259,7 @@
     <Compile Include="UserEditPersonalInfo.xaml.cs">
       <DependentUpon>UserEditPersonalInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserRole.xaml.cs">
+    <Compile Include="AdminPages\UserRole.xaml.cs">
       <DependentUpon>UserRole.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewGroups.xaml.cs">
@@ -288,7 +296,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ManageTask.xaml">
+    <Page Include="GardenPages\ManageTask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -330,7 +338,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserRole.xaml">
+    <Page Include="AdminPages\UserRole.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
