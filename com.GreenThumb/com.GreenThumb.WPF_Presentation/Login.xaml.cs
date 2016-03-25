@@ -40,6 +40,11 @@ namespace com.GreenThumb.WPF_Presentation
 
         private void btn_Submit_Click(object sender, RoutedEventArgs e)
         {
+            Submit();
+        }
+
+        public void Submit()
+        {
             string username = this.txtUsername.Text;
             string password = this.txtPassword.Password;
 
@@ -80,6 +85,13 @@ namespace com.GreenThumb.WPF_Presentation
             // Raise the event
             if (AccessTokenCreatedEvent != null)  // if there are subscribers/listeners/handlers
                 AccessTokenCreatedEvent(this, _accessToken); // go ahead and raise the event
+        }
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Submit();
+            }
         }
     }
 }
