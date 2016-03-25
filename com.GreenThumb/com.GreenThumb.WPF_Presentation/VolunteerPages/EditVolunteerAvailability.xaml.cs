@@ -37,37 +37,31 @@ namespace com.GreenThumb.WPF_Presentation.VolunteerPages
             InitializeComponent();
         }
 
-        //private void btnCanel_Click(object sender, RoutedEventArgs e)
-        //{
-            
-        //}
+      
 
-        //private void btnSubmitHours_Click(object sender, RoutedEventArgs e)
-        //{
-        //    donationManager.AddVolunteerHours(startTime, finishTime, datePledged, _accessToken.UserID);
-        //}
+       
         private void btnSubmitHours_Click(object sender, RoutedEventArgs e)
         {
-            //donationManager.AddVolunteerHours(startTime, finishTime, datePledged, _accessToken.UserID);
+            donationManager.AddVolunteerHours(startTime, finishTime, datePledged, _accessToken.UserID);
         }
 
-        //private void cmbbxStartTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
+        private void cmbbxStartTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
             
-        //        startTime = (DateTime)cmbbxStartTime.SelectedValue;
+             startTime = (DateTime)cmbbxStartTime.SelectedItem;
             
             
-        //}
-        //private void cmbbxFinishTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
+        }
+        private void cmbbxFinishTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
-        //    finishTime = (DateTime)cmbbxStartTime.SelectedValue;
+           finishTime = (DateTime)cmbbxStartTime.SelectedItem;
 
 
-        //}
-        //private void cldrDateSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    datePledged = (DateTime)cldrDateSelect.SelectedDate;
-        //}
+        }
+        private void cldrDateSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            datePledged = (DateTime)cldrDateSelect.SelectedDate;
+        }
     }
 }
