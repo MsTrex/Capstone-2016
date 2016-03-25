@@ -32,7 +32,7 @@
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs1C48.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs8341.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs3FE5.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vsCBBF.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vsC692.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,7 +50,7 @@
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs1C48.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs8341.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs3FE5.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vsCBBF.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vsC692.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -406,6 +406,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\usda_plant.jpg" />
     <Resource Include="Images\RegionId.jpeg" />
     <Resource Include="Images\greenThumb.png" />
     <Resource Include="Images\cutting-board-with-vegetables.jpg" />
