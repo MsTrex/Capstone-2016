@@ -24,7 +24,7 @@
     <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs92F2.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vs4941.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u11\AppData\Local\Temp\vsE34C.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs805B.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs1A35.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,7 +37,7 @@
     <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs92F2.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vs4941.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u11\AppData\Local\Temp\vsE34C.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs805B.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs1A35.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -60,6 +60,7 @@
     <Compile Include="EquipmentDonated.cs" />
     <Compile Include="EquipmentNeeded.cs" />
     <Compile Include="EquipmentPending.cs" />
+    <Compile Include="EquipmentType.cs" />
     <Compile Include="Expertise.cs" />
     <Compile Include="ExpertRequest.cs" />
     <Compile Include="ForumContent.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="MoneyDonated.cs" />
     <Compile Include="MoneyNeeded.cs" />
     <Compile Include="MoneyPending.cs" />
+    <Compile Include="NeedType.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="Organization.cs" />
     <Compile Include="Plant.cs" />
@@ -118,6 +120,8 @@
     <Compile Include="Response.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="UserRole.cs" />
+    <Compile Include="Volunteer.cs" />
+    <Compile Include="VolunteerNeeds.cs" />
     <Compile Include="WorkLog.cs" />
   </ItemGroup>
   <ItemGroup>

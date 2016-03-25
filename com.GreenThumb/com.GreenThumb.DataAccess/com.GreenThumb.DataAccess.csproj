@@ -65,6 +65,7 @@
     <Compile Include="UserAccessor.cs" />
     <Compile Include="UserRegionAccessor.cs" />
     <Compile Include="UserRoleAccessor.cs" />
+    <Compile Include="VolunteerAccessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\com.GreenThumb.BusinessObjects\com.GreenThumb.BusinessObjects.csproj">
