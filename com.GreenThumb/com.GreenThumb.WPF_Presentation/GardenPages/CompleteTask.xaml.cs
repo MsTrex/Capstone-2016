@@ -55,14 +55,15 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                     if (jobManager.ChangeTask(job, oldJob) == true)
                     {
                         MessageBox.Show("Task completed successfully!");
-                        DisplayTaskData();
+                        // commented out for test purposes.
+                        //DisplayTaskData();
                     }
                     else { MessageBox.Show("Something's gone wrong. Please pick another task."); }
                 }
             }
             catch (Exception)
             {
-                throw;
+
             }
         }
 
@@ -92,7 +93,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
             }
             catch (Exception)
             {
-                throw;
+
             }
         }
     }
