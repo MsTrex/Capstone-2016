@@ -12,7 +12,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;using com.GreenThumb.BusinessObjects;
+using System.Windows.Shapes;
+
 
 namespace com.GreenThumb.WPF_Presentation.GardenPages
 {

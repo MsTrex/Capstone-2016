@@ -26,7 +26,7 @@
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs9C5A.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vsD8FF.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vsF684.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Dat\AppData\Local\Temp\vs246E.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,7 +38,7 @@
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs9C5A.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vsD8FF.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vsF684.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Dat\AppData\Local\Temp\vs246E.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -69,6 +69,9 @@
     </Compile>
     <Compile Include="GardenPages\CompleteTask.xaml.cs">
       <DependentUpon>CompleteTask.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\SelectTasks.xaml.cs">
+      <DependentUpon>SelectTasks.xaml</DependentUpon>
     </Compile>
     <Compile Include="RegionPage.xaml.cs" />
     <Compile Include="VolunteerPages\EditVolunteerAvailability.xaml.cs">
@@ -122,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GardenPages\GardenMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GardenPages\SelectTasks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
