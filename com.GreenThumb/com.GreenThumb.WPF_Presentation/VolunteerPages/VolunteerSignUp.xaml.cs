@@ -24,8 +24,10 @@ namespace com.GreenThumb.WPF_Presentation.VolunteerPages
     public partial class VolunteerSignUp : Page
     {
         VolunteerManager _volMgr = new VolunteerManager();
-        public VolunteerSignUp()
+        AccessToken accessToken = new AccessToken();
+        public VolunteerSignUp(AccessToken _accessToken)
         {
+            accessToken = _accessToken;
             InitializeComponent();
         }
         public bool saveVolunteerDetails()

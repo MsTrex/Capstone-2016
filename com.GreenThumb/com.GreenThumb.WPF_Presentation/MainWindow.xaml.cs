@@ -30,7 +30,6 @@ namespace com.GreenThumb.WPF_Presentation
         {
             InitializeComponent();
             mainFrame.NavigationService.Navigate(new HomeContent(_accessToken));
-            
             CheckPermissions();
             
         }
@@ -264,7 +263,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             mainFrame.NavigationService.Navigate(new VolunteerPages.VolunteerHome(_accessToken));
             btnSideBar1.Content = "Edit Volunteer Availability";
-            btnSideBar2.Content = "btnSideBar2";
+            btnSideBar2.Content = "Volunteer Sign Up";
             btnSideBar3.Content = "btnSideBar3";
             btnSideBar4.Content = "btnSideBar4";
             btnSideBar5.Content = "btnSideBar5";
@@ -366,6 +365,9 @@ namespace com.GreenThumb.WPF_Presentation
             else if (btnSideBar2.Content.ToString().Equals("Your Groups"))
             {
                 mainFrame.NavigationService.Navigate(new GardenPages.GroupMain(_accessToken));
+            } else if (btnSideBar2.Content.ToString() == "Volunteer Sign Up")
+            {
+                mainFrame.NavigationService.Navigate(new VolunteerPages.VolunteerSignUp(_accessToken));
             }
         }
         /// <summary>
@@ -425,7 +427,7 @@ namespace com.GreenThumb.WPF_Presentation
             }
             else if (btnSideBar5.Content.ToString() == "Create a Task")
             {
-                mainFrame.NavigationService.Navigate(new Uri("GardenPages/ManageTask.xaml", UriKind.Relative));
+                mainFrame.NavigationService.Navigate(new GardenPages.ManageTask(_accessToken));
             }
         }
         /// <summary>

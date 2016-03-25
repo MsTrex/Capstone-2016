@@ -21,17 +21,12 @@ namespace com.GreenThumb.WPF_Presentation.VolunteerPages
     /// </summary>
     public partial class VolunteerHome : Page
     {
+        AccessToken accessToken = new AccessToken();
         public VolunteerHome(AccessToken _accessToken)
         {
+            accessToken = _accessToken;
             InitializeComponent();
-            if (_accessToken != null)
-            {
 
-            }
-            else
-            {
-
-            }
         }
     }
 }

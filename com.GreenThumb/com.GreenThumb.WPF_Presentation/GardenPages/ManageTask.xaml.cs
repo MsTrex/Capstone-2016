@@ -20,7 +20,7 @@ using com.GreenThumb.BusinessObjects;
 /// Created By: Nasr Mohammed 3/4/2016 
 /// </summary>
 
-namespace com.GreenThumb.WPF_Presentation
+namespace com.GreenThumb.WPF_Presentation.GardenPages
 {
     /// <summary>
     /// Interaction logic for ManageTask.xaml
@@ -28,9 +28,11 @@ namespace com.GreenThumb.WPF_Presentation
     public partial class ManageTask : Page
     {
         private JobManager jobManager = new JobManager();
+        AccessToken accessToken = new AccessToken();
 
-        public ManageTask()
+        public ManageTask(AccessToken _accessToken)
         {
+            accessToken = _accessToken;
             InitializeComponent();
         }
 

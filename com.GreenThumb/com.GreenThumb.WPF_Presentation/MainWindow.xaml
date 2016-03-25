@@ -143,7 +143,7 @@
             <Button Name="btnGardens" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="1" Background="LightGray" HorizontalAlignment="Left" Content="Gardens" Click="btnGardens_click" ></Button>
             <Button Name="btnExpert" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="2" Background="LightGray" HorizontalAlignment="Left" Content="Expert Advice" Click="btnExpert_Click" Height="41" VerticalAlignment="Top" ></Button>
             <Button Name="btnDonations" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="3" Background="LightGray" HorizontalAlignment="Left" Content="Donations" ></Button>
-            <Button Name="btnVolunteer" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="4" Background="LightGray" HorizontalAlignment="Left" Content="Volunteering" ></Button>
+            <Button Name="btnVolunteer" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="4" Background="LightGray" HorizontalAlignment="Left" Content="Volunteering" Click ="btnVolunteer_Click" Height="41" Margin="0,0,0,-0.2" VerticalAlignment="Top" ></Button>
 
             <Button Name="btnAdmin" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="5" Background="LightGray" HorizontalAlignment="Left" Content="Admin" Click="btnAdmin_Click"  ></Button>
             <Button Name="btnProfile" Padding="20, 5 ,20, 5" FontSize="22" Grid.Column="6" Background="LightGray" HorizontalAlignment="Left" Content="Profile" Click="btnProfile_Click" ></Button>

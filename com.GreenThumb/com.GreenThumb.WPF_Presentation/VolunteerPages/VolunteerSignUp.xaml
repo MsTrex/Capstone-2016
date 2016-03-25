@@ -3,11 +3,10 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-	Title="VolunteerSignUp">
+      mc:Ignorable="d" d:DesignWidth="300"
+	Title="VolunteerSignUp" Height="327.463">
 
-    <Grid Margin="0,0,7,30">
+    <Grid Margin="0,0,7,0.2">
         <Label Content="UserID" HorizontalAlignment="Left" Margin="23,51,0,0" VerticalAlignment="Top"/>
         <Label Content="Date Can Volunteer" HorizontalAlignment="Left" Margin="23,87,0,0" VerticalAlignment="Top"/>
 
@@ -16,12 +15,11 @@
         <Label Content="Description" HorizontalAlignment="Left" Margin="20,187,0,0" VerticalAlignment="Top"/>
 
         <TextBox HorizontalAlignment="Left" Height="70" Margin="150,197,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="145" x:Name="description"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="200,285,0,0" VerticalAlignment="Top" Width="75" Name="save" Click="save_Click" IsEnabled="False"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="200,285,0,0" VerticalAlignment="Top" Width="75" Name="save" Click="save_Click" IsEnabled="True"/>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="25,285,0,0" VerticalAlignment="Top" Width="75" Name="cancel" Click="cancel_Click"/>
 
 
         <Label Content="NeedID" HorizontalAlignment="Left" Margin="23,17,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="150,15,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" x:Name="NeedID" />
-
     </Grid>
 </Page>
