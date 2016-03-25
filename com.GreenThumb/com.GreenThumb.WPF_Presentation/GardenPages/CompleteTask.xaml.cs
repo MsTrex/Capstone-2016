@@ -55,8 +55,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                     if (jobManager.ChangeTask(job, oldJob) == true)
                     {
                         MessageBox.Show("Task completed successfully!");
-                        // commented out for test purposes.
-                        //DisplayTaskData();
+                        DisplayTaskData();
                     }
                     else { MessageBox.Show("Something's gone wrong. Please pick another task."); }
                 }
@@ -69,6 +68,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
 
         private void ShowTasks_Click(object sender, RoutedEventArgs e)
         {
+            jobManager.AddTestUser(accessToken.UserID);
             DisplayTaskData();
         }
 
