@@ -116,5 +116,46 @@ namespace com.GreenThumb.DataAccess
             }
             return data;
         }
+
+        ///<summary>
+        ///Author: Stenner Kvindlog 
+        ///submits application to database to be reviewed
+        ///Date: 3/19/16
+        ///</summary>
+        public static bool ExpertApplication(String Title, String Description, int UserID, DateTime Time)
+        {
+            var conn = DBConnection.GetDBConnection();
+            var query = "Admin.spInsertExpertRequest";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserID", UserID);
+            cmd.Parameters.AddWithValue("@Title", Title);
+            cmd.Parameters.AddWithValue("@Content", Description);
+            cmd.Parameters.AddWithValue("@RequestDate", Time);
+
+            bool flag = false;
+
+            try
+            {
+                conn.Open();
+
+                if (cmd.ExecuteNonQuery() == 1)
+                {
+                    flag = true;
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return flag;
+        }
     }
 }

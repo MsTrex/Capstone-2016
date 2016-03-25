@@ -32,7 +32,7 @@
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs1C48.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs8341.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs3FE5.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs505C.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u24\AppData\Local\Temp\vs57AB.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,7 +50,7 @@
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs1C48.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs8341.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs3FE5.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs505C.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u24\AppData\Local\Temp\vs57AB.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -85,6 +85,9 @@
     </Compile>
     <Compile Include="ExpertPages\ExpertAdviceRespond.xaml.cs">
       <DependentUpon>ExpertAdviceRespond.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertPages\RequestExpert.xaml.cs">
+      <DependentUpon>RequestExpert.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExpertPages\SearchForQuestions.xaml.cs">
       <DependentUpon>SearchForQuestions.xaml</DependentUpon>
@@ -139,6 +142,10 @@
     <Page Include="ExpertPages\RecipeInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExpertPages\RequestExpert.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ExpertPages\ViewGardenTemplate.xaml">
       <SubType>Designer</SubType>

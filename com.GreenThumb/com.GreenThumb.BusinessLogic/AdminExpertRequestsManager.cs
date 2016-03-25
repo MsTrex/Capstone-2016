@@ -416,5 +416,28 @@ namespace com.GreenThumb.BusinessLogic
         {
             this.requests.Remove(this.requests.Single(r => r.RequestID == request.RequestID));
         }
+
+
+        ///<summary>
+        ///Author: Stenner Kvindlog 
+        ///passes application data to data access layer
+        ///Date: 3/19/16
+        ///</summary>
+        public bool ExpertApplication(String Title, String Description, int UserID, DateTime Time)
+        {
+
+            try
+            {
+                bool myBool = ExpertAccessor.ExpertApplication(Title, Description, UserID, Time);
+                return myBool;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
     }
 }

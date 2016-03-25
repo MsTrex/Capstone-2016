@@ -1,0 +1,23 @@
+﻿<Page x:Class="com.GreenThumb.WPF_Presentation.ExpertPages.RequestExpert"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d"
+	Title="RequestExpert" Height="375.2" Width="497.6">
+
+    <Grid Margin="-17,0,20,22">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="99*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Content="Submit" HorizontalAlignment="Left" Margin="470,54.22,-213,-52" VerticalAlignment="Top" Width="75" Name="submit" Click="submit_Click" Grid.Row="1"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="52,54.22,0,-52" VerticalAlignment="Top" Width="75" Name="cancel" Click="cancel_Click" Grid.Row="1"/>
+        <TextBox HorizontalAlignment="Left" Height="173" Margin="32,69,0,0" TextWrapping="Wrap" Text="Describe your expertise" VerticalAlignment="Top" Width="433" Name="description"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="32,41,0,0" TextWrapping="Wrap" Text="Expert Title" VerticalAlignment="Top" Width="275" Name="title"/>
+        <Label Content="Apply To Become An Expert" HorizontalAlignment="Left" Margin="32,10,0,0" VerticalAlignment="Top"/>
+        <Button Content="Submit" HorizontalAlignment="Left" Margin="341,276,0,0" VerticalAlignment="Top" Width="75" Name="Submit" Click="submit_Click"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="93,276,0,0" VerticalAlignment="Top" Width="75" Name="Cancel" Click="cancel_Click"/>
+
+    </Grid>
+</Page>
