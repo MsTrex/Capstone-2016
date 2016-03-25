@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\Emmy\AppData\Local\Temp\vs3E29.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs1D6.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\Emmy\AppData\Local\Temp\vs3E29.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs1D6.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -60,6 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RegionPage.xaml.cs" />
     <Compile Include="VolunteerPages\EditVolunteerAvailability.xaml.cs">
       <DependentUpon>EditVolunteerAvailability.xaml</DependentUpon>
     </Compile>

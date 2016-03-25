@@ -57,6 +57,7 @@
     <Compile Include="RoleAccessor.cs" />
     <Compile Include="TimePledgedAccessor.cs" />
     <Compile Include="UserAccessor.cs" />
+    <Compile Include="UserRegionAccessor.cs" />
     <Compile Include="UserRoleAccessor.cs" />
   </ItemGroup>
   <ItemGroup>
