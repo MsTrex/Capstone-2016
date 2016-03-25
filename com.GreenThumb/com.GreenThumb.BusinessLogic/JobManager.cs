@@ -56,9 +56,8 @@ namespace com.GreenThumb.BusinessLogic
             try
             {
                 bool myJob = JobAccessor.UpdateTask(job, oldJob);
-
+                Console.WriteLine(myJob);
                 return myJob;
-
             }
             catch (Exception)
             {
@@ -69,6 +68,19 @@ namespace com.GreenThumb.BusinessLogic
         public Job FetchJob(int jobId)
         {
             return JobAccessor.RetrieveJob(jobId);
+        }
+
+        public List<Job> RetrieveJobByUserId(int userId)
+        {
+            try
+            {
+                return JobAccessor.RetrieveJobByUserId(userId);
+            }
+            catch (Exception ex)
+            {
+                
+                throw new ApplicationException(" No records Found!", ex);
+            }
         }
     }
 }

@@ -8,7 +8,7 @@
 	Title="EditVolunteerAvailability">
 
     <Grid>
-        <Grid.RowDefinitions>
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -59,6 +59,6 @@
             <ComboBoxItem>PM</ComboBoxItem>
         </ComboBox>
         <Button x:Name="btnSubmitHours" Content="Submit" Height="20" Width="100"  Margin="10" Grid.Row="3" Grid.Column="0" Click="btnSubmitHours_Click" />
-        <Button x:Name="btnCanel" Content="Cancel" Height="20" Width="100"  Margin="10" Grid.Row="3" Grid.Column="1" Click="btnCanel_Click"/>
+        <Button x:Name="btnCanel" Content="Cancel" Height="20" Width="100"  Margin="10" Grid.Row="3" Grid.Column="1" Click="btnCanel_Click"/>-->
     </Grid>
 </Page>

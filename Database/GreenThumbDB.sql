@@ -3864,26 +3864,34 @@ go
 ------------------------------------------
 
 --created by Nasr 3-4-16
+--updated by Steve Hoover 3-24-16
 CREATE PROCEDURE Gardens.spUpdateTasks 
 	(@TaskID INT,
-	@gardenID int,
 	@Description VARCHAR(100),
-	@Active BIT,
-	@originalGardenID int,
-	@OriginalTaskID INT,
+	@dateAssigned smalldatetime,
+	@dateCompleted smalldatetime,
+	@assignedTo int,
+	@assignedFrom int,
+	@userNotes VARCHAR(250),
+	@Active BIT
+	/*@originalGardenID int,
 	@OriginalDescription VARCHAR(100),
-	@OriginalActive BIT)
+	@OriginalActive BIT*/)
  AS
  BEGIN 
 	UPDATE Gardens.Tasks
 	SET   
-		Gardenid = @gardenID,
 		Description = @Description,
+		DateAssigned = @dateAssigned,
+		DateCompleted = @dateCompleted,
+		AssignedTo = @assignedTo,
+		AssignedFrom = @assignedFrom,
+		userNotes = @userNotes,
 		Active = @Active
 		WHERE TaskID = @TaskID
-		and Description = @OriginalDescription
+		/*and Description = @OriginalDescription
 		and Active = @OriginalActive
-		and gardenID = @originalGardenID;
+		and gardenID = @originalGardenID;*/
 	RETURN @@ROWCOUNT;
 END;
 GO

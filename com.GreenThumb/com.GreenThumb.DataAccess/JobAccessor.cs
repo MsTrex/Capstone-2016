@@ -89,9 +89,8 @@ namespace com.GreenThumb.DataAccess
 
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@taskID", job.JobID);
-            cmd.Parameters.AddWithValue("@gardenID", job.GardenID);
-            cmd.Parameters.AddWithValue("@description", job.Description);
+            cmd.Parameters.AddWithValue("@TaskID", job.JobID);
+            cmd.Parameters.AddWithValue("@Description", job.Description);
             cmd.Parameters.AddWithValue("@dateAssigned", job.DateAssigned);
             cmd.Parameters.AddWithValue("@dateCompleted", job.DateCompleted);
             cmd.Parameters.AddWithValue("@assignedTo", job.AssignedTo);
@@ -99,24 +98,22 @@ namespace com.GreenThumb.DataAccess
             cmd.Parameters.AddWithValue("@userNotes", job.UserNotes);
             cmd.Parameters.AddWithValue("@active", job.Active);
 
-            cmd.Parameters.AddWithValue("@OriginaltaskID", originalJob.JobID);
-            cmd.Parameters.AddWithValue("@OriginalgardenID", originalJob.GardenID);
-            cmd.Parameters.AddWithValue("@OriginalDescription", originalJob.Description);
-            cmd.Parameters.AddWithValue("@OriginalDateAssigned", originalJob.DateAssigned);
-            cmd.Parameters.AddWithValue("@OriginalDateCompleted", originalJob.DateCompleted);
-            cmd.Parameters.AddWithValue("@OriginalAssignedTo", originalJob.AssignedTo);
-            cmd.Parameters.AddWithValue("@OriginalAssignedFrom", originalJob.AssignedFrom);
-            cmd.Parameters.AddWithValue("@OriginalUserNotes", originalJob.UserNotes);
-            cmd.Parameters.AddWithValue("@active", originalJob.Active);
+            //cmd.Parameters.AddWithValue("@OriginalgardenID", originalJob.GardenID);
+            //cmd.Parameters.AddWithValue("@OriginalDescription", originalJob.Description);
+            //cmd.Parameters.AddWithValue("@OriginalActive", originalJob.Active);
 
             bool flag = false;
 
             try
             {
                 conn.Open();
-                if (cmd.ExecuteNonQuery() == 1)
+                if (cmd.ExecuteNonQuery() != 0)
                 {
+                    Console.WriteLine("Accessor works");
                     flag = true;
+                }
+                else {
+                    Console.WriteLine("Accessor broken");
                 }
 
             }
@@ -223,5 +220,53 @@ namespace com.GreenThumb.DataAccess
             }
             return job;
         }
+
+        public static List<Job> RetrieveJobByUserId(int userId)
+        {
+            var jobs = new List<Job>();
+            var conn = DBConnection.GetDBConnection();
+            // need to send Chris stored procedure
+            var query = @"SELECT TaskID, GardenID, Description , DateAssigned, DateCompleted, AssignedTo, AssignedFrom, UserNotes, Active " +
+                         @"FROM Gardens.Tasks " +
+                         @"WHERE AssignedTo=" + userId + "AND Active=1";
+            var cmd = new SqlCommand(query, conn);
+
+            //cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var job = new Job();
+
+                        job.JobID = reader.GetInt32(0);
+                        job.GardenID = reader.GetInt32(1);
+                        job.Description = reader.GetString(2);
+                        job.DateAssigned = reader.GetDateTime(3);
+                        job.DateCompleted = reader.GetDateTime(4);
+                        job.AssignedTo = reader.GetInt32(5);
+                        job.AssignedFrom = reader.GetInt32(6);
+                        job.UserNotes = reader.GetString(7);
+                        job.Active = reader.GetBoolean(8);
+
+                        jobs.Add(job);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return jobs;
+        }
+
     }
 }

@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\Emmy\AppData\Local\Temp\vs3E29.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vsD8FF.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\Emmy\AppData\Local\Temp\vs3E29.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vsD8FF.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -60,6 +60,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GardenPages\CompleteTask.xaml.cs">
+      <DependentUpon>CompleteTask.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VolunteerPages\EditVolunteerAvailability.xaml.cs">
       <DependentUpon>EditVolunteerAvailability.xaml</DependentUpon>
     </Compile>
@@ -97,6 +100,10 @@
     <Page Include="EditUserEntry.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GardenPages\CompleteTask.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GardenPages\GardenMain.xaml">
       <SubType>Designer</SubType>

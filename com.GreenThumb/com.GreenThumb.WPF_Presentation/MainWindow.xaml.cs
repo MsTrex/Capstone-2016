@@ -125,7 +125,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar1.Content = "Create a Garden";
             btnSideBar2.Content = "btnSideBar2";
             btnSideBar3.Content = "btnSideBar3";
-            btnSideBar4.Content = "btnSideBar4";
+            btnSideBar4.Content = "Complete A Task";
             btnSideBar5.Content = "btnSideBar5";
             btnSideBar6.Content = "btnSideBar6";
             btnSideBar7.Content = "btnSideBar7";
@@ -269,7 +269,10 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar4_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            if (btnSideBar4.Content.ToString() == "Complete A Task")
+            {
+                mainFrame.NavigationService.Navigate(new GardenPages.CompleteTask(_accessToken));
+            }
         }
         /// <summary>
         /// Author: Chris Sheehan
