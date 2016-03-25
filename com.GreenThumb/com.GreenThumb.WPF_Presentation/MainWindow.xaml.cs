@@ -227,7 +227,7 @@ namespace com.GreenThumb.WPF_Presentation
 			btnSideBar2.Content = "Your Groups";
             btnSideBar3.Content = "Request to be a Group Leader";
             btnSideBar4.Content = "Complete A Task";
-            btnSideBar5.Content = "btnSideBar5";
+            btnSideBar5.Content = "Create a Task";
             btnSideBar6.Content = "btnSideBar6";
             btnSideBar7.Content = "btnSideBar7";
             btnSideBar8.Content = "btnSideBar8";
@@ -416,6 +416,10 @@ namespace com.GreenThumb.WPF_Presentation
             if (btnSideBar5.Content.ToString() == "Answer Questions")
             {
                 mainFrame.NavigationService.Navigate(new ExpertPages.ExpertAdviceRespond(_accessToken));
+            }
+            else if (btnSideBar5.Content.ToString() == "Create a Task")
+            {
+                mainFrame.NavigationService.Navigate(new Uri("GardenPages/ManageTask.xaml", UriKind.Relative));
             }
         }
         /// <summary>
