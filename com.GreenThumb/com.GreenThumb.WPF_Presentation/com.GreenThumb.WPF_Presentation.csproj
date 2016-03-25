@@ -79,6 +79,7 @@
     <Compile Include="AdminPages\AdminProcessExpertRequests.xaml.cs">
       <DependentUpon>AdminProcessExpertRequests.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdminPages\RegionPage.xaml.cs" />
     <Compile Include="ExpertPages\ExpertAdvice.xaml.cs">
       <DependentUpon>ExpertAdvice.xaml</DependentUpon>
     </Compile>
@@ -110,6 +111,10 @@
     <Page Include="AdminPages\AdminHome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminPages\RegionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ExpertPages\ExpertGardenTemplate.xaml">
       <SubType>Designer</SubType>
