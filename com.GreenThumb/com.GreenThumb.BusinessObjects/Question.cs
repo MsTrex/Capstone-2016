@@ -18,11 +18,11 @@ namespace com.GreenThumb.BusinessObjects
         public string Title { get; set; }
         public string Category { get; set; }
         public string Content { get; set; }
-        public short RegionID { get; set; }
+        public short? RegionID { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int ModifiedBy { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public int? ModifiedBy { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         public Question() { }
 
@@ -37,6 +37,12 @@ namespace com.GreenThumb.BusinessObjects
             CreatedDate = createdDate;
             ModifiedBy = modifiedBy;
             ModifiedDate = modifiedDate;
+        }
+
+        // Rhett Allen 3/24/16 - added ToString() override
+        public override string ToString()
+        {
+            return Title;
         }
     }
 }

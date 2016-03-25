@@ -25,6 +25,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\Nick\AppData\Local\Temp\vs5A03.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs9C5A.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vsD8FF.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Nick\AppData\Local\Temp\vs24BB.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,6 +38,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\Nick\AppData\Local\Temp\vs5A03.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs9C5A.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vsD8FF.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Nick\AppData\Local\Temp\vs24BB.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -60,6 +66,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdminPages\AdminProcessExpertRequests.xaml.cs">
+      <DependentUpon>AdminProcessExpertRequests.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertPages\ExpertAdvice.xaml.cs">
+      <DependentUpon>ExpertAdvice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertPages\ExpertAdviceRespond.xaml.cs">
+      <DependentUpon>ExpertAdviceRespond.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertPages\SearchForQuestions.xaml.cs">
+      <DependentUpon>SearchForQuestions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\CompleteTask.xaml.cs">
+      <DependentUpon>CompleteTask.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\SelectTasks.xaml.cs">
+      <DependentUpon>SelectTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RegionPage.xaml.cs" />
+    <Compile Include="VolunteerPages\EditVolunteerAvailability.xaml.cs">
+      <DependentUpon>EditVolunteerAvailability.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VolunteerPages\VolunteerHome.xaml.cs">
+      <DependentUpon>VolunteerHome.xaml</DependentUpon>
+    </Compile>
     <Page Include="AdminPages\AdminHome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -67,6 +98,18 @@
     <Page Include="ExpertPages\ExpertGardenTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminPages\AdminProcessExpertRequests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExpertPages\ExpertAdvice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpertPages\ExpertAdviceRespond.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ExpertPages\ExpertHome.xaml">
       <SubType>Designer</SubType>
@@ -79,6 +122,10 @@
     <Page Include="ExpertPages\ViewGardenTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExpertPages\SearchForQuestions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="GardenPages\AdminMessages.xaml">
       <SubType>Designer</SubType>
@@ -100,7 +147,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="GardenPages\GroupMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GardenPages\CompleteTask.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GardenPages\GardenMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GardenPages\SelectTasks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,6 +199,9 @@
     </Compile>
     <Compile Include="ExpertPages\ExpertHome.xaml.cs">
       <DependentUpon>ExpertHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\GroupMain.xaml.cs">
+      <DependentUpon>GroupMain.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExpertPages\RecipeInput.xaml.cs">
       <DependentUpon>RecipeInput.xaml</DependentUpon>
@@ -261,6 +323,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewGroups.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VolunteerPages\EditVolunteerAvailability.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VolunteerPages\VolunteerHome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

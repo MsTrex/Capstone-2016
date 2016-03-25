@@ -21,6 +21,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\Nick\AppData\Local\Temp\vs4E7E.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs92F2.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vs4941.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Nick\AppData\Local\Temp\vsADEC.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\Nick\AppData\Local\Temp\vs4E7E.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs92F2.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vs4941.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Nick\AppData\Local\Temp\vsADEC.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -53,6 +59,7 @@
     <Compile Include="EquipmentNeeded.cs" />
     <Compile Include="EquipmentPending.cs" />
     <Compile Include="Expertise.cs" />
+    <Compile Include="ExpertRequest.cs" />
     <Compile Include="ForumContent.cs" />
     <Compile Include="ForumEntry.cs" />
     <Compile Include="GardenAnnoucement.cs" />

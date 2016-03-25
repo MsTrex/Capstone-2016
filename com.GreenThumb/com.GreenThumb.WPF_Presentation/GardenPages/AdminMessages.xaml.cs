@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace com.GreenThumb.WPF_Presentation.GardenPages
 {
     /// <summary>
@@ -25,9 +26,15 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
         private static MessageManager messageManager = new MessageManager();
         private List<Message> messages = messageManager.GetUserMessages();
         
-        public AdminMessages()
+        public AdminMessages(AccessToken _assessToken)
         {
             InitializeComponent();
+            if(_assessToken != null)
+            {
+
+            }
+            else
+            { }
         }
 
         /// <summary>

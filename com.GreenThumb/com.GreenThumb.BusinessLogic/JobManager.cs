@@ -56,9 +56,8 @@ namespace com.GreenThumb.BusinessLogic
             try
             {
                 bool myJob = JobAccessor.UpdateTask(job, oldJob);
-
+                Console.WriteLine(myJob);
                 return myJob;
-
             }
             catch (Exception)
             {
@@ -69,6 +68,51 @@ namespace com.GreenThumb.BusinessLogic
         public Job FetchJob(int jobId)
         {
             return JobAccessor.RetrieveJob(jobId);
+        }
+
+        public List<Job> RetrieveJobByUserId(int userId)
+        {
+            try
+            {
+                // THIS IS JUST TO ADD TEST DATA. REMOVE IT WHEN TESTING IS DONE.
+                AddTestUser(userId);
+                
+                return JobAccessor.RetrieveJobByUserId(userId);
+            }
+            catch (Exception ex)
+            {
+                
+                throw new ApplicationException(" No records Found!", ex);
+            }
+        }
+
+        /// <summary>
+        /// This method adds a test user to validate the functionality of the CompleteTask things.
+        /// Steve Hoover 3-24-16
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public void AddTestUser(int userId) 
+        {
+            var testJob = new Job {
+                    GardenID = 1000,
+                    Description = "Digging holes",
+                    DateAssigned = DateTime.Now,
+                    DateCompleted = DateTime.Now,
+                    AssignedTo = userId,
+                    AssignedFrom = 1002,
+                    UserNotes = "Dig holes until you can't feel your arms."
+                };
+                try 
+	            {
+                    JobAccessor.CreateTask(testJob);
+
+	            }
+	            catch (Exception)
+	            {
+		
+		            throw;
+	            }
         }
     }
 }
