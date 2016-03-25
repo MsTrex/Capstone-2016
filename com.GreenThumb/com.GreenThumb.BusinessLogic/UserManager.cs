@@ -32,9 +32,9 @@ namespace com.GreenThumb.BusinessLogic
             {
                 throw new ApplicationException("Invalid Last Name! Last name must be between 1 and 100 characters in length");
             }
-            else if (zip != "" && zip.Length != 5)
+            else if (zip != "" && zip.Length != 9)
             {
-                throw new ApplicationException("Invalid zip! Zip must be 5 characters in length.");
+                throw new ApplicationException("Invalid zip! Zip must be 9 characters in length.");
             }
             else if (emailAddress.Length > 100)
             {

@@ -230,7 +230,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar3.Content = "Request to be a Group Leader";
             btnSideBar4.Content = "Complete A Task";
             btnSideBar5.Content = "Create a Task";
-            btnSideBar6.Content = "btnSideBar6";
+            btnSideBar6.Content = "Sign Up for Task";
             btnSideBar7.Content = "btnSideBar7";
             btnSideBar8.Content = "btnSideBar8";
             btnSideBar9.Content = "btnSideBar9";
@@ -438,7 +438,11 @@ namespace com.GreenThumb.WPF_Presentation
 			if (btnSideBar6.Content.ToString() == "Upload Garden Template")
             {
                 mainFrame.NavigationService.Navigate(new ExpertPages.ExpertGardenTemplate(_accessToken));
-			}
+            }
+            else if (btnSideBar6.Content.ToString() == "Sign Up for Task")
+            {
+                mainFrame.NavigationService.Navigate(new GardenPages.SelectTasks(_accessToken));
+            }
         }
         /// <summary>
         /// Author: Chris Sheehan

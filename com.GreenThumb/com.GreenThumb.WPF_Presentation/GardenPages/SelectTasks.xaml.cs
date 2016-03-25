@@ -25,8 +25,9 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
     {
         private JobManager jobManager = new JobManager();
         private AccessToken accessToken;
-        public SelectTasks()
+        public SelectTasks(AccessToken _accessToken)
         {
+            accessToken = _accessToken;
             InitializeComponent();
         }
 
