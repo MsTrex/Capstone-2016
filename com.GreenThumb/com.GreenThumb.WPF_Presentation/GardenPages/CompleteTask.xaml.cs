@@ -44,9 +44,9 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                 var oldJob = (Job)grdTasks.SelectedItem;
                 int userId = job.AssignedTo;
                 // TEST DATA
-                if(userId == 1001)
+                //if(userId == 1001)
                 // REAL DATA
-                //if (userId == accessToken.UserID)
+                if (userId == accessToken.UserID)
                 {
                     var date = DateTime.Now;
                     job.DateCompleted = date;
@@ -78,9 +78,9 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
             {
                 // This will only display records that are assigned to the active user.
                 // TEST DATA
-                var jobs = jobManager.RetrieveJobByUserId(1001);
+                //var jobs = jobManager.RetrieveJobByUserId(1001);
                 // REAL DATA
-                //var jobs = jobManager.RetrieveJobByUserId(accessToken.UserID);
+                var jobs = jobManager.RetrieveJobByUserId(accessToken.UserID);
                 if (jobs == null)
                 {
                     MessageBox.Show("You have no tasks! Go sign up for one!");
