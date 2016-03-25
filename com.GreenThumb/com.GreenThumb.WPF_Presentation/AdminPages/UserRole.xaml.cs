@@ -22,6 +22,7 @@ namespace com.GreenThumb.WPF_Presentation
     /// </summary>
     public partial class UserRole : Window
     {
+        AccessToken _accessToken = new AccessToken();
         /// <summary>
         /// Author: Ibrahim Abuzaid
         /// Data Transfer Object to represent a User from the
@@ -34,10 +35,20 @@ namespace com.GreenThumb.WPF_Presentation
         RoleManager myRoleManager = new RoleManager();
         UserRoleManager myUserRoleManager = new UserRoleManager();
 
-        public UserRole()
+     /*   public UserRole(AccessToken accessToken)
         {
             InitializeComponent();
-        }
+            _accessToken = accessToken;
+            ValidateAccessToken();
+            
+        } */
+     /*   public void ValidateAccessToken()
+        {
+            while (_accessToken == null)
+            {
+                _errorMesage = "You are not logged in.";
+            }
+        } */
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

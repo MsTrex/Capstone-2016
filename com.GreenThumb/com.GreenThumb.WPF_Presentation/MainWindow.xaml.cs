@@ -287,8 +287,8 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar1.Content = "btnSideBar1";
             btnSideBar2.Content = "Messages";
             btnSideBar3.Content = "Expert Requests";
-            btnSideBar4.Content = "btnSideBar4";
-            btnSideBar5.Content = "btnSideBar5";
+            btnSideBar4.Content = "User Role";
+            btnSideBar5.Content = "User Region";
             btnSideBar6.Content = "btnSideBar6";
             btnSideBar7.Content = "btnSideBar7";
             btnSideBar8.Content = "btnSideBar8";
@@ -389,6 +389,10 @@ namespace com.GreenThumb.WPF_Presentation
             else if (btnSideBar3.Content.ToString() == "Search for Questions")
             {
                 mainFrame.NavigationService.Navigate(new ExpertPages.SearchForQuestions(_accessToken));
+            }
+            else if (btnSideBar4.Content.ToString() == "Search for Questions")
+            {
+        //        mainFrame.NavigationService.Navigate(new AdminPages.UserRole(_accessToken));
             }
         }
         /// <summary>
