@@ -14,12 +14,12 @@ using System.Windows.Shapes;
 using com.GreenThumb.BusinessLogic;
 using com.GreenThumb.BusinessObjects;
 
-namespace com.GreenThumb.WPF_Presentation
+namespace com.GreenThumb.WPF_Presentation.GardenPages
 {
     /// <summary>
     /// Interaction logic for RequestGroupLeader.xaml
     /// </summary>
-    public partial class RequestGroupLeader : Window
+    public partial class RequestGroupLeader : Page
     {
         private GroupLeaderRequestManager _manager;
         private AccessToken _acctoken;
@@ -43,7 +43,6 @@ namespace com.GreenThumb.WPF_Presentation
         {
             string msg = _manager.AddGroupLeaderRequest(_selectedGroup);
             lblMessage.Content = msg;
-            btnBack.Content = "Back";
         }
 
         private void cmbGroupList_SelectionChanged(object sender, SelectionChangedEventArgs e)

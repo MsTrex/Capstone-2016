@@ -44,6 +44,7 @@
     <Compile Include="FakeStuff\FakeSecurityManager.cs" />
     <Compile Include="FakeStuff\FakeUserManager.cs" />
     <Compile Include="GardenManager.cs" />
+    <Compile Include="GardenTemplateManager.cs" />
     <Compile Include="GroupLeaderRequestManager.cs" />
     <Compile Include="GroupManager.cs" />
     <Compile Include="Interfaces\IAdminGardenManager.cs" />

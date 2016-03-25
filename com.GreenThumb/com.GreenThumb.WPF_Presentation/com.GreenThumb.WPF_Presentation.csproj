@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\PDUBEY\AppData\Local\Temp\vsAE8C.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Nick\AppData\Local\Temp\vs5A03.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\PDUBEY\AppData\Local\Temp\vsAE8C.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Nick\AppData\Local\Temp\vs5A03.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -64,11 +64,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ExpertPages\ExpertGardenTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ExpertPages\ExpertHome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExpertPages\RecipeInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExpertPages\ViewGardenTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -127,11 +135,17 @@
     <Compile Include="EditUserEntry.xaml.cs">
       <DependentUpon>EditUserEntry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExpertPages\ExpertGardenTemplate.xaml.cs">
+      <DependentUpon>ExpertGardenTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExpertPages\ExpertHome.xaml.cs">
       <DependentUpon>ExpertHome.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExpertPages\RecipeInput.xaml.cs">
       <DependentUpon>RecipeInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertPages\ViewGardenTemplate.xaml.cs">
+      <DependentUpon>ViewGardenTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="GardenPages\GardenMain.xaml.cs">
       <DependentUpon>GardenMain.xaml</DependentUpon>
@@ -157,7 +171,7 @@
     <Compile Include="ProfilePages\ProfileMain.xaml.cs">
       <DependentUpon>ProfileMain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RequestGroupLeader.xaml.cs">
+    <Compile Include="GardenPages\RequestGroupLeader.xaml.cs">
       <DependentUpon>RequestGroupLeader.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserEditPersonalInfo.xaml.cs">
@@ -234,7 +248,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RequestGroupLeader.xaml">
+    <Page Include="GardenPages\RequestGroupLeader.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

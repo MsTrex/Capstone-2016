@@ -124,7 +124,7 @@ namespace com.GreenThumb.WPF_Presentation
             mainFrame.NavigationService.Navigate(new GardenPages.GardenMain(_accessToken));
             btnSideBar1.Content = "Create a Garden";
             btnSideBar2.Content = "btnSideBar2";
-            btnSideBar3.Content = "btnSideBar3";
+            btnSideBar3.Content = "Request to be a Group Leader";
             btnSideBar4.Content = "btnSideBar4";
             btnSideBar5.Content = "btnSideBar5";
             btnSideBar6.Content = "btnSideBar6";
@@ -144,8 +144,8 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar1.Content = "Become an Expert";
             btnSideBar2.Content = "Insert Recipe";
             btnSideBar3.Content = "btnSideBar3";
-            btnSideBar4.Content = "btnSideBar4";
-            btnSideBar5.Content = "btnSideBar5";
+            btnSideBar4.Content = "Upload Garden Template";
+            btnSideBar5.Content = "View Garden Templates";
             btnSideBar6.Content = "btnSideBar6";
             btnSideBar7.Content = "btnSideBar7";
             btnSideBar8.Content = "btnSideBar8";
@@ -229,6 +229,7 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 mainFrame.NavigationService.Navigate(new ExpertPages.RecipeInput(_accessToken));
             }
+            
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -237,7 +238,11 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar3_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            if (btnSideBar3.Content.ToString() == "Request to be a Group Leader")
+            {
+                mainFrame.NavigationService.Navigate(new GardenPages.RequestGroupLeader(_accessToken));
+            }
+            
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -246,7 +251,10 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar4_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            if (btnSideBar4.Content.ToString() == "Upload Garden Template")
+            {
+                mainFrame.NavigationService.Navigate(new ExpertPages.ExpertGardenTemplate(_accessToken));
+            }
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -255,7 +263,11 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar5_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            if (btnSideBar5.Content.ToString() == "View Garden Templates")
+            {
+                mainFrame.NavigationService.Navigate(new ExpertPages.ViewGardenTemplate());
+            }
+            
         }
         /// <summary>
         /// Author: Chris Sheehan

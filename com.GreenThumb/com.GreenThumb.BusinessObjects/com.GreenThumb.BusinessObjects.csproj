@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\PDUBEY\AppData\Local\Temp\vs899E.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Nick\AppData\Local\Temp\vs4E7E.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,7 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\PDUBEY\AppData\Local\Temp\vs899E.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Nick\AppData\Local\Temp\vs4E7E.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -56,6 +56,7 @@
     <Compile Include="ForumContent.cs" />
     <Compile Include="ForumEntry.cs" />
     <Compile Include="GardenAnnoucement.cs" />
+    <Compile Include="GardenTemplate.cs" />
     <Compile Include="GardenType.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="GroupLeaderRequest.cs" />
