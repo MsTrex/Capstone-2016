@@ -73,10 +73,7 @@ namespace com.GreenThumb.BusinessLogic
         public List<Job> RetrieveJobByUserId(int userId)
         {
             try
-            {
-                // THIS IS JUST TO ADD TEST DATA. REMOVE IT WHEN TESTING IS DONE.
-                AddTestUser(userId);
-                
+            {                
                 return JobAccessor.RetrieveJobByUserId(userId);
             }
             catch (Exception ex)
