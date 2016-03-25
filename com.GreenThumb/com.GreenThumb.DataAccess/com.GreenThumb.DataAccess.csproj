@@ -54,7 +54,10 @@
     <Compile Include="OrgUserAccessor.cs" />
     <Compile Include="PlantAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionAccessor.cs" />
+    <Compile Include="QuestionResponseAccessor.cs" />
     <Compile Include="RecipeAccessor.cs" />
+    <Compile Include="RegionAccessor.cs" />
     <Compile Include="RoleAccessor.cs" />
     <Compile Include="TimePledgedAccessor.cs" />
     <Compile Include="UserAccessor.cs" />

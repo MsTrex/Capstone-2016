@@ -38,7 +38,7 @@ namespace com.GreenThumb.DataAccess
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    int regionID = 0;
+                    int? regionID = 0;
                     string zip = "";
                     if (!reader.IsDBNull(4))
                     {
@@ -46,7 +46,13 @@ namespace com.GreenThumb.DataAccess
                     }
                     if (!reader.IsDBNull(6))
                     {
-                        reader.GetInt32(6);
+                        // Rhett Allen 3/24/16 - regionID is now being assigned
+                        regionID = reader.GetInt32(6);
+                    }
+                    else
+                    {
+                        // Rhett Allen 3/24/16 - added else. Made region default null instead of zero since region is nullable
+                        regionID = null;
                     }
                     user = new User()
                     {

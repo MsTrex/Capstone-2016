@@ -67,6 +67,15 @@
     <Compile Include="AdminPages\AdminProcessExpertRequests.xaml.cs">
       <DependentUpon>AdminProcessExpertRequests.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExpertPages\ExpertAdvice.xaml.cs">
+      <DependentUpon>ExpertAdvice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertPages\ExpertAdviceRespond.xaml.cs">
+      <DependentUpon>ExpertAdviceRespond.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertPages\SearchForQuestions.xaml.cs">
+      <DependentUpon>SearchForQuestions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GardenPages\CompleteTask.xaml.cs">
       <DependentUpon>CompleteTask.xaml</DependentUpon>
     </Compile>
@@ -88,6 +97,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ExpertPages\ExpertAdvice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpertPages\ExpertAdviceRespond.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ExpertPages\ExpertHome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -95,6 +112,10 @@
     <Page Include="ExpertPages\RecipeInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExpertPages\SearchForQuestions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="GardenPages\AdminMessages.xaml">
       <SubType>Designer</SubType>

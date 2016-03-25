@@ -244,9 +244,9 @@ namespace com.GreenThumb.WPF_Presentation
             mainFrame.NavigationService.Navigate(new ExpertPages.ExpertHome(_accessToken));
             btnSideBar1.Content = "Become an Expert";
             btnSideBar2.Content = "Insert Recipe";
-            btnSideBar3.Content = "btnSideBar3";
-            btnSideBar4.Content = "btnSideBar4";
-            btnSideBar5.Content = "btnSideBar5";
+            btnSideBar3.Content = "Search for Questions";
+            btnSideBar4.Content = "Ask a Question";
+            btnSideBar5.Content = "Answer Questions";
             btnSideBar6.Content = "btnSideBar6";
             btnSideBar7.Content = "btnSideBar7";
             btnSideBar8.Content = "btnSideBar8";
@@ -380,6 +380,10 @@ namespace com.GreenThumb.WPF_Presentation
 
                 mainFrame.NavigationService.Navigate(processExperts);
             }
+            else if (btnSideBar3.Content.ToString() == "Search for Questions")
+            {
+                mainFrame.NavigationService.Navigate(new ExpertPages.SearchForQuestions(_accessToken));
+            }
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -392,6 +396,10 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 mainFrame.NavigationService.Navigate(new GardenPages.CompleteTask(_accessToken));
             }
+            else if (btnSideBar4.Content.ToString() == "Ask a Question")
+            {
+                mainFrame.NavigationService.Navigate(new ExpertPages.ExpertAdvice(_accessToken));
+            }
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -400,7 +408,10 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar5_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            if (btnSideBar5.Content.ToString() == "Answer Questions")
+            {
+                mainFrame.NavigationService.Navigate(new ExpertPages.ExpertAdviceRespond(_accessToken));
+            }
         }
         /// <summary>
         /// Author: Chris Sheehan
