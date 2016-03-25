@@ -4015,9 +4015,6 @@ go
 /**********************************************************************************/
 
 --added by Ryan Taylor 3/24/16
-DROP TRIGGER trgInsertNewGroup
-GO
-
 CREATE TRIGGER trgInsertNewGroup ON Gardens.Groups
 AFTER INSERT AS
 BEGIN
@@ -4069,7 +4066,6 @@ exec Admin.spInsertMessage				'This is a message, wahoo!!'	,'3/2/38'					,'Testi
 exec Admin.spInsertMessageLineItems		1000			,1001			,'1/23/52'					,1002			,'1/4/99'					,'This is a test message'
 
 --* spInsertRoles						@RoleID				@Description varchar(100),	@CreatedBy int,	@CreatedDate smalldatetime 
-exec Admin.spInsertRoles				'Guest'				,'Guest'					,1003			,'1/4/99'
 exec Admin.spInsertRoles				'User'				,'User'						,1003			,'1/4/99'
 exec Admin.spInsertRoles				'Admin'				,'Admin'					,1003			,'1/4/99'
 exec Admin.spInsertRoles				'Expert'			,'Expert'					,1003			,'1/4/99'
@@ -4078,10 +4074,8 @@ exec Admin.spInsertRoles				'GroupLeader'	    ,'Group Leader'				,1003			,'1/4/9
 			
 --* spInsertUserRoles           		@UserID int,	@RoleID int,	@CreatedBy int,	@CreatedDate smalldatetime    
 exec Admin.spInsertUserRoles			1000			,'Guest'		,1000			,'5/23/65'
-exec Admin.spInsertUserRoles			1000			,'User'			,1000			,'5/23/65'
 exec Admin.spInsertUserRoles			1001			,'Admin'		,1000			,'5/23/65'
 exec Admin.spInsertUserRoles			1002			,'Guest'		,1000			,'5/23/65'
-exec Admin.spInsertUserRoles			1003			,'User'			,1000			,'5/23/65'
 exec Admin.spInsertUserRoles			1003			,'Admin'		,1000			,'5/23/65'
 
 --* spInsertUserRoles           		@UserID int,	@RoleID int,	@CreatedBy int,	@CreatedDate smalldatetime    
