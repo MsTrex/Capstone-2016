@@ -61,6 +61,114 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             ///Assert.AreNotEqual(0, group.Count);
             ///
         }
+
+
+
+        /// <summary>
+        /// Ryan Taylor
+        /// Created: 03/24/16
+        /// </summary>
+        [TestMethod]
+        public void TestGetGroupsForUserReturnListWithGroup()
+        {
+            // Arrange
+            int userID = 1;
+            List<BusinessObjects.Group> group = null;
+            int expectedCount = 1;
+
+            // Act
+            group = groupManager.GetGroupsForUser(userID);
+
+            // Assert
+            Assert.AreEqual(expectedCount, group.Count);
+        }
+
+        /// <summary>
+        /// Ryan Taylor
+        /// Created: 03/24/16
+        /// </summary>
+        [TestMethod]
+        public void TestGetGroupsForUserReturnListNoGroups()
+        {
+            // Arrange
+            int userID = 2;
+            List<BusinessObjects.Group> group = null;
+            int expectedCount = 0;
+
+            // Act
+            group = groupManager.GetGroupsForUser(userID);
+
+            // Assert
+            Assert.AreEqual(expectedCount, group.Count);
+        }
+
+        /// <summary>
+        /// Ryan Taylor
+        /// Created: 03/24/16
+        /// </summary>
+        [TestMethod]
+        public void TestAddGroupPass()
+        {
+            // Arrange
+            int userID = 1;
+            string groupName = "12345";
+            bool expectedResult = true;
+
+            // Act + Assert
+            Assert.AreEqual(expectedResult, groupManager.AddGroup(userID, groupName));
+        }
+
+        /// <summary>
+        /// Ryan Taylor
+        /// Created: 03/24/16
+        /// </summary>
+        [TestMethod]
+        public void TestAddGroupFailUserID()
+        {
+            // Arrange
+            int userID = 1;
+            string groupName = "12345";
+            bool expectedResult = true;
+
+            // Act + Assert
+            Assert.AreEqual(expectedResult, groupManager.AddGroup(userID, groupName));
+        }
+
+        /// <summary>
+        /// Ryan Taylor
+        /// Created: 03/24/16
+        /// </summary>
+        [TestMethod]
+        public void TestAddGroupFailNameShort()
+        {
+            // Arrange
+            int userID = 1;
+            string groupName = "1";
+            bool expectedResult = false;
+
+            // Act + Assert
+            Assert.AreEqual(expectedResult, groupManager.AddGroup(userID, groupName));
+        }
+
+        /// <summary>
+        /// Ryan Taylor
+        /// Created: 03/24/16
+        /// </summary>
+        [TestMethod]
+        public void TestAddGroupFailNameLong()
+        {
+            // Arrange
+            int userID = 1;
+            string groupName = "";
+            for (int i = 0; i < 25; i++)
+            {
+                groupName += "All work and no play make Jack a dull boy. ";
+            }
+            bool expectedResult = false;
+
+            // Act + Assert
+            Assert.AreEqual(expectedResult, groupManager.AddGroup(userID, groupName));
+        }
         
     }
 }

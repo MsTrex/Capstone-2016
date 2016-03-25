@@ -3947,6 +3947,30 @@ end;
 go
 
 /**********************************************************************************/
+/******************************* Triggers ****************************************/
+/**********************************************************************************/
+
+--added by Ryan Taylor 3/24/16
+DROP TRIGGER trgInsertNewGroup
+GO
+
+CREATE TRIGGER trgInsertNewGroup ON Gardens.Groups
+AFTER INSERT AS
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @userID INT,
+			@groupID INT
+			 
+	SELECT @userid = INSERTED.GroupLeaderID FROM INSERTED
+	SELECT @groupID = INSERTED.GroupID FROM INSERTED
+	INSERT INTO Gardens.GroupMembers(groupID, userID, createdDate, createdBy, leader)
+	VALUES(@groupID, @userID, GETDATE(), @userID, 1)
+END;
+GO
+
+
+
+/**********************************************************************************/
 /******************************* Test Data ****************************************/
 /**********************************************************************************/
 

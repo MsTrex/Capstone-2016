@@ -123,7 +123,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             mainFrame.NavigationService.Navigate(new GardenPages.GardenMain(_accessToken));
             btnSideBar1.Content = "Create a Garden";
-            btnSideBar2.Content = "btnSideBar2";
+            btnSideBar2.Content = "Your Groups";
             btnSideBar3.Content = "btnSideBar3";
             btnSideBar4.Content = "btnSideBar4";
             btnSideBar5.Content = "btnSideBar5";
@@ -219,6 +219,10 @@ namespace com.GreenThumb.WPF_Presentation
             if (btnSideBar1.Content.ToString() == "Messages")
             {
                 mainFrame.NavigationService.Navigate(new Uri("GardenPages/AdminMessages.xaml", UriKind.Relative));
+            }
+            else if (btnSideBar2.Content.ToString().Equals("Your Groups"))
+            {
+                mainFrame.NavigationService.Navigate(new GardenPages.GroupMain(_accessToken));
             }
         }
         /// <summary>

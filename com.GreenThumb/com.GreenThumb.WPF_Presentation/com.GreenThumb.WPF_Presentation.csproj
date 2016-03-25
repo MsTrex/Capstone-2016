@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\user\AppData\Local\Temp\vs7D08.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs9C5A.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\user\AppData\Local\Temp\vs7D08.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\ryant\AppData\Local\Temp\vs9C5A.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -88,6 +88,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="GardenPages\GroupMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GardenPages\GardenMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -125,6 +129,9 @@
     </Compile>
     <Compile Include="ExpertPages\ExpertHome.xaml.cs">
       <DependentUpon>ExpertHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\GroupMain.xaml.cs">
+      <DependentUpon>GroupMain.xaml</DependentUpon>
     </Compile>
     <Compile Include="GardenPages\GardenMain.xaml.cs">
       <DependentUpon>GardenMain.xaml</DependentUpon>

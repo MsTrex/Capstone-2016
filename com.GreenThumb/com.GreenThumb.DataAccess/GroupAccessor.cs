@@ -157,5 +157,42 @@ namespace com.GreenThumb.DataAccess
             return groupList;
         }
 
+        /// <summary>
+        /// Ryan Taylor
+        /// Created 03/23/16
+        /// Inserts a new group into the database
+        /// </summary>
+        /// <param name="userID">ID of user creating the group</param>
+        /// <param name="groupName">Name of the new group to be added</param>
+        /// <returns>True if data was added, False otherwise</returns>
+        public static bool CreateGroup(int userID, string groupName)
+        {
+            int rowCount = 0;
+
+            var conn = DBConnection.GetDBConnection();
+            string query = @"Gardens.spInsertGroups";
+            var cmd = new SqlCommand(query, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@GroupName", groupName);
+            cmd.Parameters.AddWithValue("@GroupLeaderID", userID);
+            cmd.Parameters.AddWithValue("@OrganizationID", 0);
+
+            try
+            {
+                conn.Open();
+                rowCount = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rowCount == 1;
+        }
+
     }
 }

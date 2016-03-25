@@ -47,5 +47,35 @@ namespace com.GreenThumb.BusinessLogic.FakeStuff
         {
             get { throw new NotImplementedException(); }
         }
+
+
+        public List<BusinessObjects.Group> GetGroupsForUser(int userID)
+        {
+            List<BusinessObjects.Group> groups = new List<BusinessObjects.Group>();
+
+            if (userID == 1)
+            {
+                groups.Add(new BusinessObjects.Group()
+                {
+                    Name = "A Group"
+                });
+            }
+
+            return groups;
+        }
+
+
+        public bool AddGroup(int userID, string groupName)
+        {
+            bool groupAdded = false;
+            if (userID == 1)
+            {
+                if (groupName.Length > 2 && groupName.Length < 100)
+                {
+                    groupAdded = true;
+                }
+            }
+            return groupAdded;
+        }
     }
 }
