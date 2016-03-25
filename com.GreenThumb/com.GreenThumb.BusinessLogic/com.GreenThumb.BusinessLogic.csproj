@@ -40,7 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminExpertRequestsManager.cs" />
+    <Compile Include="CreateOrgManager.cs" />
     <Compile Include="DonationManager.cs" />
+    <Compile Include="FakeStuff\FakeCreateOrgManager.cs" />
     <Compile Include="FakeStuff\FakeGardenManager.cs" />
     <Compile Include="FakeStuff\FakeGroupManager.cs" />
     <Compile Include="FakeStuff\FakeSecurityManager.cs" />
@@ -51,6 +53,7 @@
     <Compile Include="GroupManager.cs" />
     <Compile Include="Interfaces\IAdminGardenManager.cs" />
     <Compile Include="Interfaces\IAdminOrganizerManager.cs" />
+    <Compile Include="Interfaces\ICreateOrgManager.cs" />
     <Compile Include="Interfaces\IGardenDesigner.cs" />
     <Compile Include="Interfaces\IGardenDesignViewer.cs" />
     <Compile Include="Interfaces\IGardenManager.cs" />
