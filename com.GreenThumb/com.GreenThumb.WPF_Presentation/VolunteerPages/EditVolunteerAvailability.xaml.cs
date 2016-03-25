@@ -44,7 +44,7 @@ namespace com.GreenThumb.WPF_Presentation.VolunteerPages
 
         private void btnSubmitHours_Click(object sender, RoutedEventArgs e)
         {
-            donationManager.AddVolunteerHours(startTime, finishTime, datePledged, _accessToken.UserID);
+            //donationManager.AddVolunteerHours(startTime, finishTime, datePledged, _accessToken.UserID);
         }
 
         private void cmbbxStartTime_SelectionChanged(object sender, SelectionChangedEventArgs e)

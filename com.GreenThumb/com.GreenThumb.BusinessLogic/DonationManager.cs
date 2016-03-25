@@ -10,19 +10,19 @@ namespace com.GreenThumb.BusinessLogic
 {
    public class DonationManager
     {
-        public int AddVolunteerHours(DateTime startTime, DateTime finishTime, DateTime datePledged, int p)
-        {
-            try
-            {
-                int timePledge = TimePledgedAccessor.PledgeVolunteerHours(startTime, finishTime, datePledged, p);
-                return timePledge;
-            }
-            catch (Exception)
-            {
+        //public int AddVolunteerHours(DateTime startTime, DateTime finishTime, DateTime datePledged, int p)
+        //{
+        //    try
+        //    {
+        //        int timePledge = TimePledgedAccessor.PledgeVolunteerHours(startTime, finishTime, datePledged, p);
+        //        return timePledge;
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
-        }
+        //        throw;
+        //    }
+        //}
 
        
     }
