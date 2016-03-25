@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using com.GreenThumb.BusinessLogic;
 using com.GreenThumb.BusinessObjects;
 using System.Collections.Generic;
+using com.GreenThumb.BusinessLogic.FakeStuff;
 
 namespace com.GreenThumb.BusinessLogicUnitTests
 {
@@ -10,7 +11,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
     public class UserManagerUnitTests
     {
         UserManager userManager = null;
-
+        FakeUserManager fUserManager = null;
         [TestInitialize]
         public void TestSetup()
         {
@@ -31,7 +32,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             string lastName = "Smith";
             string zip = "123456789";
             string emailAddress = "hello@gmail.com";
-            int? regionId = null;
+            int? regionId = 1;
 
             //act
             bool result = userManager.EditUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, regionId);
@@ -75,7 +76,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             string lastName = "Smith";
             string zip = "123456789";
             string emailAddress = "";
-            int? regionId = null;
+            int? regionId = 1;
 
             //act
             bool result = userManager.EditUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, regionId);
@@ -119,6 +120,50 @@ namespace com.GreenThumb.BusinessLogicUnitTests
 
             //assert
             Assert.AreEqual(1, user.Count);
+        }
+
+        /// <summary>
+        /// Function to test new user data By : Poonam Dubey, Dated : 23rd March 2016
+        /// </summary>
+        [TestMethod]
+        public void TestInsertNewUser()
+        {
+            string fName = "Poonam";
+            string lName = "Dubey";
+            string zip = string.Empty;
+            string emailAddress = string.Empty;
+            string userName = "pdubey";
+            string password = string.Empty;
+            bool isActive = true;
+            int? regionID = null;
+            fUserManager = new FakeUserManager();
+            //act
+            int returnValue = fUserManager.AddNewUser(fName, lName, zip, emailAddress, userName, password, isActive, regionID);
+
+            //assert
+            Assert.AreEqual(1, returnValue);
+        }
+
+        /// <summary>
+        /// Function to test user data which already exists By : Poonam Dubey, Dated : 23rd March 2016
+        /// </summary>
+        [TestMethod]
+        public void TestInsertNewUserExistingUserName()
+        {
+            string fName = "Poonam";
+            string lName = "Dubey";
+            string zip = string.Empty;
+            string emailAddress = string.Empty;
+            string userName = "johnDoe";
+            string password = string.Empty;
+            bool isActive = true;
+            int? regionID = null;
+            fUserManager = new FakeUserManager();
+            //act
+            int returnValue = fUserManager.AddNewUser(fName, lName, zip, emailAddress, userName, password, isActive, regionID);
+
+            //assert
+            Assert.AreNotEqual(1, returnValue);
         }
 
     }

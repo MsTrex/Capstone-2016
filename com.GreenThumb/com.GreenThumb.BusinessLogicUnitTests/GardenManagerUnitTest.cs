@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace com.GreenThumb.BusinessLogicUnitTests
 {
     /// <summary>
-    /// Class to Uni test create garden functionality by Poonam Dubey
+    /// Class to Unit test create garden functionality by Poonam Dubey
     /// </summary>
     [TestClass]
     public class GardenManagerUnitTest

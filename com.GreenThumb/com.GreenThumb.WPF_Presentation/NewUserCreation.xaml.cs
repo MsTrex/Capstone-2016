@@ -37,50 +37,74 @@ namespace com.GreenThumb.WPF_Presentation
             string password = this.txtnewPassword.Password;
             string passConfirm = this.txtPassConfirm.Password;
             bool isActive = true;
-            bool isRegexMatch = true;
+            bool regexFnameFailed = false;
+            bool regexLnameFailed = false;
+            bool regexPasswordFailed = false;
             try
             {
                 if (!string.IsNullOrEmpty(fName) && !string.IsNullOrEmpty(lName) && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(passConfirm))
                 {
-                //    if (Regex.IsMatch(fName, @"(?i)^[a-z]+"))
-                //        isRegexMatch = true;
-                //    else
-                //    {
-                //        isRegexMatch = false;
-                //        MessageBox.Show("Please enter only characters in first name");
-                //    }
+                    if (Regex.IsMatch(fName, @"(?i)^[a-z]+"))
+                    {
+                        regexFnameFailed = false;
+                    }
+                    else
+                    {
+                        regexFnameFailed = true;
+                    }
 
-                //    if (Regex.IsMatch(lName, @"(?i)^[a-z]+"))
-                //        isRegexMatch = true;
-                //    else
-                //    {
-                //        isRegexMatch = false;
-                //        MessageBox.Show("Please enter only characters in last name");
-                //    }
+                    if (Regex.IsMatch(lName, @"(?i)^[a-z]+"))
+                    {
+                        regexLnameFailed = false;
+                    }
+                    else
+                    {
+                        regexLnameFailed = true;
+                    }
 
-                //    if (Regex.IsMatch(password, @"^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z]).{6}$"))
-                //        isRegexMatch = true;
-                //    else
-                //    {
-                //        isRegexMatch = false;
-                //        MessageBox.Show("Password should contain 1 uppercase, 2 lowercase, 1 digit and a special character");
-                //    }
+                    if (Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{5,}$"))
+                    {
+                        regexPasswordFailed = false;
+                    }
+                    else
+                    {
+                        regexPasswordFailed = true;
+                    }
 
-                    if (isRegexMatch)
+                    if (!regexFnameFailed && !regexLnameFailed && !regexPasswordFailed)
                     {
                         if (password != passConfirm)
                             MessageBox.Show("Passwords dont match!");
                         else
                         {
-                            if (_userManagerObj.AddNewUser(fName, lName, string.Empty, string.Empty, username, password.HashSha256(), isActive, null) == 1)
+                            if (username.Length < 5)
                             {
-                                MessageBox.Show("User has been created successfully!!");
+                                MessageBox.Show("Username should be atleast 5 characters long");
                             }
                             else
                             {
-                                MessageBox.Show("Username entered already exists. Please try a different username.");
+                                if (_userManagerObj.AddNewUser(fName, lName, string.Empty, string.Empty, username, password.HashSha256(), isActive, null) == 1)
+                                {
+                                    ClearControls();
+                                    MessageBox.Show("User has been created successfully!!");
+                                }
+                                else
+                                {
+                                    txtnewUsername.Text = string.Empty;
+                                    MessageBox.Show("Username entered already exists. Please try a different username.");
+
+                                }
                             }
                         }
+                    }
+                    else
+                    {
+                        if (regexFnameFailed)
+                            MessageBox.Show("Please enter only characters in first name");
+                        else if (regexLnameFailed)
+                            MessageBox.Show("Please enter only characters in last name");
+                        else
+                            MessageBox.Show("Password should contain 1 uppercase, 1 lowercase, 1 digit and a special character and should be minimum 6 characters long.");
                     }
                 }
                 else
@@ -99,6 +123,11 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             //this.Close();
+            ClearControls();
+        }
+
+        private void ClearControls()
+        {
             this.txtFName.Text = string.Empty;
             this.txtLName.Text = string.Empty;
             this.txtnewUsername.Text = string.Empty;

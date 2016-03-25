@@ -32,5 +32,22 @@ namespace com.GreenThumb.BusinessLogic
                 throw new ApplicationException(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Manager function to fetch all gardens : Poonam Dubey  (20th March 2016)
+        /// </summary> 
+        /// <returns></returns>
+        public List<Garden> GetGardens()
+        {
+            try
+            {
+                return GardenAccessor.GetGardens();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
     }
 }

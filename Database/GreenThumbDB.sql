@@ -432,6 +432,7 @@ create table Expert.BecomeAnExpert(
 
 create table Expert.BlogEntry(
 	BlogID int identity(1000,1) not null primary key,
+	BlogTitle varchar(200) not null,
 	BlogData varchar(max) not null,
 	CreatedBy int not null,
 	CreatedDate smalldatetime not null,
@@ -2838,6 +2839,7 @@ go
 
 create procedure Expert.spInsertBlogEntry(
 	@BlogData varchar(max),
+	@BlogTitle varchar(200),
 	@CreatedBy int,
 	@CreatedDate smalldatetime,
 	@ModifiedBy int,
@@ -2846,12 +2848,14 @@ as
 begin
 insert into Expert.BlogEntry(
 	BlogData,
+	BlogTitle,
 	CreatedBy,
 	CreatedDate,
 	ModifiedBy,
 	ModifiedDate)
 values(
 	@BlogData,
+	@BlogTitle,
 	@CreatedBy,
 	@CreatedDate,
 	@ModifiedBy,
@@ -4124,8 +4128,8 @@ exec Expert.spInsertPlants				'Red Potato'		,'Potato'			,'Vegetable'			,'Small p
 --* spInsertExpertBecomeAnExpert       		@Username int,	@WhyShouldIBeAnExpert varchar(200),	@ApprovedBy int,	@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
 exec Expert.spInsertExpertBecomeAnExpert	1001			,'I am the best'					,1000				,1001			,'12/3/99'					,1000				,'8/20/13'
 	
---* spInsertBlogEntry            		@BlogData varchar(max),		@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
-exec Expert.spInsertBlogEntry			'This is a blog about...'	,1000			,'7/19/06'					,1002				,'2/17/87'
+--* spInsertBlogEntry            		@BlogData varchar(max),		@BlogTitle varchar(200)		@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
+exec Expert.spInsertBlogEntry			'This is a blog about...'	,'Vegetables in Florida'	,1000			,'7/19/06'					,1002				,'2/17/87'
 	
 --* spInsertContent              		@UserID int,	@RegionID int,	@Title varchar(50),		@Category varchar(50),	@Content varchar(max),	@Date smalldatetime ,	@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
 exec Expert.spInsertContent				1001			,1 				,'Home Page'			,'home'					,'Welcome home'			,'2/8/93'				,1000			,'9/29/91'					,1001				,'6/14/05'		

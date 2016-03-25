@@ -142,7 +142,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             mainFrame.NavigationService.Navigate(new ExpertPages.ExpertHome(_accessToken));
             btnSideBar1.Content = "Become an Expert";
-            btnSideBar2.Content = "btnSideBar2";
+            btnSideBar2.Content = "Insert Recipe";
             btnSideBar3.Content = "btnSideBar3";
             btnSideBar4.Content = "btnSideBar4";
             btnSideBar5.Content = "btnSideBar5";
@@ -152,13 +152,32 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar9.Content = "btnSideBar9";
             btnSideBar10.Content = "btnSideBar10";
         }
-        
+
+        /// <summary>
+        /// Author: Emily West
+        /// Click logic for button btnVolunteer
+        /// </summary>
+        private void btnVolunteer_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new VolunteerPages.VolunteerHome(_accessToken));
+            btnSideBar1.Content = "Edit Volunteer Availability";
+            btnSideBar2.Content = "btnSideBar2";
+            btnSideBar3.Content = "btnSideBar3";
+            btnSideBar4.Content = "btnSideBar4";
+            btnSideBar5.Content = "btnSideBar5";
+            btnSideBar6.Content = "btnSideBar6";
+            btnSideBar7.Content = "btnSideBar7";
+            btnSideBar8.Content = "btnSideBar8";
+            btnSideBar9.Content = "btnSideBar9";
+            btnSideBar10.Content = "btnSideBar10";
+
+        }
 
 
         private void btnAdmin_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new AdminPages.AdminHome(_accessToken));
-            btnSideBar1.Content = "User Edit";
+            btnSideBar1.Content = "btnSideBar1";
             btnSideBar2.Content = "Messages";
             btnSideBar3.Content = "btnSideBar3";
             btnSideBar4.Content = "btnSideBar4";
@@ -177,7 +196,7 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
-            btnSideBar1.Content = "btnSideBar1";
+            btnSideBar1.Content = "Edit Personal Info";
             btnSideBar2.Content = "btnSideBar2";
             btnSideBar3.Content = "btnSideBar3";
             btnSideBar4.Content = "btnSideBar4";
@@ -203,10 +222,13 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 mainFrame.NavigationService.Navigate(new GardenPages.CreateGarden(_accessToken));
             }
-            else if (btnSideBar1.Content.ToString() == "User Edit")
+            else if (btnSideBar1.Content == "Edit Personal Info")
             {
-                UserEditPersonalInfo uepi = new UserEditPersonalInfo(_accessToken);
-                uepi.ShowDialog();
+                mainFrame.NavigationService.Navigate(new ProfilePages.EditPersonalInfo(_accessToken));
+            }
+            else if(btnSideBar1.Content == "Edit Volunteer Availability")
+            {
+                mainFrame.NavigationService.Navigate(new VolunteerPages.EditVolunteerAvailability(_accessToken));
             }
 
         }
@@ -215,11 +237,20 @@ namespace com.GreenThumb.WPF_Presentation
         /// Click logic for the btnsidebar2click event
         /// Date: 3/9/16
         /// </summary>
+        /// <remarks>
+        /// Updater Chris Schwebach
+        /// Updated: 2016/03/15
+        /// Changed btnSideBar2 event Insert Recipe 
+        /// </remarks>
         private void btnSideBar2_MouseDown(object sender, MouseButtonEventArgs e)
         {            
-            if (btnSideBar1.Content.ToString() == "Messages")
+            if (btnSideBar2.Content.ToString() == "Messages")
             {
                 mainFrame.NavigationService.Navigate(new GardenPages.AdminMessages(_accessToken));
+            }
+            else if (btnSideBar2.Content == "Insert Recipe")
+            {
+                mainFrame.NavigationService.Navigate(new ExpertPages.RecipeInput(_accessToken));
             }
         }
         /// <summary>
@@ -294,5 +325,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
 
         }
+
+       
     }
 }
