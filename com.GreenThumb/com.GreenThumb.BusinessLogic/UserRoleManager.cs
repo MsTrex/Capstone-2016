@@ -17,7 +17,7 @@ namespace com.GreenThumb.BussinessLogic
             /// Data Transfer Object to represent a User from the
             /// Database
             /// 
-            /// Added 3/4 By Ibarahim
+            /// Added 3/25 By Ibarahim
             /// </summary>
             try
             {
@@ -79,6 +79,7 @@ namespace com.GreenThumb.BussinessLogic
             }
             return false;
         }
+        // should not be used after approval
         public bool ChangeUserRole(UserRole userRole)
         {
             if (userRole.UserID < 1000)
@@ -99,6 +100,7 @@ namespace com.GreenThumb.BussinessLogic
             }
             return false;
         }
+        // should be replaced by ChangeUserRoleStatus
         public bool DeleteUserRole(int usr, string role)
         {
             if (usr < 1000)
@@ -109,6 +111,27 @@ namespace com.GreenThumb.BussinessLogic
             try
             {
                 if (UserRoleAccessor.UpdateUserRoleRemove(usr, role) == 1)
+                {
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return false;
+        }
+
+        public bool ChangeUserRoleStatus(int usr, string role, bool active)
+        {
+            if (usr < 1000)
+            {
+                throw new ApplicationException("Invalid userID");
+            }
+
+            try
+            {
+                if (UserRoleAccessor.UpdateUserRoleStatus(usr, role, active) == 1)
                 {
                     return true;
                 }

@@ -17,7 +17,7 @@ namespace com.GreenThumb.DataAccessor
         /// Data Transfer Object to represent a User from the
         /// Database
         /// 
-        /// Added 3/4 By Ibarahim
+        /// Added 3/25 By Ibarahim
         /// </summary>
         public static List<UserRole> FetchUserRoleList()
         {
@@ -153,6 +153,7 @@ namespace com.GreenThumb.DataAccessor
             return count;
         }
 
+        // should not be used after approval by
         public static int UpdateUserRole(UserRole userRole)
         {
             int rowCount = 0;
@@ -224,6 +225,57 @@ namespace com.GreenThumb.DataAccessor
             // this is the all-at-once way
             cmd.Parameters.AddWithValue("@UserID", usr);
             cmd.Parameters.AddWithValue("@RoleID", role);
+
+            // we can also create an output parameter
+            var o = new SqlParameter("Rowcount", SqlDbType.Int);
+            o.Direction = ParameterDirection.ReturnValue;
+            cmd.Parameters.Add(o);
+
+            try
+            {
+                // open the connection
+                conn.Open();
+
+                // execute  the command
+                rowCount = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rowCount;
+        }
+    
+
+          public static int UpdateUserRoleStatus(int usr, String role, bool active)
+        {
+            int rowCount = 0;
+
+            // begin with a connection
+            var conn = DBConnection.GetDBConnection();
+
+            // get some commandText
+        //    string cmdText = "Admin.spUpdateUserRoleStatus"; //waiting for Chris approval
+            var query = "Update Admin.UserRole set Active = @active WHERE " +
+                        @"UserID = @UserID AND RoleID = @RoleID";
+            
+            // create a command object
+            var cmd = new SqlCommand(query, conn);
+
+            // here is where things change a bit
+            // first, we need to set the command type
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            // we need to construct and add the parameters
+
+            // this is the all-at-once way
+            cmd.Parameters.AddWithValue("@UserID", usr);
+            cmd.Parameters.AddWithValue("@RoleID", role);
+            cmd.Parameters.AddWithValue("@Active", active);
 
             // we can also create an output parameter
             var o = new SqlParameter("Rowcount", SqlDbType.Int);
