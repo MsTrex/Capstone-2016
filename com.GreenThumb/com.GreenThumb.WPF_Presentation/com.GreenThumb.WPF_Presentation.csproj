@@ -80,6 +80,7 @@
       <DependentUpon>AdminProcessExpertRequests.xaml</DependentUpon>
     </Compile>
     <Compile Include="AdminPages\RegionPage.xaml.cs" />
+    <Compile Include="AdminPages\UserRole.xaml.cs" />
     <Compile Include="ExpertPages\ExpertAdvice.xaml.cs">
       <DependentUpon>ExpertAdvice.xaml</DependentUpon>
     </Compile>
@@ -116,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdminPages\RegionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AdminPages\UserRole.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -271,9 +276,6 @@
     <Compile Include="UserEditPersonalInfo.xaml.cs">
       <DependentUpon>UserEditPersonalInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AdminPages\UserRole.xaml.cs">
-      <DependentUpon>UserRole.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewGroups.xaml.cs">
       <DependentUpon>ViewGroups.xaml</DependentUpon>
     </Compile>
@@ -347,10 +349,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserEditPersonalInfo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="AdminPages\UserRole.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
