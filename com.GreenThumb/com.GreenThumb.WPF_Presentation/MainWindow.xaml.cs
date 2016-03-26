@@ -419,7 +419,7 @@ namespace com.GreenThumb.WPF_Presentation
             }
             else if (btnSideBar4.Content.ToString().Equals("User Role"))
             {
-                mainFrame.NavigationService.Navigate(new Uri("AdminPages/UserRole.xaml", UriKind.Relative));
+                mainFrame.NavigationService.Navigate(new UserRole(_accessToken));
             }
         }
         /// <summary>
