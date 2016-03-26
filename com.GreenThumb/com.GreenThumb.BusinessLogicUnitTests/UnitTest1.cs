@@ -25,6 +25,7 @@ namespace com.GreenThumb.UnitTest
       
             //Assert
             Assert.AreEqual(result, true);
+           
 
         }
         [TestMethod]
@@ -34,23 +35,20 @@ namespace com.GreenThumb.UnitTest
             UserRole usrRole = new UserRole();
             UserRole origUsrRole = new UserRole();
 
-            @usrRole.UserID = 1004;
-            @usrRole.RoleID = "1001";
-            @usrRole.CreatedBy = 1002;
-            @usrRole.CreatedDate = DateTime.Now;
-
-            
+            int testUserID = 1004;
+            string testRoleID = "1001";
+            bool testActive = false;
            
         //    usr.RegionID = Convert.DBNull;
            
             //Act
 
-            bool result = userRoleMgr.ChangeUserRole(usrRole);
+            bool result = userRoleMgr.ChangeUserRoleStatus(testUserID, testRoleID, testActive);
 
             //Assert
-              Assert.AreEqual(result, true);
+              Assert.AreEqual(result, false);
         }
-        [TestMethod]
+  /*      [TestMethod]
         public void TestUserRoleRemove()
         {
             UserRoleManager userRoleMgr = new UserRoleManager();
@@ -65,6 +63,6 @@ namespace com.GreenThumb.UnitTest
 
             //Assert
             Assert.AreEqual(result, true);
-        }
+        } */
     }
 }
