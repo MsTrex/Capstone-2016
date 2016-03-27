@@ -633,5 +633,162 @@ namespace com.GreenThumb.DataAccess
             return rowsAffected;
         }
 
+        /// <summary>
+        /// Checks to see if the value exists as a username in the database.
+        /// 
+        /// Created by: Trent Cullinan 03/25/16
+        /// </summary>
+        /// <param name="userName">Value to check database.</param>
+        /// <returns>Whether the username exists in the database.</returns>
+        public static bool CheckUserName(string userName)
+        {
+            bool flag = true;
+
+            var conn = DBConnection.GetDBConnection();
+
+            var cmd = new SqlCommand("Admin.spSelectUserNameCount", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@UserName", userName);
+
+            try
+            {
+                conn.Open();
+
+                flag = 1 == (int)cmd.ExecuteScalar();
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return flag;
+        }
+
+        /// <summary>
+        /// Checks to see if the value exists as a username with password in the database.
+        /// 
+        /// Created by: Trent Cullinan 03/25/16
+        /// </summary>
+        /// <param name="userName">Value to check database.</param>
+        /// <param name="passWord">Value to check database.</param>
+        /// <returns>Whether the username exists with password in the database.</returns>
+        public static bool CheckUserNameWithPassword(string userName, string passWord) 
+        {
+            bool flag = true;
+
+            var conn = DBConnection.GetDBConnection();
+
+            var cmd = new SqlCommand("Admin.spSelectUserWithUsernameAndPassword", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@UserName", userName);
+            cmd.Parameters.AddWithValue("@PassWord", passWord);
+
+            try
+            {
+                conn.Open();
+
+                flag = 1 == (int)cmd.ExecuteScalar();
+            }
+            catch (SqlException) 
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return flag;
+        }
+
+        /// <summary>
+        /// Confirms information entered by user is correct in database.
+        /// 
+        /// Created by: Trent Cullinan 03/25/16
+        /// </summary>
+        /// <param name="userName">Username that relates.</param>
+        /// <param name="email">Email to verified against database.</param>
+        /// <param name="password">Password to be verified against database.</param>
+        /// <returns>Whether all values can match.</returns>
+        public static bool ConfirmUserInfo(string userName, string email, string password)
+        {
+            bool flag = false;
+
+            var conn = DBConnection.GetDBConnection();
+
+            var cmd = new SqlCommand("Admin.spSelectUserInformationCount", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@UserName", 
+                userName);
+            cmd.Parameters.AddWithValue("@EmailAddress", 
+                email);
+            cmd.Parameters.AddWithValue("@Password", 
+                password);
+
+            try
+            {
+                conn.Open();
+
+                flag = 1 == (int)cmd.ExecuteScalar();
+            }
+            catch (SqlException) 
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return flag;
+        }
+
+        /// <summary>
+        /// Change password for user.
+        /// 
+        /// Created by: Trent Cullinan 03/25/16
+        /// </summary>
+        /// <param name="userName">Username that relates.</param>
+        /// <param name="oldPassWord">Password to be verified against database.</param>
+        /// <param name="newPassWord">New password to be set in database.</param>
+        /// <returns>Whether the action was successful.</returns>
+        public static bool ChangeUserPassword(string userName, string oldPassWord, string newPassWord)
+        {
+            bool flag = false;
+
+            var conn = DBConnection.GetDBConnection();
+
+            var cmd = new SqlCommand("Admin.spUpdatePassword", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@username", userName);
+            cmd.Parameters.AddWithValue("@oldPassWord", oldPassWord);
+            cmd.Parameters.AddWithValue("@newPassWord", newPassWord);
+
+            try
+            {
+                conn.Open();
+
+                flag = 1 == (int)cmd.ExecuteNonQuery();
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return flag;
+        }
+
     }
 }
