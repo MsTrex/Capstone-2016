@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using com.GreenThumb.MVC.Models;
 using com.GreenThumb.BusinessLogic;
 using System.Reflection;
+using com.GreenThumb.BusinessObjects;
 
 namespace com.GreenThumb.MVC.Controllers
 {
@@ -174,25 +175,46 @@ namespace com.GreenThumb.MVC.Controllers
 
                 if (!CheckDbUser(model.UserName))
                 {
-                    var result = await UserManager.CreateAsync(user, model.Password);
-
-                    if (result.Succeeded)
+                    if (new UserManager().CreateNewUser(new User() 
                     {
-                        UserManager.AddClaim(user.Id, new Claim(ClaimTypes.GivenName, user.FirstName));
-                        UserManager.AddClaim(user.Id, new Claim(ClaimTypes.Surname, user.LastName));
+                        UserName
+                            = model.UserName,
+                        EmailAddress 
+                            = model.Email,
+                        Zip
+                            = Request["ZipCode"],
+                        FirstName
+                            = model.FirstName,
+                        LastName 
+                            = model.LastName
+                    }, model.Password))
+                    {
+                        var result = await UserManager.CreateAsync(user, model.Password);
 
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        if (result.Succeeded)
+                        {
+                            UserManager.AddClaim(user.Id, new Claim(ClaimTypes.GivenName, user.FirstName));
+                            UserManager.AddClaim(user.Id, new Claim(ClaimTypes.Surname, user.LastName));
 
-                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                        // Send an email with this link
-                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                        return RedirectToAction("Index", "Home");
+                            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                            // Send an email with this link
+                            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                            // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                            return RedirectToAction("Index", "Home");
+                        }
+
+                        AddErrors(result);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Opps! There was a problem processing on our end.");
                     }
 
-                    AddErrors(result);
+                    
                 }
                 else
                 {

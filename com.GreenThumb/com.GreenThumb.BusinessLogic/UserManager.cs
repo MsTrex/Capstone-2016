@@ -336,5 +336,30 @@ namespace com.GreenThumb.BusinessLogic
 
             return flag;
         }
+
+        /// <summary>
+        /// Refactored create new user action to separate password from the model.
+        /// Required properties: UserName, FirstName, LastName, EmailAddress, Zip
+        /// TODO: Get rid of the password in the model. 
+        ///
+        /// Created by: Trent Cullinan 03/25/16
+        /// </summary>
+        /// <param name="user">User with required base information.</param>
+        /// <param name="password">Value to be set as password.</param>
+        /// <returns>Whether the password change was successful.</returns>
+        public bool CreateNewUser(User user, string password)
+        {
+            bool flag = false;
+
+            user.Password = password.HashSha256();
+
+            try
+            {
+                flag = 1 == UserAccessor.InsertUser(user);
+            }
+            catch (Exception) { } // flag set to false
+
+            return flag;
+        }
     }
 }
