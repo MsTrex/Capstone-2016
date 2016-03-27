@@ -256,5 +256,85 @@ namespace com.GreenThumb.BusinessLogic
             }
 
         }
-      }
+
+        
+        /// <summary>
+        /// Checks whether the user exists with given information. If a password
+        /// is not provided and results false: the username exists in database.
+        /// If a password is provided and results false: there was an information
+        /// mismatch.
+        /// 
+        /// Created by: Trent Cullinan 03/25/16
+        /// </summary>
+        /// <param name="userName">Value to check database.</param>
+        /// <param name="password">Value to check database.</param>
+        /// <returns>Whether user has given correct information to be available.</returns>
+        public bool UserExists(string userName, string password = null)
+        {
+            bool flag = true;
+            bool passwordFlag = String.IsNullOrEmpty(password);
+
+            try
+            {
+                flag = passwordFlag ? 
+                    UserAccessor.CheckUserName(userName) :
+                    UserAccessor.CheckUserNameWithPassword(userName, password.HashSha256());
+            }
+            catch (Exception) 
+            {
+                // If no password is sent in and an exception is caught, set to true
+                // to signal that it is unavailable.
+
+                // If a passsword is sent in and an exception is caught, set to false
+                // to signal that nothing matched.
+                flag = passwordFlag;
+            }
+
+            return flag;
+        }
+
+        /// <summary>
+        /// Confirms information entered by user is correct for re-registering web.
+        /// 
+        /// Created by: Trent Cullinan 03/25/16
+        /// </summary>
+        /// <param name="userName">Username that relates.</param>
+        /// <param name="email">Email to verified against database.</param>
+        /// <param name="password">Password to be verified against database.</param>
+        /// <returns>Whether the user exists with confirming information.</returns>
+        public bool ConfirmUserInfo(string userName, string email, string password)
+        {
+            bool flag = false;
+
+            try
+            {
+                flag = UserAccessor.ConfirmUserInfo(userName, email, password.HashSha256());
+            }
+            catch (Exception) { } // flag set to false to prevent user from proceeding.
+
+            return flag;
+        }
+
+        /// <summary>
+        /// Change password of a user.
+        /// 
+        /// Created by: Trent Cullinan 03/25/16
+        /// </summary>
+        /// <param name="userName">Username that relates.</param>
+        /// <param name="oldPassword">What the password was previously.</param>
+        /// <param name="newPassword">What to change password to.</param>
+        /// <returns>Whether the password change was successful.</returns>
+        public bool ChangePasssword(string userName, string oldPassword, string newPassword)
+        {
+            bool flag = false;
+
+            try
+            {
+                flag = UserAccessor.ChangeUserPassword(userName, oldPassword.HashSha256(), newPassword.HashSha256());
+            }
+            catch (Exception) { } // flag set to false
+
+            return flag;
+        }
+    }
 }
