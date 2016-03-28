@@ -20,6 +20,7 @@ namespace com.GreenThumb.BusinessObjects
        
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
+        public bool Active { get; set; }
 
         public UserRole()
         {

@@ -61,7 +61,8 @@ namespace com.GreenThumb.DataAccessor
                             UserID = reader.GetInt32(0),
                             RoleID = reader.GetString(1),
                             CreatedBy = reader.GetInt32(2),
-                            CreatedDate = reader.GetDateTime(3)
+                            CreatedDate = reader.GetDateTime(3),
+                            Active = reader.GetBoolean(4)
                         };
 
                         userRoleList.Add(currentUserRole);

@@ -103,23 +103,35 @@ namespace com.GreenThumb.WPF_Presentation
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-   
+            var item = (BusinessObjects.UserRole)grdUserRoleList.SelectedItem;
+
+            txtUserID.Text = item.UserID.ToString();
+            txtRoleID.Text = item.RoleID.ToString();
+      
+            if (item.Active == true)
+            {
+                chkBoxActive.IsChecked = true;
+            }
+            else
+            {
+                chkBoxActive.IsChecked = false;
+            }    
         }
 
         private void PopulateUserRoleGrid()
         {
             try
             {
+                lblMessage.Content = "";
                 var userRoles = myUserRoleManager.GetUserRoleList();
                 grdUserRoleList.ItemsSource = userRoles;
-
+                
                 var count = myUserRoleManager.GetUserRoleCount();
                 lblUserRoleCount.Content = "Count: " + count.ToString();
             }
             catch (Exception)
             {
                 grdUserRoleList.ItemsSource = null;
-
                 lblUserRoleCount.Content = "Count: 0";
             }
         }
@@ -142,8 +154,6 @@ namespace com.GreenThumb.WPF_Presentation
            chkBoxActive.Visibility = Visibility.Visible;
            frmUserRoleEdit.Visibility = Visibility.Visible;
            insertUpdate = "u";
-           lblMessage.Content = "Active= " + active;
-           var bar = Console.ReadLine();
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -152,13 +162,21 @@ namespace com.GreenThumb.WPF_Presentation
             frmUserRoleEdit.Visibility = Visibility.Hidden;
             var UserID = int.Parse(txtUserID.Text);
             var RoleID = txtRoleID.Text.ToString();
+            if (chkBoxActive.IsChecked == true)
+            {
+                active = true;
+            }
+            else
+            {
+                active = false;
+            }    
            
             try 
             {
                  if (insertUpdate.Equals("i"))
                  {
                        myUserRoleManager.AddNewUserRole(UserID, RoleID, _accessToken.UserID, DateTime.Now);
-                       lblCrudRes.Content = "Record Inserted successfully.";
+                       lblMessage.Content = "Record Inserted successfully.";
                  }
                   else
                  if (insertUpdate.Equals("u"))
@@ -167,10 +185,10 @@ namespace com.GreenThumb.WPF_Presentation
                       if (res == true)
                       {
                           lblCrudRes.Content = "Record Updated successfully.";
-                          lblMessage.Content = "Operation Succeeded, Active= " + active;
+                          lblMessage.Content = "Operation Succeeded. ";
                       }
                       else
-                          lblMessage.Content = "Operation failed. returned false " + active;
+                          lblMessage.Content = "Operation failed. ";
                  }
  
             }
@@ -182,7 +200,9 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 insertUpdate = "";
                 txtUserID.Text = "";
-                txtRoleID.Text = "";
+                txtRoleID.Text = "";         
+                lblCrudRes.Content = "";
+                PopulateUserRoleGrid();
             }
         }
         
@@ -192,6 +212,8 @@ namespace com.GreenThumb.WPF_Presentation
             insertUpdate = "";
             txtUserID.Text = "";
             txtRoleID.Text = "";
+            lblMessage.Content = "";
+            lblCrudRes.Content = "";
         }
 
         private void chkBoxActive_Checked(object sender, RoutedEventArgs e)
