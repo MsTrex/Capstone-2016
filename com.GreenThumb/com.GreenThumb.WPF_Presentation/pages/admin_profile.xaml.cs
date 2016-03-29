@@ -22,6 +22,7 @@ namespace com.GreenThumb.WPF_Presentation.pages
     {
         public admin_profile()
         {
+            //TESTING
             InitializeComponent();
         }
     }
