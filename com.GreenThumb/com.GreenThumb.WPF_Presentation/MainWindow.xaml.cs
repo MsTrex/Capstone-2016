@@ -206,7 +206,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             mainFrame.NavigationService.Navigate(new HomeContent(_accessToken));
             btnSideBar1.Content = "btnSideBar1";
-            btnSideBar2.Content = "btnSideBar2";
+            btnSideBar2.Content = "Blog";
             btnSideBar3.Content = "btnSideBar3";
             btnSideBar4.Content = "btnSideBar4";
             btnSideBar5.Content = "btnSideBar5";
@@ -373,6 +373,17 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 mainFrame.NavigationService.Navigate(new VolunteerPages.VolunteerSignUp(_accessToken));
             }
+            else if (btnSideBar2.Content.ToString() == "Blog")
+            {
+                if(_accessToken == null) {
+                    mainFrame.NavigationService.Navigate(new HomePages.ViewBlog());
+                }
+                else
+                {
+                    mainFrame.NavigationService.Navigate(new HomePages.ViewBlog(_accessToken));
+                }
+                
+            }
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -477,7 +488,10 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar8_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            //if (btnSideBar8.Content.ToString() == "Plants")
+            //{
+            //    mainFrame.NavigationService.Navigate(new ExpertPages.ViewPlants());
+            //}
         }
         /// <summary>
         /// Author: Chris Sheehan

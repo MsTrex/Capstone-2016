@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vsF641.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs81EF.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,7 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vsF641.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs81EF.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -44,6 +44,7 @@
     <Compile Include="AccessToken.cs" />
     <Compile Include="ActivityLog.cs" />
     <Compile Include="Advice.cs" />
+    <Compile Include="Blog.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="AdministratorAccount.cs" />
     <Compile Include="BecomeExpert.cs" />

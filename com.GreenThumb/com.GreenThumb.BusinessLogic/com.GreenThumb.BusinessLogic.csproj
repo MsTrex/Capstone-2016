@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminExpertRequestsManager.cs" />
+    <Compile Include="BlogManager.cs" />
     <Compile Include="CreateOrgManager.cs" />
     <Compile Include="DonationManager.cs" />
     <Compile Include="FakeStuff\FakeCreateOrgManager.cs" />
