@@ -337,7 +337,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             if (btnSideBar1.Content.ToString().ToLowerInvariant() == "view groups")
             {
-                //mainFrame.NavigationService.Navigate(new GardenPages.ViewGroups(_accessToken));
+                mainFrame.NavigationService.Navigate(new GardenPages.ViewGroups(_accessToken));
             }
             else if (btnSideBar1.Content.ToString() == "Edit Personal Info")
             {

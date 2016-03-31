@@ -84,6 +84,9 @@
     <Compile Include="ExpertPages\SearchForQuestions.xaml.cs">
       <DependentUpon>SearchForQuestions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GardenPages\ViewGroups.xaml.cs">
+      <DependentUpon>ViewGroups.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HomePages\ViewBlog.xaml.cs">
       <DependentUpon>ViewBlog.xaml</DependentUpon>
     </Compile>
@@ -146,6 +149,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExpertPages\RequestExpert.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GardenPages\ViewGroups.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
