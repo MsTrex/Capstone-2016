@@ -259,7 +259,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar5.Content = roleManager.IsUserThisRole(_accessToken, "Expert") ? "Answer Questions" : "btnSideBar5";
             btnSideBar6.Content = "Upload Garden Template";
             btnSideBar7.Content = "View Garden Templates";
-            btnSideBar8.Content = "btnSideBar8";
+            btnSideBar8.Content = "View Recipes";
             btnSideBar9.Content = "btnSideBar9";
             btnSideBar10.Content = "btnSideBar10";
         }
@@ -506,6 +506,11 @@ namespace com.GreenThumb.WPF_Presentation
             //{
             //    mainFrame.NavigationService.Navigate(new ExpertPages.ViewPlants());
             //}
+
+            if (btnSideBar8.Content.ToString() == "View Recipes")
+            {
+                mainFrame.NavigationService.Navigate(new ExpertPages.ViewRecipe(_accessToken));
+            }
         }
         /// <summary>
         /// Author: Chris Sheehan

@@ -78,11 +78,17 @@
     <Compile Include="ExpertPages\ExpertAdviceRespond.xaml.cs">
       <DependentUpon>ExpertAdviceRespond.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExpertPages\RecipeDetail.xaml.cs">
+      <DependentUpon>RecipeDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExpertPages\RequestExpert.xaml.cs">
       <DependentUpon>RequestExpert.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExpertPages\SearchForQuestions.xaml.cs">
       <DependentUpon>SearchForQuestions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertPages\ViewRecipe.xaml.cs">
+      <DependentUpon>ViewRecipe.xaml</DependentUpon>
     </Compile>
     <Compile Include="GardenPages\ViewGroups.xaml.cs">
       <DependentUpon>ViewGroups.xaml</DependentUpon>
@@ -144,11 +150,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ExpertPages\RecipeDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ExpertPages\RecipeInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExpertPages\RequestExpert.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpertPages\ViewRecipe.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
