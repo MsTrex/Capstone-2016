@@ -20,11 +20,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs81EF.tmp\Debug\</IntermediateOutputPath>
-=======
-    <IntermediateOutputPath>C:\Users\PDUBEY\AppData\Local\Temp\vs1F56.tmp\Debug\</IntermediateOutputPath>
->>>>>>> a034532ec8e080abd377d56cc375b9d7aa86824b
+    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vsEEA8.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,11 +30,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs81EF.tmp\Release\</IntermediateOutputPath>
-=======
-    <IntermediateOutputPath>C:\Users\PDUBEY\AppData\Local\Temp\vs1F56.tmp\Release\</IntermediateOutputPath>
->>>>>>> a034532ec8e080abd377d56cc375b9d7aa86824b
+    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vsEEA8.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -24,8 +24,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs82BB.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\PDUBEY\AppData\Local\Temp\vs213B.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,8 +33,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs82BB.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\PDUBEY\AppData\Local\Temp\vs213B.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -102,6 +98,7 @@
     </Compile>
     <Compile Include="HomePages\CreateBlog.xaml.cs">
       <DependentUpon>CreateBlog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RegionPage.xaml.cs" />
     <Compile Include="VolunteerPages\EditVolunteerAvailability.xaml.cs">
       <DependentUpon>EditVolunteerAvailability.xaml</DependentUpon>
@@ -209,7 +206,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HomePages\CreateBlog.xaml">
-    <Page Include="GardenPages\ViewGroups.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
