@@ -15,12 +15,12 @@ namespace com.GreenThumb.BusinessLogic
 {
         public class GroupManager : com.GreenThumb.BusinessLogic.Interfaces.IGroupManager
     {
-        public List<Group> GetGroupList(int OrganizationID)
+        public List<Group> GetGroupList(int userID)
         {
            
             try
             {
-                return GroupAccessor.GetGroupList(OrganizationID);
+                return GroupAccessor.GetGroupList(userID);
             }
             catch (Exception ex)
             {
