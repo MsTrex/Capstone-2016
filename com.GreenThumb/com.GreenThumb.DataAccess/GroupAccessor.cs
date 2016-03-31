@@ -15,7 +15,7 @@ namespace com.GreenThumb.DataAccess
     /// </summary>
     public class GroupAccessor
     {
-        public static List<Group> GetGroupList(int OrganizationID, Active recordType = Active.active)
+        public static List<Group> GetGroupList(int userID, Active recordType = Active.active)
         {
             var groupList = new List<Group>();
 
@@ -23,14 +23,14 @@ namespace com.GreenThumb.DataAccess
 
             ///sent to Chris Sheenan 2/28 to add to database by Kristine Johnson
 
-            string cmdText = @"Gardens.spSelectOrganization";
+            string cmdText = @"Gardens.spSelectUserGroups";
 
 
 
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
             //int groupID, int organizationID,string groupName,int groupLeaderID, bool active
-            cmd.Parameters.AddWithValue("@OrganizationId", OrganizationID);
+            cmd.Parameters.AddWithValue("@UserID", userID);
 
             //// we can also create an output parameter
             //var o = new SqlParameter("Group", SqlDbType.I);
@@ -49,9 +49,7 @@ namespace com.GreenThumb.DataAccess
                         Group currentGroup = new Group()
                         {  //int groupID, int organizationID,string groupName,int groupLeaderID, bool active
                             GroupID = reader.GetInt32(0),                            
-                            Name = reader.GetString(1),
-                            GroupLeaderID = reader.GetInt32(2)
-                            
+                            Name = reader.GetString(1)
                         };
                         groupList.Add(currentGroup); ///returns a group list
                     }

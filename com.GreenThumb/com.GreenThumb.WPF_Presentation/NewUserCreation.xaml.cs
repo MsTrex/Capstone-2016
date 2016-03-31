@@ -24,6 +24,8 @@ namespace com.GreenThumb.WPF_Presentation
     public partial class NewUserCreation : Window
     {
         private UserManager _userManagerObj = new UserManager();
+        static AccessToken _accessToken;
+        private ISecurityManager _security = new SecurityManager();
         public NewUserCreation()
         {
             InitializeComponent();
@@ -86,7 +88,12 @@ namespace com.GreenThumb.WPF_Presentation
                                 if (_userManagerObj.AddNewUser(fName, lName, string.Empty, string.Empty, username, password.HashSha256(), isActive, null) == 1)
                                 {
                                     ClearControls();
-                                    MessageBox.Show("User has been created successfully!!");
+                                    MessageBoxResult result = MessageBox.Show("User has been created successfully!!", "User Created", MessageBoxButton.OK);
+                                    if (result == MessageBoxResult.OK)
+                                    {
+                                        _accessToken = _security.ValidateExistingUser(username, password);
+                                        this.DialogResult = true;
+                                    }
                                 }
                                 else
                                 {
@@ -133,6 +140,25 @@ namespace com.GreenThumb.WPF_Presentation
             this.txtnewUsername.Text = string.Empty;
             this.txtnewPassword.Password = string.Empty;
             this.txtPassConfirm.Password = string.Empty;
+        }
+        // Made changes to login when user registers By : Poonam Dubey
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (_accessToken != null)  // don't raise the event if no one logged in
+            {
+                RaiseAccessTokenCreatedEvent();
+            }
+        }
+        // Declare the delegate that will be the prototype of event subscribers
+        public delegate void AccessTokenCreatedEventHandler(object sender, AccessToken a);
+
+        // Declare the event from a delegate, so it knows what sort of subscribers to accept
+        public event AccessTokenCreatedEventHandler AccessTokenCreatedEvent;
+        protected virtual void RaiseAccessTokenCreatedEvent()  // we need a method to raise the event
+        {
+            // Raise the event
+            if (AccessTokenCreatedEvent != null)  // if there are subscribers/listeners/handlers
+                AccessTokenCreatedEvent(this, _accessToken); // go ahead and raise the event
         }
     }
 }

@@ -120,7 +120,7 @@
                     <MenuItem Header="_Help" Grid.Column="1"></MenuItem>
                     <MenuItem FontSize="15" FontStyle="Italic" Name="lblLoggedIn" Click="lblLoggedIn_Click" Grid.Column="3" Header="" />
                     <MenuItem x:Name="btnLogin" Header="Log In" Click="Login_Click" Grid.Column="4" />
-                    <MenuItem Header="Sign Up" Click="NewUser_Click" Grid.Column="5" />
+                    <MenuItem x:Name="btnSignUp" Header="Sign Up" Click="NewUser_Click" Grid.Column="5" />
                 </Menu>
             </Grid>
         </DockPanel>
