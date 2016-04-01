@@ -233,14 +233,28 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnGardens_click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new GardenPages.GardenMain(_accessToken));
+            //btnSideBar1.Content = "Create a Garden";
             btnSideBar1.Content = "View Groups";
             btnSideBar2.Content = "Your Groups";
             btnSideBar3.Content = "Request to be a Group Leader";
             btnSideBar4.Content = "Complete A Task";
             btnSideBar5.Content = "Create a Task";
             btnSideBar6.Content = "Sign Up for Task";
-            btnSideBar7.Content = "Create Garden";
+
+            Role role = new Role();
+            role.RoleID = "Admin";
+            if (_accessToken.Roles.Contains(role))
+            {
+                btnSideBar7.Content = "Manage Garden Group";
+            }
+            else
+            {
+                btnSideBar7.Content = "btnSideBar7";
+            }
+
             btnSideBar8.Content = "btnSideBar8";
+            btnSideBar7.Content = "Create Garden";
+            btnSideBar8.Content = "View Tasks By Garden";
             btnSideBar9.Content = "btnSideBar9";
             btnSideBar10.Content = "btnSideBar10";
         }
@@ -486,6 +500,11 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar7_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (btnSideBar7.Content.ToString() == "View Garden Templates")
+            {
+                mainFrame.NavigationService.Navigate(new ExpertPages.ViewGardenTemplate());
+            }
+            //else if (btnSideBar7.Content.ToString() == "Manage Garden Group")
             if (btnSideBar7.Content.ToString().ToLowerInvariant() == "create garden")
             {
                 mainFrame.NavigationService.Navigate(new GardenPages.CreateGarden(_accessToken));
@@ -502,6 +521,10 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar8_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (btnSideBar8.Content.ToString() == "View Tasks By Garden")
+            {
+                mainFrame.NavigationService.Navigate(new GardenPages.ViewTasks(_accessToken));
+            }
             //if (btnSideBar8.Content.ToString() == "Plants")
             //{
             //    mainFrame.NavigationService.Navigate(new ExpertPages.ViewPlants());

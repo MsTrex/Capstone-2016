@@ -20,8 +20,13 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6456.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs81EF.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Trent\AppData\Local\Temp\vs68DA.tmp\Debug\</IntermediateOutputPath>
+<<<<<<< HEAD
+    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vsB259.tmp\Debug\</IntermediateOutputPath>
+=======
+    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vsE105.tmp\Debug\</IntermediateOutputPath>
+>>>>>>> origin/master
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,8 +35,14 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6456.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs81EF.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Trent\AppData\Local\Temp\vs68DA.tmp\Release\</IntermediateOutputPath>
+<<<<<<< HEAD
+    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vsB259.tmp\Release\</IntermediateOutputPath>
+=======
+    <IntermediateOutputPath>C:\Users\Kristine\AppData\Local\Temp\vs1B0E.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vsE105.tmp\Release\</IntermediateOutputPath>
+>>>>>>> origin/master
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

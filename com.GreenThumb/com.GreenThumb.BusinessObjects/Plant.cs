@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace com.GreenThumb.BusinessObjects
 {
     // Rhett Allen 3/3/16 - added Active property, empty constructor, modified constructor to include Active
+    // Sara Nanke 3/31/16 - made plantID and motifiedBy nullable
     public class Plant
     {
-
-        public int PlantID { get; set; }
+        public int? PlantID { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public string Category { get; set; }
@@ -19,11 +19,11 @@ namespace com.GreenThumb.BusinessObjects
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public int? ModifiedBy { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
         public bool Active { get; set; }
 
-        public Plant(int PlantID, string Name, string Type, string Category, string Description, string Season,
-                      int CreatedBy, DateTime CreatedDate, int ModifiedBy, DateTime ModifiedDate, bool Active)
+        public Plant(int? PlantID, string Name, string Type, string Category, string Description, string Season,
+                      int CreatedBy, DateTime CreatedDate, int? ModifiedBy, DateTime? ModifiedDate, bool Active)
         {
 
             this.PlantID = PlantID;
