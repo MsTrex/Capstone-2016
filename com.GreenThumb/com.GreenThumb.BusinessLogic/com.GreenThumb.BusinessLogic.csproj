@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddRequestManager.cs" />
     <Compile Include="AdminExpertRequestsManager.cs" />
     <Compile Include="BlogManager.cs" />
     <Compile Include="CreateOrgManager.cs" />
