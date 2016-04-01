@@ -83,6 +83,32 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
+        public List<Job> RetrieveJobByGardenId(int gardenId) 
+        {
+            try
+            {
+                return JobAccessor.RetrieveJobByGardenId(gardenId);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("No records found!", ex);
+            }
+        }
+
+        public List<int> RetrieveGardenIdByUserId(int userId) 
+        {
+            try
+            {
+                return JobAccessor.RetrieveGardenIdByUserId(userId);
+            }
+            catch (Exception ex)
+            {
+                
+                throw new ApplicationException("No records found!", ex);
+            }
+        }
+
         /// <summary>
         /// This method adds a test user to validate the functionality of the CompleteTask things.
         /// Steve Hoover 3-24-16
@@ -102,7 +128,8 @@ namespace com.GreenThumb.BusinessLogic
                 };
                 try 
 	            {
-                    JobAccessor.CreateTask(testJob);
+                    Console.WriteLine("Test job commented out in JobManager");
+                    //JobAccessor.CreateTask(testJob);
 
 	            }
 	            catch (Exception)

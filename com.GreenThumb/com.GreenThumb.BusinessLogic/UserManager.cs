@@ -361,5 +361,28 @@ namespace com.GreenThumb.BusinessLogic
 
             return flag;
         }
+
+        /// <summary>
+        /// Refactored so I get the data I want
+        /// and exceptions are handled properly.
+        /// 
+        /// Created by: Trent Cullinan 03/31/16
+        /// </summary>
+        /// <param name="userName">The username to get id for.</param>
+        /// <returns>User Id</returns>
+        public int RetrieveUserId(string userName)
+        {
+            int userId = 0;
+
+            try
+            {
+                // I have reached a level of laziness 
+                // and greed in order to get what I want.
+                userId = UserAccessor.RetrieveUserByUsername(userName).UserID;
+            }
+            catch (Exception) { } // userId will be set to zero.
+
+            return userId;
+        }
     }
 }

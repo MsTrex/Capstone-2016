@@ -681,7 +681,8 @@ create table Gardens.GroupMembers(
 	UserID int not null,
 	CreatedDate smalldatetime not null,
 	CreatedBy int not null,
-	Leader bit default 0
+	Leader bit default 0,
+	active bit not null default 1
 
 	CONSTRAINT [PK_GroupMembers] PRIMARY KEY ( GroupID, UserID ASC )
 );
@@ -743,7 +744,7 @@ create table Gardens.Tasks(
 	Description varchar(100) not null,
 	DateAssigned smalldatetime not null,
 	DateCompleted smalldatetime null,
-	AssignedTo int not null,
+	AssignedTo int null,
 	AssignedFrom int not null,
 	userNotes varchar(250) null,
 	Active bit not null default 1
@@ -3895,6 +3896,8 @@ values(
 end;
 go
 
+
+
 -- Created By: Trent Cullinan 02/20/2016
 CREATE PROCEDURE Gardens.spUpdateUserOrgGroupLeader (
 	@OrganizationID		INT,
@@ -4002,7 +4005,7 @@ BEGIN
 	SELECT Gardens.Groups.GroupID, Gardens.Groups.GroupName 
     FROM Gardens.Groups, Gardens.GroupMembers
     WHERE Gardens.GroupMembers.userID = @userID
-    AND Gardens.Groups.GroupID = Gardens.GroupMembers.GroupID; 
+    AND Gardens.Groups.GroupID = Gardens.GroupMembers.GroupID and gardens.groups.active = 1; 
 END;
 Go
 
@@ -4152,17 +4155,17 @@ CREATE PROCEDURE Gardens.spInsertTasks
 	(@GardenID int,
 	@Description VARCHAR(100),
 	@dateAssigned smalldatetime,
-	@Datecompleted smalldatetime,
 	@AssignedTo int,
 	@AssignedFrom int,
 	@userNotes varchar(250))	
+
+
 AS
 BEGIN
 INSERT INTO Gardens.Tasks
     (GardenID,
 	Description,
 	DateAssigned,
-	DateCompleted,
 	AssignedTo,
 	AssignedFrom,
 	userNotes)	
@@ -4170,7 +4173,6 @@ VALUES
    (@GardenID,
    @Description,
    @dateAssigned,
-   @Datecompleted,
    @AssignedTo,
    @AssignedFrom,
    @userNotes);	
@@ -4294,8 +4296,8 @@ exec Gardens.spInsertPostThreads			'plant question'		,1 					,2 					,1 				,100
 --* spInsertPostLineItems        			@PostID				@PostLineID int,	@UserID int,	@GroupID int,@DateSent smalldatetime,	@CommentContent varchar(255)
 exec Gardens.spInsertPostLineItems			1000				,1					,1000				,1000			,'10/10/10'				,'Yes'
 				
---* spInsertTasks                			@gardenID int not null,		@Description VARCHAR(100),	@dateAssigned smalldatetime,	@Datecompleted smalldatetime,	@AssignedTo int,	@AssignedFrom int,	@userNotes varchar(250))
-exec Gardens.spInsertTasks					1000	,						'Watering the garden'		,'4/4/44'						,'4/4/04'						,1001				,1002				,'Poppy said do this, Sally'
+--* spInsertTasks                			@gardenID int not null,		@Description VARCHAR(100),	@dateAssigned smalldatetime,		@AssignedTo int,	@AssignedFrom int,	@userNotes varchar(250))
+exec Gardens.spInsertTasks					1000	,						'Watering the garden'		,'4/4/44'						,1001				,1002				,'Poppy said do this, Sally'
 			
 --* spInsertWorkLogs             			@UserID int,	@TaskID int,	@TimeBegun smalldatetime,	@TimeFinished smalldatetime
 exec Gardens.spInsertWorkLogs				1000			,1000			,'9/25/57'					,'9/26/57'

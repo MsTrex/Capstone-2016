@@ -240,7 +240,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar5.Content = "Create a Task";
             btnSideBar6.Content = "Sign Up for Task";
             btnSideBar7.Content = "Create Garden";
-            btnSideBar8.Content = "btnSideBar8";
+            btnSideBar8.Content = "View Tasks By Garden";
             btnSideBar9.Content = "btnSideBar9";
             btnSideBar10.Content = "btnSideBar10";
         }
@@ -502,6 +502,10 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar8_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (btnSideBar8.Content.ToString() == "View Tasks By Garden")
+            {
+                mainFrame.NavigationService.Navigate(new GardenPages.ViewTasks(_accessToken));
+            }
             //if (btnSideBar8.Content.ToString() == "Plants")
             //{
             //    mainFrame.NavigationService.Navigate(new ExpertPages.ViewPlants());
