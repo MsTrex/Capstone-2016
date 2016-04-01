@@ -57,7 +57,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
         {
             try
             {
-                List<Group> groups = myGroupManager.GetGroupList(userID);
+                List<Group> groups = myGroupManager.GetGroupsForUser(userID);
                 cmbGroupName.ItemsSource = groups;
             }
             catch (Exception ex)
