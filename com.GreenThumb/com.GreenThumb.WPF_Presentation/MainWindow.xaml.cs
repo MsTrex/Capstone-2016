@@ -502,11 +502,10 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar8_MouseDown(object sender, MouseButtonEventArgs e)
         {
-<<<<<<< HEAD
             if (btnSideBar8.Content.ToString() == "View Tasks By Garden")
             {
                 mainFrame.NavigationService.Navigate(new GardenPages.ViewTasks(_accessToken));
-=======
+            }
             //if (btnSideBar8.Content.ToString() == "Plants")
             //{
             //    mainFrame.NavigationService.Navigate(new ExpertPages.ViewPlants());
@@ -515,7 +514,6 @@ namespace com.GreenThumb.WPF_Presentation
             if (btnSideBar8.Content.ToString() == "View Recipes")
             {
                 mainFrame.NavigationService.Navigate(new ExpertPages.ViewRecipe(_accessToken));
->>>>>>> origin/master
             }
         }
         /// <summary>

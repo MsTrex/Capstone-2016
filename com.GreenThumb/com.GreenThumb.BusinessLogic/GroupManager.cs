@@ -124,7 +124,7 @@ namespace com.GreenThumb.BusinessLogic
             {
                 // 1 row should be affected
                 flag =
-                    1 == GroupAccessor.ModifyGroupUserStatus(userId, groupId, active: false);
+                    1 == GroupAccessor.InactivateGroupMember(userId, groupId);
             }
             catch (Exception) { } // flag set to false
 

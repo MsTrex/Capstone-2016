@@ -305,7 +305,7 @@ namespace com.GreenThumb.DataAccess
         /// <param name="userId">User from group to be modified.</param>
         /// <param name="groupId">Group the user belongs to.</param>
         /// <returns>Rows affected by change.</returns>
-        public static int ModifyGroupUserStatus(int userId, int groupId, bool active = false)
+        public static int InactivateGroupMember(int userId, int groupId)
         {
             int rowsAffected = 0;
 
@@ -318,8 +318,6 @@ namespace com.GreenThumb.DataAccess
                 userId);
             cmd.Parameters.AddWithValue("@GroupID",
                 groupId);
-            cmd.Parameters.AddWithValue("@Active",
-                active);
 
             try
             {
