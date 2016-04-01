@@ -448,6 +448,7 @@ create table Expert.BecomeAnExpert(
 
 create table Expert.BlogEntry(
 	BlogID int identity(1000,1) not null primary key,
+	BlogTitle varchar(200) not null,
 	BlogData varchar(max) not null,
 	CreatedBy int not null,
 	CreatedDate smalldatetime not null,
@@ -508,6 +509,18 @@ create table Expert.GardenPlants(
 	CONSTRAINT [PK_GardenPlants] PRIMARY KEY ( GardenID, PlantID ASC )
 );
 
+CREATE TABLE Expert.GardenTemplateUploads(
+	ImageName VARCHAR(50) NOT NULL PRIMARY KEY,
+	CreatedBy INT NOT NULL,
+	CreateDate SMALLDATETIME NOT NULL,
+	Active BIT NOT NULL DEFAULT 1
+);
+
+CREATE TABLE Expert.GardenTemplateFiles(
+	ImageName VARCHAR(50) NOT NULL PRIMARY KEY,
+	ImageFile VARBINARY(MAX) NOT NULL
+);
+
 create table Expert.GardenTypes(
 	GardentypeID int identity(1000,1) not null primary key,
 	Description varchar(255) not null,
@@ -554,6 +567,13 @@ create table Expert.PlantNutrients(
 	NutrientID int not null
 
 	CONSTRAINT [PK_PlantNutrients] PRIMARY KEY ( PlantID, NutrientID ASC )
+);
+
+create table Expert.PlantRegions(
+	PlantID int not null,
+	RegionID int not null
+
+	CONSTRAINT [PK_PlantRegions] PRIMARY KEY ( PlantID, RegionID ASC )
 );
 
 create table Expert.Nutrients(
@@ -661,7 +681,8 @@ create table Gardens.GroupMembers(
 	UserID int not null,
 	CreatedDate smalldatetime not null,
 	CreatedBy int not null,
-	Leader bit default 0
+	Leader bit default 0,
+	active bit not null default 1
 
 	CONSTRAINT [PK_GroupMembers] PRIMARY KEY ( GroupID, UserID ASC )
 );
@@ -723,7 +744,7 @@ create table Gardens.Tasks(
 	Description varchar(100) not null,
 	DateAssigned smalldatetime not null,
 	DateCompleted smalldatetime null,
-	AssignedTo int not null,
+	AssignedTo int null,
 	AssignedFrom int not null,
 	userNotes varchar(250) null,
 	Active bit not null default 1
@@ -1139,6 +1160,18 @@ GO
 ALTER TABLE Expert.GardenPlants CHECK CONSTRAINT [FK_GardenPlants_ModifiedBy];
 GO
 
+ALTER TABLE Expert.GardenTemplateUploads WITH NOCHECK ADD  CONSTRAINT [FK_GardenTemplate_CreatedBy] FOREIGN KEY(CreatedBy)
+REFERENCES Admin.Users(UserID);
+GO
+ALTER TABLE Expert.GardenTemplateUploads CHECK CONSTRAINT [FK_GardenTemplate_CreatedBy];
+GO
+
+ALTER TABLE Expert.GardenTemplateFiles WITH NOCHECK ADD  CONSTRAINT [FK_GardenTemplate_ImageName] FOREIGN KEY(ImageName)
+REFERENCES Expert.GardenTemplateUploads(ImageName);
+GO
+ALTER TABLE Expert.GardenTemplateFiles CHECK CONSTRAINT [FK_GardenTemplate_ImageName];
+GO
+
 ALTER TABLE Expert.GardenTypes WITH NOCHECK ADD  CONSTRAINT [FK_GardenTypes_CreatedBy] FOREIGN KEY(CreatedBy)
 REFERENCES Admin.Users(UserID);
 GO
@@ -1263,6 +1296,18 @@ ALTER TABLE Expert.RecipeCategory WITH NOCHECK ADD  CONSTRAINT [FK_RecipeCategor
 REFERENCES Admin.Users(UserID);
 GO
 ALTER TABLE Expert.RecipeCategory CHECK CONSTRAINT [FK_RecipeCategory_CreatedBy];
+GO
+
+ALTER TABLE Expert.PlantRegions WITH NOCHECK ADD  CONSTRAINT [FK_PlantRegions_Plants] FOREIGN KEY(PlantID)
+REFERENCES Expert.Plants(PlantID);
+GO
+ALTER TABLE Expert.PlantRegions CHECK CONSTRAINT [FK_PlantRegions_Plants];
+GO
+
+ALTER TABLE Expert.PlantRegions WITH NOCHECK ADD  CONSTRAINT [FK_PlantRegions_Regions] FOREIGN KEY(PlantID)
+REFERENCES Admin.Regions(RegionID);
+GO
+ALTER TABLE Expert.PlantRegions CHECK CONSTRAINT [FK_PlantRegions_Regions];
 GO
 
 ALTER TABLE Expert.Templates WITH NOCHECK ADD  CONSTRAINT [FK_Templates_UserID] FOREIGN KEY(UserID)
@@ -1960,8 +2005,6 @@ ELSE
 			SELECT 1 AS 'ReturnValue';
 	END;
 END;
-
---*************************************************************
 go
 
 CREATE PROCEDURE Admin.spUpdateUser (
@@ -2138,6 +2181,33 @@ INNER JOIN Gardens.Organizations AS o
 WHERE g.OrganizationID = @OrganizationID AND u.Active = 1 AND g.Active = 1;
 END;
 GO
+
+--created by trent cullinin 3-26-16
+create procedure admin.spSelectUserNameCount(
+	@UserName		varchar(20)
+)
+as begin
+	select count(*) as Match
+	from admin.users as u
+	where u.UserName = @UserName;
+end
+go
+
+--created by trent cullinin 3-26-16
+create procedure admin.spSelectUserInformationCount(
+	@UserName		varchar(20),
+	@EmailAddress	varchar(100),
+	@PassWord		varchar(150)
+)
+as begin
+	select count(*) as Verification
+	from admin.users as u
+	where u.Active = 1 and
+		u.UserName = @UserName and 
+		u.PassWord = @PassWord and
+		u.EmailAddress = @EmailAddress;
+end
+go
 
 ------------------------------------------
 -----------Donations.EquipmentDonated-----
@@ -2893,6 +2963,7 @@ go
 
 create procedure Expert.spInsertBlogEntry(
 	@BlogData varchar(max),
+	@BlogTitle varchar(200),
 	@CreatedBy int,
 	@CreatedDate smalldatetime,
 	@ModifiedBy int,
@@ -2901,18 +2972,47 @@ as
 begin
 insert into Expert.BlogEntry(
 	BlogData,
+	BlogTitle,
 	CreatedBy,
 	CreatedDate,
 	ModifiedBy,
 	ModifiedDate)
 values(
 	@BlogData,
+	@BlogTitle,
 	@CreatedBy,
 	@CreatedDate,
 	@ModifiedBy,
 	@ModifiedDate);
 	return @@ROWCOUNT;
 end;
+go
+
+--added by Sara Nanke 3/24/16
+create procedure Expert.spSelectBlogs(
+	@BlogID int = null,
+	@BlogTitle varchar(200) = null,
+	@BlogData varchar(max) = null,
+	@CreatedBy int = null,
+	@CreatedDate smalldatetime = null,
+	@ModifiedBy int = null,
+	@ModifiedDate smalldatetime = null,
+	@Active	bit = null)
+AS
+BEGIN
+	SELECT BlogID, BlogTitle, BlogData, CreatedBy, CreatedDate, 
+	ModifiedBy, ModifiedDate, Active
+	FROM Expert.BlogEntry
+	WHERE 
+		BlogID = ISNULL(@BlogID,BlogID) AND
+		BlogTitle = ISNULL(@BlogTitle,BlogTitle) AND
+		BlogData = ISNULL(@BlogData,BlogData) AND
+		CreatedBy = ISNULL(@CreatedBy,CreatedBy) AND
+		CreatedDate = ISNULL(@CreatedDate,CreatedDate) AND
+		ModifiedBy = ISNULL(@ModifiedBy,ModifiedBy) AND
+		ModifiedDate = ISNULL(@ModifiedDate,ModifiedDate) AND
+		Active = ISNULL(@Active,Active)
+END;
 go
 
 ------------------------------------------
@@ -3062,6 +3162,51 @@ values(
 	return @@ROWCOUNT;
 end;
 go	
+
+------------------------------------------
+-----------Expert.GardenTemplteUplods-----
+------------------------------------------	
+
+CREATE PROCEDURE Expert.spInsertGardenTemplate(
+	@ImageName VARCHAR(50),
+	@CreatedBy INT,
+	@CreateDate SMALLDATETIME,
+	@Active BIT,
+	@ImageFile VARBINARY(MAX)
+	)
+AS
+BEGIN
+INSERT INTO Expert.GardenTemplateUploads
+	(ImageName, CreatedBy, CreateDate, Active)
+VALUES
+	(@ImageName, @CreatedBy, @CreateDate, @Active);
+
+INSERT INTO Expert.GardenTemplateFiles
+	(ImageName, ImageFile)
+VALUES
+	(@ImageName, @ImageFile);
+	return @@ROWCOUNT;
+END;
+GO
+
+CREATE PROCEDURE Expert.spSelectAllGardenTemplateNames
+AS
+BEGIN
+SELECT ImageName, CreateDate
+FROM Expert.GardenTemplateUploads
+WHERE Active = 1
+END;
+GO
+
+CREATE PROCEDURE Expert.spSelectGardenTemplate(
+	@FileName VARCHAR(50))
+AS
+BEGIN
+SELECT ImageFile
+FROM Expert.GardenTemplateFiles
+Where ImageName = @FileName
+END;
+GO
 
 ------------------------------------------
 -----------Expert.GardenTypes-------------
@@ -3414,6 +3559,63 @@ go
 -----------Expert.Recipes-----------------
 ------------------------------------------
 
+--created by rhett 3-31-16
+CREATE PROCEDURE Expert.spSelectRecipesWithKeywordAndCategory (
+	@Keyword varchar(max),
+	@Category varchar(max),
+	@Offset int,
+	@ReturnAmount int
+)
+AS
+BEGIN
+	IF @Category IS NULL
+	BEGIN
+		SELECT RecipeID, Title, Category, Directions, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
+		FROM Expert.Recipes
+		WHERE Title LIKE '%' + @Keyword + '%'
+			OR Category LIKE '%' + @Keyword + '%'
+			OR Directions LIKE '%' + @Keyword + '%'
+		ORDER BY CreatedDate
+		OFFSET @Offset ROWS FETCH NEXT @ReturnAmount ROWS ONLY
+	END
+	ELSE
+		SELECT RecipeID, Title, Category, Directions, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
+		FROM Expert.Recipes
+		WHERE UPPER(Category) LIKE UPPER(@Category)
+			AND (Title LIKE '%' + @Keyword + '%'
+			OR Category LIKE '%' + @Keyword + '%'
+			OR Directions LIKE '%' + @Keyword + '%')
+		ORDER BY CreatedDate
+		OFFSET @Offset ROWS FETCH NEXT @ReturnAmount ROWS ONLY
+END;
+go
+
+--created by rhett 3-31-16
+CREATE PROCEDURE Expert.spCountRecipes(
+	@Keyword varchar(max),
+	@Category varchar(max)
+)
+AS
+BEGIN
+	IF @Category IS NULL
+	BEGIN
+		SELECT COUNT(*)
+		FROM Expert.Recipes
+		WHERE Title LIKE '%' + @Keyword + '%'
+			OR Category LIKE '%' + @Keyword + '%'
+			OR Directions LIKE '%' + @Keyword + '%'
+	END
+	ELSE
+		SELECT COUNT(*)
+		FROM Expert.Recipes
+		WHERE UPPER(Category) LIKE UPPER(@Category)
+			AND (Title LIKE '%' + @Keyword + '%'
+			OR Category LIKE '%' + @Keyword + '%'
+			OR Directions LIKE '%' + @Keyword + '%')
+END;
+go
+
+
 create procedure Expert.spInsertRecipes(
 	@Title varchar(50),
 	@Category varchar(30),
@@ -3694,6 +3896,8 @@ values(
 end;
 go
 
+
+
 -- Created By: Trent Cullinan 02/20/2016
 CREATE PROCEDURE Gardens.spUpdateUserOrgGroupLeader (
 	@OrganizationID		INT,
@@ -3801,7 +4005,7 @@ BEGIN
 	SELECT Gardens.Groups.GroupID, Gardens.Groups.GroupName 
     FROM Gardens.Groups, Gardens.GroupMembers
     WHERE Gardens.GroupMembers.userID = @userID
-    AND Gardens.Groups.GroupID = Gardens.GroupMembers.GroupID; 
+    AND Gardens.Groups.GroupID = Gardens.GroupMembers.GroupID and gardens.groups.active = 1; 
 END;
 Go
 
@@ -3920,34 +4124,26 @@ go
 ------------------------------------------
 
 --created by Nasr 3-4-16
---updated by Steve Hoover 3-24-16
 CREATE PROCEDURE Gardens.spUpdateTasks 
 	(@TaskID INT,
+	@gardenID int,
 	@Description VARCHAR(100),
-	@dateAssigned smalldatetime,
-	@dateCompleted smalldatetime,
-	@assignedTo int,
-	@assignedFrom int,
-	@userNotes VARCHAR(250),
-	@Active BIT
-	/*@originalGardenID int,
+	@Active BIT,
+	@originalGardenID int,
+	@OriginalTaskID INT,
 	@OriginalDescription VARCHAR(100),
-	@OriginalActive BIT*/)
+	@OriginalActive BIT)
  AS
  BEGIN 
 	UPDATE Gardens.Tasks
 	SET   
+		Gardenid = @gardenID,
 		Description = @Description,
-		DateAssigned = @dateAssigned,
-		DateCompleted = @dateCompleted,
-		AssignedTo = @assignedTo,
-		AssignedFrom = @assignedFrom,
-		userNotes = @userNotes,
 		Active = @Active
 		WHERE TaskID = @TaskID
-		/*and Description = @OriginalDescription
+		and Description = @OriginalDescription
 		and Active = @OriginalActive
-		and gardenID = @originalGardenID;*/
+		and gardenID = @originalGardenID;
 	RETURN @@ROWCOUNT;
 END;
 GO
@@ -3959,17 +4155,17 @@ CREATE PROCEDURE Gardens.spInsertTasks
 	(@GardenID int,
 	@Description VARCHAR(100),
 	@dateAssigned smalldatetime,
-	@Datecompleted smalldatetime,
 	@AssignedTo int,
 	@AssignedFrom int,
 	@userNotes varchar(250))	
+
+
 AS
 BEGIN
 INSERT INTO Gardens.Tasks
     (GardenID,
 	Description,
 	DateAssigned,
-	DateCompleted,
 	AssignedTo,
 	AssignedFrom,
 	userNotes)	
@@ -3977,7 +4173,6 @@ VALUES
    (@GardenID,
    @Description,
    @dateAssigned,
-   @Datecompleted,
    @AssignedTo,
    @AssignedFrom,
    @userNotes);	
@@ -4009,27 +4204,6 @@ values(
 	return @@ROWCOUNT;
 end;
 go
-
-/**********************************************************************************/
-/******************************* Triggers ****************************************/
-/**********************************************************************************/
-
---added by Ryan Taylor 3/24/16
-CREATE TRIGGER trgInsertNewGroup ON Gardens.Groups
-AFTER INSERT AS
-BEGIN
-	SET NOCOUNT ON;
-	DECLARE @userID INT,
-			@groupID INT
-			 
-	SELECT @userid = INSERTED.GroupLeaderID FROM INSERTED
-	SELECT @groupID = INSERTED.GroupID FROM INSERTED
-	INSERT INTO Gardens.GroupMembers(groupID, userID, createdDate, createdBy, leader)
-	VALUES(@groupID, @userID, GETDATE(), @userID, 1)
-END;
-GO
-
-
 
 /**********************************************************************************/
 /******************************* Test Data ****************************************/
@@ -4066,6 +4240,7 @@ exec Admin.spInsertMessage				'This is a message, wahoo!!'	,'3/2/38'					,'Testi
 exec Admin.spInsertMessageLineItems		1000			,1001			,'1/23/52'					,1002			,'1/4/99'					,'This is a test message'
 
 --* spInsertRoles						@RoleID				@Description varchar(100),	@CreatedBy int,	@CreatedDate smalldatetime 
+exec Admin.spInsertRoles				'Guest'				,'Guest'					,1003			,'1/4/99'
 exec Admin.spInsertRoles				'User'				,'User'						,1003			,'1/4/99'
 exec Admin.spInsertRoles				'Admin'				,'Admin'					,1003			,'1/4/99'
 exec Admin.spInsertRoles				'Expert'			,'Expert'					,1003			,'1/4/99'
@@ -4074,9 +4249,12 @@ exec Admin.spInsertRoles				'GroupLeader'	    ,'Group Leader'				,1003			,'1/4/9
 			
 --* spInsertUserRoles           		@UserID int,	@RoleID int,	@CreatedBy int,	@CreatedDate smalldatetime    
 exec Admin.spInsertUserRoles			1000			,'Guest'		,1000			,'5/23/65'
+exec Admin.spInsertUserRoles			1000			,'User'			,1000			,'5/23/65'
 exec Admin.spInsertUserRoles			1001			,'Admin'		,1000			,'5/23/65'
 exec Admin.spInsertUserRoles			1002			,'Guest'		,1000			,'5/23/65'
 exec Admin.spInsertUserRoles			1003			,'Admin'		,1000			,'5/23/65'
+exec Admin.spInsertUserRoles			1003			,'User'			,1000			,'5/23/65'
+
 
 --* spInsertUserRoles           		@UserID int,	@RoleID int,	@CreatedBy int,	@CreatedDate smalldatetime    
 exec Admin.spInsertUserRoles			1000			,'Admin'		,1000			,'5/23/65'
@@ -4118,8 +4296,8 @@ exec Gardens.spInsertPostThreads			'plant question'		,1 					,2 					,1 				,100
 --* spInsertPostLineItems        			@PostID				@PostLineID int,	@UserID int,	@GroupID int,@DateSent smalldatetime,	@CommentContent varchar(255)
 exec Gardens.spInsertPostLineItems			1000				,1					,1000				,1000			,'10/10/10'				,'Yes'
 				
---* spInsertTasks                			@gardenID int not null,		@Description VARCHAR(100),	@dateAssigned smalldatetime,	@Datecompleted smalldatetime,	@AssignedTo int,	@AssignedFrom int,	@userNotes varchar(250))
-exec Gardens.spInsertTasks					1000	,						'Watering the garden'		,'4/4/44'						,'4/4/04'						,1001				,1002				,'Poppy said do this, Sally'
+--* spInsertTasks                			@gardenID int not null,		@Description VARCHAR(100),	@dateAssigned smalldatetime,		@AssignedTo int,	@AssignedFrom int,	@userNotes varchar(250))
+exec Gardens.spInsertTasks					1000	,						'Watering the garden'		,'4/4/44'						,1001				,1002				,'Poppy said do this, Sally'
 			
 --* spInsertWorkLogs             			@UserID int,	@TaskID int,	@TimeBegun smalldatetime,	@TimeFinished smalldatetime
 exec Gardens.spInsertWorkLogs				1000			,1000			,'9/25/57'					,'9/26/57'
@@ -4207,8 +4385,7 @@ exec Expert.spInsertPlants				'Red Potato'		,'Potato'			,'Vegetable'			,'Small p
 exec Expert.spInsertExpertBecomeAnExpert	1001			,'I am the best'					,1000				,1001			,'12/3/99'					,1000				,'8/20/13'
 	
 --* spInsertBlogEntry            		@BlogData varchar(max),		@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
-exec Expert.spInsertBlogEntry			'This is a blog about...'	,1000			,'7/19/06'					,1002				,'2/17/87'
-	
+exec Expert.spInsertBlogEntry			'This is a blog about...'	,'Vegetables in Florida'	,1000			,'7/19/06'					,1002				,'2/17/87'	
 --* spInsertContent              		@UserID int,	@RegionID int,	@Title varchar(50),		@Category varchar(50),	@Content varchar(max),	@Date smalldatetime ,	@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
 exec Expert.spInsertContent				1001			,1 				,'Home Page'			,'home'					,'Welcome home'			,'2/8/93'				,1000			,'9/29/91'					,1001				,'6/14/05'		
 	
@@ -4238,6 +4415,15 @@ exec Expert.spInsertQuestion			'How do I grow a grape?'	,'fruit'				,'How do I g
 	
 --* spInsertQuestionResponse     		@QuestionID int,	@Date smalldatetime,	@Response varchar(250),		@UserID int
 exec Expert.spInsertQuestionResponse	1000				,'3/18/04'				,'Start with a grape seed'	,1002
+
+-- Expert insert Plant Category
+exec Expert.spInsertPlantCategory 		'Fruit'						,1001			,'3/12/16'
+exec Expert.spInsertPlantCategory 		'Herb'					    ,1001			,'3/12/16'
+exec Expert.spInsertPlantCategory 		'Flower'				    ,1001			,'3/12/16'
+exec Expert.spInsertPlantCategory 		'Tree'					    ,1001			,'3/12/16'
+exec Expert.spInsertPlantCategory 		'Annual'				    ,1001			,'3/12/16'
+exec Expert.spInsertPlantCategory 		'Perenial'				    ,1001			,'3/12/16'
+exec Expert.spInsertPlantCategory 		'Bush'					    ,1001			,'3/12/16'
 	
 --* spInsertRecipeCategory       		@CategoryName varchar(30),	@CreatedBy int,	@Date smalldatetime
 exec Expert.spInsertRecipeCategory		'soup'						,1000			,'12/12/99'
