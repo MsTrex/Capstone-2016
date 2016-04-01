@@ -24,8 +24,12 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6A9E.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs4592.tmp\Debug\</IntermediateOutputPath>
+=======
+    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vsE7D9.tmp\Debug\</IntermediateOutputPath>
+>>>>>>> origin/master
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,8 +39,12 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6A9E.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs4592.tmp\Release\</IntermediateOutputPath>
+=======
+    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vsE7D9.tmp\Release\</IntermediateOutputPath>
+>>>>>>> origin/master
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -76,6 +84,9 @@
     </Compile>
     <Compile Include="AdminPages\RegionPage.xaml.cs" />
     <Compile Include="AdminPages\UserRole.xaml.cs" />
+    <Compile Include="ExpertPages\CreatePlant.xaml.cs">
+      <DependentUpon>CreatePlant.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExpertPages\ExpertAdvice.xaml.cs">
       <DependentUpon>ExpertAdvice.xaml</DependentUpon>
     </Compile>
@@ -90,6 +101,9 @@
     </Compile>
     <Compile Include="ExpertPages\SearchForQuestions.xaml.cs">
       <DependentUpon>SearchForQuestions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertPages\ViewPlants.xaml.cs">
+      <DependentUpon>ViewPlants.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExpertPages\ViewRecipe.xaml.cs">
       <DependentUpon>ViewRecipe.xaml</DependentUpon>
@@ -140,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ExpertPages\CreatePlant.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ExpertPages\ExpertGardenTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -169,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExpertPages\RequestExpert.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpertPages\ViewPlants.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
