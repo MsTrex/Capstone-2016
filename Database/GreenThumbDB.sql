@@ -83,25 +83,19 @@ go
 */
 
 create table Admin.GroupRequest(
-<<<<<<< HEAD
-=======
-	
->>>>>>> origin/master
+
+
 	GroupID int not null,
 	UserID int not null,
 	RequestStatus char(1) not null,
 	RequestDate smalldatetime not null,
 	RequestedBy int not null,
 	ApprovedDate smalldatetime null,
-<<<<<<< HEAD
-	ApprovedBy int null
-	CONSTRAINT [PK_GroupRequest] PRIMARY KEY ( UserID, GroupID ASC )
-=======
 	ApprovedBy int null,
 	active bit not null default 1
 
-	CONSTRAINT [PK_GroupRequest] PRIMARY KEY ( groupid, userid ASC )
->>>>>>> origin/master
+	CONSTRAINT [PK_GroupRequest] PRIMARY KEY ( Groupid, Userid ASC )
+
 );
 go
 
@@ -2214,25 +2208,22 @@ as begin
 end
 go
 
-<<<<<<< HEAD
-=======
+
 --Trevor Glisch 4-1-16
->>>>>>> origin/master
+
 CREATE PROCEDURE Admin.spGetUserCount
 AS BEGIN
 	SELECT count(*)
 	FROM Admin.Users
 	WHERE Active = 1
-<<<<<<< HEAD
+
 	
 	RETURN @@ROWCOUNT
 END
 GO
 	
-=======
-END
-GO
->>>>>>> origin/master
+
+
 
 ------------------------------------------
 -----------Donations.EquipmentDonated-----
@@ -2479,7 +2470,7 @@ BEGIN
 
 	return @@ROWCOUNT;  
 END;
-
+GO
 ------------------------------------------
 -----------Donations.MoneyNeeded----------
 ------------------------------------------
@@ -4477,11 +4468,7 @@ go
 --* spInsertActivityLog					@UserID int, 	@date smalldatetime,	@LogEntry varchar(250)	@UserAction varchar(100)
 exec Admin.spInsertActivityLog			1000, 			'12/12/15', 			'This is a log entry',	'logged'
 
-<<<<<<< HEAD
---* spInsertGroupRequest				@GroupID	@UserID int,	@RequestStatus char(1),	@RequestDate smalldatetime,	@RequestedBy int,	@ApprovedDate smalldatetime,	@ApprovedBy int
-exec Admin.spInsertGroupRequest		1000,			1000			,'a'								,'04/05/53'								,1000				,'2/5/87'						,1001
-=======
->>>>>>> origin/master
+
 
 --* spInsertMessages					@MessageContent varchar(250),	@MessageDate smalldatetime,	@Subject varchar(100),	@MessageSender int
 exec Admin.spInsertMessage				'This is a message, wahoo!!'	,'3/2/38'					,'Testing'				,1000
@@ -4688,3 +4675,4 @@ exec Expert.spInsertRecipes				'Best Potato Soup'	,'soup'					,'Gather ingredent
 	
 --* spInsertTemplates            		@UserID int,	@Description varchar(max),	@DateCreated smalldatetime
 exec Expert.spInsertTemplates			1002			,'Build a box garden'		,'4/17/02'
+
