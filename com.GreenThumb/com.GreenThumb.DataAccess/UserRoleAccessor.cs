@@ -260,15 +260,15 @@ namespace com.GreenThumb.DataAccessor
 
             // get some commandText
         //    string cmdText = "Admin.spUpdateUserRoleStatus"; //waiting for Chris approval
-            var query = "UPDATE Admin.UserRoles SET Active = @Active WHERE " +
-                        @"UserID = @UserID AND RoleID = @RoleID";
-            
+        //    var query = "UPDATE Admin.UserRoles SET Active = @Active WHERE " +
+        //                @"UserID = @UserID AND RoleID = @RoleID";
+            var cmdText = "Admin.spUpdateUserRoleActive";
             // create a command object
-            var cmd = new SqlCommand(query, conn);
+            var cmd = new SqlCommand(cmdText, conn);
 
             // here is where things change a bit
             // first, we need to set the command type
-       //     cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandType = CommandType.StoredProcedure;
 
             // we need to construct and add the parameters
 

@@ -25,6 +25,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\nh229u03\AppData\Local\Temp\vs8522.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs4592.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs5CA3.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u27\AppData\Local\Temp\vsF9B8.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs8A97.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u03\AppData\Local\Temp\vs2490.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,6 +40,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\nh229u03\AppData\Local\Temp\vs8522.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6A9E.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs4592.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs5CA3.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u27\AppData\Local\Temp\vsF9B8.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs8A97.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u03\AppData\Local\Temp\vs2490.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -69,11 +80,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddRequest.xaml.cs">
+      <DependentUpon>AddRequest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminPages\AdminProcessExpertRequests.xaml.cs">
       <DependentUpon>AdminProcessExpertRequests.xaml</DependentUpon>
     </Compile>
     <Compile Include="AdminPages\RegionPage.xaml.cs" />
     <Compile Include="AdminPages\UserRole.xaml.cs" />
+    <Compile Include="ExpertPages\CreatePlant.xaml.cs">
+      <DependentUpon>CreatePlant.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExpertPages\ExpertAdvice.xaml.cs">
       <DependentUpon>ExpertAdvice.xaml</DependentUpon>
     </Compile>
@@ -89,6 +106,9 @@
     <Compile Include="ExpertPages\SearchForQuestions.xaml.cs">
       <DependentUpon>SearchForQuestions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExpertPages\ViewPlants.xaml.cs">
+      <DependentUpon>ViewPlants.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExpertPages\ViewRecipe.xaml.cs">
       <DependentUpon>ViewRecipe.xaml</DependentUpon>
     </Compile>
@@ -103,6 +123,9 @@
     </Compile>
     <Compile Include="GardenPages\CreateOrganization.xaml.cs">
       <DependentUpon>CreateOrganization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\ManageGroup.xaml.cs">
+      <DependentUpon>ManageGroup.xaml</DependentUpon>
     </Compile>
     <Compile Include="GardenPages\SelectTasks.xaml.cs">
       <DependentUpon>SelectTasks.xaml</DependentUpon>
@@ -123,6 +146,10 @@
     <Compile Include="VolunteerPages\VolunteerSignUp.xaml.cs">
       <DependentUpon>VolunteerSignUp.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddRequest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AdminPages\AdminHome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,6 +159,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AdminPages\UserRole.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpertPages\CreatePlant.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -164,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExpertPages\RequestExpert.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpertPages\ViewPlants.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -220,6 +255,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GardenPages\GardenMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GardenPages\ManageGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -452,6 +491,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Plants\Annuals.png" />
+    <Resource Include="Images\Plants\Bushes.png" />
+    <Resource Include="Images\Plants\Flowers.png" />
+    <Resource Include="Images\Plants\Fruit.png" />
+    <Resource Include="Images\Plants\Herbs.png" />
+    <Resource Include="Images\Plants\Perennials.png" />
+    <Resource Include="Images\Plants\RegionMap.png" />
+    <Resource Include="Images\Plants\Trees.png" />
+    <Resource Include="Images\Plants\Vegetables.png" />
     <Resource Include="Images\usda_plant.jpg" />
     <Resource Include="Images\RegionId.jpeg" />
     <Resource Include="Images\greenThumb.png" />

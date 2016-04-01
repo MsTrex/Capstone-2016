@@ -83,14 +83,25 @@ go
 */
 
 create table Admin.GroupRequest(
+<<<<<<< HEAD
+=======
+	
+>>>>>>> origin/master
 	GroupID int not null,
 	UserID int not null,
 	RequestStatus char(1) not null,
 	RequestDate smalldatetime not null,
 	RequestedBy int not null,
 	ApprovedDate smalldatetime null,
+<<<<<<< HEAD
 	ApprovedBy int null
 	CONSTRAINT [PK_GroupRequest] PRIMARY KEY ( UserID, GroupID ASC )
+=======
+	ApprovedBy int null,
+	active bit not null default 1
+
+	CONSTRAINT [PK_GroupRequest] PRIMARY KEY ( groupid, userid ASC )
+>>>>>>> origin/master
 );
 go
 
@@ -797,6 +808,12 @@ GO
 
 ALTER TABLE Admin.GroupRequest WITH NOCHECK ADD  CONSTRAINT [FK_GroupRequest_approvedBy] FOREIGN KEY(approvedBy)
 REFERENCES Admin.Users(UserID);
+GO
+ALTER TABLE Admin.GroupRequest CHECK CONSTRAINT FK_GroupRequest_approvedBy;
+GO
+
+ALTER TABLE Admin.GroupRequest WITH NOCHECK ADD  CONSTRAINT [FK_GroupRequest_groupid] FOREIGN KEY(GroupID)
+REFERENCES Gardens.Groups(GroupID);
 GO
 ALTER TABLE Admin.GroupRequest CHECK CONSTRAINT FK_GroupRequest_approvedBy;
 GO
@@ -1579,7 +1596,6 @@ go
 ------------------------------------------
 -----------Admin.GroupRequest-------------
 ------------------------------------------
-
 create procedure Admin.spInsertGroupRequest(
 	@GroupID int,
 	@UserID int, 
@@ -1609,6 +1625,9 @@ values(
 	return @@ROWCOUNT;
 end;
 go
+
+
+
 
 ------------------------------------------
 -----------Admin.MessageLineItems---------
@@ -1829,6 +1848,16 @@ values(
 end;
 go
 
+/* Rhett Allen - 3/24/16 */
+CREATE PROCEDURE Admin.spSelectRegions
+AS
+BEGIN
+	SELECT RegionID, SoilType, AverageTempSummer, AverageTempFall, AverageTempWinter, 
+		AverageTempSpring, AverageRainfall, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
+	FROM Admin.Regions
+END;
+go
+
 ------------------------------------------
 -----------Admin.Roles--------------------
 ------------------------------------------
@@ -1865,6 +1894,8 @@ BEGIN
     AND Roles.roleID = UserRoles.roleID;
 END;
 GO
+
+
 
 ------------------------------------------
 -----------Admin.UserRoles----------------
@@ -1942,12 +1973,7 @@ go
 
 --Modified By : Poonam Dubey 
 --Modified Date : 16th March 2016 
---==========================================================--
---Modified By : Poonam Dubey 
---Modified Date : 16th March 2016 
---Description : Added code to insert value into userrole table
---==========================================================--
-CREATE procedure [Admin].[spInsertUsers] (
+create procedure [Admin].[spInsertUsers] (
 	@FirstName varchar(50),
 	@LastName varchar(100),
 	@Zip char(9) ,
@@ -1958,11 +1984,9 @@ CREATE procedure [Admin].[spInsertUsers] (
 AS
 BEGIN
 
-DECLARE @UserID INT = 0
-
 IF ((SELECT COUNT(*) FROM Admin.Users AU WHERE LOWER(AU.UserName) = LOWER(@UserName)) > 0)
 	BEGIN
-		SELECT 2 'ReturnValue'		
+		RETURN 2		
 	END
 ELSE
 	BEGIN
@@ -1983,25 +2007,7 @@ ELSE
 			@Password,
 			@RegionID);
 
-		SET @UserID = (SELECT IDENT_CURRENT('Admin.Users'))
-
-		INSERT INTO Admin.UserRoles 
-		(
-		UserID,
-		RoleID,
-		CreatedBy,
-		CreatedDate,
-		Active
-		)
-		VALUES(
-		@UserID,
-		'User',
-		1000,
-		GETDATE(),
-		1
-		);
-
-			SELECT 1 AS 'ReturnValue';
+			RETURN @@ROWCOUNT;
 	END;
 END;
 go
@@ -2208,16 +2214,25 @@ as begin
 end
 go
 
+<<<<<<< HEAD
+=======
+--Trevor Glisch 4-1-16
+>>>>>>> origin/master
 CREATE PROCEDURE Admin.spGetUserCount
 AS BEGIN
 	SELECT count(*)
 	FROM Admin.Users
 	WHERE Active = 1
+<<<<<<< HEAD
 	
 	RETURN @@ROWCOUNT
 END
 GO
 	
+=======
+END
+GO
+>>>>>>> origin/master
 
 ------------------------------------------
 -----------Donations.EquipmentDonated-----
@@ -2449,6 +2464,21 @@ values(
 	return @@ROWCOUNT;
 end;
 go
+
+-- Ibrahim Abuzaid 4-1-2016
+CREATE PROCEDURE Admin.spUpdateUserRoleActive (
+@userID int,
+@RoleID varchar(30),
+@Active bit)
+AS
+BEGIN
+      UPDATE Admin.UserRoles 
+	    SET Active = @Active 
+		WHERE UserID = @UserID   AND
+                      RoleID = @RoleID;
+
+	return @@ROWCOUNT;  
+END;
 
 ------------------------------------------
 -----------Donations.MoneyNeeded----------
@@ -3485,6 +3515,98 @@ go
 -----------Expert.Question----------------
 ------------------------------------------
 
+/* Rhett Allen - 3/24/16 */
+CREATE PROCEDURE Expert.spSelectQuestionsByUserID (
+	@UserID int
+)
+AS
+BEGIN
+	SELECT QuestionID, Title, Category, Content, RegionID, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
+	FROM Expert.Question
+	WHERE CreatedBy = @UserID;
+END;
+go
+
+/* Rhett Allen - 3/24/16 */
+CREATE PROCEDURE Expert.spSelectQuestionsWithKeyword (
+	@Keyword varchar(max)
+)
+AS
+BEGIN
+	SELECT QuestionID, Title, Category, Content, RegionID, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
+	FROM Expert.Question
+	WHERE Title LIKE '%' + @Keyword + '%'
+		OR Content LIKE '%' + @Keyword + '%'
+END;
+go
+
+/* Rhett Allen - 3/24/16 */
+CREATE PROCEDURE Expert.spSelectQuestionsWithKeywordAndRegion (
+	@Keyword varchar(max),
+	@RegionID int
+)
+AS
+BEGIN
+	IF(@RegionID IS NULL)
+        BEGIN
+            SELECT QuestionID, Title, Category, Content, RegionID, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
+			FROM Expert.Question
+			WHERE RegionID IS NULL
+				AND (Title LIKE '%' + @Keyword + '%' OR Content LIKE '%' + @Keyword + '%')
+        END
+    ELSE
+        BEGIN
+            SELECT QuestionID, Title, Category, Content, RegionID, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
+			FROM Expert.Question
+			WHERE RegionID = @RegionID
+				AND (Title LIKE '%' + @Keyword + '%' OR Content LIKE '%' + @Keyword + '%')
+        END
+END;
+go
+
+/* Rhett Allen - 3/24/16 */
+CREATE PROCEDURE Expert.spSelectQuestionsWithNoRegion
+AS
+BEGIN
+	SELECT QuestionID, Title, Category, Content, RegionID, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
+	FROM Expert.Question
+	WHERE RegionID IS NULL
+END;
+go
+
+/* Rhett Allen - 3/24/16 */
+CREATE PROCEDURE Expert.spSelectQuestions
+AS
+BEGIN
+	SELECT QuestionID, Title, Category, Content, RegionID, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
+	FROM Expert.Question
+END;
+go
+
+/* Rhett Allen - 3/24/16 */
+CREATE PROCEDURE Expert.spSelectQuestionByID (
+	@QuestionID int
+)
+AS
+BEGIN
+	SELECT QuestionID, Title, Category, Content, RegionID, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
+	FROM Expert.Question
+	WHERE QuestionID = @QuestionID;
+END;
+go
+
+/* Rhett Allen - 3/24/16 */
+CREATE PROCEDURE Expert.spSelectQuestionsByRegionID (
+	@RegionID int
+)
+AS
+BEGIN
+	SELECT QuestionID, Title, Category, Content, RegionID, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
+	FROM Expert.Question
+	WHERE RegionID = @RegionID;
+END;
+go
+
 create procedure Expert.spInsertQuestion(
 	@Title varchar(50),
 	@Category varchar(50),
@@ -3541,6 +3663,49 @@ values(
 	@UserID);
 	return @@ROWCOUNT;
 end;
+go
+
+CREATE PROCEDURE Expert.spUpdateQuestionResponse (
+	@QuestionID int,
+	@Response varchar(250),
+	@UserID int,
+	@OriginalResponse varchar(250)
+	)
+AS
+BEGIN
+     UPDATE Expert.QuestionResponse
+			 SET    Response = @Response
+			WHERE @QuestionID = QuestionID
+			and @UserID = UserID
+			and @OriginalResponse = Response
+	return @@ROWCOUNT;  
+END;
+go 
+
+/* Rhett Allen - 3/24/16 */
+CREATE PROCEDURE Expert.spSelectResponseByQuestionIDAndUser (
+	@QuestionID int,
+	@UserID int
+)
+AS
+BEGIN
+	SELECT QuestionID, Date, Response, UserID
+	FROM Expert.QuestionResponse
+	WHERE QuestionID = @QuestionID
+		AND UserID = @UserID
+END;
+go
+
+/* Rhett Allen - 3/24/16 */
+CREATE PROCEDURE Expert.spSelectResponsesByQuestionID (
+	@QuestionID int
+)
+AS
+BEGIN
+	SELECT QuestionID, Date, Response, UserID
+	FROM Expert.QuestionResponse
+	WHERE QuestionID = @QuestionID;
+END;
 go
 
 ------------------------------------------
@@ -3654,6 +3819,25 @@ values(
 	@ModifiedDate);
 	return @@ROWCOUNT;
 end;
+go
+
+
+/* Rhett Allen 3/27/16 */
+CREATE PROCEDURE Expert.spSelectRecipesWithKeyword (
+	@Keyword varchar(max),
+	@Offset int,
+	@ReturnAmount int
+)
+AS
+BEGIN
+	SELECT RecipeID, Title, Category, Directions, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
+	FROM Expert.Recipes
+	WHERE Title LIKE '%' + @Keyword + '%'
+		OR Category LIKE '%' + @Keyword + '%'
+		OR Directions LIKE '%' + @Keyword + '%'
+	ORDER BY CreatedDate
+	OFFSET @Offset ROWS FETCH NEXT @ReturnAmount ROWS ONLY
+END;
 go
 
 ------------------------------------------
@@ -3881,8 +4065,20 @@ GO
 -----------Gardens.GroupMembers-----------
 ------------------------------------------
 
---updated due to a table update by Trent - updated by chris sheehan 2-25-16
-create procedure Gardens.spInsertGroupMembers(
+-- Created By: Trent Cullinan 4-1-16
+CREATE PROCEDURE Gardens.spUpdateGroupMemberInactive(
+	@UserID			INT,
+	@GroupID		INT
+)
+AS BEGIN
+	UPDATE Gardens.GroupMembers
+	SET Active = 0
+	WHERE UserID = @UserID AND GroupID = @GroupID;
+END;
+go
+
+/*updated due to a table update by Trent - updated by chris sheehan 2-25-16*/
+create PROCEDURE Gardens.spInsertGroupMembers(
 	@GroupID int,
 	@UserID int,
 	@CreatedDate smalldatetime,
@@ -4007,6 +4203,7 @@ END;
 GO
 
 --created by Nick King 3-9-16
+/*
 CREATE Procedure Gardens.spSelectUserGroups(
 	@UserID int
 )
@@ -4018,6 +4215,24 @@ BEGIN
     AND Gardens.Groups.GroupID = Gardens.GroupMembers.GroupID and gardens.groups.active = 1; 
 END;
 Go
+*/
+
+--Updated by Trent Cullinan 4-1-16
+CREATE PROCEDURE Gardens.spSelectUserGroups(
+	@UserID 		int
+)
+AS
+BEGIN
+	SELECT g.GroupID, g.GroupName, g.Active, g.GroupLeaderID, u.UserName, u.FirstName, u.LastName, u.EmailAddress
+	FROM Gardens.Groups AS g
+	INNER JOIN Gardens.GroupMembers AS gm
+		ON g.GroupID = gm.GroupID
+		and gm.Active = 1
+	INNER JOIN Admin.Users AS u
+		ON g.GroupLeaderID = u.UserID 
+	WHERE g.Active = 1 and gm.UserID = @UserID; 
+END;
+go
 
 ------------------------------------------
 -----------Gardens.Organizations----------
@@ -4262,8 +4477,11 @@ go
 --* spInsertActivityLog					@UserID int, 	@date smalldatetime,	@LogEntry varchar(250)	@UserAction varchar(100)
 exec Admin.spInsertActivityLog			1000, 			'12/12/15', 			'This is a log entry',	'logged'
 
+<<<<<<< HEAD
 --* spInsertGroupRequest				@GroupID	@UserID int,	@RequestStatus char(1),	@RequestDate smalldatetime,	@RequestedBy int,	@ApprovedDate smalldatetime,	@ApprovedBy int
 exec Admin.spInsertGroupRequest		1000,			1000			,'a'								,'04/05/53'								,1000				,'2/5/87'						,1001
+=======
+>>>>>>> origin/master
 
 --* spInsertMessages					@MessageContent varchar(250),	@MessageDate smalldatetime,	@Subject varchar(100),	@MessageSender int
 exec Admin.spInsertMessage				'This is a message, wahoo!!'	,'3/2/38'					,'Testing'				,1000
@@ -4333,6 +4551,10 @@ exec Gardens.spInsertTasks					1000	,						'Watering the garden'		,'4/4/44'					
 			
 --* spInsertWorkLogs             			@UserID int,	@TaskID int,	@TimeBegun smalldatetime,	@TimeFinished smalldatetime
 exec Gardens.spInsertWorkLogs				1000			,1000			,'9/25/57'					,'9/26/57'
+
+
+--* spInsertGroupRequest				@groupid	@UserID int,	@RequestStatus char(1),	@RequestDate smalldatetime,	@RequestedBy int,	@ApprovedDate smalldatetime,	@ApprovedBy int
+exec Admin.spInsertGroupRequest			1000,			1000			,'a'						,'04/05/53'				,1000				,'2/5/87'						,1001
 
 ----------------------------DONATIONS------------------------------------
 print 'donations'

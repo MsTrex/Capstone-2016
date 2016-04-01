@@ -48,8 +48,10 @@ namespace com.GreenThumb.DataAccess
                     {
                         Group currentGroup = new Group()
                         {  //int groupID, int organizationID,string groupName,int groupLeaderID, bool active
-                            GroupID = reader.GetInt32(0),                            
-                            Name = reader.GetString(1)
+                            GroupID = reader.GetInt32(0),
+                            Name = reader.GetString(1),
+                            GroupLeaderID = reader.GetInt32(2)
+
                         };
                         groupList.Add(currentGroup); ///returns a group list
                     }
@@ -132,7 +134,8 @@ namespace com.GreenThumb.DataAccess
                 {
                     while (reader.Read())
                     {
-                        Group currentGroup = new Group(){
+                        Group currentGroup = new Group()
+                        {
                             GroupID = reader.GetInt32(0),
                             Name = reader.GetString(1)
                         };
@@ -192,6 +195,85 @@ namespace com.GreenThumb.DataAccess
             return rowCount == 1;
         }
 
+        /// <summary>
+        /// Ryan Taylor and Luke Frahm
+        /// Created 03/31/16
+        /// Query database to determine of the supplied user is a leader in the group.
+        /// </summary>
+        /// <param name="userID">ID of user to check status</param>
+        /// <param name="groupID">ID of the group to query for user status</param>
+        /// <returns>True if data was added, False otherwise</returns>
+        public static bool GroupLeaderStatus(int userID, int groupID)
+        {
+            bool isLeader = false;
+
+            var conn = DBConnection.GetDBConnection();
+            string query = @"Gardens.spCheckLeaderStatus";
+            var cmd = new SqlCommand(query, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@GroupId", groupID);
+            cmd.Parameters.AddWithValue("@UserId", userID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    isLeader = reader.GetBoolean(0);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return isLeader;
+        }
+
+        /// <summary>
+        /// Ryan Taylor and Luke Frahm
+        /// Created 03/31/16
+        /// Update database to reflect new group name.
+        /// </summary>
+        /// <param name="groupID">ID of the group to alter</param>
+        /// <param name="newGroupName">New name to be declared</param>
+        /// <param name="oldGroupName">Old name to be replaced</param>
+        /// <returns>True if data was updated, False otherwise</returns>
+        public static bool UpdateGroupName(int groupID, string newGroupName, string oldGroupName)
+        {
+            int rowCount = 0;
+
+            var conn = DBConnection.GetDBConnection();
+            string query = @"Gardens.spUpdateGroupName";
+            var cmd = new SqlCommand(query, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@GroupID", groupID);
+            cmd.Parameters.AddWithValue("@NewGroupName", newGroupName);
+            cmd.Parameters.AddWithValue("@OldGroupName", oldGroupName);
+
+            try
+            {
+                conn.Open();
+                rowCount = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rowCount == 1;
+        }
+
         public static int InsertGroupMembers(int userID, int groupID, int createdBy, DateTime createdDate, bool isLeader)
         {
             string query = @"Gardens.spInsertGroupMembers";
@@ -213,14 +295,50 @@ namespace com.GreenThumb.DataAccess
             }
             catch (Exception)
             {
-                return rowCount = 2;
+                throw;
             }
             finally
             {
                 conn.Close();
             }
 
-            return rowCount = 1;
+            return rowCount;
+
+        }
+
+        /// <summary>
+        /// Luke Frahm
+        /// Created 03/31/16
+        /// Update database to set this group to inactive.
+        /// </summary>
+        /// <param name="groupID">ID of the group to deactivate</param>
+        /// <returns>True if deactivated, False otherwise</returns>
+        public static bool DeactivateGroupByID(int groupID)
+        {
+            int rowCount = 0;
+
+            var conn = DBConnection.GetDBConnection();
+            string query = @"Gardens.spDeactivateGroupByID";
+            var cmd = new SqlCommand(query, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@GroupID", groupID);
+            cmd.Parameters.AddWithValue("@Active", 0);
+
+            try
+            {
+                conn.Open();
+                rowCount = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rowCount == 1;
         }
 
         /// <summary>
@@ -297,6 +415,57 @@ namespace com.GreenThumb.DataAccess
         }
 
         /// <summary>
+        /// Ryan Taylor
+        /// Created 03/31/16
+        /// </summary>
+        /// <param name="groupID"></param>
+        /// <returns>Members associtated with groupID</returns>
+        public static List<GroupMember> GetMemberList(int groupID)
+        {
+            var memberList = new List<GroupMember>();
+            var conn = DBConnection.GetDBConnection();
+            string cmdText = @"Gardens.spSelectGroupMembers";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@GroupID", groupID);
+            // get all the users already accepted
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        GroupMember currentMember = new GroupMember()
+                        {
+                            User = new User
+                            {
+                                UserID = reader.GetInt32(0),
+                                FirstName = reader.GetString(1),
+                                LastName = reader.GetString(2)
+                            },
+                            Status = reader.GetString(3)
+                        };
+                        memberList.Add(currentMember);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return memberList;
+
+
+
+        }
+
+        /// <summary>
         /// Modifies the group member to either be 
         /// active or inactive for a particular group.
         /// 
@@ -336,6 +505,5 @@ namespace com.GreenThumb.DataAccess
 
             return rowsAffected;
         }
-
     }
 }

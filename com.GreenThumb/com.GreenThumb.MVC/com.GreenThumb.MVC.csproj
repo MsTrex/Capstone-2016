@@ -238,9 +238,15 @@
     <Content Include="Views\Account\MigrateUser.cshtml" />
     <Content Include="Views\Account\MigrationNewPassword.cshtml" />
 
+
     <Content Include="Views\Group\Create.cshtml" />
     <Content Include="Views\Group\Index.cshtml" />
 
+    <Content Include="Views\User\ViewUserGroups.cshtml" />
+
+
+    <Content Include="Views\Group\Create.cshtml" />
+    <Content Include="Views\Group\Index.cshtml" />
     <Content Include="Views\User\ViewUserGroups.cshtml" />
 
   </ItemGroup>

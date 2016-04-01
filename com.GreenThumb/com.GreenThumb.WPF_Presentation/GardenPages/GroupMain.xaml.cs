@@ -25,6 +25,9 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
     {
         private AccessToken _accessToken;
         private GroupManager _groupMgr = new GroupManager();
+        int groupID;
+        Group group;
+
         public GroupMain(AccessToken at)
         {
             InitializeComponent();
@@ -75,6 +78,32 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
         private void txtGroupName_GotFocus(object sender, RoutedEventArgs e)
         {
             this.lblSuccess.Content = "";
+        }
+
+        /// <summary>
+        /// Luke Frahm
+        /// Created: 03/31/16
+        /// This allows the user to activate the ManageGroup page to change group data
+        /// </summary>
+        private void btnGroupDetails_Click(object sender, RoutedEventArgs e)
+        {
+                this.NavigationService.Navigate(new GardenPages.ManageGroup(_accessToken, group));
+        }
+
+        /// <summary>
+        /// Luke Frahm
+        /// Created: 03/31/16
+        /// This takes the selected record in the data grid and checks if the user is the group leader. If so, it activates the details button to alter the group.
+        /// </summary>
+        private void dataGroupList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            group = (Group)dataGroupList.SelectedItem;
+            groupID = group.GroupID;
+
+            if (_groupMgr.GetLeaderStatus(_accessToken.UserID, groupID))
+            {
+                btnGroupDetails.Visibility = Visibility.Visible;
+            }
         }
     }
 }
