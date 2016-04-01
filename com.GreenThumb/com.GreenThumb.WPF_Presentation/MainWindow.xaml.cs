@@ -274,7 +274,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar6.Content = "Upload Garden Template";
             btnSideBar7.Content = "View Garden Templates";
             btnSideBar8.Content = "View Recipes";
-            btnSideBar9.Content = "btnSideBar9";
+            btnSideBar9.Content = "Plants";
             btnSideBar10.Content = "btnSideBar10";
         }
 
@@ -542,7 +542,17 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar9_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            if (btnSideBar9.Content.ToString() == "Plants")
+            {
+                if (_accessToken != null)
+                {
+                    mainFrame.NavigationService.Navigate(new ExpertPages.ViewPlants(_accessToken));
+                }
+                else
+                {
+                    mainFrame.NavigationService.Navigate(new ExpertPages.ViewPlants());
+                }
+            }
         }
         /// <summary>
         /// Author: Chris Sheehan
