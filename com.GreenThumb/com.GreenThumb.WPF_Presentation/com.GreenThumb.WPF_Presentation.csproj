@@ -24,12 +24,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-<<<<<<< HEAD
-    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6A9E.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs4592.tmp\Debug\</IntermediateOutputPath>
-=======
-    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vsE7D9.tmp\Debug\</IntermediateOutputPath>
->>>>>>> origin/master
+    <IntermediateOutputPath>C:\Users\nh229u04\AppData\Local\Temp\vsB861.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,12 +35,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6A9E.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs4592.tmp\Release\</IntermediateOutputPath>
-=======
-    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vsE7D9.tmp\Release\</IntermediateOutputPath>
->>>>>>> origin/master
+    <IntermediateOutputPath>C:\Users\nh229u04\AppData\Local\Temp\vsB861.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
