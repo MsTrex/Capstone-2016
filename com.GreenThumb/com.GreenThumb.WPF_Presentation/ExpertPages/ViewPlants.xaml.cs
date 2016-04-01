@@ -105,14 +105,14 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             switch (type)
             {
                 case "Name":
-                    minPlants = (List<Plant>) plants.Where(p => p.Name.Equals(plant));
+                    minPlants = plants.Where(p => p.Name.Equals(plant)).ToList();
                     break;
                 case "Region":
                     //minPlants = plants.Where(p => p..Equals(plant));
                     break;
                 default: //"Category":
                     //minPlants = from plant in plants where plant.Category == plantCategory select plant;
-                    minPlants = (List<Plant>) plants.Where(p => p.Category.Equals(plant)); //.OrderBy(p => p);
+                    minPlants = plants.Where(p => p.Category.Equals(plant)).ToList(); //.OrderBy(p => p);
                     break;
             }
 

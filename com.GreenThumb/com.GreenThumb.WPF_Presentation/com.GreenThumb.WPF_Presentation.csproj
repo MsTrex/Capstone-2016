@@ -25,7 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs4592.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u04\AppData\Local\Temp\vsB861.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs9BBE.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6A9E.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs4592.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u04\AppData\Local\Temp\vsB861.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs9BBE.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -476,6 +476,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Plants\Annuals.png" />
+    <Resource Include="Images\Plants\Bushes.png" />
+    <Resource Include="Images\Plants\Flowers.png" />
+    <Resource Include="Images\Plants\Fruit.png" />
+    <Resource Include="Images\Plants\Herbs.png" />
+    <Resource Include="Images\Plants\Perennials.png" />
+    <Resource Include="Images\Plants\RegionMap.png" />
+    <Resource Include="Images\Plants\Trees.png" />
+    <Resource Include="Images\Plants\Vegetables.png" />
     <Resource Include="Images\usda_plant.jpg" />
     <Resource Include="Images\RegionId.jpeg" />
     <Resource Include="Images\greenThumb.png" />
