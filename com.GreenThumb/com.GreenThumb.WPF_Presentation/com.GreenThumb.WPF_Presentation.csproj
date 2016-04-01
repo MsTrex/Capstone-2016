@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\PDUBEY\AppData\Local\Temp\vs213B.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vs44CC.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\PDUBEY\AppData\Local\Temp\vs213B.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\STEVEM~1\AppData\Local\Temp\vs44CC.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -88,6 +88,9 @@
     </Compile>
     <Compile Include="GardenPages\ViewGroups.xaml.cs">
       <DependentUpon>ViewGroups.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\ViewTasks.xaml.cs">
+      <DependentUpon>ViewTasks.xaml</DependentUpon>
     </Compile>
     <Compile Include="RegionPage.xaml.cs" />
     <Compile Include="VolunteerPages\EditVolunteerAvailability.xaml.cs">
@@ -192,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GardenPages\ViewGroups.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GardenPages\ViewTasks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

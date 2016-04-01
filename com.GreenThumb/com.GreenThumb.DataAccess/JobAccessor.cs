@@ -267,6 +267,89 @@ namespace com.GreenThumb.DataAccess
             }
             return jobs;
         }
+        /// <summary>
+        /// Select a task based on gardenId
+        /// Created by Steve Hoover 3/31/16
+        /// </summary>
+        /// <param name="gardenId"></param>
+        /// <returns></returns>
+        public static List<Job> RetrieveJobByGardenId(int gardenId)
+        {
+            var jobs = new List<Job>();
+            var conn = DBConnection.GetDBConnection();
+            // need to send Chris stored procedure
+            var query = @"SELECT TaskID, GardenID, Description , DateAssigned, DateCompleted, AssignedTo, AssignedFrom, UserNotes, Active " +
+                         @"FROM Gardens.Tasks " +
+                         @"WHERE GardenID=" + gardenId + "AND Active=1";
+            var cmd = new SqlCommand(query, conn);
 
+            //cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var job = new Job();
+
+                        job.JobID = reader.GetInt32(0);
+                        job.GardenID = reader.GetInt32(1);
+                        job.Description = reader.GetString(2);
+                        job.DateAssigned = reader.GetDateTime(3);
+                        job.DateCompleted = reader.GetDateTime(4);
+                        job.AssignedTo = reader.GetInt32(5);
+                        job.AssignedFrom = reader.GetInt32(6);
+                        job.UserNotes = reader.GetString(7);
+                        job.Active = reader.GetBoolean(8);
+
+                        jobs.Add(job);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return jobs;
+        }
+
+        public static List<int> RetrieveGardenIdByUserId(int userId) 
+        {
+            var ints = new List<int>();
+            var conn = DBConnection.GetDBConnection();
+            // need to send Chris stored procedure
+            var query = @"SELECT GardenID " +
+                         @"WHERE UserID=" + userId + "AND Active=1";
+            var cmd = new SqlCommand(query, conn);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        ints.Add(reader.GetInt32(0));
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return ints;
+        }
     }
 }
