@@ -13,14 +13,14 @@ using com.GreenThumb.DataAccess;
 
 namespace com.GreenThumb.BusinessLogic
 {
-        public class GroupManager : com.GreenThumb.BusinessLogic.Interfaces.IGroupManager
+    public class GroupManager : com.GreenThumb.BusinessLogic.Interfaces.IGroupManager
     {
-        public List<Group> GetGroupList(int OrganizationID)
+        public List<Group> GetGroupList(int userID)
         {
-           
+
             try
             {
-                return GroupAccessor.GetGroupList(OrganizationID);
+                return GroupAccessor.GetGroupList(userID);
             }
             catch (Exception ex)
             {
@@ -74,6 +74,7 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
+
         /// <summary>
         /// Ryan Taylor and Luke Frahm
         /// Created: 03/31/16
@@ -115,8 +116,19 @@ namespace com.GreenThumb.BusinessLogic
             }
             catch (Exception)
             {
-
                 throw new ApplicationException("Group name could not be changed.");
+            }
+        }
+        public int AddGroupMember(int userID, int groupID, int createdBy)
+        {
+            try
+            {
+
+                return GroupAccessor.InsertGroupMembers(userID, groupID, createdBy, DateTime.Now, false);
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
@@ -148,7 +160,7 @@ namespace com.GreenThumb.BusinessLogic
         /// Get The Members of a group based on the groupID
         /// </summary>
         /// <param name="groupID">ID of the group</param>
-        /// <returns>List of Groupmembers</returns>
+        /// <returns>List of GroupMembers</returns>
         public List<GroupMember> GetGroupMembers(int groupID)
         {
             List<GroupMember> memberList;
@@ -163,6 +175,47 @@ namespace com.GreenThumb.BusinessLogic
             }
 
             return memberList;
+        }
+        /// Retrieve a collection of groups with a group leader that the user id is a member of.
+        /// 
+        /// Created by: Trent Cullinan 03/31/2016
+        /// </summary>
+        /// <param name="userId">User Id of user to retrieve groups for.</param>
+        /// <returns>Collection of groups that a user belongs to.</returns>
+        public IEnumerable<Group> RetrieveUserGroups(int userId)
+        {
+            IEnumerable<Group> groups = new List<Group>(); // Empty collection to return
+
+            try
+            {
+                groups = GroupAccessor.RetrieveUserGroups(userId);
+            }
+            catch (Exception) { } // groups will be an empty collection
+
+            return groups;
+        }
+
+        /// <summary>
+        /// Marks the user as inactive for the group.
+        /// 
+        /// Created by: Trent Cullinan 03/31/2016
+        /// </summary>
+        /// <param name="userId">User Id of user leaving.</param>
+        /// <param name="groupId">Group Id of which group.</param>
+        /// <returns>Whether the group removal was successful.</returns>
+        public bool LeaveGroup(int userId, int groupId)
+        {
+            bool flag = false;
+
+            try
+            {
+                // 1 row should be affected
+                flag =
+                    1 == GroupAccessor.InactivateGroupMember(userId, groupId);
+            }
+            catch (Exception) { } // flag set to false
+
+            return flag;
         }
     }
 }

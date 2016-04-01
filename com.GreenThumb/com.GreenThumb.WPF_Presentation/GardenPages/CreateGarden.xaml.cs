@@ -30,7 +30,6 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
 
         private GroupManager myGroupManager = new GroupManager();
         private AccessToken accessToken;
-        private Organization organization;
         private GardenManager gardenManager = new GardenManager();
 
 
@@ -39,43 +38,26 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
         /// </summary>
         public CreateGarden(AccessToken _accessToken)
         {
-            
+            // Made changes to fetch data based on user id instead of organization id By : Poonam Dubey
             InitializeComponent();
             if (_accessToken != null)
             {
-                organization = new Organization();/// Need to provide OrganizationID  
                 accessToken = _accessToken;/// Need to provide UserID
-                organization.OrganizationID = 1000;
-                FillGroupData(organization.OrganizationID);
+                FillGroupData(accessToken.UserID);
             }
             else { btnSubmit.IsEnabled = false; }
         }
-
-        /// <summary>
-        /// Constructor with the parameters.
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="organization"></param>
-        public CreateGarden(AccessToken accessToken, Organization organization)
-        {
-
-
-
-            //FillGroupData(organization.OrganizationID);
-
-        }
-
 
         /// <summary>
         /// Method to load page controls and bind group name combo box
         /// Load Group Name combo box from - "Groups" table 
         /// Group name , Group Id
         /// </summary>
-        private void FillGroupData(int OrganizationID)
+        private void FillGroupData(int userID)
         {
             try
             {
-                List<Group> groups = myGroupManager.GetGroupList(OrganizationID);
+                List<Group> groups = myGroupManager.GetGroupList(userID);
                 cmbGroupName.ItemsSource = groups;
             }
             catch (Exception ex)
@@ -117,7 +99,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                         MessageBox.Show("New Garden has been created.", "New Record", MessageBoxButton.OK, MessageBoxImage.Information);
 
                         //Reset Fields
-                        FillGroupData(organization.OrganizationID);
+                        FillGroupData(accessToken.UserID);
                         txtDescription.Text = string.Empty;
                         txtRegion.Text = string.Empty;
 
@@ -148,7 +130,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
 
             this.Cursor = Cursors.Arrow;
             //Reset Fields
-            FillGroupData(organization.OrganizationID);
+            FillGroupData(accessToken.UserID);
             txtDescription.Text = string.Empty;
             txtRegion.Text = string.Empty;
         }

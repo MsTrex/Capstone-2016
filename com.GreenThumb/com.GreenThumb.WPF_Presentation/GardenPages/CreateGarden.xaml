@@ -20,21 +20,12 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-
-        <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="50,0,50,0" >
-
-            <Label FontSize="15" Content="Create a Garden Page Content -- Fields Needed To Insert Data into Garden Table"></Label>
-        </Grid>
-
-
-
         <Label x:Name="lblGroup" Margin="10 20 0 0" Grid.Row="1" Grid.Column="0" Content="Garden Group Name: *" />
 
         <Label x:Name="lblDescription" Margin="10 10 0 0" Grid.Row="2" Grid.Column="0" Content="Garden Description: *" />
 
 
         <Label x:Name="lblRegion" Margin="10 10 0 0" Grid.Row="3" Grid.Column="0" Content="Garden Region: "  />
-
 
         <ComboBox x:Name="cmbGroupName" Grid.Row="1"  Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="25"  Width="201" Margin="5 5 100 5"
                             ItemsSource="{Binding Path=Group}"
@@ -43,16 +34,10 @@
                             SelectedValue="{Binding Path=Name}"
                           />
 
-
-
-
         <TextBox x:Name="txtDescription" TextWrapping="Wrap" AcceptsReturn="True" MaxLength="500" Margin="5 5 100 5" Height="100" Grid.Row="2" Grid.Column="1" />
 
         <TextBox x:Name="txtRegion" MaxLength="25" Margin="5,5,100,5" Grid.Row="3" Grid.Column="1" />
-
-
-
-
+        
         <Grid Grid.Row="4" Margin="0,17,0,10" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />

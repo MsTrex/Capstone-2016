@@ -1,7 +1,7 @@
 ﻿<Window x:Class="com.GreenThumb.WPF_Presentation.NewUserCreation"
        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Sign Up" Height="325" WindowStartupLocation="CenterScreen" Width="450">
+        Title="Sign Up" Height="325" WindowStartupLocation="CenterScreen" Width="450" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

@@ -25,6 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6A9E.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs4592.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,6 +36,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6A9E.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs4592.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -43,6 +45,12 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Controls.Input.Toolkit">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Layout.Toolkit">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -54,6 +62,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\WPFToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -71,11 +82,23 @@
     <Compile Include="ExpertPages\ExpertAdviceRespond.xaml.cs">
       <DependentUpon>ExpertAdviceRespond.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExpertPages\RecipeDetail.xaml.cs">
+      <DependentUpon>RecipeDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExpertPages\RequestExpert.xaml.cs">
       <DependentUpon>RequestExpert.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExpertPages\SearchForQuestions.xaml.cs">
       <DependentUpon>SearchForQuestions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertPages\ViewRecipe.xaml.cs">
+      <DependentUpon>ViewRecipe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\ViewGroups.xaml.cs">
+      <DependentUpon>ViewGroups.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HomePages\ViewBlog.xaml.cs">
+      <DependentUpon>ViewBlog.xaml</DependentUpon>
     </Compile>
     <Compile Include="GardenPages\CompleteTask.xaml.cs">
       <DependentUpon>CompleteTask.xaml</DependentUpon>
@@ -88,6 +111,12 @@
     </Compile>
     <Compile Include="GardenPages\SelectTasks.xaml.cs">
       <DependentUpon>SelectTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HomePages\CreateBlog.xaml.cs">
+      <DependentUpon>CreateBlog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\ViewTasks.xaml.cs">
+      <DependentUpon>ViewTasks.xaml</DependentUpon>
     </Compile>
     <Compile Include="RegionPage.xaml.cs" />
     <Compile Include="VolunteerPages\EditVolunteerAvailability.xaml.cs">
@@ -131,6 +160,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ExpertPages\RecipeDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ExpertPages\RecipeInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,6 +171,18 @@
     <Page Include="ExpertPages\RequestExpert.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpertPages\ViewRecipe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GardenPages\ViewGroups.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="HomePages\ViewBlog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExpertPages\ViewGardenTemplate.xaml">
       <SubType>Designer</SubType>
@@ -192,6 +237,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GardenPages\ViewGarden.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HomePages\CreateBlog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GardenPages\ViewTasks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -387,6 +440,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

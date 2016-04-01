@@ -21,6 +21,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6456.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs81EF.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vsB259.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,9 +32,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6456.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs81EF.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vsB259.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,6 +49,7 @@
     <Compile Include="AccessToken.cs" />
     <Compile Include="ActivityLog.cs" />
     <Compile Include="Advice.cs" />
+    <Compile Include="Blog.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="AdministratorAccount.cs" />
     <Compile Include="BecomeExpert.cs" />
