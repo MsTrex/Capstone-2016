@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using com.GreenThumb.MVC.Models;
+using System.Security.Claims;
+using com.GreenThumb.BusinessLogic;
 
 namespace com.GreenThumb.MVC.Controllers
 {
@@ -16,6 +18,7 @@ namespace com.GreenThumb.MVC.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private UserManager usermgr = new UserManager();
         public ManageController()
         {
         }
@@ -50,29 +53,57 @@ namespace com.GreenThumb.MVC.Controllers
             }
         }
 
-        //
-        // GET: /Manage/Index
+        /// <summary>
+        /// Author: Trent 
+        /// Get: Index 
+        /// UpdateBy: Chris Schwebach
+        /// Date: 3/31/16
+        /// User data 
+        /// </summary>
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
+                : " ";
 
-            var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
-            {
-                HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-            };
+            var userName = User.Identity.GetUserName();
+            var model = new com.GreenThumb.BusinessLogic.UserManager().GetUserByUserName(userName);
+
             return View(model);
+        }
+
+        /// <summary>
+        /// Author: Chris Schwebach 
+        /// Post: Index/EditPersonal Info 
+        /// Date: 3/31/16
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index([Bind(Include = "UserID, FirstName, LastName, Zip, EmailAddress, RegionID")] int userID, string firstName, string lastName, string zip, string emailAddress, int? regionID)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    usermgr.EditUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, null);
+                    var identity = (ClaimsIdentity)User.Identity;
+
+                    UserManager.RemoveClaim(identity.GetUserId(), identity.FindFirst(ClaimTypes.Surname));
+                    UserManager.RemoveClaim(identity.GetUserId(), identity.FindFirst(ClaimTypes.GivenName));
+
+                    UserManager.AddClaim(identity.GetUserId(), new Claim(ClaimTypes.Surname, lastName));
+                    UserManager.AddClaim(identity.GetUserId(), new Claim(ClaimTypes.GivenName, firstName));
+                    UserManager.SetEmail(identity.GetUserId(), emailAddress);
+                    ViewBag.StatusMessage = "Profile Saved!";
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.StatusMessage = ex.Message;
+            }
+            return View();
         }
 
         //

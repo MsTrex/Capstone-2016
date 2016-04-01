@@ -44,5 +44,39 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                 dataGroupList.ItemsSource = null;
             }
         }
+
+        private void dataGroupList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dataGroupList.SelectedItem != null)
+            {
+                try
+                {
+                    var selectedGrp = (Group)dataGroupList.SelectedItem;
+
+                    MessageBoxResult result = MessageBox.Show("Do you want to request to join " + selectedGrp.Name + " group", "Join Group", MessageBoxButton.YesNo);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        int count = _groupMgr.AddGroupMember(_accessToken.UserID, selectedGrp.GroupID, _accessToken.UserID);
+                        if (count == 1)
+                        {
+                            MessageBox.Show("Your request has been submitted successfully", "Request Submitted", MessageBoxButton.OK);
+                        }
+                        else if(count > 1)
+                        {
+                            MessageBox.Show("You have already requested to join this group", "Information!", MessageBoxButton.OK);
+                        }
+                    }
+                    else
+                    {
+
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("You must select a Group to join it");
+                }
+            }
+        }
     }
 }
