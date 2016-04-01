@@ -13,11 +13,11 @@ using com.GreenThumb.DataAccess;
 
 namespace com.GreenThumb.BusinessLogic
 {
-        public class GroupManager : com.GreenThumb.BusinessLogic.Interfaces.IGroupManager
+    public class GroupManager : com.GreenThumb.BusinessLogic.Interfaces.IGroupManager
     {
         public List<Group> GetGroupList(int userID)
         {
-           
+
             try
             {
                 return GroupAccessor.GetGroupList(userID);
@@ -71,6 +71,20 @@ namespace com.GreenThumb.BusinessLogic
             catch (Exception ex)
             {
                 throw new ApplicationException(ex.Message);
+            }
+        }
+
+        public int AddGroupMember(int userID, int groupID, int createdBy)
+        {
+            try
+            {
+
+                return GroupAccessor.InsertGroupMembers(userID, groupID, createdBy, DateTime.Now, false);
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

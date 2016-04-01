@@ -192,5 +192,36 @@ namespace com.GreenThumb.DataAccess
             return rowCount == 1;
         }
 
+        public static int InsertGroupMembers(int userID, int groupID, int createdBy, DateTime createdDate, bool isLeader)
+        {
+            string query = @"Gardens.spInsertGroupMembers";
+            int rowCount = 0;
+
+            var conn = DBConnection.GetDBConnection();
+            var cmd = new SqlCommand(query, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@GroupID", userID);
+            cmd.Parameters.AddWithValue("@UserID", groupID);
+            cmd.Parameters.AddWithValue("@CreatedDate", createdDate);
+            cmd.Parameters.AddWithValue("@CreatedBy", createdBy);
+            cmd.Parameters.AddWithValue("@Leader", isLeader);
+
+            try
+            {
+                conn.Open();
+                rowCount = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                return rowCount = 2;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rowCount = 1;
+        }
+
     }
 }
