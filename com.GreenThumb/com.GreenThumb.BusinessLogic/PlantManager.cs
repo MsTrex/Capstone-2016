@@ -16,14 +16,15 @@ namespace com.GreenThumb.BusinessLogic
         ///<summary>
         ///Author: Stenner Kvindlog         
         ///fetchPlantList gets a list of all the plants 
-		//calling to the plant accessor
+        //calling to the plant accessor
         ///Date: 3/4/16
-		///</summary>
+        ///</summary>
         public List<Plant> FetchPlantList(Active active)
         {
             try
             {
                 return PlantAccessor.RetrievePlantList(active);
+                //return CreateTestPlants(false);
             }
             catch (Exception)
             {
@@ -32,24 +33,24 @@ namespace com.GreenThumb.BusinessLogic
 
         }
 
-		///<summary>
+        ///<summary>
         ///Author: Stenner Kvindlog         
         ///fetchPlant gets a plant by plantId
-		//calling to the plant accessor
+        //calling to the plant accessor
         ///Date: 3/4/16
-		///</summary>
+        ///</summary>
         public Plant FetchPlant(int plantId)
         {
             return PlantAccessor.RetrievePlant(plantId);
         }
 
-		
-		///<summary>
+
+        ///<summary>
         ///Author: Stenner Kvindlog         
         ///CreatePlant creates a plant 
-		//calling to the plant accessor
+        //calling to the plant accessor
         ///Date: 3/4/16
-		///</summary>
+        ///</summary>
         public bool CreatePlant(Plant newPlant)
         {
             try
@@ -64,12 +65,12 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
-		///<summary>
+        ///<summary>
         ///Author: Stenner Kvindlog         
         ///EditPLant sends new and old plant to database to be edited  
-		//calling to the plant accessor
+        //calling to the plant accessor
         ///Date: 3/4/16
-		///</summary>
+        ///</summary>
         public bool EditPlant(Plant newPlant, Plant oldPlant)
         {
             try
@@ -85,5 +86,43 @@ namespace com.GreenThumb.BusinessLogic
 
         }
 
+
+        ///<summary>
+        ///Author: Sara Nanke         
+        ///Creates some test data 
+        ///Date: 3/31/16
+        ///</summary>
+        public List<Plant> CreateTestPlants(bool IsDB = true)
+        {
+            List<Plant> plants = new List<Plant>();
+
+            //creating dummy plant list
+            var date = new DateTime(1992, 1, 1);
+            plants.Add(new
+                Plant(null, "Blood Carrot", "Carrot", "Vegetable", "orange for bunnies", "Summer", 1000, date, 1001, date, true));
+            plants.Add(new
+                Plant(null, "Braburn", "Apple", "Fruit", "sweet crisp and ready to eat", "Summer", 1000, date, 1001, date, true));
+            plants.Add(new
+                Plant(null, "Michigan Apple", "Apple", "Fruit", "tastes like Michigan", "Summer", 1000, date, 1001, date, true));
+            plants.Add(new
+                Plant(null, "Pink Lady", "Apple", "Fruit", "best apple ever", "Summer", 1000, date, 1001, date, true));
+            plants.Add(new
+                Plant(null, "Parsley", "Herb", "Herb", "good on pizza", "Summer", 1000, date, 1001, date, true));
+            plants.Add(new
+                Plant(null, "Basil", "Herb", "Herb", "good in tomato soup", "Summer", 1000, date, 1001, date, true));
+
+            if (IsDB)
+            {
+                //creating test plants
+                foreach (Plant plant in plants)
+                {
+                    CreatePlant(plant);
+                }
+            }
+            return plants;
+        }
+
+        //(int PlantID, string Name, string Type, string Category, string Description, string Season,
+        //              int CreatedBy, DateTime CreatedDate, int ModifiedBy, DateTime ModifiedDate, bool Active)
     }
 }
