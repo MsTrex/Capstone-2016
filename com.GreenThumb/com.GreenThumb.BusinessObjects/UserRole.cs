@@ -18,8 +18,8 @@ namespace com.GreenThumb.BusinessObjects
         public int UserID { get; set; }
         public string RoleID { get; set; }
        
-        public int CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public int? CreatedBy { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public bool Active { get; set; }
 
         public UserRole()
@@ -27,10 +27,15 @@ namespace com.GreenThumb.BusinessObjects
 
         }
 
+        public UserRole(int userID, string roleID)
+        {
+            this.UserID = userID;
+            this.RoleID = roleID;
+        }
         public UserRole (int userID,
                       string roleID,       
-                         int createdBy,
-                         DateTime createdDate)
+                         int? createdBy,
+                         DateTime? createdDate)
         {
             UserID = userID;
             RoleID = roleID;

@@ -789,6 +789,31 @@ namespace com.GreenThumb.DataAccess
 
             return flag;
         }
+        public static int GetUserCount()
+        {
+            int count = 0;
+
+            var conn = DBConnection.GetDBConnection();
+            var cmd = new SqlCommand("Admin.spGetUserCount", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                count = (int)cmd.ExecuteScalar();
+            }
+            catch (SqlException)
+            {
+                
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return count;
+
+        }
 
     }
 }

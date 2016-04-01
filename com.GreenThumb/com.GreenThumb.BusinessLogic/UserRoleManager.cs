@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace com.GreenThumb.BussinessLogic
+namespace com.GreenThumb.BusinessLogic
 {
     public class UserRoleManager
     {
@@ -55,18 +55,15 @@ namespace com.GreenThumb.BussinessLogic
         }
 
         public bool AddNewUserRole(int userId,
-                               string roleId,
-                               int createdBy,
-                               DateTime createdDate)
+                               string roleId)
         {
             try
             {
                 var userRole = new UserRole()
                 {
                     UserID = userId,
-                    RoleID = roleId,
-                    CreatedBy = createdBy,
-                    CreatedDate = createdDate
+                    RoleID = roleId
+                    
                 };
                 if (UserRoleAccessor.InsertUserRole(userRole) == 1)
                 {

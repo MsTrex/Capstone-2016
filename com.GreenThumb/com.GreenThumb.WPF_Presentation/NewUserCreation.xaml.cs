@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 using com.GreenThumb.BusinessLogic.Interfaces;
 using System.Text.RegularExpressions;
 
+
+
 namespace com.GreenThumb.WPF_Presentation
 {
     /// <summary>
@@ -26,8 +28,24 @@ namespace com.GreenThumb.WPF_Presentation
         private UserManager _userManagerObj = new UserManager();
         static AccessToken _accessToken;
         private ISecurityManager _security = new SecurityManager();
+       
+        private bool FirstRun;
         public NewUserCreation()
         {
+            InitializeComponent();
+        }
+
+        /// <summary>
+        /// This is for the first time that the program is run
+        /// the boolean value is used to tell the window that this account
+        /// should be created as an admin because it is the INITIAL account
+        /// Created with the software
+        /// </summary>
+        /// <param name="FirstRun"></param>
+        public NewUserCreation(bool FirstRun)
+        {
+            MessageBox.Show("Please Create the Admin account for this computer! The user you are creating will be the firs Admin for this application!");
+            this.FirstRun = FirstRun;
             InitializeComponent();
         }
 
@@ -85,22 +103,68 @@ namespace com.GreenThumb.WPF_Presentation
                             }
                             else
                             {
-                                if (_userManagerObj.AddNewUser(fName, lName, string.Empty, string.Empty, username, password.HashSha256(), isActive, null) == 1)
+                                /// Added by Trevor Glisch for first Run
+                                if (FirstRun)
                                 {
-                                    ClearControls();
-                                    MessageBoxResult result = MessageBox.Show("User has been created successfully!!", "User Created", MessageBoxButton.OK);
-                                    if (result == MessageBoxResult.OK)
+                                    if (_userManagerObj.AddNewUser(fName, lName, string.Empty, string.Empty, username, password.HashSha256(), isActive, null) == 1)
                                     {
-                                        _accessToken = _security.ValidateExistingUser(username, password);
-                                        this.DialogResult = true;
+                                        ClearControls();
+                                        MessageBoxResult result = MessageBox.Show("User has been created successfully!!", "User Created", MessageBoxButton.OK);
+                                        if (result == MessageBoxResult.OK)
+                                        {
+                                            _accessToken = _security.ValidateExistingUser(username, password);
+                                           
+                                        }
+                                        UserRoleManager urm = new UserRoleManager();
+
+                                        if (urm.AddNewUserRole(_accessToken.UserID, "Admin"))
+                                        {
+                                            this.DialogResult = true;
+
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Failed to Add User as Admin!");
+                                        }
+
+                                        
+
                                     }
+                                    else
+                                    {
+                                        txtnewUsername.Text = string.Empty;
+                                        MessageBox.Show("Username entered already exists. Please try a different username.");
+
+                                    }
+
+
+
+
+                                    
+                                    
+                                    
                                 }
                                 else
                                 {
-                                    txtnewUsername.Text = string.Empty;
-                                    MessageBox.Show("Username entered already exists. Please try a different username.");
+                                    if (_userManagerObj.AddNewUser(fName, lName, string.Empty, string.Empty, username, password.HashSha256(), isActive, null) == 1)
+                                    {
+                                        ClearControls();
+                                        MessageBoxResult result = MessageBox.Show("User has been created successfully!!", "User Created", MessageBoxButton.OK);
+                                        if (result == MessageBoxResult.OK)
+                                        {
+                                            _accessToken = _security.ValidateExistingUser(username, password);
+                                            this.DialogResult = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        txtnewUsername.Text = string.Empty;
+                                        MessageBox.Show("Username entered already exists. Please try a different username.");
 
+                                    }
                                 }
+
+                               
                             }
                         }
                     }

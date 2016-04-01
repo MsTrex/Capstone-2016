@@ -1,8 +1,7 @@
 ﻿using com.GreenThumb.BusinessLogic;
 using com.GreenThumb.BusinessObjects;
-using com.GreenThumb.BussinessLogic;
-using System;
 using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -175,7 +174,7 @@ namespace com.GreenThumb.WPF_Presentation
             {
                  if (insertUpdate.Equals("i"))
                  {
-                       myUserRoleManager.AddNewUserRole(UserID, RoleID, _accessToken.UserID, DateTime.Now);
+                     myUserRoleManager.AddNewUserRole(_accessToken.UserID, RoleID);
                        lblMessage.Content = "Record Inserted successfully.";
                  }
                   else

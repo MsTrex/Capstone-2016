@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using com.GreenThumb.BusinessObjects;
-using com.GreenThumb.BussinessLogic;
 using com.GreenThumb.BusinessLogic;
 
 namespace com.GreenThumb.WPF_Presentation.VolunteerPages

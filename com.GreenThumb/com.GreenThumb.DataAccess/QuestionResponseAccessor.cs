@@ -41,7 +41,7 @@ namespace com.GreenThumb.DataAccess
                     inserted = true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

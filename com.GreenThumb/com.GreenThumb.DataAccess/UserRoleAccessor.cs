@@ -132,8 +132,7 @@ namespace com.GreenThumb.DataAccessor
             // get a command object
             cmd.Parameters.AddWithValue("@UserID", userRole.UserID);
             cmd.Parameters.AddWithValue("@RoleID", userRole.RoleID);
-            cmd.Parameters.AddWithValue("@CreatedBy", userRole.CreatedBy);
-            cmd.Parameters.AddWithValue("@CreatedDate", userRole.CreatedDate);
+            
 
             try
             {

@@ -30,8 +30,28 @@ namespace com.GreenThumb.WPF_Presentation
         public MainWindow()
         {
             InitializeComponent();
+            /// Added by Trevor
+            /// Checking to see if there are users in the DB----- If not prompt to create admin account
+            UserManager um = new UserManager();
+            int users = um.GetUserCount();
+            if (users == 0)
+            {
+                _newUser = new NewUserCreation(true);
+                _newUser.AccessTokenCreatedEvent += setAccessToken;
+                _newUser.ShowDialog();
+                if (_accessToken != null)
+                {
+                    this.btnLogin.Header = "Log Out";
+                   
+                }
+
+            }
+
+
             mainFrame.NavigationService.Navigate(new HomeContent(_accessToken));
             CheckPermissions();
+
+
 
         }
 

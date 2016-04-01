@@ -237,12 +237,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\MigrateUser.cshtml" />
     <Content Include="Views\Account\MigrationNewPassword.cshtml" />
-<<<<<<< HEAD
+
     <Content Include="Views\Group\Create.cshtml" />
     <Content Include="Views\Group\Index.cshtml" />
-=======
+
     <Content Include="Views\User\ViewUserGroups.cshtml" />
->>>>>>> origin/master
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

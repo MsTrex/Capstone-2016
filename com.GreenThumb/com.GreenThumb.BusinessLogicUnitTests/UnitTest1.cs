@@ -19,9 +19,10 @@ namespace com.GreenThumb.UnitTest
             UserRoleManager userRoleMgr = new UserRoleManager();
             UserRole usrRole = new UserRole();
             
+            
             //Act
-           
-            bool result = userRoleMgr.AddNewUserRole(1003, "1002", 1001, DateTime.Now);
+
+            bool result = userRoleMgr.AddNewUserRole(1003, "Admin");
       
             //Assert
             Assert.AreEqual(result, true);
