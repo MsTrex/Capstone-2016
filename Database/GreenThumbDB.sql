@@ -569,6 +569,13 @@ create table Expert.PlantNutrients(
 	CONSTRAINT [PK_PlantNutrients] PRIMARY KEY ( PlantID, NutrientID ASC )
 );
 
+create table Expert.PlantRegions(
+	PlantID int not null,
+	RegionID int not null
+
+	CONSTRAINT [PK_PlantRegions] PRIMARY KEY ( PlantID, RegionID ASC )
+);
+
 create table Expert.Nutrients(
 	NutrientID int identity(1000,1) not null primary key,
 	Name varchar(100) not null,
@@ -1288,6 +1295,18 @@ ALTER TABLE Expert.RecipeCategory WITH NOCHECK ADD  CONSTRAINT [FK_RecipeCategor
 REFERENCES Admin.Users(UserID);
 GO
 ALTER TABLE Expert.RecipeCategory CHECK CONSTRAINT [FK_RecipeCategory_CreatedBy];
+GO
+
+ALTER TABLE Expert.PlantRegions WITH NOCHECK ADD  CONSTRAINT [FK_PlantRegions_Plants] FOREIGN KEY(PlantID)
+REFERENCES Expert.Plants(PlantID);
+GO
+ALTER TABLE Expert.PlantRegions CHECK CONSTRAINT [FK_PlantRegions_Plants];
+GO
+
+ALTER TABLE Expert.PlantRegions WITH NOCHECK ADD  CONSTRAINT [FK_PlantRegions_Regions] FOREIGN KEY(PlantID)
+REFERENCES Admin.Regions(RegionID);
+GO
+ALTER TABLE Expert.PlantRegions CHECK CONSTRAINT [FK_PlantRegions_Regions];
 GO
 
 ALTER TABLE Expert.Templates WITH NOCHECK ADD  CONSTRAINT [FK_Templates_UserID] FOREIGN KEY(UserID)
@@ -4369,6 +4388,15 @@ exec Expert.spInsertQuestion			'How do I grow a grape?'	,'fruit'				,'How do I g
 	
 --* spInsertQuestionResponse     		@QuestionID int,	@Date smalldatetime,	@Response varchar(250),		@UserID int
 exec Expert.spInsertQuestionResponse	1000				,'3/18/04'				,'Start with a grape seed'	,1002
+
+-- Expert insert Plant Category
+exec Expert.spInsertPlantCategory 		'Fruit'						,1001			,'3/12/16'
+exec Expert.spInsertPlantCategory 		'Herb'					    ,1001			,'3/12/16'
+exec Expert.spInsertPlantCategory 		'Flower'				    ,1001			,'3/12/16'
+exec Expert.spInsertPlantCategory 		'Tree'					    ,1001			,'3/12/16'
+exec Expert.spInsertPlantCategory 		'Annual'				    ,1001			,'3/12/16'
+exec Expert.spInsertPlantCategory 		'Perenial'				    ,1001			,'3/12/16'
+exec Expert.spInsertPlantCategory 		'Bush'					    ,1001			,'3/12/16'
 	
 --* spInsertRecipeCategory       		@CategoryName varchar(30),	@CreatedBy int,	@Date smalldatetime
 exec Expert.spInsertRecipeCategory		'soup'						,1000			,'12/12/99'
