@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -13,9 +14,13 @@ namespace com.GreenThumb.MVC.Models
     public class UserGroupViewModel
     {
         public int GroupId { get; set; }
+        [Display(Name = "Group Name")]
         public string Name { get; set; }
+        [Display(Name = "Group Leader")]
         public string LeaderUserName { get; set; }
+        [Display(Name = "Leader Email")]
         public string LeaderEmail { get; set; }
+        [Display(Name = "Created On")]
         public DateTime CreatedDate { get; set; }
     }
 }

@@ -12,16 +12,16 @@
     <thead>
         <tr>
             <th>
-                Group Name
+                @Html.DisplayNameFor(m => m.SingleOrDefault().Name)
             </th>
             <th>
-                Group Leader
+                @Html.DisplayNameFor(m => m.SingleOrDefault().LeaderUserName)
             </th>
             <th>
-                Leader Email
+                @Html.DisplayNameFor(m => m.SingleOrDefault().LeaderEmail)
             </th>
             <th>
-                Created On
+                @Html.DisplayNameFor(m => m.SingleOrDefault().CreatedDate)
             </th>
             <th>
                 Options
