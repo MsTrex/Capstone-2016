@@ -10,10 +10,15 @@ namespace com.GreenThumb.BusinessObjects
     /// Extending User object to have the fields that GroupMembers have.
     /// Created by: Trent Cullinan 02/20/2016
     /// </summary>
+    /// <remarks>
+    /// Ryan Taylor 03/31/16
+    /// Added Status Property
+    /// </remarks>
     public class GroupMember
     {
         public User User { get; set; }
         public bool Leader { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string Status { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace com.GreenThumb.WPF_Presentation
             InitializeComponent();
             mainFrame.NavigationService.Navigate(new HomeContent(_accessToken));
             CheckPermissions();
-            
+
         }
 
         private void CheckPermissions()
@@ -113,7 +113,7 @@ namespace com.GreenThumb.WPF_Presentation
                         btnVolunteer.Visibility = Visibility.Visible;
                         btnDonations.Visibility = Visibility.Visible;
                         break;
-                    }    
+                    }
                 }
             }
         }
@@ -123,11 +123,11 @@ namespace com.GreenThumb.WPF_Presentation
         /// Click logic for login button
         /// Date: 3/6/16
         /// </summary>
-		/// <remarks>
-		/// Ryan Taylor
-		/// Updated: 2016/03/07
-		/// Fixed the access token creation event
-		/// </remarks>
+        /// <remarks>
+        /// Ryan Taylor
+        /// Updated: 2016/03/07
+        /// Fixed the access token creation event
+        /// </remarks>
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             if (null == _accessToken)
@@ -225,12 +225,23 @@ namespace com.GreenThumb.WPF_Presentation
         {
             mainFrame.NavigationService.Navigate(new GardenPages.GardenMain(_accessToken));
             btnSideBar1.Content = "Create a Garden";
-			btnSideBar2.Content = "Your Groups";
+            btnSideBar2.Content = "Your Groups";
             btnSideBar3.Content = "Request to be a Group Leader";
             btnSideBar4.Content = "Complete A Task";
             btnSideBar5.Content = "Create a Task";
             btnSideBar6.Content = "Sign Up for Task";
-            btnSideBar7.Content = "btnSideBar7";
+
+            Role role = new Role();
+            role.RoleID = "Admin";
+            if (_accessToken.Roles.Contains(role))
+            {
+                btnSideBar7.Content = "Manage Garden Group";
+            }
+            else
+            {
+                btnSideBar7.Content = "btnSideBar7";
+            }
+
             btnSideBar8.Content = "btnSideBar8";
             btnSideBar9.Content = "btnSideBar9";
             btnSideBar10.Content = "btnSideBar10";
@@ -334,7 +345,7 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 mainFrame.NavigationService.Navigate(new ProfilePages.EditPersonalInfo(_accessToken));
             }
-            else if(btnSideBar1.Content.ToString() == "Edit Volunteer Availability")
+            else if (btnSideBar1.Content.ToString() == "Edit Volunteer Availability")
             {
                 mainFrame.NavigationService.Navigate(new VolunteerPages.EditVolunteerAvailability(_accessToken));
             }
@@ -357,7 +368,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// cast content to string
         /// </remarks>
         private void btnSideBar2_MouseDown(object sender, MouseButtonEventArgs e)
-        {            
+        {
             if (btnSideBar2.Content.ToString() == "Messages")
             {
                 mainFrame.NavigationService.Navigate(new GardenPages.AdminMessages(_accessToken));
@@ -369,7 +380,8 @@ namespace com.GreenThumb.WPF_Presentation
             else if (btnSideBar2.Content.ToString().Equals("Your Groups"))
             {
                 mainFrame.NavigationService.Navigate(new GardenPages.GroupMain(_accessToken));
-            } else if (btnSideBar2.Content.ToString() == "Volunteer Sign Up")
+            }
+            else if (btnSideBar2.Content.ToString() == "Volunteer Sign Up")
             {
                 mainFrame.NavigationService.Navigate(new VolunteerPages.VolunteerSignUp(_accessToken));
             }
@@ -398,7 +410,7 @@ namespace com.GreenThumb.WPF_Presentation
             }
             else if (btnSideBar4.Content.ToString() == "Search for Questions")
             {
-        //        mainFrame.NavigationService.Navigate(new AdminPages.UserRole(_accessToken));
+                //        mainFrame.NavigationService.Navigate(new AdminPages.UserRole(_accessToken));
             }
         }
         /// <summary>
@@ -408,7 +420,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar4_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            
+
             if (btnSideBar4.Content.ToString() == "Complete A Task")
             {
                 mainFrame.NavigationService.Navigate(new GardenPages.CompleteTask(_accessToken));
@@ -449,7 +461,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar6_MouseDown(object sender, MouseButtonEventArgs e)
         {
-			if (btnSideBar6.Content.ToString() == "Upload Garden Template")
+            if (btnSideBar6.Content.ToString() == "Upload Garden Template")
             {
                 mainFrame.NavigationService.Navigate(new ExpertPages.ExpertGardenTemplate(_accessToken));
             }
@@ -465,7 +477,11 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar7_MouseDown(object sender, MouseButtonEventArgs e)
         {
-			if (btnSideBar7.Content.ToString() == "View Garden Templates")
+            if (btnSideBar7.Content.ToString() == "View Garden Templates")
+            {
+                mainFrame.NavigationService.Navigate(new ExpertPages.ViewGardenTemplate());
+            }
+            else if (btnSideBar7.Content.ToString() == "Manage Garden Group")
             {
                 mainFrame.NavigationService.Navigate(new ExpertPages.ViewGardenTemplate());
             }
@@ -498,6 +514,6 @@ namespace com.GreenThumb.WPF_Presentation
 
         }
 
-       
+
     }
 }
