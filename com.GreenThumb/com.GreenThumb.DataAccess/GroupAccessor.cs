@@ -74,6 +74,71 @@ namespace com.GreenThumb.DataAccess
         }
 
         /// <summary>
+        /// 
+        /// Created by: Nicholas King 04/03/2016
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        public static List<Group> FetchJoinableGroups(int UserID)
+        {
+            List<Group> joinableGroups = new List<Group>();
+            var conn = DBConnection.GetDBConnection();
+            string cmdText = "Gardens.spSelectJoinableGroups";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserID", UserID);
+            cmd.Parameters.AddWithValue("@Active", 1);
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if(reader.HasRows)
+                {
+                    while(reader.Read())
+                    {
+                        joinableGroups.Add(new Group()
+                        {
+                            GroupID
+                                = reader.GetInt32(0),
+                            Name
+                                = reader.GetString(1),
+                            Active
+                                = reader.GetBoolean(2),
+                            GroupLeader = new GroupMember()
+                            {
+                                User = new User()
+                                {
+                                    UserID
+                                        = reader.GetInt32(3),
+                                    UserName
+                                        = reader.GetString(4),
+                                    FirstName
+                                        = reader.GetString(5),
+                                    LastName
+                                        = reader.GetString(6),
+                                    EmailAddress
+                                        = reader.GetString(7)
+                                }
+                            }
+                        });
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return joinableGroups;
+        }
+
+        /// <summary>
         /// added by Nicholas King
         /// creates a group leader request
         /// </summary>

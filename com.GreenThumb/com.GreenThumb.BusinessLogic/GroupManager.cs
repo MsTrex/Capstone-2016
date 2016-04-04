@@ -29,6 +29,25 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
+        /// <summary>
+        /// Created by: Nicholas King 04/03/2016
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public List<Group> FetchGroupsToJoin(int userID)
+        {
+            List<Group> joinable;
+
+            try
+            {
+                joinable = GroupAccessor.FetchJoinableGroups(userID);
+            }
+            catch (Exception){
+                joinable = new List<Group>();
+            } //returns an empty list
+
+            return joinable;
+        }
 
         /// <summary>
         /// Ryan Taylor

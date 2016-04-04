@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using com.GreenThumb.BusinessObjects;
-
 using com.GreenThumb.BusinessLogic;
 
 
@@ -15,9 +14,94 @@ namespace com.GreenThumb.MVC.Controllers
     public class GroupController : Controller
     {
         // GET: Group
+        /// <summary>
+        /// Created by: Trent Cullinan 03/31/2016
+        /// Displays list of groups a User belongs to 
+        /// 
+        /// Modified by: Nicholas King 04/03/2016
+        /// Merged grouplist display and create group
+        /// added join group list table
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
-            return View();
+            GroupIndexViewModel model = new GroupIndexViewModel();
+            int userId = RetrieveUserId();
+
+            if (0 != userId)
+            {
+                var groups = new GroupManager().RetrieveUserGroups(userId);
+                model.UserGroupList = new List<GroupIndexViewModel.UserGroupViewModel>(groups.Count());
+
+                foreach (Group group in groups)
+                {
+                    model.UserGroupList.Add(new GroupIndexViewModel.UserGroupViewModel()
+                    {
+                        GroupId
+                            = group.GroupID,
+                        Name
+                            = group.Name,
+                        LeaderUserName
+                            = group.GroupLeader.User.UserName,
+                        LeaderEmail
+                            = group.GroupLeader.User.EmailAddress,
+                        CreatedDate
+                            = group.CreatedDate
+                    });
+                }
+
+                var joinableGroups = new GroupManager().FetchGroupsToJoin(userId);
+                model.NonUserGroupList = new List<GroupIndexViewModel.UserGroupViewModel>(joinableGroups.Count());
+
+                foreach (Group group in joinableGroups)
+                {
+                    model.NonUserGroupList.Add(new GroupIndexViewModel.UserGroupViewModel()
+                    {
+                        GroupId
+                            = group.GroupID,
+                        Name
+                            = group.Name,
+                        LeaderUserName
+                            = group.GroupLeader.User.UserName,
+                        LeaderEmail
+                            = group.GroupLeader.User.EmailAddress,
+                        CreatedDate
+                            = group.CreatedDate
+                    });
+                }
+
+
+                return View(model);
+            }
+
+            return View("Error");
+        }
+
+        /// <summary>
+        /// Logged in user will leave group.
+        /// 
+        /// Created by: Trent Cullinan 03/31/2016
+        /// </summary>
+        /// <param name="group">Group Id that is being left.</param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult LeaveGroup(int? group)
+        {
+            if (group.HasValue)
+            {
+                int userId = RetrieveUserId();
+
+                if (0 != userId)
+                {
+                    if (new GroupManager().LeaveGroup(userId, group.Value))
+                    {
+                        return RedirectToAction("Index", "Group");
+                    }
+                }
+            }
+
+            return View("Error");
         }
 
         // GET: Group/Details/5
@@ -106,5 +190,29 @@ namespace com.GreenThumb.MVC.Controllers
                 return View();
             }
         }
+
+        #region Helper Methods
+
+        // Created by: Trent Cullinan 03/31/2016
+        private int RetrieveUserId()
+        {
+            int userId = 0;
+
+            var userName = User.Identity.GetUserName();
+
+            if (null != userName)
+            {
+                userId = new UserManager().RetrieveUserId(userName);
+            }
+
+            return userId;
+        }
+
+
+
+
+
+
+        #endregion
     }
 }

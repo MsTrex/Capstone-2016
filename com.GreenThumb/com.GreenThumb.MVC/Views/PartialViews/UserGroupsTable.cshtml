@@ -1,0 +1,56 @@
+﻿@* Created by: Trent Cullinan 03/31/16 
+   Modified by: Nicholas King 04/03/2016
+        Converted into partial page and updated to use new viewmodel
+*@
+@using com.GreenThumb.MVC.Models;
+@model IEnumerable<GroupIndexViewModel.UserGroupViewModel>
+
+@{
+    ViewBag.Title = "ViewUserGroups";
+}
+
+<h2>ViewUserGroups</h2>
+<p></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m.SingleOrDefault().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.SingleOrDefault().LeaderUserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.SingleOrDefault().LeaderEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.SingleOrDefault().CreatedDate)
+            </th>
+            <th>
+                Options
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (GroupIndexViewModel.UserGroupViewModel groupView in Model)
+        {
+            <tr>
+                <td>
+                    @groupView.Name
+                </td>
+                <td>
+                    @groupView.LeaderUserName
+                </td>
+                <td>
+                    @groupView.LeaderEmail
+                </td>
+                <td>
+                    @groupView.CreatedDate
+                </td>
+                <td>
+                    @Html.ActionLink("Leave Group", "LeaveGroup", "Group", new { group = groupView.GroupId }, null)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

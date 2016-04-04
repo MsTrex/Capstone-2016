@@ -1,32 +1,22 @@
-﻿@model com.GreenThumb.MVC.Models.GroupCreationViewModels
+﻿@*Created by Nicholas King  04/03/2016*@
+@model com.GreenThumb.MVC.Models.GroupIndexViewModel
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <div> 
-        <div>
-            <div class="createGarden">
-                <h2>Create a new Group</h2>
-
-                @using (Html.BeginForm("Create", "Group", FormMethod.Post))
-                {
-                    <label for="GroupName">Group Name: </label>
-                    <input type="text" id="GroupName" name="GroupName" />
-                    <br />
-                    <input type="submit" name="createGroup" value="Submit" />
-                  
-                }
-               
-                <p>Add members to your garden and become a group!</p>
-
-            </div>
+<div class="GroupIndex">
+    @if (Model.UserGroupList.Count() > 0)
+    {
+        <div class="UsersGroupList">
+            @Html.Partial("~/Views/PartialViews/UserGroupsTable.cshtml", Model.UserGroupList)
         </div>
+    }
+    
+    <div class="createGarden">
+        @Html.Partial("~/Views/PartialViews/CreateGroup.cshtml")
     </div>
-</body>
-</html>
 
+    @if (Model.NonUserGroupList.Count() > 0)
+    {
+        <div class="UsersGroupList">
+            @Html.Partial("~/Views/PartialViews/GroupsUserHasntJoinedTable.cshtml", Model.NonUserGroupList)
+        </div>
+    }
+</div>
