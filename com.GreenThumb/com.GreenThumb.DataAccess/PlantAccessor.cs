@@ -60,13 +60,37 @@ namespace com.GreenThumb.DataAccess
                             Type = reader.GetString(2),
                             Category = reader.GetString(3),
                             Description = reader.GetString(4),
-                            Season = reader.GetString(5),
                             CreatedBy = reader.GetInt32(6),
                             CreatedDate = reader.GetDateTime(7),
-                            ModifiedBy = reader.GetInt32(8),
-                            ModifiedDate = reader.GetDateTime(9),
                             Active = reader.GetBoolean(10)
                         };
+
+                        if (reader.IsDBNull(5))
+                        {
+                            plant.Season = null;
+                        }
+                        else
+                        {
+                            plant.Season = reader.GetString(5);
+                        }
+
+                        if (reader.IsDBNull(8))
+                        {
+                            plant.ModifiedBy = null;
+                        }
+                        else
+                        {
+                            plant.ModifiedBy = reader.GetInt32(8);
+                        }
+
+                        if (reader.IsDBNull(9))
+                        {
+                            plant.ModifiedDate = null;
+                        }
+                        else
+                        {
+                            plant.ModifiedDate = reader.GetDateTime(9);
+                        }
 
                         plants.Add(plant);
                     }
@@ -222,8 +246,8 @@ namespace com.GreenThumb.DataAccess
             cmd.Parameters.AddWithValue("@Season", plant.Season);
             cmd.Parameters.AddWithValue("@CreatedBy", plant.CreatedBy);
             cmd.Parameters.AddWithValue("@CreatedDate", plant.CreatedDate);
-            cmd.Parameters.AddWithValue("@ModifiedBy", plant.ModifiedBy);
-            cmd.Parameters.AddWithValue("@ModifiedDate", plant.ModifiedDate);
+            cmd.Parameters.AddWithValue("@ModifiedBy", (plant.ModifiedBy == null) ? DBNull.Value : (object)plant.ModifiedBy);
+            cmd.Parameters.AddWithValue("@ModifiedDate", (plant.ModifiedDate == null) ? DBNull.Value : (object)plant.ModifiedDate);
 
             bool updated = false;
 
