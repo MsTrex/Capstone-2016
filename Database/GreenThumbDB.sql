@@ -3750,6 +3750,19 @@ values(
 end;
 go
 
+/* Expert.RecipeCategory */
+/* Rhett Allen  4/01/16 */
+CREATE PROCEDURE Expert.spSelectRecipeCategories
+	@Active bit
+AS
+BEGIN
+	SELECT CategoryName, CreatedBy, Date, Active
+	FROM Expert.RecipeCategory
+	WHERE Active = @Active
+	ORDER BY CategoryName ASC
+END;
+go
+
 ------------------------------------------
 -----------Expert.Recipes-----------------
 ------------------------------------------
@@ -4141,6 +4154,34 @@ BEGIN
 END;
 GO
 
+
+-- Created By: Trent 4-4-16
+CREATE PROCEDURE Gardens.spCheckLeaderStatus (
+    @UserId     				INT,
+    @GroupId    				INT
+)
+AS
+BEGIN
+        SELECT Leader
+        FROM Gardens.GroupMembers
+        WHERE GroupID = @GroupId AND UserId = @UserId
+ END
+ GO
+ 
+ CREATE PROCEDURE Gardens.spUpdateGroupName (
+    @GroupID    				INT,
+    @OldGroupName		VARCHAR(100),
+    @NewGroupName		VARCHAR(100)
+)
+AS
+BEGIN
+	UPDATE Gardens.Groups
+		SET GroupName = @NewGroupName
+		WHERE GroupID = @GroupID AND GroupName = @OldGroupName
+	RETURN @@rowcount
+END
+GO
+
 ------------------------------------------
 -----------Gardens.Groups-----------------
 ------------------------------------------
@@ -4163,6 +4204,28 @@ values(
 end;
 go
 
+--created by Nicholas King 4-4-16
+CREATE PROCEDURE Gardens.spSelectJoinableGroups(
+	@UserID 		int,
+	@Active			int
+)
+AS
+BEGIN
+	SELECT DISTINCT g.GroupID, g.GroupName, g.Active, g.GroupLeaderID, u.UserName, u.FirstName, u.LastName, u.EmailAddress
+	FROM Gardens.Groups AS g
+	INNER JOIN Gardens.GroupMembers AS gm
+		ON g.GroupID = gm.GroupID
+		and gm.Active = @Active
+	INNER JOIN Admin.Users AS u
+		ON g.GroupLeaderID = u.UserID 
+	WHERE g.Active = @Active and gm.UserID <> @UserID 
+		AND g.GroupID <> 
+			(SELECT g.GroupID
+			 FROM Gardens.Groups AS g, Gardens.GroupMembers AS gm
+			 WHERE g.GroupID = gm.GroupID AND gm.UserID = @UserID)
+		
+END;
+go
 
 -- Created By: Trent Cullinan 02/20/2016
 CREATE PROCEDURE Gardens.spSelectUserGroupCount (
@@ -4253,6 +4316,20 @@ BEGIN
 	WHERE g.Active = 1 and gm.UserID = @UserID; 
 END;
 go
+
+--created by Trent Cullinan 4-1-16
+CREATE PROCEDURE Gardens.spDeactivateGroupByID(
+	@GroupID		INT,
+	@Active			INT
+)
+AS
+BEGIN
+	UPDATE Gardens.Groups
+		SET Active = @Active
+		WHERE GroupID = @GroupID
+	RETURN @@rowcount
+END
+GO
 
 ------------------------------------------
 -----------Gardens.Organizations----------
@@ -4698,6 +4775,14 @@ exec Expert.spInsertPlantCategory 		'Bush'					    ,1001			,'3/12/16'
 	
 --* spInsertRecipeCategory       		@CategoryName varchar(30),	@CreatedBy int,	@Date smalldatetime
 exec Expert.spInsertRecipeCategory		'soup'						,1000			,'12/12/99'
+exec Expert.spInsertRecipeCategory		'main dish'					,1000			,'12/12/99'
+exec Expert.spInsertRecipeCategory		'side dish'					,1000			,'12/12/99'
+exec Expert.spInsertRecipeCategory		'dessert'					,1000			,'12/12/99'
+exec Expert.spInsertRecipeCategory		'salad'						,1000			,'12/12/99'
+exec Expert.spInsertRecipeCategory		'baked'						,1000			,'12/12/99'
+exec Expert.spInsertRecipeCategory		'beverage'					,1000			,'12/12/99'
+exec Expert.spInsertRecipeCategory		'grilled'					,1000			,'12/12/99'
+exec Expert.spInsertRecipeCategory		'canning'					,1000			,'12/12/99'
 	
 --* spInsertRecipes              		@Title varchar(50),	@Category varchar(30),	@Directions varchar(max),	@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
 exec Expert.spInsertRecipes				'Best Potato Soup'	,'soup'					,'Gather ingredents...'		,1001			,'9/12/88'					,1003				,'7/16/02'
