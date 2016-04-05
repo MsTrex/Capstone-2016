@@ -1548,7 +1548,6 @@ go
 ------------------------------------------
 
 create procedure Admin.spInsertExpertRequest(
-@RequestID int,
 @UserID int, 
 @Title varchar(20),
 @Content VARCHAR(MAX),
