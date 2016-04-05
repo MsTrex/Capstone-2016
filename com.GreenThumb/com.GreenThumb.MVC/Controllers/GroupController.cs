@@ -144,7 +144,7 @@ namespace com.GreenThumb.MVC.Controllers
                 
                 
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Group");
         }
 
         // GET: Group/Edit/5
