@@ -38,7 +38,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
         {
             try
             {
-                var groupList = _groupMgr.GetGroupsForUser(_accessToken.UserID);
+                var groupList = _groupMgr.GetGroupsToView(_accessToken.UserID);
                 dataGroupList.ItemsSource = groupList.OrderBy(s => s.Name);
             }
             catch (Exception)
@@ -47,6 +47,11 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
             }
         }
 
+        /// <summary>
+        /// Function called on row selection Created By : Poonam Dubey
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dataGroupList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (dataGroupList.SelectedItem != null)
@@ -54,19 +59,30 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                 try
                 {
                     var selectedGrp = (Group)dataGroupList.SelectedItem;
-
+                    GroupRequest reqObj = new GroupRequest();
                     MessageBoxResult result = MessageBox.Show("Do you want to request to join " + selectedGrp.Name + " group", "Join Group", MessageBoxButton.YesNo);
 
                     if (result == MessageBoxResult.Yes)
                     {
-                        int count = _groupMgr.AddGroupMember(_accessToken.UserID, selectedGrp.GroupID, _accessToken.UserID);
+                        reqObj.GroupID = selectedGrp.GroupID;
+                        reqObj.RequestDate = DateTime.Now;
+                        reqObj.UserID = _accessToken.UserID;
+                        reqObj.RequestStatus = 'P'; // this is for Pending status , since user is requesting
+                        int count = _groupMgr.AddGroupMember(reqObj);
                         if (count == 1)
                         {
                             MessageBox.Show("Your request has been submitted successfully", "Request Submitted", MessageBoxButton.OK);
                         }
-                        else if(count > 1)
+                        else
                         {
-                            MessageBox.Show("You have already requested to join this group", "Information!", MessageBoxButton.OK);
+                            string msg = "You had already requested to join this group, your status is ";
+                            if (count == 2)
+                                msg = msg + "Pending";
+                            else if (count == 3)
+                                msg = msg + "Approved";
+                            else if (count == 4)
+                                msg = msg + "Denied";
+                            MessageBox.Show(msg, "Information!", MessageBoxButton.OK);
                         }
                     }
                     else
