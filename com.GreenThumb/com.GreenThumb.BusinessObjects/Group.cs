@@ -15,7 +15,7 @@ namespace com.GreenThumb.BusinessObjects
         public List<User> UserList { get; set; }
         public DateTime CreatedDate { get; set; }
         public GroupMember GroupLeader { get; set; } // Added by: Trent Cullinan
-
+        public List<Garden> GardenList { get; set; }  //added by: Chris Schwebach
 
         ///Kristine Johnson Added
 

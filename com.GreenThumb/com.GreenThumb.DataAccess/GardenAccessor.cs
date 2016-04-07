@@ -115,5 +115,84 @@ namespace com.GreenThumb.DataAccess
             // this list may be empty, if so, the logic layer will need to deal with it
             return gardenList;
         }
+
+        /// <summary>
+        /// Author: Chris Schwebch
+        /// Updated: Nick King
+        /// Date: 04/6/16
+        /// Gets gardens the user belongs to returns garen list
+        /// </summary> 
+        public static List<Group> FetchGardenInfo(int userID)
+        {
+            //var gardenInfo = new List<Garden>();
+
+            string groupName = null;
+            Group _Group = new Group();
+
+            List<Group> groupList = new List<Group>();
+
+            var conn = DBConnection.GetDBConnection();
+
+            string query = "Gardens.spSelectUserGardens";
+
+            var cmd = new SqlCommand(query, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@UserID", userID);
+            //cmd.Parameters.AddWithValue("@Active", 1);
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+
+                        if (groupName == null || !groupName.Equals(reader.GetString(6)))
+                        {
+
+                            _Group = new Group();
+                            _Group.GardenList = new List<Garden>();
+                            groupName = reader.GetString(6);
+                            _Group.Name = reader.GetString(6);
+                            //_Group.GroupLeader = reader.String(7);
+                            _Group.GroupID = reader.GetInt32(1);
+                            groupList.Add(_Group);
+
+                        }
+                        if (groupName.Equals(reader.GetString(6)))
+                        {
+                            Garden _Garden = new Garden();
+                            _Garden.GardenID = reader.GetInt32(0);
+                            _Garden.GroupID = reader.GetInt32(1);
+                            _Garden.GardenName = reader.GetString(2);
+                            _Garden.UserID = reader.GetInt32(3);
+                            _Garden.GardenDescription = reader.GetString(4);
+                            _Garden.GardenRegion = reader.GetString(5);
+
+
+                            _Group.GardenList.Add(_Garden);
+                        }
+
+
+                    }
+
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return groupList;
+        }         
     }
 }
