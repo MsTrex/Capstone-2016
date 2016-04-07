@@ -82,22 +82,24 @@ create table Admin.ExpertRequest(
 go
 */
 
-create table Admin.GroupRequest(
+-- Poonam Dubey --
+-- 04/06/2016 --
+-- Made changes to GroupRequest table --
+CREATE TABLE [Admin].[GroupRequest](
+	[GroupID] [int] NOT NULL,
+	[UserID] [int] NOT NULL,
+	[RequestStatus] [char](1) NOT NULL,
+	[RequestDate] [smalldatetime] NOT NULL,
+	[ApprovedDate] [smalldatetime] NULL,
+	[ApprovedBy] [int] NULL,
+ CONSTRAINT [PK_GroupRequest] PRIMARY KEY CLUSTERED 
+(
+	[GroupID] ASC,
+	[UserID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 
-
-	GroupID int not null,
-	UserID int not null,
-	RequestStatus char(1) not null,
-	RequestDate smalldatetime not null,
-	RequestedBy int not null,
-	ApprovedDate smalldatetime null,
-	ApprovedBy int null,
-	active bit not null default 1
-
-	CONSTRAINT [PK_GroupRequest] PRIMARY KEY ( Groupid, Userid ASC )
-
-);
-go
+GO
 
 create table Admin.Messages(
 	MessageID int identity(1000,1) primary key not null,
@@ -787,30 +789,30 @@ ALTER TABLE [Admin].[ExpertRequests] WITH NOCHECK
 	ADD CONSTRAINT [FK_ExpertRequests_ModifiedBy] FOREIGN KEY ([ModifiedBy])
 		REFERENCES [Admin].[Users] ([UserID]);
 GO
-
-ALTER TABLE Admin.GroupRequest WITH NOCHECK ADD  CONSTRAINT [FK_GroupRequest_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Admin.GroupRequest CHECK CONSTRAINT FK_GroupRequest_UserID;
-GO
-
-ALTER TABLE Admin.GroupRequest WITH NOCHECK ADD  CONSTRAINT [FK_GroupRequest_RequestedBy] FOREIGN KEY(RequestedBy)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Admin.GroupRequest CHECK CONSTRAINT FK_GroupRequest_RequestedBy;
+------------- Added by Poonam Dubey ----------------
+--------------Dated : 04/06/2016--------------------
+ALTER TABLE [Admin].[GroupRequest]  WITH NOCHECK ADD  CONSTRAINT [FK_GroupRequest_approvedBy] FOREIGN KEY([ApprovedBy])
+REFERENCES [Admin].[Users] ([UserID])
 GO
 
-ALTER TABLE Admin.GroupRequest WITH NOCHECK ADD  CONSTRAINT [FK_GroupRequest_approvedBy] FOREIGN KEY(approvedBy)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Admin.GroupRequest CHECK CONSTRAINT FK_GroupRequest_approvedBy;
+ALTER TABLE [Admin].[GroupRequest] CHECK CONSTRAINT [FK_GroupRequest_approvedBy]
 GO
 
-ALTER TABLE Admin.GroupRequest WITH NOCHECK ADD  CONSTRAINT [FK_GroupRequest_groupid] FOREIGN KEY(GroupID)
-REFERENCES Gardens.Groups(GroupID);
+ALTER TABLE [Admin].[GroupRequest]  WITH NOCHECK ADD  CONSTRAINT [FK_GroupRequest_groupid] FOREIGN KEY([GroupID])
+REFERENCES [Gardens].[Groups] ([GroupID])
 GO
-ALTER TABLE Admin.GroupRequest CHECK CONSTRAINT FK_GroupRequest_approvedBy;
+
+ALTER TABLE [Admin].[GroupRequest] CHECK CONSTRAINT [FK_GroupRequest_groupid]
 GO
+
+
+ALTER TABLE [Admin].[GroupRequest]  WITH NOCHECK ADD  CONSTRAINT [FK_GroupRequest_UserID] FOREIGN KEY([UserID])
+REFERENCES [Admin].[Users] ([UserID])
+GO
+
+ALTER TABLE [Admin].[GroupRequest] CHECK CONSTRAINT [FK_GroupRequest_UserID]
+GO
+--------------------------------------------
 
 ALTER TABLE Admin.Messages WITH NOCHECK ADD  CONSTRAINT [FK_Messages_MessageSender] FOREIGN KEY(MessageSender)
 REFERENCES Admin.Users(UserID);
@@ -1589,33 +1591,46 @@ go
 ------------------------------------------
 -----------Admin.GroupRequest-------------
 ------------------------------------------
-create procedure Admin.spInsertGroupRequest(
+----------Changed By : Poonam Dubey-------
+----------Changed Date : 04/06/2016-------
+
+CREATE procedure [Admin].[spInsertGroupRequest](
 	@GroupID int,
 	@UserID int, 
 	@RequestStatus char(1),
-	@RequestDate smalldatetime,
-	@RequestedBy int,
-	@ApprovedDate smalldatetime,
-	@ApprovedBy int)
+	@RequestDate smalldatetime)
 as
 begin
+
+IF EXISTS (SELECT * FROM Admin.GroupRequest WHERE GroupID = @GroupID AND UserID = @UserID)
+BEGIN
+	IF ((SELECT RequestStatus FROM Admin.GroupRequest WHERE GroupID = @GroupID AND UserID = @UserID) LIKE 'P')
+	BEGIN
+		SELECT 2 'ReturnValue'
+	END
+	ELSE IF ((SELECT RequestStatus FROM Admin.GroupRequest WHERE GroupID = @GroupID AND UserID = @UserID) LIKE 'A')
+	BEGIN
+	 SELECT 3 AS 'ReturnValue'
+	END
+	ELSE IF ((SELECT RequestStatus FROM Admin.GroupRequest WHERE GroupID = @GroupID AND UserID = @UserID) LIKE 'D')
+	BEGIN
+	 SELECT 4 AS 'ReturnValue'
+	END
+END
+ELSE
+BEGIN
 insert into Admin.GroupRequest(
 	GroupID,
 	UserID, 
 	RequestStatus,
-	RequestDate,
-	RequestedBy,
-	ApprovedDate,
-	ApprovedBy)
+	RequestDate)
 values(
 	@GroupID,
 	@UserID,
 	@RequestStatus,
-	@RequestDate,
-	@RequestedBy,
-	@ApprovedDate,
-	@ApprovedBy);
-	return @@ROWCOUNT;
+	@RequestDate);
+	SELECT 1 AS 'ReturnValue';
+END
 end;
 go
 
@@ -4256,6 +4271,42 @@ BEGIN
 END;
 GO
 
+
+
+----------------Created By : Poonam Dubey-----------------------
+----------------Created Date : 04/06/2016-----------------------
+----------------Description : SP to fetch groups to view--------
+CREATE PROCEDURE Gardens.spSelectGroupsToView(
+
+	@UserID 		int
+
+)
+
+AS
+
+BEGIN
+
+	SELECT DISTINCT g.GroupID, g.GroupName
+
+	FROM Gardens.Groups AS g
+
+	INNER JOIN Gardens.GroupMembers AS gm
+
+		ON g.GroupID = gm.GroupID
+
+		and gm.Active = 1
+
+	INNER JOIN Admin.Users AS u
+
+		ON g.GroupLeaderID = u.UserID 
+
+	WHERE g.Active = 1 and gm.UserID != @UserID; 
+
+END;
+GO
+
+
+
 -- Created By: Trent Cullinan 02/20/2016
 CREATE PROCEDURE Admin.spSelectOrgGroups (
 	@OrganizationID		INT
@@ -4645,8 +4696,8 @@ exec Gardens.spInsertTasks					1000	,						'Watering the garden'		,'4/4/44'					
 exec Gardens.spInsertWorkLogs				1000			,1000			,'9/25/57'					,'9/26/57'
 
 
---* spInsertGroupRequest				@groupid	@UserID int,	@RequestStatus char(1),	@RequestDate smalldatetime,	@RequestedBy int,	@ApprovedDate smalldatetime,	@ApprovedBy int
-exec Admin.spInsertGroupRequest			1000,			1000			,'a'						,'04/05/53'				,1000				,'2/5/87'						,1001
+--* spInsertGroupRequest				@groupid	@UserID int,	@RequestStatus char(1),	@RequestDate smalldatetime
+exec Admin.spInsertGroupRequest			1000,			1000			,'a'						,'04/05/53'	
 
 ----------------------------DONATIONS------------------------------------
 print 'donations'

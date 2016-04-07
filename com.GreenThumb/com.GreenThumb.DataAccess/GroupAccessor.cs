@@ -339,24 +339,30 @@ namespace com.GreenThumb.DataAccess
             return rowCount == 1;
         }
 
-        public static int InsertGroupMembers(int userID, int groupID, int createdBy, DateTime createdDate, bool isLeader)
+        /// <summary>
+        /// Poonam Dubey
+        /// 04/06/2016
+        /// Function to call DB and insert groupmember request
+        /// </summary>
+        /// <param name="reqObj"></param>
+        /// <returns></returns>
+        public static int AddGroupMember(GroupRequest reqObj)
         {
-            string query = @"Gardens.spInsertGroupMembers";
+            string query = @"Admin.spInsertGroupRequest";
             int rowCount = 0;
 
             var conn = DBConnection.GetDBConnection();
             var cmd = new SqlCommand(query, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@GroupID", userID);
-            cmd.Parameters.AddWithValue("@UserID", groupID);
-            cmd.Parameters.AddWithValue("@CreatedDate", createdDate);
-            cmd.Parameters.AddWithValue("@CreatedBy", createdBy);
-            cmd.Parameters.AddWithValue("@Leader", isLeader);
+            cmd.Parameters.AddWithValue("@GroupID", reqObj.GroupID);
+            cmd.Parameters.AddWithValue("@UserID", reqObj.UserID);
+            cmd.Parameters.AddWithValue("@RequestStatus", reqObj.RequestStatus);
+            cmd.Parameters.AddWithValue("@RequestDate", reqObj.RequestDate);
 
             try
             {
                 conn.Open();
-                rowCount = cmd.ExecuteNonQuery();
+                rowCount = (int)cmd.ExecuteScalar();
             }
             catch (Exception)
             {
@@ -569,6 +575,62 @@ namespace com.GreenThumb.DataAccess
             }
 
             return rowsAffected;
+        }
+
+
+        /// <summary>
+        /// Poonam Dubey
+        /// 04/06/2016
+        /// Function to fetch groups to view and request to join
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="recordType"></param>
+        /// <returns></returns>
+        public static List<Group> GetGroupsToView(int userID)
+        {
+            var groupList = new List<Group>();
+
+            var conn = DBConnection.GetDBConnection();
+
+            string cmdText = @"Gardens.spSelectGroupsToView";
+
+
+
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserID", userID);
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Group currentGroup = new Group()
+                        { 
+                            GroupID = reader.GetInt32(0),
+                            Name = reader.GetString(1)
+
+                        };
+                        groupList.Add(currentGroup); ///returns a group list
+                    }
+                }
+                else
+                {
+                    var ax = new ApplicationException("No group was found");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return groupList;
         }
     }
 }

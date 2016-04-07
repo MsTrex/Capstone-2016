@@ -9,29 +9,27 @@ namespace com.GreenThumb.BusinessObjects
     public class GroupRequest
     {
         // Added by Poonam Dubey on 02/27/2016
-        public int RequestID { get; set; }
+        public int GroupID { get; set; }
         public int UserID { get; set; }
-        public string RequestStatus { get; set; }
+        public char RequestStatus { get; set; }
         public DateTime RequestDate { get; set; }
-        public int RequestedBy { get; set; }
         public DateTime ApprovedDate { get; set; }
         public int? ApprovedBy { get; set; }
 
 
         public GroupRequest() { }
-        public GroupRequest(int requestID,
+        public GroupRequest(int groupID,
                              int userID,
-                             string requestStatus,
+                             char requestStatus,
                              DateTime requestDate,
                              int requestedBy,
                              DateTime approvedDate,
                              int approvedBy)
         {
-            RequestID = requestID;
+            GroupID = groupID;
             UserID = userID;
             RequestStatus = requestStatus;
             RequestDate = requestDate;
-            RequestedBy = requestedBy;
             ApprovedDate = approvedDate;
             ApprovedBy = approvedBy;
         }

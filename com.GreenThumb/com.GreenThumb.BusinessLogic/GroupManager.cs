@@ -138,12 +138,18 @@ namespace com.GreenThumb.BusinessLogic
                 throw new ApplicationException("Group name could not be changed.");
             }
         }
-        public int AddGroupMember(int userID, int groupID, int createdBy)
+        /// <summary>
+        /// Poonam Dubey
+        /// 04/06/2016
+        /// Function to call accessor and insert group member request
+        /// </summary>
+        /// <param name="reqObj"></param>
+        /// <returns></returns>
+        public int AddGroupMember(GroupRequest reqObj)
         {
             try
             {
-
-                return GroupAccessor.InsertGroupMembers(userID, groupID, createdBy, DateTime.Now, false);
+                return GroupAccessor.AddGroupMember(reqObj);
             }
             catch (Exception)
             {
@@ -235,6 +241,29 @@ namespace com.GreenThumb.BusinessLogic
             catch (Exception) { } // flag set to false
 
             return flag;
+        }
+
+        /// <summary>
+        /// Poonam Dubey
+        /// 04/06/2016
+        /// Function to fetch groups to view
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public List<Group> GetGroupsToView(int userID)
+        {
+            List<Group> groups = null;
+
+            try
+            {
+                groups = GroupAccessor.GetGroupsToView(userID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException(ex.Message);
+            }
+
+            return groups;
         }
     }
 }
