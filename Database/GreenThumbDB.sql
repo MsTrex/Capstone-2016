@@ -43,7 +43,6 @@ go
 /******************************* Tables *******************************************/
 /**********************************************************************************/
 
-
 create table Admin.ActivityLog(
 	ActivityLogID int identity(1000,1) primary Key not null,
 	UserID int not null,
@@ -66,39 +65,18 @@ CREATE TABLE [Admin].[ExpertRequests](
 	Approved		BIT							NULL
 );
 
---replaced by table (above) by trent cullinan 3-24-2016, kept for archive
-/*
-create table Admin.ExpertRequest(
-	RequestID int identity(1000,1) primary key not null,
-	UserID int not null,
-	RequestStatus char(1) not null,
-	RequestDate smalldatetime not null,
-	RequestedBy int not null,
-	ApprovedDate smalldatetime null,
-	ApprovedBy int null,
-	ApplicationTitle varchar(20) null,
-	ApplicationDescription varchar(255) null
-);
-go
-*/
-
--- Poonam Dubey --
--- 04/06/2016 --
--- Made changes to GroupRequest table --
-CREATE TABLE [Admin].[GroupRequest](
+-- Poonam Dubey 04/06/2016 -- Made changes to GroupRequest table --
+-- TABLE UPDATED BY TREVOR GLISCH 4/7/16
+create TABLE [Admin].[GroupRequest](
 	[GroupID] [int] NOT NULL,
 	[UserID] [int] NOT NULL,
-	[RequestStatus] [char](1) NOT NULL,
+	[RequestStatus] [char](1) default 'A' NOT NULL,
 	[RequestDate] [smalldatetime] NOT NULL,
 	[ApprovedDate] [smalldatetime] NULL,
 	[ApprovedBy] [int] NULL,
- CONSTRAINT [PK_GroupRequest] PRIMARY KEY CLUSTERED 
-(
-	[GroupID] ASC,
-	[UserID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
+	[Added] bit not null default 0
+	CONSTRAINT [PK_GroupRequest] PRIMARY KEY ( Groupid, Userid ASC )
+	);
 GO
 
 create table Admin.Messages(
@@ -650,12 +628,15 @@ CREATE TABLE Gardens.Announcements(
 	Announcement VARCHAR(250) not null
 );
 
+--modified by team king 4-7-16
 create table Gardens.Gardens(
 	GardenID int identity(1000,1) not null primary key,
 	GroupID int not null,
 	UserID int not null,
+	GardenName varchar(100) not null,
 	GardenDescription varchar(max) not null,
-	GardenRegion varchar(25) null
+	GardenRegion varchar(25) null,
+	Active bit not null default 1
 );
 
 Create table Gardens.GardenGuides(
@@ -812,7 +793,6 @@ GO
 
 ALTER TABLE [Admin].[GroupRequest] CHECK CONSTRAINT [FK_GroupRequest_UserID]
 GO
---------------------------------------------
 
 ALTER TABLE Admin.Messages WITH NOCHECK ADD  CONSTRAINT [FK_Messages_MessageSender] FOREIGN KEY(MessageSender)
 REFERENCES Admin.Users(UserID);
@@ -1591,9 +1571,31 @@ go
 ------------------------------------------
 -----------Admin.GroupRequest-------------
 ------------------------------------------
-----------Changed By : Poonam Dubey-------
-----------Changed Date : 04/06/2016-------
 
+-- UPDATED BY TREVOR GLISCH 4/6/16
+CREATE PROCEDURE Admin.spInsertGroupRequest(
+	@GroupID int,
+	@UserID int, 	
+	@RequestDate smalldatetime)
+AS
+BEGIN
+INSERT INTO Admin.GroupRequest(
+	GroupID,
+	UserID, 	
+	RequestDate)
+	
+VALUES(
+	@GroupID,
+	@UserID,
+	@RequestDate);
+	
+	RETURN @@ROWCOUNT;
+END;
+GO
+
+--Chris Sheehan - modified by trevor glisch above, this kept for archive temporarily
+/*
+--Changed By : Poonam Dubey--04/06/2016
 CREATE procedure [Admin].[spInsertGroupRequest](
 	@GroupID int,
 	@UserID int, 
@@ -1633,8 +1635,69 @@ values(
 END
 end;
 go
+*/
 
+-- GETS ALL OF THE REQUESTS FOR A DEFINED GROUP SO THAT GROUP LEADERS CAN ADDRESS REQUESTS
+-- UPDATED BY TREVOR GLISCH 4/6/16
+CREATE PROCEDURE Admin.spGetRequestsForGroup(
+	@GroupID int)
+AS
+BEGIN
+SELECT UserID, RequestDate
+FROM Admin.GroupRequest
+WHERE RequestStatus = 1 AND GroupID = @GroupID AND Added = 0
 
+END;
+GO
+
+------------------------------------------
+-----------Admin.GroupRequest-------------
+------------------------------------------
+
+-- SETS REQUEST STATUS TO ACCEPPTED AND THEN RUNS STORED PROCEDURE TO ADD USER TO THE GROUP
+-- UPDATED BY TREVOR GLISCH 4/6/16
+CREATE PROCEDURE Admin.spAcceptRequest(
+	@GroupID int,
+	@UserID int,
+	@ApprovedID int,
+	@ApprovedDate smalldatetime)
+AS
+BEGIN
+UPDATE Admin.GroupRequest
+	SET
+		RequestStatus = 0,
+		ApprovedDate = @ApprovedDate,
+		ApprovedBy = @ApprovedID,
+		Added = 1
+	WHERE
+		GroupID = @GroupID AND
+		UserID = @UserID ;
+	
+	EXEC Gardens.spInsertGroupMember @GroupID, @UserID;
+	-- THIS LINE CAN LATER BE USED TO SEND A MESSAGE TO A USER THAT THEY HAVE BEEN ACCEPTED
+	--EXEC Admin.spInsertMessageLineItems 	
+END;
+GO
+
+-- SETS THE REQUESTSTATUS AND ACTIVE FEILDS TO 0 LEAVING OUT AND APPROVED BY AND APPROVED DATE, THIS INDICATES THE REQUEST WAS DECLINED
+-- UPDATED BY TREVOR GLISCH 4/6/16
+CREATE PROCEDURE Admin.spDeclineRequest(
+	@GroupID int,
+	@UserID int)
+AS
+BEGIN
+UPDATE Admin.GroupRequest
+	SET
+		RequestStatus = 0,
+		Added = 0
+	WHERE
+		GroupID = @GroupID AND
+		UserID = @UserID;
+		
+	-- THIS LINE CAN LATER BE USED TO SEND A MESSAGE TO A USER THAT THEY HAVE BEEN DECLINED
+	--EXEC Admin.spInsertMessageLineItems 
+END;
+GO
 
 
 ------------------------------------------
@@ -2045,9 +2108,6 @@ ELSE
 END;
 
 GO
-
------------------------------------------------------------------------------
------------------------------------------------------------------------------
 
 CREATE PROCEDURE Admin.spUpdateUser (
 @UserID int,
@@ -3977,15 +4037,15 @@ values(
 end;
 go
 
-
-
 ------------------------------------------
 -----------Gardens.Gardens----------------
 ------------------------------------------
 
+--Modified By Chris Sheehan 4-7-16
 create procedure Gardens.spInsertGardens(
 	@GroupID int,
 	@UserID int,
+	@GardenName varchar(100), 
 	@GardenDescription varchar(max),
 	@GardenRegion varchar(25))
 as 
@@ -3993,15 +4053,30 @@ begin
 insert into Gardens.Gardens(
 	GroupID,
 	UserID,
+	GardenName,
 	GardenDescription,
 	GardenRegion)
 values(
 	@GroupID,
 	@UserID,
+	@GardenName,
 	@GardenDescription,
 	@GardenRegion);
 	return @@ROWCOUNT;
 end;
+go
+
+--Added by Chris Schwebach & Nick King
+CREATE PROCEDURE Gardens.spSelectUserGardens(
+	@UserID 		int
+)
+AS
+BEGIN
+	SELECT G.GardenID, G.GroupID, G.GardenName, G.UserID, G.GardenDescription, G.GardenRegion, GR.GroupName, U.UserName
+	FROM Gardens.Gardens AS G, Gardens.GroupMembers AS GM, Gardens.Groups AS GR, Admin.Users AS U
+	WHERE G.GroupID = GM.GroupID AND GM.UserID = @UserID AND G.GroupID = GR.GroupID AND GR.GroupLeaderID = U.UserID AND GR.Active = 1 AND G.Active = 1
+	ORDER BY GR.GroupName DESC
+END;
 go
 
 ------------------------------------------
@@ -4577,7 +4652,6 @@ values(
 end;
 go
 
-
 /**********************************************************************************/
 /******************************* Triggers ****************************************/
 /**********************************************************************************/
@@ -4624,8 +4698,6 @@ go
 --* spInsertActivityLog					@UserID int, 	@date smalldatetime,	@LogEntry varchar(250)	@UserAction varchar(100)
 exec Admin.spInsertActivityLog			1000, 			'12/12/15', 			'This is a log entry',	'logged'
 
-
-
 --* spInsertMessages					@MessageContent varchar(250),	@MessageDate smalldatetime,	@Subject varchar(100),	@MessageSender int
 exec Admin.spInsertMessage				'This is a message, wahoo!!'	,'3/2/38'					,'Testing'				,1000
 
@@ -4633,7 +4705,6 @@ exec Admin.spInsertMessage				'This is a message, wahoo!!'	,'3/2/38'					,'Testi
 exec Admin.spInsertMessageLineItems		1000			,1001			,'1/23/52'					,1002			,'1/4/99'					,'This is a test message'
 
 --* spInsertRoles						@RoleID				@Description varchar(100),	@CreatedBy int,	@CreatedDate smalldatetime 
-
 exec Admin.spInsertRoles				'Guest'				,'Guest'					,1003			,'1/4/99'
 exec Admin.spInsertRoles				'User'				,'User'						,1003			,'1/4/99'
 exec Admin.spInsertRoles				'Admin'				,'Admin'					,1003			,'1/4/99'
@@ -4665,8 +4736,8 @@ exec Gardens.spInsertGroups					'Mrs.Smith - 3rd grade'		,1003				,1000
 --* spInsertAnnouncements        			@UserID int,	@Date smalldatetime,	@OrganizationID int,	@Announcement VARCHAR(250)
 exec Gardens.spInsertAnnouncements			1000			,'3/4/89'				,1000					,'New garden templates available'
 
---* spInsertGardens              			@GroupID int,	@UserID int,	@GardenDescription varchar(max),	@GardenRegion varchar(25)
-exec Gardens.spInsertGardens				1000			,1000			,'RoofTop garden'					,1
+--* spInsertGardens              			@GroupID int,	@UserID int,			@GardenName				@GardenDescription varchar(max),	@GardenRegion varchar(25)
+exec Gardens.spInsertGardens				1000			,1000					,'School Garden'			,'RoofTop garden'					,1
 
 --* spInsertGardenGuides         			@UserID int,	@Content varchar(max)
 exec Gardens.spInsertGardenGuides			1002			,'how to make a shoebox garden'
@@ -4696,8 +4767,8 @@ exec Gardens.spInsertTasks					1000	,						'Watering the garden'		,'4/4/44'					
 exec Gardens.spInsertWorkLogs				1000			,1000			,'9/25/57'					,'9/26/57'
 
 
---* spInsertGroupRequest				@groupid	@UserID int,	@RequestStatus char(1),	@RequestDate smalldatetime
-exec Admin.spInsertGroupRequest			1000,			1000			,'a'						,'04/05/53'	
+--* spInsertGroupRequest				@groupid	@UserID int,	@RequestDate smalldatetime
+exec Admin.spInsertGroupRequest			1000,			1000			,'04/05/53'	
 
 ----------------------------DONATIONS------------------------------------
 print 'donations'
