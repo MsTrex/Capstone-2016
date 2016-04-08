@@ -73,17 +73,40 @@ namespace com.GreenThumb.BusinessLogic
         public List<Job> RetrieveJobByUserId(int userId)
         {
             try
-            {                
+            {
                 return JobAccessor.RetrieveJobByUserId(userId);
             }
             catch (Exception ex)
             {
-                
+
                 throw new ApplicationException(" No records Found!", ex);
             }
         }
 
-        public List<Job> RetrieveJobByGardenId(int gardenId) 
+        public List<Job> FetchGarden1()
+        {
+            try
+            {
+                return JobAccessor.RetrieveGardenByGardenID1();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException(" No records Found!.", ex);
+            }
+        }
+        public List<Job> FetchGarden2()
+        {
+            try
+            {
+                return JobAccessor.RetrieveGardenByGardenID2();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException(" No records Found!.", ex);
+            }
+        }
+
+        public List<Job> RetrieveJobByGardenId(int gardenId)
         {
             try
             {
@@ -96,7 +119,7 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
-        public List<int> RetrieveGardenIdByUserId(int userId) 
+        public List<int> RetrieveGardenIdByUserId(int userId)
         {
             try
             {
@@ -104,7 +127,7 @@ namespace com.GreenThumb.BusinessLogic
             }
             catch (Exception ex)
             {
-                
+
                 throw new ApplicationException("No records found!", ex);
             }
         }
@@ -115,28 +138,29 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public void AddTestUser(int userId) 
+        public void AddTestUser(int userId)
         {
-            var testJob = new Job {
-                    GardenID = 1000,
-                    Description = "Digging holes",
-                    DateAssigned = DateTime.Now,
-                    DateCompleted = DateTime.Now,
-                    AssignedTo = userId,
-                    AssignedFrom = 1002,
-                    UserNotes = "Dig holes until you can't feel your arms."
-                };
-                try 
-	            {
-                    Console.WriteLine("Test job commented out in JobManager");
-                    //JobAccessor.CreateTask(testJob);
+            var testJob = new Job
+            {
+                GardenID = 1000,
+                Description = "Digging holes",
+                DateAssigned = DateTime.Now,
+                // DateCompleted = DateTime.Now,
+                AssignedTo = userId,
+                AssignedFrom = 1002,
+                UserNotes = "Dig holes until you can't feel your arms."
+            };
+            try
+            {
+                Console.WriteLine("Test job commented out in JobManager");
+                //JobAccessor.CreateTask(testJob);
 
-	            }
-	            catch (Exception)
-	            {
-		
-		            throw;
-	            }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

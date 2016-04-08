@@ -32,8 +32,10 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
 
         public ManageTask(AccessToken _accessToken)
         {
+
             accessToken = _accessToken;
             InitializeComponent();
+            DisplayTaskData();
         }
 
         public bool saveDetails()
@@ -47,7 +49,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                 newJob.GardenID = int.Parse(this.txtGardenID.Text);
                 newJob.Description = this.txtTaskDescription.Text;
                 newJob.DateAssigned = DateTime.Now;
-                newJob.DateCompleted = DateTime.Now;
+                //newJob.DateCompleted = DateTime.Now;
                 newJob.AssignedTo = int.Parse(this.txtAssignedTo.Text);
                 newJob.AssignedFrom = int.Parse(this.txtAssignedFrom.Text);
                 newJob.UserNotes = this.txtuserNotes.Text;
@@ -76,7 +78,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                 txtAssignedFrom.Clear();
                 txtAssignedTo.Clear();
                 txtDateAssigned.Clear();
-                txtDateCompleted.Clear();
+                // txtDateCompleted.Clear();
                 txtGardenID.Clear();
                 txtTaskDescription.Clear();
                 txtuserNotes.Clear();

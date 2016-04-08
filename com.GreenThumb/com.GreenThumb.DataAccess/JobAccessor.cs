@@ -28,7 +28,7 @@ namespace com.GreenThumb.DataAccess
             var jobs = new List<Job>();
             var conn = DBConnection.GetDBConnection();
             // var query = @"spSelectTasks";
-            string query = @"SELECT TaskID, GardenID,  Description , DateAssigned, DateCompleted, AssignedTo, AssignedFrom, UserNotes, Active " +
+            string query = @"SELECT TaskID, GardenID,  Description , DateAssigned,  AssignedTo, AssignedFrom, UserNotes, Active " +
                          @"FROM Gardens.Tasks ";
 
             var cmd = new SqlCommand(query, conn);
@@ -47,11 +47,10 @@ namespace com.GreenThumb.DataAccess
                         job.GardenID = reader.GetInt32(1);
                         job.Description = reader.GetString(2);
                         job.DateAssigned = reader.GetDateTime(3);
-                        job.DateCompleted = reader.GetDateTime(4);
-                        job.AssignedTo = reader.GetInt32(5);
-                        job.AssignedFrom = reader.GetInt32(6);
-                        job.UserNotes = reader.GetString(7);
-                        job.Active = reader.GetBoolean(8);
+                        job.AssignedTo = reader.GetInt32(4);
+                        job.AssignedFrom = reader.GetInt32(5);
+                        job.UserNotes = reader.GetString(6);
+                        job.Active = reader.GetBoolean(7);
 
                         jobs.Add(job);
                     }
@@ -72,6 +71,105 @@ namespace com.GreenThumb.DataAccess
             return jobs;
         }
 
+        public static List<Job> RetrieveGardenByGardenID1()
+        {
+            var jobs = new List<Job>();
+            var conn = DBConnection.GetDBConnection();
+            // var query = @"spSelectTasks";
+            // string query = @"SELECT TaskID, GardenID,  Description , DateAssigned, DateCompleted, AssignedTo, AssignedFrom, UserNotes, Active " +
+            //  @"FROM Gardens.Tasks ";
+            string query = @"SELECT AssignedFrom, TaskID , GardenID, Description, userNotes, DateAssigned, Active " +
+
+                            @" FROM Gardens.Tasks WHERE GardenID = 1000";
+
+            var cmd = new SqlCommand(query, conn);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var job = new Job();
+
+                        job.AssignedFrom = reader.GetInt32(0);
+                        job.JobID = reader.GetInt32(1);
+                        job.GardenID = reader.GetInt32(2);
+                        job.Description = reader.GetString(3);
+                        job.UserNotes = reader.GetString(4);
+                        job.DateAssigned = reader.GetDateTime(5);
+                        job.Active = reader.GetBoolean(6);
+
+                        jobs.Add(job);
+                    }
+                }
+                else
+                {
+                    throw new ApplicationException("Data not found");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return jobs;
+        }
+        public static List<Job> RetrieveGardenByGardenID2()
+        {
+
+            var jobs = new List<Job>();
+            var conn = DBConnection.GetDBConnection();
+            // var query = @"spSelectTasks";
+            // string query = @"SELECT TaskID, GardenID,  Description , DateAssigned, DateCompleted, AssignedTo, AssignedFrom, UserNotes, Active " +
+            //  @"FROM Gardens.Tasks ";
+            string query = @"SELECT AssignedFrom, TaskID , GardenID, Description, userNotes, DateAssigned, Active " +
+
+                            @" FROM Gardens.Tasks  WHERE GardenID = 1001";
+
+            var cmd = new SqlCommand(query, conn);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var job = new Job();
+
+                        job.AssignedFrom = reader.GetInt32(0);
+                        job.JobID = reader.GetInt32(1);
+                        job.GardenID = reader.GetInt32(2);
+                        job.Description = reader.GetString(3);
+                        job.UserNotes = reader.GetString(4);
+                        job.DateAssigned = reader.GetDateTime(5);
+                        job.Active = reader.GetBoolean(6);
+
+                        jobs.Add(job);
+                    }
+                }
+                else
+                {
+                    throw new ApplicationException("Data not found");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return jobs;
+        }
         /// <summary>
         /// Update a task in a garden.
         /// Created By: Nasr Mohammed 3/4/2016 
@@ -112,7 +210,8 @@ namespace com.GreenThumb.DataAccess
                     Console.WriteLine("Accessor works");
                     flag = true;
                 }
-                else {
+                else
+                {
                     Console.WriteLine("Accessor broken");
                 }
 
@@ -149,7 +248,7 @@ namespace com.GreenThumb.DataAccess
             cmd.Parameters.AddWithValue("@gardenID", job.GardenID);
             cmd.Parameters.AddWithValue("@description", job.Description);
             cmd.Parameters.AddWithValue("@dateAssigned", job.DateAssigned);
-            cmd.Parameters.AddWithValue("@dateCompleted", job.DateCompleted);
+            //cmd.Parameters.AddWithValue("@dateCompleted", job.DateCompleted);
             cmd.Parameters.AddWithValue("@assignedTo", job.AssignedTo);
             cmd.Parameters.AddWithValue("@assignedFrom", job.AssignedFrom);
             cmd.Parameters.AddWithValue("@userNotes", job.UserNotes);
@@ -185,7 +284,7 @@ namespace com.GreenThumb.DataAccess
                          @"FROM Gardens.Tasks ";
             var cmd = new SqlCommand(query, conn);
 
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            // cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@JobID", jobId);
 
             try
@@ -320,7 +419,7 @@ namespace com.GreenThumb.DataAccess
             return jobs;
         }
 
-        public static List<int> RetrieveGardenIdByUserId(int userId) 
+        public static List<int> RetrieveGardenIdByUserId(int userId)
         {
             var ints = new List<int>();
             var conn = DBConnection.GetDBConnection();
