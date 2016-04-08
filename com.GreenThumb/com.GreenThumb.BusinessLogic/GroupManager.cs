@@ -283,9 +283,9 @@ namespace com.GreenThumb.BusinessLogic
 
                 if (null != group)
                 {
-                    group.UserList = GroupAccessor.GetMemberList(groupId);
+                    group.UserList = GroupAccessor.RetrieveGroupMembers(groupId);
 
-                    if (null != group.UserList.Count)
+                    if (null != group.UserList)
                     {
                         group.GroupID = groupId;
                     }

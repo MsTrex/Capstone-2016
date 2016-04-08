@@ -643,7 +643,7 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="groupId">Group identifier</param>
         /// <returns>Collection of group members</returns>
-        public static IEnumerable<GroupMember> RetrieveGroupMember(int groupId)
+        public static IEnumerable<GroupMember> RetrieveGroupMembers(int groupId)
         {
             var groupMembers = new List<GroupMember>();
 
