@@ -20,19 +20,23 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="lblGroup" Margin="10 20 0 0" Grid.Row="1" Grid.Column="0" Content="Garden Group Name: *" />
+        <Label x:Name="lblGroup" Margin="10 20 0 0" Grid.Row="0" Grid.Column="0" Content="Garden Group Name: *" />
+
+        <Label x:Name="lblGroupName" Margin="10 20 0 0" Grid.Row="1" Grid.Column="0" Content="Garden Name: *" />
 
         <Label x:Name="lblDescription" Margin="10 10 0 0" Grid.Row="2" Grid.Column="0" Content="Garden Description: *" />
 
 
         <Label x:Name="lblRegion" Margin="10 10 0 0" Grid.Row="3" Grid.Column="0" Content="Garden Region: "  />
 
-        <ComboBox x:Name="cmbGroupName" Grid.Row="1"  Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="25"  Width="201" Margin="5 5 100 5"
+        <ComboBox x:Name="cmbGroupName" Grid.Row="0"  Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="25"  Width="201" Margin="5 5 100 5"
                             ItemsSource="{Binding Path=Group}"
                             DisplayMemberPath="Name"
                             SelectedValuePath="GroupID"
                             SelectedValue="{Binding Path=Name}"
                           />
+
+        <TextBox x:Name="txtGardenName" MaxLength="100" Margin="5,5,100,5" Grid.Row="1" Grid.Column="1" />
 
         <TextBox x:Name="txtDescription" TextWrapping="Wrap" AcceptsReturn="True" MaxLength="500" Margin="5 5 100 5" Height="100" Grid.Row="2" Grid.Column="1" />
 

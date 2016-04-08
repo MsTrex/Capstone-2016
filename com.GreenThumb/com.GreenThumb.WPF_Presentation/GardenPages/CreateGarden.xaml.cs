@@ -82,17 +82,18 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                 int groupId = int.Parse(cmbGroupName.SelectedValue.ToString());
                 string gDesc = txtDescription.Text.ToString();
                 string gRegion = txtRegion.Text.ToString();
+                string gName = txtGardenName.Text.ToString();
                 Garden garden = new Garden();
 
                 if ((groupId.ToString() != string.Empty &&
-                       gDesc.ToString() != string.Empty && gRegion.ToString() != string.Empty))
+                       gDesc.ToString() != string.Empty && gRegion.ToString() != string.Empty && !string.IsNullOrEmpty(gName)))
                 {
 
                     garden.GroupID = groupId;
                     garden.UserID = accessToken.UserID;
                     garden.GardenDescription = gDesc;
                     garden.GardenRegion = gRegion;
-
+                    garden.GardenName = gName;
 
                     if (gardenManager.CreateGarden(garden))
                     {
@@ -102,7 +103,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                         FillGroupData(accessToken.UserID);
                         txtDescription.Text = string.Empty;
                         txtRegion.Text = string.Empty;
-
+                        txtGardenName.Text = string.Empty;
 
                     }
 
@@ -133,6 +134,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
             FillGroupData(accessToken.UserID);
             txtDescription.Text = string.Empty;
             txtRegion.Text = string.Empty;
+            txtGardenName.Text = string.Empty;
         }
     }
 }
