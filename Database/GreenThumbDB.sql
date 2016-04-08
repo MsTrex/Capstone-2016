@@ -3629,6 +3629,38 @@ END;
 go
 
 ------------------------------------------
+-----------Expert.PlantRegions------------
+------------------------------------------
+
+create procedure Expert.spInsertPlantRegions(
+	@PlantID int,
+	@RegionID int)
+as
+begin
+insert into Expert.PlantRegions(
+	PlantID,
+	RegionID)
+values(
+	@PlantID,
+	@RegionID);
+	return @@ROWCOUNT;
+end;
+go
+
+create procedure Expert.spSelectPlantRegions(
+	@PlantID int = null,
+	@RegionID int = null)
+as
+begin
+select PlantID, RegionID
+	from Expert.PlantRegions
+	where 
+		PlantID = ISNULL(@PlantID,PlantID) and
+		RegionID = ISNULL(@RegionID,RegionID)
+end;
+go
+
+------------------------------------------
 -----------Expert.Question----------------
 ------------------------------------------
 
