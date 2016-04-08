@@ -49,5 +49,23 @@ namespace com.GreenThumb.BusinessLogic
             }
 
         }
+
+        /// <summary>
+        /// Author: Chris Schwebch, Nick King
+        /// Date: 04/6/16
+        /// Gets gardens the user belongs to
+        /// </summary> 
+        public List<Group> GetGardenByUser(int userID)
+        {
+            try
+            {
+                return GardenAccessor.FetchGardenInfo(userID);
+            }
+            catch (Exception)
+            {
+                List<Group> groupList = new List<Group>();
+                return groupList;
+            }
+        }
     }
 }

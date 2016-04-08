@@ -1,8 +1,18 @@
-﻿@model com.GreenThumb.MVC.Models.GardenCreationViewModel
+﻿@*Created by:Kristen Johnson, Chris Schwebach, Nick King  04/07/2016*@
+
+@model IEnumerable<com.GreenThumb.BusinessObjects.Group>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div>
+    <h2>Gardens you belong to by group</h2>
+    @foreach (com.GreenThumb.BusinessObjects.Group group in Model)
+    {
+        <div class="UserGardensTable">
+            @Html.Partial("~/Views/PartialViews/Group_GardenTable.cshtml", group)
+        </div>
 
+    }
+</div>
