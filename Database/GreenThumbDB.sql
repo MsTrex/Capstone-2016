@@ -4271,6 +4271,44 @@ BEGIN
 END
 GO
 
+-- Created By: Trent 4-4-16
+CREATE PROCEDURE Gardens.spSelectGroupByID (
+	@GroupID	INT
+)
+AS BEGIN
+	SELECT g.GroupName, g.GroupLeaderID, u.UserName, u.EmailAddress, u.FirstName, u.LastName
+	FROM Gardens.Groups AS g
+	INNER JOIN Admin.Users AS u
+		ON g.GroupLeaderID = u.UserID
+	WHERE g.GroupID = @GroupID
+END;
+GO
+
+
+-- Created By: Trent 4-4-16
+CREATE PROCEDURE Gardens.spSelectGroupMembers (
+	@GroupID	INT
+)
+AS BEGIN
+	SELECT gm.UserID, gm.CreatedDate, u.UserName, u.EmailAddress, u.FirstName, u.LastName
+	FROM Gardens.GroupMembers AS gm
+	INNER JOIN Admin.Users AS u
+		ON gm.UserID = u.UserID AND u.Active = 1
+	WHERE gm.GroupID = @GroupID AND gm.Active = 1;
+END;
+GO
+
+-- Created By: Trent 4-4-16
+CREATE PROCEDURE Gardens.spSelectGroupGardens (
+	@GroupID	INT
+)
+AS BEGIN
+	SELECT g.GardenID, g.GardenName, g.GardenDescription
+	FROM Gardens.Gardens AS g
+	WHERE g.GroupID = @GroupID
+END;
+go
+
 ------------------------------------------
 -----------Gardens.Groups-----------------
 ------------------------------------------

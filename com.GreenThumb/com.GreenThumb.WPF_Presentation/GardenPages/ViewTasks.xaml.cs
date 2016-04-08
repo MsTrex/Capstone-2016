@@ -33,6 +33,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
 
         private void ShowGroupTasks_Click(object sender, RoutedEventArgs e)
         {
+            //
             int gardenId = (int)cbGardenId.SelectedValue;
             jobManager.RetrieveJobByGardenId(gardenId);
         }

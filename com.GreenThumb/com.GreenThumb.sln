@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.GreenThumb.BusinessObjects", "com.GreenThumb.BusinessObjects\com.GreenThumb.BusinessObjects.csproj", "{DB00749E-FF51-41C2-997B-6DBEA2DD025D}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.GreenThumb.BusinessLogicUnitTests", "com.GreenThumb.BusinessLogicUnitTests\com.GreenThumb.BusinessLogicUnitTests.csproj", "{425E3E5B-AD68-4ED8-98F7-EC43910BAD72}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.GreenThumb.MVC", "com.GreenThumb.MVC\com.GreenThumb.MVC.csproj", "{882B1D33-311B-4E36-BC2F-67BB5591DA5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.GreenThumb.Reports", "com.GreenThumb.Reports\com.GreenThumb.Reports.csproj", "{9E51A2B0-6C36-4843-BBF1-BBD275778B3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{882B1D33-311B-4E36-BC2F-67BB5591DA5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{882B1D33-311B-4E36-BC2F-67BB5591DA5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{882B1D33-311B-4E36-BC2F-67BB5591DA5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E51A2B0-6C36-4843-BBF1-BBD275778B3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E51A2B0-6C36-4843-BBF1-BBD275778B3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E51A2B0-6C36-4843-BBF1-BBD275778B3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E51A2B0-6C36-4843-BBF1-BBD275778B3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
