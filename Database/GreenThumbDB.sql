@@ -3435,6 +3435,29 @@ values(
 end;
 go
 
+/* Rhett Allen  4/07/16 */
+CREATE PROCEDURE Expert.spSelectNutrients
+AS
+BEGIN
+	SELECT NutrientID, Name, Description, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
+	FROM Expert.Nutrients
+END;
+go
+
+/* Rhett Allen  4/07/16 */
+CREATE PROCEDURE Expert.spSelectPlantNutrients(
+	@PlantID int
+)
+AS
+BEGIN
+	SELECT n.NutrientID, Name, Description, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
+	FROM Expert.Nutrients as n
+	INNER JOIN Expert.PlantNutrients as p
+	ON n.NutrientID = p.NutrientID
+	WHERE p.PlantID = @PlantID
+END;
+go
+
 ------------------------------------------
 -----------Expert.PlantCtegory------------
 ------------------------------------------
