@@ -91,6 +91,7 @@
     <Compile Include="Interfaces\IWorkTaskAssignmentManager.cs" />
     <Compile Include="Interfaces\IWorkTaskManager.cs" />
     <Compile Include="JobManager.cs" />
+    <Compile Include="NutrientManager.cs" />
     <Compile Include="OrgRequestsManager.cs" />
     <Compile Include="OrgUserManager.cs" />
     <Compile Include="PlantManager.cs" />
