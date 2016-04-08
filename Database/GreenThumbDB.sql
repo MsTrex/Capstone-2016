@@ -1298,7 +1298,7 @@ GO
 ALTER TABLE Expert.PlantRegions CHECK CONSTRAINT [FK_PlantRegions_Plants];
 GO
 
-ALTER TABLE Expert.PlantRegions WITH NOCHECK ADD  CONSTRAINT [FK_PlantRegions_Regions] FOREIGN KEY(PlantID)
+ALTER TABLE Expert.PlantRegions WITH NOCHECK ADD  CONSTRAINT [FK_PlantRegions_Regions] FOREIGN KEY(RegionID)
 REFERENCES Admin.Regions(RegionID);
 GO
 ALTER TABLE Expert.PlantRegions CHECK CONSTRAINT [FK_PlantRegions_Regions];
@@ -3503,6 +3503,8 @@ go
 -----------Expert.Plants------------------
 ------------------------------------------
 
+
+--sara nanke 4-8-16
 create procedure Expert.spInsertPlants(
 	@Name varchar(100),
 	@Type varchar(100),
@@ -3535,7 +3537,7 @@ values(
 	@CreatedDate,
 	@ModifiedBy,
 	@ModifiedDate);
-	return @@ROWCOUNT;
+select cast(scope_identity() As int);
 end;
 go
 
@@ -3632,6 +3634,7 @@ go
 -----------Expert.PlantRegions------------
 ------------------------------------------
 
+--Sara Nanke 4-8-16
 create procedure Expert.spInsertPlantRegions(
 	@PlantID int,
 	@RegionID int)
@@ -3647,6 +3650,7 @@ values(
 end;
 go
 
+--Sara Nanke 4-8-16
 create procedure Expert.spSelectPlantRegions(
 	@PlantID int = null,
 	@RegionID int = null)
@@ -4134,6 +4138,20 @@ BEGIN
 END;
 go
 
+--- Created By : Poonam Dubey 04/07/2016
+CREATE PROCEDURE [Gardens].[spSelectUserGardensOnGroup](
+	@UserID 		int,
+	@GroupID		int
+)
+AS
+BEGIN
+	SELECT G.GardenID, G.GardenName, G.GardenDescription
+	FROM Gardens.Gardens AS G, Gardens.GroupMembers AS GM, Gardens.Groups AS GR, Admin.Users AS U
+	WHERE G.GroupID = GM.GroupID AND G.GroupID = @GroupID AND GM.UserID = @UserID AND G.GroupID = GR.GroupID AND GR.GroupLeaderID = U.UserID AND GR.Active = 1 AND G.Active = 1
+	ORDER BY GR.GroupName DESC
+END;
+go
+
 ------------------------------------------
 -----------Gardens.GroupLeaders-----------
 ------------------------------------------
@@ -4389,7 +4407,7 @@ go
 --created by Nicholas King 4-4-16
 CREATE PROCEDURE Gardens.spSelectJoinableGroups(
 	@UserID 		int,
-	@Active			int
+	@Active		int
 )
 AS
 BEGIN
@@ -4401,7 +4419,7 @@ BEGIN
 	INNER JOIN Admin.Users AS u
 		ON g.GroupLeaderID = u.UserID 
 	WHERE g.Active = @Active and gm.UserID <> @UserID 
-		AND g.GroupID <> 
+		AND g.GroupID not in 
 			(SELECT g.GroupID
 			 FROM Gardens.Groups AS g, Gardens.GroupMembers AS gm
 			 WHERE g.GroupID = gm.GroupID AND gm.UserID = @UserID)
@@ -4444,36 +4462,22 @@ GO
 ----------------Created By : Poonam Dubey-----------------------
 ----------------Created Date : 04/06/2016-----------------------
 ----------------Description : SP to fetch groups to view--------
+
 CREATE PROCEDURE Gardens.spSelectGroupsToView(
-
 	@UserID 		int
-
-)
-
+	)
 AS
-
 BEGIN
-
 	SELECT DISTINCT g.GroupID, g.GroupName
-
 	FROM Gardens.Groups AS g
-
 	INNER JOIN Gardens.GroupMembers AS gm
-
 		ON g.GroupID = gm.GroupID
-
 		and gm.Active = 1
-
 	INNER JOIN Admin.Users AS u
-
 		ON g.GroupLeaderID = u.UserID 
-
 	WHERE g.Active = 1 and gm.UserID != @UserID; 
-
 END;
 GO
-
-
 
 -- Created By: Trent Cullinan 02/20/2016
 CREATE PROCEDURE Admin.spSelectOrgGroups (
@@ -4718,6 +4722,22 @@ VALUES
    @userNotes);	
 END;
 GO
+
+--- Created By : Poonam Dubey 04/07/2016
+CREATE PROCEDURE [Gardens].[spSelectTasksGarden](
+	@GardenID int
+)
+AS
+BEGIN
+	SELECT GT.TaskID,GT.Description, GT.DateAssigned AS 'AssignedOn', AU.FirstName +  ' ' + AU.LastName AS 'AssignedTo', AUU.FirstName +  ' ' + AUU.LastName AS 'AssignedBy' 
+	FROM Gardens.Tasks GT
+	INNER JOIN Admin.Users AU
+	ON GT.AssignedTo = AU.UserID
+	INNER JOIN Admin.Users AUU
+	ON GT.AssignedFrom = AUU.UserID
+	WHERE GT.GardenID = @GardenID AND GT.Active = 1
+END;
+go
 
 ------------------------------------------
 -----------Gardens.WorkLogs---------------
