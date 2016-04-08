@@ -232,7 +232,7 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="plant">The plant to be created</param>
         /// <returns>A boolean based on if the plant has been created successfully</returns>
-        public static bool CreatePlant(Plant plant)
+        public static int CreatePlant(Plant plant)
         {
             var conn = DBConnection.GetDBConnection();
             var query = "Expert.spInsertPlants";
@@ -249,21 +249,24 @@ namespace com.GreenThumb.DataAccess
             cmd.Parameters.AddWithValue("@ModifiedBy", (plant.ModifiedBy == null) ? DBNull.Value : (object)plant.ModifiedBy);
             cmd.Parameters.AddWithValue("@ModifiedDate", (plant.ModifiedDate == null) ? DBNull.Value : (object)plant.ModifiedDate);
 
-            bool updated = false;
+            Int32 updated = 0;
 
             try
             {
                 conn.Open();
 
-                if (cmd.ExecuteNonQuery() == 1)
-                {
-                    updated = true;
-                }
+                updated = (Int32)cmd.ExecuteScalar();
+
+                //if (cmd.ExecuteNonQuery() == 1)
+                //{
+                //    updated = true;
+                //    Console.WriteLine(plant.PlantID);
+                //}
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {
@@ -273,5 +276,87 @@ namespace com.GreenThumb.DataAccess
             return updated;
         }
 
+
+        public static bool?[] RetrievePlantRegions(Plant plant)
+        {
+            bool?[] regions = new bool?[12];
+
+            var conn = DBConnection.GetDBConnection();
+            var query = @"Expert.spSelectPlantRegions";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@PlantID", plant.PlantID);
+
+            try
+            {
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                List<int> regionNumbers = new List<int>();
+                while (reader.Read())
+                {
+                    regionNumbers.Add(reader.GetInt32(1));
+                }
+                for (int i = 0; i < regions.Length; i++)
+                {
+                    if (regionNumbers.Contains(i + 1))
+                    {
+                        regions[i] = true;
+                    }
+                    else
+                    {
+                        regions[i] = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return regions;
+        }
+
+        public static bool CreatePlantRegions(Plant plant, List<int> RegionIds)
+        {
+            var conn = DBConnection.GetDBConnection();
+            var query = "Expert.spInsertPlantRegions";
+            var cmd = new SqlCommand(query, conn);
+
+            bool updated = true;
+
+            try
+            {
+                conn.Open();
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                for (int i = 0; i < RegionIds.Count - 1; i++)
+                {
+                    int regionId = RegionIds[i];
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@PlantID", plant.PlantID);
+                    cmd.Parameters.AddWithValue("@RegionID", regionId);
+
+                    if (cmd.ExecuteNonQuery() != 1)
+                    {
+                        updated = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return updated;
+        }
     }
 }

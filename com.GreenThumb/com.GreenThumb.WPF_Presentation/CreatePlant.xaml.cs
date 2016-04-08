@@ -27,7 +27,7 @@ namespace com.GreenThumb.WPF_Presentation
         public CreatePlant(AccessToken ax)
         {
             InitializeComponent();
-           
+
             user = ax;
         }
 
@@ -40,12 +40,13 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 this.save.IsEnabled = true;
             }
-        } 
+        }
 
-        public bool saveDetails()
+        public int saveDetails()
         {
             //validate feilds  implement createdBy user
-            bool myBool = false;
+            //bool myBool = false;
+            int myInt = 0;
 
             try
             {
@@ -58,9 +59,9 @@ namespace com.GreenThumb.WPF_Presentation
                 newPlant.Season = this.season.Text;
                 newPlant.Description = this.description.Text;
                 newPlant.CreatedDate = DateTime.Now;
-                newPlant.CreatedBy = user.UserID; 
+                newPlant.CreatedBy = user.UserID;
 
-                myBool = myPlantManager.CreatePlant(newPlant);
+                myInt = myPlantManager.CreatePlant(newPlant);
 
             }
             catch (Exception ax)
@@ -68,29 +69,29 @@ namespace com.GreenThumb.WPF_Presentation
                 MessageBox.Show(ax.Message);
             }
 
-            return myBool;
+            return myInt;
         }
 
         private void save_Click(object sender, RoutedEventArgs e)
         {
             //save the data back to the database 
-            bool myBool = saveDetails();
-            if (myBool == true)
+            int myInt = saveDetails();
+            if (myInt > 0)
             {
                 MessageBox.Show("Your Record Has Been Created");
             }
-            else if (myBool == false)
+            else
             {
                 MessageBox.Show("Your Record Has Not Been Created");
             }
-            this.Close(); 
+            this.Close();
         }
 
 
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
             //exit without making changes to data
-            this.Close(); 
+            this.Close();
         }
 
         private void plantId_LostFocus(object sender, RoutedEventArgs e)
