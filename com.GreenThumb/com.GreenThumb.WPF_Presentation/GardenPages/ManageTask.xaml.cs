@@ -49,7 +49,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                 newJob.GardenID = int.Parse(this.txtGardenID.Text);
                 newJob.Description = this.txtTaskDescription.Text;
                 newJob.DateAssigned = DateTime.Now;
-                //newJob.DateCompleted = DateTime.Now;
+                newJob.DateCompleted = DateTime.Now;
                 newJob.AssignedTo = int.Parse(this.txtAssignedTo.Text);
                 newJob.AssignedFrom = int.Parse(this.txtAssignedFrom.Text);
                 newJob.UserNotes = this.txtuserNotes.Text;

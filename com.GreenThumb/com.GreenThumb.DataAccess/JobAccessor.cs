@@ -249,7 +249,7 @@ namespace com.GreenThumb.DataAccess
             cmd.Parameters.AddWithValue("@description", job.Description);
             cmd.Parameters.AddWithValue("@dateAssigned", job.DateAssigned);
             //cmd.Parameters.AddWithValue("@dateCompleted", job.DateCompleted);
-            cmd.Parameters.AddWithValue("@assignedTo", job.AssignedTo);
+           // cmd.Parameters.AddWithValue("@assignedTo", job.AssignedTo);
             cmd.Parameters.AddWithValue("@assignedFrom", job.AssignedFrom);
             cmd.Parameters.AddWithValue("@userNotes", job.UserNotes);
 
