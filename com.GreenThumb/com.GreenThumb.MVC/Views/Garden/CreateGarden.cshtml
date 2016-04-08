@@ -1,0 +1,21 @@
+﻿@model com.GreenThumb.MVC.Models.GardenCreationViewModel
+
+@{
+    ViewBag.Title = "CreateGarden";
+}
+
+<h2>Create a new Garden</h2>
+
+@using (Html.BeginForm("CreateGarden", "Garden", FormMethod.Post))
+{
+    <div>
+        @Html.LabelFor(m => m.GardenDescription)
+        @Html.TextBoxFor(m => m.GardenDescription)
+    </div>
+    <br />
+    @Html.HiddenFor(m => m.GroupID)
+    <br />
+    <input type="submit" value="Submit" />
+}
+
+

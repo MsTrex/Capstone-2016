@@ -265,6 +265,7 @@
     <Content Include="Views\PartialViews\GroupGardenTable.cshtml" />
     <Content Include="Views\PartialViews\GroupLeaderDetail.cshtml" />
     <Content Include="Views\PartialViews\GroupMemberTable.cshtml" />
+    <Content Include="Views\Garden\CreateGarden.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
