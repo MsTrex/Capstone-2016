@@ -63,7 +63,6 @@ namespace com.GreenThumb.WPF_Presentation
             btnHome.Visibility = Visibility.Visible;
             btnProfile.Visibility = Visibility.Hidden;
             btnVolunteer.Visibility = Visibility.Hidden;
-            btnDonations.Visibility = Visibility.Hidden;
             if (_accessToken == null)
             {                
                 btnSideBar1.Content = "";
@@ -94,7 +93,6 @@ namespace com.GreenThumb.WPF_Presentation
                         btnHome.Visibility = Visibility.Visible;
                         btnProfile.Visibility = Visibility.Visible;
                         btnVolunteer.Visibility = Visibility.Visible;
-                        btnDonations.Visibility = Visibility.Visible;
                         break;
                     }
                     if (r.RoleID == "Expert")
@@ -105,7 +103,6 @@ namespace com.GreenThumb.WPF_Presentation
                         btnHome.Visibility = Visibility.Visible;
                         btnProfile.Visibility = Visibility.Visible;
                         btnVolunteer.Visibility = Visibility.Visible;
-                        btnDonations.Visibility = Visibility.Visible;
                         break;
                     }
                     if (r.RoleID == "GroupLeader")
@@ -116,7 +113,6 @@ namespace com.GreenThumb.WPF_Presentation
                         btnHome.Visibility = Visibility.Visible;
                         btnProfile.Visibility = Visibility.Visible;
                         btnVolunteer.Visibility = Visibility.Visible;
-                        btnDonations.Visibility = Visibility.Visible;
                         break;
                     }
                     if (r.RoleID == "GroupMember")
@@ -127,7 +123,6 @@ namespace com.GreenThumb.WPF_Presentation
                         btnHome.Visibility = Visibility.Visible;
                         btnProfile.Visibility = Visibility.Visible;
                         btnVolunteer.Visibility = Visibility.Visible;
-                        btnDonations.Visibility = Visibility.Visible;
                         break;
                     }
                     if (r.RoleID == "User")
@@ -138,7 +133,6 @@ namespace com.GreenThumb.WPF_Presentation
                         btnHome.Visibility = Visibility.Visible;
                         btnProfile.Visibility = Visibility.Visible;
                         btnVolunteer.Visibility = Visibility.Visible;
-                        btnDonations.Visibility = Visibility.Visible;
                         break;
                     }
                     if (r.RoleID == "Guest")
@@ -149,7 +143,6 @@ namespace com.GreenThumb.WPF_Presentation
                         btnHome.Visibility = Visibility.Visible;
                         btnProfile.Visibility = Visibility.Visible;
                         btnVolunteer.Visibility = Visibility.Visible;
-                        btnDonations.Visibility = Visibility.Visible;
                         break;
                     }
                 }
@@ -259,21 +252,21 @@ namespace com.GreenThumb.WPF_Presentation
         // Chris S - Had to refactor - using in two places
         private void SetHomeButtons()
         {
-            btnSideBar1.Content = "btnSideBar1";
-            btnSideBar2.Content = "Blog";
-            btnSideBar3.Content = "btnSideBar3";
-            btnSideBar4.Content = "btnSideBar4";
-            btnSideBar5.Content = "btnSideBar5";
-            btnSideBar6.Content = "btnSideBar6";
-            btnSideBar7.Content = "btnSideBar7";
-            btnSideBar8.Content = "btnSideBar8";
-            btnSideBar9.Content = "btnSideBar9";
-            btnSideBar10.Content = "btnSideBar10";
-            btnSideBar11.Content = "btnSideBar11";
-            btnSideBar12.Content = "btnSideBar12";
-            btnSideBar13.Content = "btnSideBar13";
-            btnSideBar14.Content = "btnSideBar14";
-            btnSideBar15.Content = "btnSideBar15";
+            btnSideBar1.Content = "Blog";
+            btnSideBar2.Content = "";
+            btnSideBar3.Content = "";
+            btnSideBar4.Content = "";
+            btnSideBar5.Content = "";
+            btnSideBar6.Content = "";
+            btnSideBar7.Content = "";
+            btnSideBar8.Content = "";
+            btnSideBar9.Content = "";
+            btnSideBar10.Content = "";
+            btnSideBar11.Content = "";
+            btnSideBar12.Content = "";
+            btnSideBar13.Content = "";
+            btnSideBar14.Content = "";
+            btnSideBar15.Content = "";
         }
 
         /// <summary>
@@ -441,6 +434,18 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 mainFrame.NavigationService.Navigate(new ExpertPages.RequestExpert(_accessToken));
             }
+            else if (btnSideBar1.Content.ToString() == "Blog")
+            {
+                if (_accessToken == null)
+                {
+                    mainFrame.NavigationService.Navigate(new HomePages.ViewBlog());
+                }
+                else
+                {
+                    mainFrame.NavigationService.Navigate(new HomePages.ViewBlog(_accessToken));
+                }
+
+            }
 
         }
         /// <summary>
@@ -469,17 +474,7 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 mainFrame.NavigationService.Navigate(new VolunteerPages.VolunteerSignUp(_accessToken));
             }
-            else if (btnSideBar2.Content.ToString() == "Blog")
-            {
-                if(_accessToken == null) {
-                    mainFrame.NavigationService.Navigate(new HomePages.ViewBlog());
-                }
-                else
-                {
-                    mainFrame.NavigationService.Navigate(new HomePages.ViewBlog(_accessToken));
-                }
-                
-            }
+            
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -488,7 +483,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnSideBar3_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            
+
             if ("Expert Requests" == btnSideBar3.Content.ToString())
             {
                 AdminPages.AdminProcessExpertRequests processExperts
@@ -499,10 +494,6 @@ namespace com.GreenThumb.WPF_Presentation
             else if (btnSideBar3.Content.ToString() == "Search for Questions")
             {
                 mainFrame.NavigationService.Navigate(new ExpertPages.SearchForQuestions(_accessToken));
-            }
-            else if (btnSideBar4.Content.ToString() == "Search for Questions")
-            {
-                //        mainFrame.NavigationService.Navigate(new AdminPages.UserRole(_accessToken));
             }
         }
         /// <summary>
@@ -561,6 +552,7 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 mainFrame.NavigationService.Navigate(new GardenPages.SelectTasks(_accessToken));
             }
+            
         }
         /// <summary>
         /// Author: Chris Sheehan
