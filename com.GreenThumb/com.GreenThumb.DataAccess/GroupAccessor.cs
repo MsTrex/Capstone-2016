@@ -632,5 +632,130 @@ namespace com.GreenThumb.DataAccess
             }
             return groupList;
         }
+
+        /// <summary>
+        /// TODO: Talk to Ryan / Chris: Currently stored procedure is
+        /// not in the database, I wrote my own and I see that
+        /// his method has references to features so I don't want
+        /// to step on that.
+        /// 
+        /// Created by: Trent Cullinan 04/05/2016
+        /// </summary>
+        /// <param name="groupId">Group identifier</param>
+        /// <returns>Collection of group members</returns>
+        public static IEnumerable<GroupMember> RetrieveGroupMembers(int groupId)
+        {
+            var groupMembers = new List<GroupMember>();
+
+            var conn = DBConnection.GetDBConnection();
+
+            var cmd = new SqlCommand("Gardens.spSelectGroupMembers", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@GroupID", 
+                groupId);
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    groupMembers.Add(new GroupMember()
+                    {
+                        User = new User
+                        {
+                            UserID 
+                                = reader.GetInt32(0),
+                            UserName
+                                = reader.GetString(2),
+                            EmailAddress 
+                                = reader.GetString(3),
+                            FirstName 
+                                = reader.GetString(4),
+                            LastName 
+                                = reader.GetString(5)
+                        },
+                        CreatedDate
+                            = reader.GetDateTime(1)
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return groupMembers;
+        }
+
+        /// <summary>
+        /// Retrieve a group by identitier.
+        /// 
+        /// Created by: Trent Cullinan 04/05/2016
+        /// </summary>
+        /// <param name="groupId">Group identifier</param>
+        /// <returns>Group object</returns>
+        public static Group RetrieveGroupById(int groupId)
+        {
+            Group group = null;
+
+            var conn = DBConnection.GetDBConnection();
+
+            var cmd = new SqlCommand("Gardens.spSelectGroupByID", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@GroupID",
+                groupId);
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    group = new Group()
+                    {
+                        Name
+                            = reader.GetString(0),
+                        GroupLeader = new GroupMember()
+                        {
+                            User = new User()
+                            {
+                                UserID
+                                    = reader.GetInt32(1),
+                                UserName
+                                    = reader.GetString(2),
+                                EmailAddress
+                                    = reader.GetString(3),
+                                FirstName
+                                    = reader.GetString(4),
+                                LastName
+                                    = reader.GetString(5)
+                            }
+                        }
+
+                    };
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return group;
+        }
     }
 }

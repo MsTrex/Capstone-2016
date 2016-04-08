@@ -15,29 +15,29 @@ namespace com.GreenThumb.BusinessObjects
         public int JobID { get; set; }
         public int GardenID { get; set; }
         public string Description { get; set; }
-        public DateTime DateAssigned { get; set; }
-        public DateTime DateCompleted { get; set; }
+        public DateTime DateAssigned { get; set; }      
         public int AssignedTo { get; set; }
         public int AssignedFrom { get; set; }
         public string UserNotes { get; set; }
         public bool Active { get; set; }
+        public DateTime DateCompleted { get; set; }
 
 
         public Job() { }
         public Job(int jobID, int gardenID,
                      string description,
-                     DateTime dateAssigned, DateTime dateCompleted,
-                    int assignedTo, int assignedFrom, string userNotes, bool active)
+                     DateTime dateAssigned,
+                    int assignedTo, int assignedFrom, string userNotes, bool active, DateTime dateCompleted)
         {
             JobID = jobID;
             GardenID = gardenID;
             Description = description;
-            DateAssigned = dateAssigned;
-            DateCompleted = dateCompleted;
+            DateAssigned = dateAssigned;      
             AssignedTo = assignedTo;
             AssignedFrom = assignedFrom;
             UserNotes = userNotes;
             Active = active;
+            DateCompleted = dateCompleted;
 
         }
     }

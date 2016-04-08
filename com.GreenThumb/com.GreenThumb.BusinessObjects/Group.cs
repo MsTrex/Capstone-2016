@@ -12,7 +12,7 @@ namespace com.GreenThumb.BusinessObjects
         //public int Name { get; set; }//Kristine Johnson removed this by commenting it out, it should be string-see below
         public int GroupLeaderID { get; set; }
         public bool Active { get; set; }
-        public List<User> UserList { get; set; }
+        public IEnumerable<GroupMember> UserList { get; set; } // Modified by: Trent Cullinan
         public DateTime CreatedDate { get; set; }
         public GroupMember GroupLeader { get; set; } // Added by: Trent Cullinan
         public List<Garden> GardenList { get; set; }  //added by: Chris Schwebach

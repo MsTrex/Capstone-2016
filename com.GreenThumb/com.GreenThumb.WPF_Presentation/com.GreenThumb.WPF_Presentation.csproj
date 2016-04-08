@@ -27,8 +27,7 @@
     <IntermediateOutputPath>C:\Users\nh229u03\AppData\Local\Temp\vs8522.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs4592.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs5CA3.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u27\AppData\Local\Temp\vsF9B8.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs53B0.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vsBD7C.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,10 +43,7 @@
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs5CA3.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u27\AppData\Local\Temp\vsF9B8.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs8A97.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Chris\AppData\Local\Temp\vs1A64.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs642A.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs3B76.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs53B0.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vsBD7C.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -90,6 +86,9 @@
     </Compile>
     <Compile Include="AdminPages\RegionPage.xaml.cs" />
     <Compile Include="AdminPages\UserRole.xaml.cs" />
+    <Compile Include="ExpertPages\AddNutrientsToPlant.xaml.cs">
+      <DependentUpon>AddNutrientsToPlant.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExpertPages\CreatePlant.xaml.cs">
       <DependentUpon>CreatePlant.xaml</DependentUpon>
     </Compile>
@@ -113,6 +112,12 @@
     </Compile>
     <Compile Include="ExpertPages\ViewRecipe.xaml.cs">
       <DependentUpon>ViewRecipe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\AssignTask.xaml.cs">
+      <DependentUpon>AssignTask.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GardenPages\ViewGardenTasks.xaml.cs">
+      <DependentUpon>ViewGardenTasks.xaml</DependentUpon>
     </Compile>
     <Compile Include="GardenPages\ViewGroups.xaml.cs">
       <DependentUpon>ViewGroups.xaml</DependentUpon>
@@ -164,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ExpertPages\AddNutrientsToPlant.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ExpertPages\CreatePlant.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -207,6 +216,14 @@
     <Page Include="ExpertPages\ViewRecipe.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GardenPages\AssignTask.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GardenPages\ViewGardenTasks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GardenPages\ViewGroups.xaml">
       <Generator>MSBuild:Compile</Generator>

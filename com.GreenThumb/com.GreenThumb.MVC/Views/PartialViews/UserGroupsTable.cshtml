@@ -36,7 +36,7 @@
         {
             <tr>
                 <td>
-                    @groupView.Name
+                    @Html.ActionLink(groupView.Name, "Details", "Group", new { id = groupView.GroupId }, null)
                 </td>
                 <td>
                     @groupView.LeaderUserName
