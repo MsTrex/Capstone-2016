@@ -275,7 +275,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar8.Content = "btnSideBar8";
             btnSideBar7.Content = "Create Garden";
             btnSideBar8.Content = "View Tasks By Garden";
-            btnSideBar9.Content = "btnSideBar9";
+            btnSideBar9.Content = "View Garden Tasks";
             btnSideBar10.Content = "btnSideBar10";
         }
         /// <summary>
@@ -572,6 +572,10 @@ namespace com.GreenThumb.WPF_Presentation
                 {
                     mainFrame.NavigationService.Navigate(new ExpertPages.ViewPlants());
                 }
+            }
+            else if (btnSideBar9.Content.ToString() == "View Garden Tasks")
+            {
+                mainFrame.NavigationService.Navigate(new GardenPages.ViewGardenTasks(_accessToken));
             }
         }
         /// <summary>
