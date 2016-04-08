@@ -1,10 +1,12 @@
 ﻿@model com.GreenThumb.MVC.Models.GardenCreationViewModel
 
 @{
-    ViewBag.Title = "CreateGarden";
+    ViewBag.Title = "Create Garden";
 }
 
 <h2>Create a new Garden</h2>
+
+
 
 @using (Html.BeginForm("CreateGarden", "Garden", FormMethod.Post))
 {
@@ -17,5 +19,7 @@
     <br />
     <input type="submit" value="Submit" />
 }
+
+
 
 
