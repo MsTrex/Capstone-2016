@@ -178,11 +178,16 @@
                 <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar8" Content="btnSideBar8" MouseDown="btnSideBar8_MouseDown" />
                 <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar9" Content="btnSideBar9" MouseDown="btnSideBar9_MouseDown" />
                 <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar10" Content="btnSideBar10" MouseDown="btnSideBar10_MouseDown" />
-
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar11" Content="btnSideBar11" MouseDown="btnSideBar11_MouseDown" />
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar12" Content="btnSideBar12" MouseDown="btnSideBar12_MouseDown" />
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar13" Content="btnSideBar13" MouseDown="btnSideBar13_MouseDown" />
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar14" Content="btnSideBar14" MouseDown="btnSideBar14_MouseDown" />
+                <Label FontSize="15" Margin="0, 0, 0, 0" Name="btnSideBar15" Content="btnSideBar15" MouseDown="btnSideBar15_MouseDown" />
             </StackPanel>
             <Grid Grid.Column="1">
                 <Frame Name="mainFrame" Margin="0,0,-0.4,0" NavigationUIVisibility="Hidden" ></Frame>
             </Grid>
         </Grid>
+        
     </Grid>
 </Window>
