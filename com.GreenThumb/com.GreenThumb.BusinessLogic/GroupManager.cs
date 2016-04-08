@@ -265,5 +265,35 @@ namespace com.GreenThumb.BusinessLogic
 
             return groups;
         }
+
+        /// <summary>
+        /// Retrieves a group by it's identifier.
+        /// 
+        /// Created by: Trent Cullinan 04/05/2016
+        /// </summary>
+        /// <param name="groupId">Identifier to be used.</param>
+        /// <returns>Group that was requested by Id</returns>
+        public Group RetrieveGroup(int groupId)
+        {
+            Group group = null;
+
+            try
+            {
+                group = GroupAccessor.RetrieveGroupById(groupId);
+
+                if (null != group)
+                {
+                    group.UserList = GroupAccessor.GetMemberList(groupId);
+
+                    if (null != group.UserList.Count)
+                    {
+                        group.GroupID = groupId;
+                    }
+                }
+            }
+            catch (Exception) { } // group will be null.
+
+            return group;
+        }
     }
 }

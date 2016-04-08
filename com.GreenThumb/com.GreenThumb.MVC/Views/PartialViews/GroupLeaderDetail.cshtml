@@ -1,0 +1,29 @@
+﻿@* Created by: Trent Cullinan 04/05/2016 *@
+@model com.GreenThumb.MVC.Models.GroupMemberViewModel
+
+<div>
+    <p><strong class="text text-primary">Group Leader Information</strong></p>
+    @if (null != Model)
+    {
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayNameFor(m => m.UserName)</td>
+                    <td>@Html.DisplayTextFor(m => m.UserName)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayName("Name")</td>
+                    <td>@Html.DisplayName(string.Format("{0} {1}", Model.FirstName, Model.LastName))</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(m => m.Email)</td>
+                    <td>@Html.DisplayTextFor(m => m.Email)</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="alert-danger">Unable to display group leader information.</p>
+    }
+</div>

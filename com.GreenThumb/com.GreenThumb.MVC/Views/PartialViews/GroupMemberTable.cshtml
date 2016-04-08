@@ -1,0 +1,47 @@
+﻿@* Created by: Trent Cullinan 04/05/2016 *@
+@using com.GreenThumb.MVC.Models;
+@model IEnumerable<GroupMemberViewModel>
+
+<div class="jumbotron">
+    @if (null != Model)
+    {
+        <p><strong class="text text-primary">Group Members</strong></p>
+        if (0 < Model.Count())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(m => m.FirstOrDefault().UserName)</th>
+                        <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Email)</th>
+                        <th>@Html.DisplayNameFor(m => m.FirstOrDefault().FirstName)</th>
+                        <th>@Html.DisplayNameFor(m => m.FirstOrDefault().LastName)</th>
+                        <th>@Html.DisplayNameFor(m => m.FirstOrDefault().DateCreated)</th>
+                        @* Check roles for group leader, then add column for options *@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (GroupMemberViewModel groupMember in Model)
+                    {
+                        <tr>
+                            <td>@groupMember.UserName</td>
+                            <td>@groupMember.Email</td>
+                            <td>@groupMember.FirstName</td>
+                            <td>@groupMember.LastName</td>
+                            <td>@groupMember.DateCreated</td>
+                            @* Check roles for group leader, then add column for options *@
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h3>@Html.DisplayText("No group members retrieved.")</h3>
+        }
+
+    }
+    else
+    {
+        <p>@Html.DisplayText("Unable to retrieve group members.")</p>
+    }
+</div>

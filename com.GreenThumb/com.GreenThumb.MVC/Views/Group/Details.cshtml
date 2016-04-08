@@ -1,0 +1,23 @@
+﻿@* Created by: Trent Cullinan 04/05/2016 *@
+@model com.GreenThumb.MVC.Models.GroupDetailViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <h2>@Model.GroupName @Html.ActionLink("Leave Group", "LeaveGroup", "Group", new { @id = Model.GroupID }, new { @class = "btn btn-default" })</h2>
+
+    <div>
+        @Html.Partial("~/Views/PartialViews/GroupLeaderDetail.cshtml", Model.GroupLeader)
+    </div>
+
+    <div>
+        @Html.ActionLink("Add Garden", "AddGarden", "Garden", new { @id = Model.GroupID }, new { @class = "btn btn-default" })
+        @Html.Partial("~/Views/PartialViews/GroupGardenTable.cshtml", Model.Gardens)
+    </div>
+
+    <div>
+        @Html.Partial("~/Views/PartialViews/GroupMemberTable.cshtml", Model.GroupMembers)
+    </div>
+</div>

@@ -104,10 +104,43 @@ namespace com.GreenThumb.MVC.Controllers
             return View("Error");
         }
 
-        // GET: Group/Details/5
-        public ActionResult Details(int id)
+        /// <summary>
+        /// Logged in user will view group details
+        /// 
+        /// Created by: Trent Cullinan 04/05/2016
+        /// </summary>
+        /// <param name="id">Group Id</param>
+        /// <returns></returns>
+        public ActionResult Details(int? id)
         {
-            return View();
+            ActionResult view = RedirectToAction("Index", "Group");
+
+            if (id.HasValue)
+            {
+                var group
+                    = new GroupManager().RetrieveGroup(id.Value);
+
+                var gardens
+                    = new GardenManager().RetrieveGroupGardens(id.Value);
+
+                var viewModel = new GroupDetailViewModel()
+                {
+                    GroupID
+                        = group.GroupID,
+                    GroupName
+                        = group.Name,
+                    GroupLeader
+                        = ConvertGroupMember(group.GroupLeader),
+                    GroupMembers
+                        = ConvertGroupMemberCollection(group.UserList),
+                    Gardens
+                        = ConvertGardenCollection(gardens)
+                };
+
+                view = View(viewModel);
+            }
+
+            return view;
         }
 
         // GET: Group/Create
@@ -189,6 +222,66 @@ namespace com.GreenThumb.MVC.Controllers
             {
                 return View();
             }
+        }
+
+        // Created by: Trent Cullinan 04/05/2016
+        private IEnumerable<GroupMemberViewModel> ConvertGroupMemberCollection(IEnumerable<GroupMember> groupMembers)
+        {
+            var groupMembersView = new List<GroupMemberViewModel>();
+
+            foreach (GroupMember groupMember in groupMembers)
+            {
+                groupMembersView.Add(ConvertGroupMember(groupMember));
+            }
+
+            return groupMembersView;
+        }
+
+        // Created by: Trent Cullinan 04/05/2016
+        private GroupMemberViewModel ConvertGroupMember(GroupMember groupMember)
+        {
+            return new GroupMemberViewModel()
+            {
+                UserID
+                    = groupMember.User.UserID,
+                Email
+                    = groupMember.User.EmailAddress,
+                UserName
+                    = groupMember.User.UserName,
+                FirstName
+                    = groupMember.User.FirstName,
+                LastName
+                    = groupMember.User.LastName,
+                DateCreated
+                    = groupMember.CreatedDate
+            };
+        }
+
+        // Created by: Trent Cullinan 04/05/2016
+        private IEnumerable<GroupGardenViewModel> ConvertGardenCollection(IEnumerable<Garden> gardens)
+        {
+            var gardensView = new List<GroupGardenViewModel>();
+
+            foreach (Garden garden in gardens)
+            {
+                gardensView.Add(ConvertGarden(garden));
+            }
+
+            return gardensView;
+        }
+
+        // Created by: Trent Cullinan 04/05/2016
+        private GroupGardenViewModel ConvertGarden(Garden garden)
+        {
+            return new GroupGardenViewModel()
+            {
+                GardenID
+                    = garden.GardenID,
+                GardenName
+                    = garden.GardenName,
+                Description
+                    = garden.GardenDescription
+            };
         }
 
         #region Helper Methods

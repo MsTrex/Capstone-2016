@@ -194,6 +194,56 @@ namespace com.GreenThumb.DataAccess
             }
 
             return groupList;
-        }         
+        }
+
+        /// <summary>
+        /// Retrieve the gardens that belong to a group.
+        /// 
+        /// Created by: Trent Cullinan 04/05/2016
+        /// </summary>
+        /// <param name="groupId">Group identifier to retrieve groups by.</param>
+        /// <returns>Collection of gardens</returns>
+        public static IEnumerable<Garden> RetrieveGroupGardens(int groupId)
+        {
+            List<Garden> gardens = new List<Garden>();
+
+            var conn = DBConnection.GetDBConnection();
+
+            var cmd = new SqlCommand("Gardens.spSelectGroupGardens", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@GroupID",
+                groupId);
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    gardens.Add(new Garden()
+                    {
+                        GardenID
+                            = reader.GetInt32(0),
+                        GardenName
+                            = reader.GetString(1),
+                        GardenDescription
+                            = reader.GetString(2)
+                    });
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return gardens;
+        }
     }
 }

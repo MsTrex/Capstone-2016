@@ -1,5 +1,7 @@
 namespace com.GreenThumb.MVC.Migrations
 {
+    using com.GreenThumb.BusinessLogic;
+    using com.GreenThumb.BusinessObjects;
     using com.GreenThumb.MVC.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
@@ -21,12 +23,15 @@ namespace com.GreenThumb.MVC.Migrations
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
-            if (!context.Users.Any(u => u.UserName.Equals("admin@admin.com")))
+            const string userName = "admin";
+            const string password = "P@ssword1";
+
+            if (!context.Users.Any(u => u.UserName.Equals(userName)))
             {
                 var user = new ApplicationUser()
                 {
                     UserName
-                        = "admin",
+                        = userName,
                     Email
                         = "admin@admin.com",
                     FirstName
@@ -35,11 +40,40 @@ namespace com.GreenThumb.MVC.Migrations
                         = "Administrator"
                 };
 
-                IdentityResult result = userManager.Create(user, "P@ssword1");
+
+
+                IdentityResult result = userManager.Create(user, password);
                 context.Roles.AddOrUpdate(r => r.Name, new IdentityRole() { Name = "Administrator" });
                 context.SaveChanges();
 
                 userManager.AddToRole(user.Id, "Administrator");
+                var gt_userManager = new UserManager();
+
+                int userId = 0;
+
+                if (!gt_userManager.UserExists(userName, password))
+                {
+                    if (!gt_userManager.CreateNewUser(new User()
+                    {
+                        UserName
+                            = user.UserName,
+                        FirstName
+                            = user.FirstName,
+                        LastName
+                            = user.LastName,
+                        EmailAddress
+                            = user.Email,
+                        Zip
+                            = "00000"
+                    }, password))
+                    {
+                        throw new InvalidOperationException("User could not be created on the previous database.");
+                    }
+                }
+
+                userId = gt_userManager.RetrieveUserId(userName);
+
+                userManager.AddClaim(user.Id, new Claim("GTUserID", userId.ToString()));
                 userManager.AddClaim(user.Id, new Claim(ClaimTypes.GivenName, user.FirstName));
                 userManager.AddClaim(user.Id, new Claim(ClaimTypes.Surname, user.LastName));
 

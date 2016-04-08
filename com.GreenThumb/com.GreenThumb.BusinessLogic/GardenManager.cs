@@ -67,5 +67,45 @@ namespace com.GreenThumb.BusinessLogic
                 return groupList;
             }
         }
+
+        /// <summary>
+        /// Create a garden for a group without throwing exceptions to view.
+        /// 
+        /// Created by: Trent Cullinan 04/05/2016
+        /// </summary>
+        /// <param name="garden">Garden to create.</param>
+        /// <returns>Whether the action was successful.</returns>
+        public bool AddGroupGarden(Garden garden)
+        {
+            bool flag = false;
+
+            try
+            {
+                flag = GardenAccessor.CreateGarden(garden);
+            }
+            catch (Exception) { } // flag set to false
+
+            return flag;
+        }
+
+        /// <summary>
+        /// Retrieve the gardens for a group.
+        /// 
+        /// Created by: Trent Cullinan 04/05/2016
+        /// </summary>
+        /// <param name="groupId">Identifier to retrieve gardens by.</param>
+        /// <returns>Collection of gardens.</returns>
+        public IEnumerable<Garden> RetrieveGroupGardens(int groupId)
+        {
+            IEnumerable<Garden> gardens = null;
+
+            try
+            {
+                gardens = GardenAccessor.RetrieveGroupGardens(groupId);
+            }
+            catch (Exception) { } // collection will be null
+
+            return gardens;
+        }
     }
 }
