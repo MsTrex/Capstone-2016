@@ -4699,7 +4699,6 @@ CREATE PROCEDURE Gardens.spInsertTasks
 	(@GardenID int,
 	@Description VARCHAR(100),
 	@dateAssigned smalldatetime,
-	@AssignedTo int,
 	@AssignedFrom int,
 	@userNotes varchar(250))	
 
@@ -4710,18 +4709,33 @@ INSERT INTO Gardens.Tasks
     (GardenID,
 	Description,
 	DateAssigned,
-	AssignedTo,
 	AssignedFrom,
 	userNotes)	
 VALUES
    (@GardenID,
    @Description,
    @dateAssigned,
-   @AssignedTo,
    @AssignedFrom,
    @userNotes);	
 END;
 GO
+
+--created by Nasr Mohammed 4-10-16
+CREATE PROCEDURE Gardens.spSelectListOfGardens(
+	@UserID 		int
+)
+AS
+BEGIN
+	SELECT g.GardenID, g.GardenName, g.Active, g.GroupID, u.UserName, u.FirstName, u.LastName, u.EmailAddress
+	FROM Gardens.Gardens AS g
+	INNER JOIN Gardens.GroupMembers AS gm
+		ON g.GroupID = gm.GroupID
+		and gm.Active = 1
+	INNER JOIN Admin.Users AS u
+		ON g.GroupID = u.UserID 
+	WHERE g.Active = 1 and gm.UserID = @UserID; 
+END;
+go
 
 --- Created By : Poonam Dubey 04/07/2016
 CREATE PROCEDURE [Gardens].[spSelectTasksGarden](
@@ -4873,8 +4887,8 @@ exec Gardens.spInsertPostThreads			'plant question'		,1 					,2 					,1 				,100
 --* spInsertPostLineItems        			@PostID				@PostLineID int,	@UserID int,	@GroupID int,@DateSent smalldatetime,	@CommentContent varchar(255)
 exec Gardens.spInsertPostLineItems			1000				,1					,1000				,1000			,'10/10/10'				,'Yes'
 				
---* spInsertTasks                			@gardenID int not null,		@Description VARCHAR(100),	@dateAssigned smalldatetime,		@AssignedTo int,	@AssignedFrom int,	@userNotes varchar(250))
-exec Gardens.spInsertTasks					1000	,						'Watering the garden'		,'4/4/44'						,1001				,1002				,'Poppy said do this, Sally'
+--* spInsertTasks                			@gardenID int not null,		@Description VARCHAR(100),	@dateAssigned smalldatetime,		@AssignedFrom int,	@userNotes varchar(250))
+exec Gardens.spInsertTasks					1000	,						'Watering the garden'		,'4/4/44'						,1002				,'Poppy said do this, Sally'
 			
 --* spInsertWorkLogs             			@UserID int,	@TaskID int,	@TimeBegun smalldatetime,	@TimeFinished smalldatetime
 exec Gardens.spInsertWorkLogs				1000			,1000			,'9/25/57'					,'9/26/57'
