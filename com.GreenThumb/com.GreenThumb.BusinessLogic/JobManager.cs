@@ -83,28 +83,7 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
-        public List<Job> FetchGarden1()
-        {
-            try
-            {
-                return JobAccessor.RetrieveGardenByGardenID1();
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException(" No records Found!.", ex);
-            }
-        }
-        public List<Job> FetchGarden2()
-        {
-            try
-            {
-                return JobAccessor.RetrieveGardenByGardenID2();
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException(" No records Found!.", ex);
-            }
-        }
+       
 
         public List<Job> RetrieveJobByGardenId(int gardenId)
         {
@@ -162,5 +141,22 @@ namespace com.GreenThumb.BusinessLogic
                 throw;
             }
         }
+
+        public List<Garden> GetGardensForUser(int userID)
+        {
+            List<Garden> gardens = null;
+
+            try
+            {
+                gardens = JobAccessor.GetUsersGardens(userID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException(ex.Message);
+            }
+
+            return gardens;
+        }
+
     }
 }

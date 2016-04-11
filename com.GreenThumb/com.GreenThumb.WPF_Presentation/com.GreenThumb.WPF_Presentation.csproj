@@ -28,7 +28,7 @@
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs4592.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs5CA3.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs5079.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Kristine\AppData\Local\Temp\vsCAA7.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\user\AppData\Local\Temp\vsF446.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,7 +45,7 @@
     <IntermediateOutputPath>C:\Users\nh229u27\AppData\Local\Temp\vsF9B8.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs8A97.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs5079.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Kristine\AppData\Local\Temp\vsCAA7.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\user\AppData\Local\Temp\vsF446.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -117,9 +117,6 @@
     </Compile>
     <Compile Include="GardenPages\AssignTask.xaml.cs">
       <DependentUpon>AssignTask.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GardenPages\ViewGardenTasks.xaml.cs">
-      <DependentUpon>ViewGardenTasks.xaml</DependentUpon>
     </Compile>
     <Compile Include="GardenPages\ViewGroups.xaml.cs">
       <DependentUpon>ViewGroups.xaml</DependentUpon>
@@ -220,10 +217,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GardenPages\AssignTask.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GardenPages\ViewGardenTasks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

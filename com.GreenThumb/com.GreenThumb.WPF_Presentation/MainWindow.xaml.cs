@@ -297,7 +297,7 @@ namespace com.GreenThumb.WPF_Presentation
             }
             btnSideBar7.Content = "Create Garden";
             btnSideBar8.Content = "View Tasks By Garden";
-            btnSideBar9.Content = "View Garden Tasks";
+            btnSideBar9.Content = "";
             btnSideBar10.Content = "View Groups";
             btnSideBar11.Content = "Your Groups";
             btnSideBar12.Content = "Request to be a Group Leader";
@@ -614,10 +614,7 @@ namespace com.GreenThumb.WPF_Presentation
                     mainFrame.NavigationService.Navigate(new ExpertPages.ViewPlants());
                 }
             }
-            else if (btnSideBar9.Content.ToString() == "View Garden Tasks")
-            {
-                mainFrame.NavigationService.Navigate(new GardenPages.ViewGardenTasks(_accessToken));
-            }
+            
         }
         /// <summary>
         /// Author: Chris Sheehan
