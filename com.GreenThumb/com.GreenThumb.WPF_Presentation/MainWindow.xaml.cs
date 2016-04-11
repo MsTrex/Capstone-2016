@@ -301,7 +301,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar10.Content = "View Groups";
             btnSideBar11.Content = "Your Groups";
             btnSideBar12.Content = "Request to be a Group Leader";
-            btnSideBar13.Content = "btnSideBar13";
+            btnSideBar13.Content = "Assgin Task to a Member";
             btnSideBar14.Content = "btnSideBar14";
             btnSideBar15.Content = "btnSideBar15";
         }
@@ -647,7 +647,10 @@ namespace com.GreenThumb.WPF_Presentation
         }
         private void btnSideBar13_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+               if (btnSideBar13.Content.ToString().Equals("Assgin Task to a Member"))
+               {
+                   mainFrame.NavigationService.Navigate(new GardenPages.AssignTask(_accessToken));
+               }
         }
         private void btnSideBar14_MouseDown(object sender, MouseButtonEventArgs e)
         {

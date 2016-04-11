@@ -21,6 +21,16 @@ namespace com.GreenThumb.BusinessObjects
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public bool Active { get; set; }
+        public bool?[] RegionIDs { get; set; }
+
+        public String ImageUri
+        {
+            get
+            {
+                String picUri = System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\Plants\\plant" + this.Name + ".jpg";
+                return picUri;
+            }
+        }
 
         public Plant(int? PlantID, string Name, string Type, string Category, string Description, string Season,
                       int CreatedBy, DateTime CreatedDate, int? ModifiedBy, DateTime? ModifiedDate, bool Active)

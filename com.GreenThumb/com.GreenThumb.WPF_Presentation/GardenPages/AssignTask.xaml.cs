@@ -25,15 +25,12 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
         private UserManager userManager = new UserManager();
         private JobManager jobManager = new JobManager();
         private AccessToken accessToken;
-        public AssignTask()
+        public AssignTask(AccessToken _accessToken)
         {
+            _accessToken = accessToken;
             InitializeComponent();
         }
 
-        private void ShowTask_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
         private void ShowTasks_Click(object sender, RoutedEventArgs e)
         {
             ShowTasks();
@@ -72,6 +69,26 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
 
             }
         }
+        private void Find_Click(object sender, RoutedEventArgs e)
+        {
+            ShowUserByUserName();
+        }
+        private void ShowUserByUserName()
+        {
+            int userID = int.Parse(UserIDtxt.Text);
+            try
+            {
+                var user = userManager.GetPersonalInfo(userID);
+                grdUsers.ItemsSource = user;
+
+
+                
+            }
+            catch(Exception)
+            {
+
+            }
+        }
 
         private void AssignTask_Click(object sender, RoutedEventArgs e)
         {
@@ -90,7 +107,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
 
                     if (jobManager.ChangeTask(job, oldJob) == true)
                     {
-                        MessageBox.Show("You've picked this task successfuly");
+                        MessageBox.Show("You've assigned this task successfuly");
                         // commented out for test purposes.
                         //DisplayTaskData();
                     }
@@ -103,5 +120,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
 
             }
         }
+
+      
     }
 }

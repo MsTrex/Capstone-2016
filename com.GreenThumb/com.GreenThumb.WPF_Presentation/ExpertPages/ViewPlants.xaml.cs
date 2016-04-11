@@ -26,8 +26,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         PlantManager plantManager = new PlantManager();
         List<Plant> plants = new List<Plant>();
         List<Plant> minPlants = new List<Plant>();
-        bool hasAuthority = false;
-        RoleManager roleManager = new RoleManager();
+        int regionID = 0;
 
         public ViewPlants()
         {
@@ -40,7 +39,8 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             this.accessToken = accessToken;
             InitializeComponent();
             setupPage();
-            foreach (Role role in accessToken.Roles) {
+            foreach (Role role in accessToken.Roles)
+            {
                 if (role.RoleID == "Admin")
                 {
                     btnCreatePlant.Visibility = Visibility.Visible;
@@ -53,11 +53,11 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             //Name Search
             plants = plantManager.FetchPlantList(Active.all);
             //plants = plantManager.CreateTestPlants();
-                //List<String> plantNames = new List<String>();
-                //foreach(Plant plant in plants){
-                //    plantNames.Add(plant.Name);
-                //}
-                //acPlants.ItemsSource = plantNames;
+            //List<String> plantNames = new List<String>();
+            //foreach(Plant plant in plants){
+            //    plantNames.Add(plant.Name);
+            //}
+            //acPlants.ItemsSource = plantNames;
             dgrdNameSearch.ItemsSource = plants;
 
             //Category Search
@@ -69,6 +69,11 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             //newImage(img11, "Annuals");
             //newImage(img12, "Perennials");
             //newImage(img13, "Bushes");
+
+            //for (int i = 0; i<plants.Count - 1; i++)
+            //{
+            //    plants[i]
+            //}
 
             //Region Search
             newImage(imgRegion, "RegionMap");
@@ -82,8 +87,9 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             }
             else
             {
-                try { 
-                    image.Source = new BitmapImage(new Uri(@"pack://application:,,,/Images/Plants/"+imageName+".png"));
+                try
+                {
+                    image.Source = new BitmapImage(new Uri(@"pack://application:,,,/Images/Plants/" + imageName + ".png"));
                 }
                 catch
                 {
@@ -102,15 +108,12 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             visibleGrid.Visibility = Visibility.Visible;
         }
 
-        public void setUpMinPlants(String plant, String type="Category")
+        public void setUpMinPlants(String plant, String type = "Category")
         {
             switch (type)
             {
                 case "Name":
                     minPlants = plants.Where(p => p.Name.Equals(plant)).ToList();
-                    break;
-                case "Region":
-                    //minPlants = plants.Where(p => p..Equals(plant));
                     break;
                 default: //"Category":
                     //minPlants = from plant in plants where plant.Category == plantCategory select plant;
@@ -194,7 +197,8 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             try
             {
                 minPlants = new List<Plant>();
-                foreach(Plant plant in plants){
+                foreach (Plant plant in plants)
+                {
                     if (plant.Name.ToLower().Contains(txtNamePlantSearch.Text.ToLower()))
                     {
                         minPlants.Add(plant);
@@ -227,44 +231,34 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         private void dgrdNameSearch_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             minPlants = new List<Plant>();
-            minPlants.Add((Plant) e.AddedItems[0]);
+            minPlants.Add((Plant)e.AddedItems[0]);
             icPlants.ItemsSource = minPlants;
             showGrid(grdPlantList);
         }
 
-        private void btnAddNutrient_Click(object sender, RoutedEventArgs e)
+        private void Click_Region(object sender, RoutedEventArgs e)
         {
-            Plant plant = ((Button)sender).Tag as Plant;
-            this.NavigationService.Navigate(new ExpertPages.AddNutrientsToPlant(accessToken, plant));
-        }
+            Button btnRegion = (Button)sender;
+            try
+            {
+                String strRegion = btnRegion.Content.ToString().Substring(6);
+                regionID = Int32.Parse(strRegion);
+            }
+            catch (Exception ex) { }
 
-        private void btnAddNutrient_Loaded(object sender, RoutedEventArgs e)
-        {
-            CheckForAuthority();
-
-            if (hasAuthority)
+            minPlants.Clear();
+            for (int i = 0; i < plants.Count - 1; i++)
             {
-                Button button = ((Button)sender) as Button;
-                button.Content = "Add/View Nutrients";
+                Plant plant = plants[i];
+                bool?[] regions = plant.RegionIDs;
+                if (plants[i].RegionIDs[regionID] == true)
+                {
+                    minPlants.Add(plants[i]);
+                }
             }
-            else
-            {
-                Button button = ((Button)sender) as Button;
-                button.Content = "View Nutrients";
-            }
-        }
-
-        private void CheckForAuthority()
-        {
-            if (roleManager.IsUserThisRole(accessToken, "Expert") ||
-                roleManager.IsUserThisRole(accessToken, "Admin"))
-            {
-                hasAuthority = true;
-            }
-            else
-            {
-                hasAuthority = false;
-            }
+            icPlants.ItemsSource = null;
+            icPlants.ItemsSource = minPlants;
+            showGrid(grdPlantList);
         }
     }
 }

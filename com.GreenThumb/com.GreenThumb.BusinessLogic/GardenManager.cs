@@ -34,6 +34,26 @@ namespace com.GreenThumb.BusinessLogic
         }
 
         /// <summary>
+        ///Created by: Kristine Johnson
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="garden"></param>
+        /// <returns></returns>
+        public bool AddGarden(Garden garden)
+        {
+            try
+            {
+                return GardenAccessor.AddGarden(garden);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException(ex.Message);
+            }
+        }
+
+
+        /// <summary>
         /// Manager function to fetch all gardens : Poonam Dubey  (20th March 2016)
         /// </summary> 
         /// <returns></returns>

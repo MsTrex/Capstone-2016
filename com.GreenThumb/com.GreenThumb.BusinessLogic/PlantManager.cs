@@ -23,12 +23,17 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return PlantAccessor.RetrievePlantList(active);
+                List<Plant> plants = PlantAccessor.RetrievePlantList(active);
+                foreach (Plant plant in plants)
+                {
+                    plant.RegionIDs = PlantAccessor.RetrievePlantRegions(plant);
+                }
+                return plants;
                 //return CreateTestPlants(false);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
 
         }
@@ -51,12 +56,12 @@ namespace com.GreenThumb.BusinessLogic
         //calling to the plant accessor
         ///Date: 3/4/16
         ///</summary>
-        public bool CreatePlant(Plant newPlant)
+        public int CreatePlant(Plant newPlant)
         {
             try
             {
-                bool myBool = PlantAccessor.CreatePlant(newPlant);
-                return myBool;
+                //bool myBool = PlantAccessor.CreatePlant(newPlant);
+                return PlantAccessor.CreatePlant(newPlant);
             }
             catch (Exception)
             {
@@ -84,6 +89,48 @@ namespace com.GreenThumb.BusinessLogic
                 throw;
             }
 
+        }
+
+        ///<summary>
+        ///Author: Sara Nanke         
+        ///Gets plant regions
+        ///Date: 4/7/16
+        ///</summary>
+        public bool?[] FetchPlantRegions(Plant plant)
+        {
+            try
+            {
+                return PlantAccessor.RetrievePlantRegions(plant);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        ///<summary>
+        ///Author: Sara Nanke         
+        ///Sets plant regions 
+        ///Date: 4/7/16
+        ///</summary>
+        public bool CreatePlantRegions(Plant plant, bool?[] regions)
+        {
+            List<int> regionIds = new List<int>();
+            for (int i = 0; i < regions.Length; i++)
+            {
+                if (regions[i] == true)
+                {
+                    regionIds.Add(i + 1);
+                }
+            }
+            try
+            {
+                return PlantAccessor.CreatePlantRegions(plant, regionIds);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
 
