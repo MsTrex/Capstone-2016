@@ -19,7 +19,7 @@ namespace com.GreenThumb.DataAccess
         /// Added by Sara Nanke on 03/04/2016
         /// This method contains the SQL for retrieving a message from the database.
         /// </summary>
-        public static List<Message> fetchAdminMessages()
+        public static List<Message> RetrieveAdminMessages()
         {
             var messages = new List<Message>();
             var conn = DBConnection.GetDBConnection();

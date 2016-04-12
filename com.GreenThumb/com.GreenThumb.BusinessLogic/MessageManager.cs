@@ -21,7 +21,7 @@ namespace com.GreenThumb.BusinessLogic
         public List<Message> GetUserMessages()
         {
             List<Message> messages = new List<Message>();
-            messages = MessageAccessor.fetchAdminMessages();
+            messages = MessageAccessor.RetrieveAdminMessages();
 
             return messages;
         }

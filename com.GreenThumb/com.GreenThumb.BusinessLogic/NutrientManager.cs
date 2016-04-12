@@ -46,7 +46,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                nutrients = NutrientAccessor.FetchNutrients();
+                nutrients = NutrientAccessor.RetrieveNutrient();
 
                 if(nutrients.Count == 0)
                 {
@@ -74,7 +74,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                nutrients = NutrientAccessor.FetchPlantNutrients(plantID);
+                nutrients = NutrientAccessor.RetrievePlantNutrients(plantID);
 
                 if (nutrients.Count == 0)
                 {
