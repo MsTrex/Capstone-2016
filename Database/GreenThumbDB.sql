@@ -624,7 +624,7 @@ CREATE TABLE Gardens.Announcements(
 	AnnouncementID int not null primary key identity(1000,1),
 	UserID	int not null,
 	Date smalldatetime not null,
-	OrganizationID int not null,
+	OrganizationID int null,
 	Announcement VARCHAR(250) not null
 );
 
@@ -4050,6 +4050,28 @@ values(
 	@OrganizationID,
 	@Announcement);
 	return @@ROWCOUNT;
+end;
+go
+
+--Created 4-12-16 
+create procedure Gardens.spUpdateAnnouncements(
+     @AnnouncementID int,
+	 @Date smallDateTime,
+	 @Announcement VARCHAR(250),
+	 @UserID int)
+as
+begin
+insert 	into Gardens.Announcements(
+  AnnouncementID,
+  Date,
+  Announcement,
+  UserID)
+ values(
+   @AnnouncementID,
+   @Date,
+   @Announcement,
+   @USerID);
+   return @@ROWCOUNT;
 end;
 go
 
