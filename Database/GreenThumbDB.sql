@@ -4053,7 +4053,7 @@ values(
 end;
 go
 
---Created 4-12-16 
+--Created 4-12-16 TR
 create procedure Gardens.spUpdateAnnouncements(
      @AnnouncementID int,
 	 @Date smallDateTime,
