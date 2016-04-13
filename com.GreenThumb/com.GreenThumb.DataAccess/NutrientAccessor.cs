@@ -58,7 +58,7 @@ namespace com.GreenThumb.DataAccess
         /// Gets a list of nutrients
         /// </summary>
         /// <returns>List of nutrients</returns>
-        public static List<Nutrient> FetchNutrients()
+        public static List<Nutrient> RetrieveNutrient()
         {
             List<Nutrient> nutrients = new List<Nutrient>();
 
@@ -128,7 +128,7 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="plantID">The plant ID of the plant to get the nutrients from</param>
         /// <returns>List of all the nutrients for a single plant</returns>
-        public static List<Nutrient> FetchPlantNutrients(int? plantID)
+        public static List<Nutrient> RetrievePlantNutrients(int? plantID)
         {
             List<Nutrient> nutrients = new List<Nutrient>();
 

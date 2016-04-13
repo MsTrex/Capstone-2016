@@ -27,16 +27,47 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
     /// </summary>
     public partial class ManageTask : Page
     {
+
+
+        private GardenManager gardenManager = new GardenManager();
         private JobManager jobManager = new JobManager();
         AccessToken accessToken = new AccessToken();
+        Job joby = new Job();
+        Garden gardy = new Garden();
 
         public ManageTask(AccessToken _accessToken)
         {
-
-            accessToken = _accessToken;
             InitializeComponent();
-            DisplayTaskData();
+            if (_accessToken != null)
+            {
+                accessToken = _accessToken;
+                DisplayGardenData(accessToken.UserID);
+                //DisplayTaskData(gardy);
+            }
+            else { btnAddTask.IsEnabled = false; }
+
         }
+
+        private void DisplayGardenData(int userID)
+        {
+            try
+            {
+                List<Garden> gardens = jobManager.GetGardensForUser(userID);
+                int gar;
+                gar = gardy.GardenID;
+
+                cmbGardenName.ItemsSource = gardens;
+                DisplayTaskData(gar);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+
 
         public bool saveDetails()
         {
@@ -44,14 +75,18 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
 
             try
             {
+
+                int gardenId = int.Parse(cmbGardenName.SelectedValue.ToString());
+                string gDesc = txtTaskDescription.Text.ToString();
+                string gNote = txtuserNotes.Text.ToString();
+
+
                 Job newJob = new Job();
 
-                newJob.GardenID = int.Parse(this.txtGardenID.Text);
+                newJob.GardenID = gardenId;
                 newJob.Description = this.txtTaskDescription.Text;
                 newJob.DateAssigned = DateTime.Now;
-                newJob.DateCompleted = DateTime.Now;
-                newJob.AssignedTo = int.Parse(this.txtAssignedTo.Text);
-                newJob.AssignedFrom = int.Parse(this.txtAssignedFrom.Text);
+                newJob.AssignedFrom = accessToken.UserID;
                 newJob.UserNotes = this.txtuserNotes.Text;
 
                 myBool = jobManager.AddNewTask(newJob);
@@ -69,24 +104,22 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
         {
 
 
+            int gar;
+            gar = gardy.GardenID;
+
 
             bool myBool = saveDetails();
             if (myBool == true)
             {
-                MessageBox.Show("Your record created succssfully!");
-                DisplayTaskData();
-                txtAssignedFrom.Clear();
-                txtAssignedTo.Clear();
-                txtDateAssigned.Clear();
-                // txtDateCompleted.Clear();
-                txtGardenID.Clear();
+                MessageBox.Show("Your task created succssfully!");
+                DisplayTaskData(gar);
                 txtTaskDescription.Clear();
                 txtuserNotes.Clear();
 
             }
             else if (myBool == false)
             {
-                MessageBox.Show("Your record has not been created succssfully, something went wrong!");
+                MessageBox.Show("Your task has not created succssfully, something went wrong!");
             }
 
 
@@ -99,7 +132,10 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
 
         private void ShowTasks_Click(object sender, RoutedEventArgs e)
         {
-            DisplayTaskData();
+            int gar;
+            gar = gardy.GardenID;
+            this.grdTasks.Visibility = Visibility.Visible;
+            DisplayTaskData(gar);
         }
 
         private void grdTasks_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -108,15 +144,12 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
         }
 
 
-        private void DisplayTaskData()
+        private void DisplayTaskData(int gardenId)
         {
-
             try
             {
                 var job = jobManager.GetTaskList();
-
-                grdTasks.ItemsSource = job;
-
+                grdTasks.ItemsSource = job.Select(o => new { TaskDescription = o.Description, UserNotes = o.UserNotes, DateCreated = o.DateAssigned }).ToList();
 
             }
             catch (Exception)
