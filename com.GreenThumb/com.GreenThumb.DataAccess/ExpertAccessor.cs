@@ -15,7 +15,7 @@ namespace com.GreenThumb.DataAccess
     /// </summary>
     public class ExpertAccessor
     {
-        public static int InsertGardenTemplate(byte[] file, int userID, string fileName)
+        public static int CreateGardenTemplate(byte[] file, int userID, string fileName)
         {
 
             int count = 0;
@@ -48,8 +48,12 @@ namespace com.GreenThumb.DataAccess
         }
 
 
-
-        public static List<GardenTemplate> SelectAllGardenTemplates()
+        ///<summary>
+        ///Author: Nicholas King 
+        ///Date: 3/19/16
+        ///Retrieve lists of garden templete 
+        ///</summary>
+        public static List<GardenTemplate> RetrieveAllGardenTemplates()
         {
             var templateList = new List<GardenTemplate>();
             var conn = DBConnection.GetDBConnection();
@@ -57,7 +61,7 @@ namespace com.GreenThumb.DataAccess
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
-            
+
             try
             {
                 conn.Open();
@@ -90,7 +94,12 @@ namespace com.GreenThumb.DataAccess
             return templateList;
         }
 
-        public static byte[] SelectGardenTemplate(string fileName)
+        ///<summary>
+        ///Author: Nicholas King 
+        ///Date: 3/19/16
+        ///Retrieve a garden templete name
+        ///</summary>
+        public static byte[] RetrieveGardenTemplate(string fileName)
         {
             byte[] data;
             var conn = DBConnection.GetDBConnection();
@@ -122,7 +131,7 @@ namespace com.GreenThumb.DataAccess
         ///submits application to database to be reviewed
         ///Date: 3/19/16
         ///</summary>
-        public static bool ExpertApplication(String Title, String Description, int UserID, DateTime Time)
+        public static bool CreateExpertApplication(String Title, String Description, int UserID, DateTime Time)
         {
             var conn = DBConnection.GetDBConnection();
             var query = "Admin.spInsertExpertRequest";

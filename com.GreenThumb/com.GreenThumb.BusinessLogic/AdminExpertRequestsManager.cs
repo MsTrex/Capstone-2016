@@ -428,7 +428,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                bool myBool = ExpertAccessor.ExpertApplication(Title, Description, UserID, Time);
+                bool myBool = ExpertAccessor.CreateExpertApplication(Title, Description, UserID, Time);
                 return myBool;
             }
             catch (Exception)

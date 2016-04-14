@@ -32,7 +32,7 @@ namespace com.GreenThumb.BusinessLogic
                 var reader = new BinaryReader(stream);
                 file = reader.ReadBytes((int)stream.Length);
 
-                if (ExpertAccessor.InsertGardenTemplate(file, at.UserID, fileName) == 2)
+                if (ExpertAccessor.CreateGardenTemplate(file, at.UserID, fileName) == 2)
                 {
                     result = true;
                 }
@@ -51,7 +51,7 @@ namespace com.GreenThumb.BusinessLogic
 
 
             //put this in the load template page... pull png from database to memoryStream, then convert to BitmapImage. then put as image source
-            data = ExpertAccessor.SelectGardenTemplate(fileName);
+            data = ExpertAccessor.RetrieveGardenTemplate(fileName);
 
 
             return data;
@@ -59,7 +59,7 @@ namespace com.GreenThumb.BusinessLogic
 
         public List<GardenTemplate> GetTemplateList()
         {
-            return ExpertAccessor.SelectAllGardenTemplates();
+            return ExpertAccessor.RetrieveAllGardenTemplates();
         }
 
     }

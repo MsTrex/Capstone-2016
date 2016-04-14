@@ -10,23 +10,26 @@ using com.GreenThumb.DataAccess;
 namespace com.GreenThumb.DataAccess
 {
     /// <summary>
+    /// Author name?
+    /// Created: 03/01/2016
     /// This class adds an administrator to the database.
     /// </summary>
     class AdminAccessor
     {
 
         /// <summary>
+        /// Author name?
+        /// Created: 03/01/2016
         /// This method contains the SQL for adding an administrator to the database.
         /// </summary>
-       
-        public static int InsertAdmin(com.GreenThumb.BusinessObject.AdministratorAccount admin)
+
+        public static int CreateAdmin(com.GreenThumb.BusinessObject.AdministratorAccount admin)
         {
             int count = 0;
 
-            // What comes first...a connection! Eureka!
+
             var conn = DBConnection.GetDBConnection();
 
-            // What comes next is a command text
             string query = @"INSERT INTO User " +
                            @"(FirstName, LastName, LocalPhone, " +
                            @"EmailAddress, UserName, Password) " +
@@ -57,6 +60,6 @@ namespace com.GreenThumb.DataAccess
             return count;
         }
 
-       
+
     }
 }
