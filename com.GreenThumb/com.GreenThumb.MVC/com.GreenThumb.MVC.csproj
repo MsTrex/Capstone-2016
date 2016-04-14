@@ -161,6 +161,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GardenController.cs" />
+    <Compile Include="Controllers\GardenTaskController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\GardenCreationViewModel.cs" />
+    <Compile Include="Models\GardenTaskViewModel.cs" />
     <Compile Include="Models\GroupCreationViewModels.cs" />
     <Compile Include="Models\GroupIndexViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -202,6 +204,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.2.2.intellisense.js" />
+    <Content Include="Scripts\GardenTask.js" />
     <Content Include="Scripts\jquery-2.2.2.js" />
     <Content Include="Scripts\jquery-2.2.2.min.js" />
     <Content Include="Scripts\jquery-2.2.2.min.map" />
@@ -266,6 +269,10 @@
     <Content Include="Views\PartialViews\GroupLeaderDetail.cshtml" />
     <Content Include="Views\PartialViews\GroupMemberTable.cshtml" />
     <Content Include="Views\Garden\CreateGarden.cshtml" />
+    <Content Include="Views\GardenTask\Index.cshtml" />
+    <Content Include="Views\PartialViews\GroupGardenTask.cshtml" />
+    <Content Include="Views\PartialViews\GardenTask.cshtml" />
+    <Content Include="Views\PartialViews\TasksForGarden.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

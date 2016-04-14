@@ -1,0 +1,64 @@
+﻿@using com.GreenThumb.BusinessObjects
+@model com.GreenThumb.MVC.Models.GardenTaskViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm())
+{
+    <div>
+        <h2>Gardens you belong to by group</h2>
+        @foreach (Group group in Model.GroupsList)
+        {
+            <div class="UserGardensTable">
+                @Html.Partial("~/Views/PartialViews/GroupGardenTask.cshtml", group)
+            </div>
+        }
+    </div>
+    <div>
+        @Html.ActionLink("View Tasks", "ViewTask", "GardenTask", new { gardenID = -1 }, new { @id = "viewTask" })
+        <input type="button" id="createTask" value="Create Task" />
+    </div>
+    <div id="viewTaskDiv">
+        @if (Model.JobList != null && Model.JobList.Count() > 0)
+        {
+            <h2>Tasks that belong to this garden</h2>
+            <div class="UserGardensTable">
+                @Html.Partial("~/Views/PartialViews/GardenTask.cshtml", Model.JobList)
+            </div>
+        }
+    </div>
+    <div id="createTaskDiv">
+        <h2>Create task for this garden</h2>
+        <div class="UserGardensTable">
+            @Html.Partial("~/Views/PartialViews/TasksForGarden.cshtml")
+        </div>
+        @Html.ActionLink("Save Task", "SaveTask", "GardenTask", new { gardenID = -1, description = "xxx", isActive = true }, new { @id = "saveTask" })
+    </div>
+}
+<script src="~/Scripts/GardenTask.js">
+
+</script>
+<script>
+    $(document).ready(function () {
+        $("#viewTask").click(function () {
+            this.href = this.href.replace(-1, getRadioSelection());
+            $("#viewTaskDiv").attr('display', 'block');
+            $("#createTaskDiv").attr('display', 'none');
+        });
+
+        $("#createTask").click(function () {
+            $("#viewTaskDiv").attr('display', 'none');
+            $("#createTaskDiv").attr('display', 'block');
+        });
+
+        $("#saveTask").click(function () {
+            debugger;
+            this.href = this.href.replace(-1, getRadioSelection());
+            this.href = this.href.replace("xxx", $("#desc").val());
+            $("#desc").val('');
+        });
+
+    });
+</script>

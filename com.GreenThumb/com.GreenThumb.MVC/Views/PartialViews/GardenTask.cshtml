@@ -1,0 +1,48 @@
+﻿@model IEnumerable<com.GreenThumb.BusinessObjects.Job>
+
+    <h2></h2>
+    <p></p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(m => m.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.AssignedTo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.DateAssigned)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.DateCompleted)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.UserNotes)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (com.GreenThumb.BusinessObjects.Job jobs in Model)
+            {
+                <tr>
+                    <td>
+                        @jobs.Description
+                    </td>
+                    <td>
+                        @jobs.AssignedTo
+                    </td>
+                    <td>
+                       @jobs.DateAssigned
+                    </td>
+                    <td>
+                       @jobs.DateCompleted
+                    </td>
+                    <td>
+                        @jobs.UserNotes
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script src="~/Scripts/GardenTask.js"></script>

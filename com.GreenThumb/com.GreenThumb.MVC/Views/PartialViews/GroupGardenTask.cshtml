@@ -1,0 +1,48 @@
+﻿@model com.GreenThumb.BusinessObjects.Group
+
+<h2></h2>
+<p></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().GardenID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().GardenName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().GardenDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().GardenRegion)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (com.GreenThumb.BusinessObjects.Garden GardenInfo in Model.GardenList)
+        {
+            <tr>
+                <td>
+                    @Html.RadioButton("radioSelection", false, new { @id = GardenInfo.GardenID, @onclick = "radioClick(" + GardenInfo.GardenID + ")" })
+                </td>
+                <td>
+                    @Model.Name
+                </td>
+                <td>
+                    @GardenInfo.GardenName
+                </td>
+                <td>
+                    @GardenInfo.GardenDescription
+                </td>
+                <td>
+                    @GardenInfo.GardenRegion
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="~/Scripts/GardenTask.js"></script>
