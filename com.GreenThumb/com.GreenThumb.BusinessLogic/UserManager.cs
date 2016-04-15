@@ -81,7 +81,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return UserAccessor.FetchPersonalInfo(userID);
+                return UserAccessor.RetrievePersonalInfo(userID);
             }
             catch (ApplicationException)
             {
@@ -100,7 +100,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                var userList = UserAccessor.FetchUserList(group);
+                var userList = UserAccessor.RetrieveUserList(group);
 
                 if (userList.Count > 0)
                 {
@@ -156,7 +156,7 @@ namespace com.GreenThumb.BusinessLogic
                     Active = active,
                     RegionId= regionID
                 };
-                return UserAccessor.InsertUser(usr);
+                return UserAccessor.CreateUser(usr);
             }
             catch (Exception)
             {
@@ -228,7 +228,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                int num = UserAccessor.InsertUser(newUser);
+                int num = UserAccessor.CreateUser(newUser);
                 return num;
             }
             catch (Exception)
@@ -248,7 +248,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                bool flag = UserAccessor.EditUser(newUser, oldUser);
+                bool flag = UserAccessor.UpdateUserInformation(newUser, oldUser);
                 return flag;
             }
             catch (Exception)
@@ -332,7 +332,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                flag = UserAccessor.ChangeUserPassword(userName, oldPassword.HashSha256(), newPassword.HashSha256());
+                flag = UserAccessor.UpdateUserPassword(userName, oldPassword.HashSha256(), newPassword.HashSha256());
             }
             catch (Exception) { } // flag set to false
 
@@ -357,7 +357,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                flag = 1 == UserAccessor.InsertUser(user);
+                flag = 1 == UserAccessor.CreateUser(user);
             }
             catch (Exception) { } // flag set to false
 
