@@ -355,9 +355,9 @@ namespace com.GreenThumb.BusinessLogicUnitTests
         public void Test_PromoteUser_Success()
         {
             // Arrange
-            bool actual = 1 == requestsAccessor.PromoteUser(TestUser);
+            bool actual = 1 == requestsAccessor.UpdateUserPromote(TestUser);
 
-            requestsAccessor.DemoteExpert(TestUser);
+            requestsAccessor.UpdateExpertDemote(TestUser);
 
             requestsManager.RetrieveAllUsers(this.accessToken); // Initialize list
 
@@ -377,11 +377,11 @@ namespace com.GreenThumb.BusinessLogicUnitTests
         public void Test_DemoteExpert_Success()
         {
             // Arrange
-            requestsAccessor.PromoteUser(TestUser); // Yay dependant test code!
+            requestsAccessor.UpdateUserPromote(TestUser); // Yay dependant test code!
 
-            bool actual = 1 == requestsAccessor.DemoteExpert(TestUser);
+            bool actual = 1 == requestsAccessor.UpdateExpertDemote(TestUser);
 
-            requestsAccessor.PromoteUser(TestUser); // Yay dependant test code!
+            requestsAccessor.UpdateUserPromote(TestUser); // Yay dependant test code!
 
             // Act
             bool result = requestsManager.DemoteExpert(this.accessToken, TestUser);
