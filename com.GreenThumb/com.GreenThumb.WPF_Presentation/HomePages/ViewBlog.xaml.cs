@@ -57,7 +57,7 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
         {
             string userCreated = "";
             UserManager userManager = new UserManager();
-            User user = userManager.FetchUser(userId);
+            User user = userManager.RetrieveUser(userId);
             userCreated = user.FirstName + " " + user.LastName;
             return userCreated;
         }

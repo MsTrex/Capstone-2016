@@ -24,7 +24,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                bool myBool = VolunteerAccessor.AddVolunteer(newVolunteer);
+                bool myBool = VolunteerAccessor.CreateVolunteer(newVolunteer);
                 return myBool;
             }
             catch (Exception)

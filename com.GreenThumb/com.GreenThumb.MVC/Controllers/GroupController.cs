@@ -147,7 +147,7 @@ namespace com.GreenThumb.MVC.Controllers
         public ActionResult Create()
         {
             var userName = User.Identity.GetUserName();
-            var model = new com.GreenThumb.BusinessLogic.UserManager().GetUserByUserName(userName);
+            var model = new com.GreenThumb.BusinessLogic.UserManager().RetrieveUserByUserName(userName);
             return View(model);
         }
 
@@ -161,7 +161,7 @@ namespace com.GreenThumb.MVC.Controllers
             if (ModelState.IsValid)
             {
                 UserManager userManager = new UserManager();
-                var user = userManager.GetUserByUserName(User.Identity.GetUserName());
+                var user = userManager.RetrieveUserByUserName(User.Identity.GetUserName());
                 
                 try
                 {
