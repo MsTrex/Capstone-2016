@@ -10,6 +10,7 @@ namespace com.GreenThumb.BusinessLogic
 {
     public class UserRoleManager
     {
+        public UserRoleManager() { }
         public List<UserRole> GetUserRoleList()
         {
             /// <summary>
@@ -22,6 +23,43 @@ namespace com.GreenThumb.BusinessLogic
             try
             {
                 var userRoleList = UserRoleAccessor.FetchUserRoleList();
+
+                if (userRoleList.Count > 0)
+                {
+                    return userRoleList;
+                }
+                else
+                {
+                    throw new ApplicationException("There were no records found.");
+                }
+            }
+
+            catch (Exception)
+            {
+                // *** we should sort the possible exceptions and return friendly messages for each
+                Console.Out.WriteLine("Exception Handler on Role manager Class...");
+                throw;
+            }
+        }
+        // <summary>
+        /// 
+        /// Getting a sspecific user data py passing his/her name
+        /// as a parameter
+        /// 
+        /// Added 4/15/2016 By Ibarahim Abuzaid
+        /// </summary>
+        public List<UserRole> GetUserRoleListByUser(int userID)
+        {
+            /// <summary>
+            /// Author: Ibrahim Abuzaid
+            /// Data Transfer Object to represent a User from the
+            /// Database
+            /// 
+            /// Added 3/25 By Ibarahim
+            /// </summary>
+            try
+            {
+                var userRoleList = UserRoleAccessor.FetchUserRoleListByUser(userID);
 
                 if (userRoleList.Count > 0)
                 {

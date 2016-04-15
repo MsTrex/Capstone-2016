@@ -218,7 +218,18 @@ namespace com.GreenThumb.BusinessLogic
             return UserAccessor.RetrieveUserByID(userId);
         }
 
+        public User FetchUser()
+        {
+            try
+            {
+                return UserAccessor.RetrieveUser();
+            }
 
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 		///<summary>
         ///Author: Stenner Kvindlog         
         ///createUser sends user to database to be created  
