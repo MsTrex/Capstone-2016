@@ -196,6 +196,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             //this.Close();
             ClearControls();
+            this.Close();
         }
 
         private void ClearControls()

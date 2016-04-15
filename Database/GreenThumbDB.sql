@@ -79,26 +79,18 @@ create TABLE [Admin].[GroupRequest](
 	);
 GO
 
+
+--updated by Ryan Taylor 4-14-16
 create table Admin.Messages(
 	MessageID int identity(1000,1) primary key not null,
 	MessageContent varchar(250) not null,
-	MessageDate smalldatetime not null,
-	Subject varchar(100) null,
-	MessageSender int not null,
-	Active bit not null default 1	
-);
-go
-
-create table Admin.MessageLineItems(
-	MessageID int not null,
-	SenderID int not null, 
-	DateSent smalldatetime not null,
-	ReadBy int null,
-	DateRead smalldatetime null, 
-	MessageContent varchar(250) not null,
-	Active bit not null default 1	
-
-	CONSTRAINT [PK_MessageLineItems] PRIMARY KEY ( MessageID, DateSent ASC )
+	MessageDate smalldatetime not null default GETDATE(),
+	Subject varchar(50) not null,
+	Sender varchar(20) not null,
+	Receiver varchar(20) not null,
+	Unread bit not null default 1,
+	SenderDeleted bit not null default 0,
+	ReceiverDeleted bit not null default 0
 );
 go
 
@@ -794,22 +786,18 @@ GO
 ALTER TABLE [Admin].[GroupRequest] CHECK CONSTRAINT [FK_GroupRequest_UserID]
 GO
 
-ALTER TABLE Admin.Messages WITH NOCHECK ADD  CONSTRAINT [FK_Messages_MessageSender] FOREIGN KEY(MessageSender)
-REFERENCES Admin.Users(UserID);
+--added by ryan taylor 4-14-16
+ALTER TABLE Admin.Messages WITH NOCHECK ADD  CONSTRAINT [FK_Messages_Sender] FOREIGN KEY(Sender)
+REFERENCES Admin.Users(Username);
 GO
-ALTER TABLE Admin.Messages CHECK CONSTRAINT [FK_Messages_MessageSender];
-GO
-
-ALTER TABLE Admin.MessageLineItems WITH NOCHECK ADD  CONSTRAINT [FK_MessageLineItems_SenderID] FOREIGN KEY(SenderID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Admin.MessageLineItems CHECK CONSTRAINT [FK_MessageLineItems_SenderID];
+ALTER TABLE Admin.Messages CHECK CONSTRAINT [FK_Messages_Sender];
 GO
 
-ALTER TABLE Admin.MessageLineItems WITH NOCHECK ADD  CONSTRAINT [FK_MessageLineItems_ReadBy] FOREIGN KEY(ReadBy)
-REFERENCES Admin.Users(UserID);
+--added by ryan taylor 4-14-16
+ALTER TABLE Admin.Messages WITH NOCHECK ADD  CONSTRAINT [FK_Messages_Receiver] FOREIGN KEY(Receiver)
+REFERENCES Admin.Users(Username);
 GO
-ALTER TABLE Admin.MessageLineItems CHECK CONSTRAINT [FK_MessageLineItems_ReadBy];
+ALTER TABLE Admin.Messages CHECK CONSTRAINT [FK_Messages_Receiver];
 GO
 
 ALTER TABLE Admin.Regions WITH NOCHECK ADD  CONSTRAINT [FK_Regions_CreatedBy] FOREIGN KEY(CreatedBy)
@@ -1480,10 +1468,12 @@ GO
 CREATE NONCLUSTERED INDEX IX_ActivityLog_UserID ON Admin.ActivityLog (UserID);
 GO
 
-CREATE NONCLUSTERED INDEX IX_Messages_MessageSender ON Admin.Messages (MessageSender);
+--modified by ryan taylor 4-14-16
+CREATE NONCLUSTERED INDEX IX_Messages_SenderID ON Admin.Messages (Sender);
 GO
 
-CREATE NONCLUSTERED INDEX IX_MessageLineItems_SenderID ON Admin.MessageLineItems (SenderID);
+--modified by ryan taylor 4-14-16
+CREATE NONCLUSTERED INDEX IX_Messages_ReceiverID ON Admin.Messages (Receiver);
 GO
 
 CREATE NONCLUSTERED INDEX IX_Users_LastName ON Admin.Users (LastName);
@@ -1593,50 +1583,6 @@ VALUES(
 END;
 GO
 
---Chris Sheehan - modified by trevor glisch above, this kept for archive temporarily
-/*
---Changed By : Poonam Dubey--04/06/2016
-CREATE procedure [Admin].[spInsertGroupRequest](
-	@GroupID int,
-	@UserID int, 
-	@RequestStatus char(1),
-	@RequestDate smalldatetime)
-as
-begin
-
-IF EXISTS (SELECT * FROM Admin.GroupRequest WHERE GroupID = @GroupID AND UserID = @UserID)
-BEGIN
-	IF ((SELECT RequestStatus FROM Admin.GroupRequest WHERE GroupID = @GroupID AND UserID = @UserID) LIKE 'P')
-	BEGIN
-		SELECT 2 'ReturnValue'
-	END
-	ELSE IF ((SELECT RequestStatus FROM Admin.GroupRequest WHERE GroupID = @GroupID AND UserID = @UserID) LIKE 'A')
-	BEGIN
-	 SELECT 3 AS 'ReturnValue'
-	END
-	ELSE IF ((SELECT RequestStatus FROM Admin.GroupRequest WHERE GroupID = @GroupID AND UserID = @UserID) LIKE 'D')
-	BEGIN
-	 SELECT 4 AS 'ReturnValue'
-	END
-END
-ELSE
-BEGIN
-insert into Admin.GroupRequest(
-	GroupID,
-	UserID, 
-	RequestStatus,
-	RequestDate)
-values(
-	@GroupID,
-	@UserID,
-	@RequestStatus,
-	@RequestDate);
-	SELECT 1 AS 'ReturnValue';
-END
-end;
-go
-*/
-
 -- GETS ALL OF THE REQUESTS FOR A DEFINED GROUP SO THAT GROUP LEADERS CAN ADDRESS REQUESTS
 -- UPDATED BY TREVOR GLISCH 4/6/16
 CREATE PROCEDURE Admin.spGetRequestsForGroup(
@@ -1699,177 +1645,84 @@ UPDATE Admin.GroupRequest
 END;
 GO
 
-
-------------------------------------------
------------Admin.MessageLineItems---------
-------------------------------------------
-
-create procedure Admin.spInsertMessageLineItems(
-	@MessageID int,
-	@SenderID int,
-	@DateSent smalldatetime,
-	@ReadBy int,
-	@DateRead smalldatetime,
-	@MessageContent varchar(250)
-	)
-as
-begin
-insert into Admin.MessageLineItems(
-	MessageID,
-	SenderID,
-	DateSent,
-	ReadBy,
-	DateRead,
-	MessageContent)
-values(
-	@MessageID,
-	@SenderID,
-	@DateSent,
-	@ReadBy,
-	@DateRead,
-	@MessageContent);
-	return @@ROWCOUNT;
-end;
-go
-
---created by Ibrahim 2-25-16
-CREATE PROCEDURE Admin.spUpdateMessageLineItems (
-@MessageID      int,
-@SenderID       int,
-@DateSent       smalldatetime,
-@ReadBy         int,
-@DateRead       smalldatetime,
-@MessageContent  varchar(250),
-@originalSenderID       int,
-@originalDateSent       smalldatetime,
-@originalReadBy         int,
-@originalDateRead       smalldatetime,
-@originalMessageContent  varchar(250))
-AS
-BEGIN
-         UPDATE Admin.MessageLineItems
-		     SET   		   
-				   SenderID  = @SenderID,
-				   DateSent  = @DateSent,
-				   ReadBy    = @ReadBy,
-				   DateRead  = @DateRead,
-				   MessageContent =  @MessageContent			 				 
-			WHERE
-				   MessageID = @MessageID AND
-		        	SenderID = @originalSenderID AND
-				   DateSent  = @originalDateSent AND
-				   ReadBy    = @originalReadBy AND
-				   DateRead  = @originalDateRead AND
-			  MessageContent = @originalMessageContent;
-
-	return @@ROWCOUNT;  
-END;
-go
-
---created by Ibrahim 2-25-16
-CREATE PROCEDURE Admin.spUpdateMessageLineItemsRemove (
-@MessageID int, @DateSent smalldatetime) 
-AS
-BEGIN
-      UPDATE Admin.MessageLineItems 
-	    SET Active = 0
-		WHERE MessageID = @MessageID
-		and DateSent = @DateSent;
-
-	return @@ROWCOUNT;
-END;
-go
-
 ------------------------------------------
 -----------Admin.Messages-----------------
 ------------------------------------------
 
 create procedure Admin.spInsertMessage(
 	@MessageContent varchar(250),
-	@MessageDate smalldatetime,
-	@Subject varchar(100),
-	@MessageSender int)
+	@Subject varchar(50),
+	@Sender varchar(20),
+	@Receiver varchar(20)
+	)
 as 
 begin
-insert into Admin.Messages(
-	MessageContent,
-	MessageDate,
-	Subject,
-	MessageSender)
-values(
-	@MessageContent,
-	@MessageDate,
-	@Subject,
-	@MessageSender);
-	return @@ROWCOUNT;
+	insert into Admin.Messages(
+			MessageContent,
+			Subject,
+			Sender,
+			Receiver)
+		values(
+			@MessageContent,
+			@Subject,
+			@Sender,
+			@Receiver);
+		return @@ROWCOUNT;
 end;
 go
 
---created by ibrahim 2-19-16
-CREATE PROCEDURE Admin.spSelectMessage (
-@MessageID   int)
-AS
-BEGIN
-	SELECT MessageID, MessageContent, MessageDate, Subject, MessageSender, Active
+
+create procedure Admin.spSelectMessage(
+	@Username varchar(20)
+	)
+as
+begin
+	SELECT MessageID, MessageContent, MessageDate, Subject, Sender, Receiver, Unread, SenderDeleted, ReceiverDeleted
 	FROM Admin.Messages
+	WHERE Sender = @Username
+	OR Receiver = @Username
+end;
+go
+
+
+create procedure Admin.spMarkMessageRead(
+	@MessageID int,
+	@Username varchar(20)
+)
+as
+begin
+	UPDATE Admin.Messages
+	SET Unread = 0
 	WHERE MessageID = @MessageID
-END;
+	AND Receiver = @Username
+end;
 go
 
-CREATE PROCEDURE Admin.spDisplayMessages 
-AS
-BEGIN
-	SELECT MessageID, MessageContent, MessageDate, Subject, MessageSender, Active
-	FROM Admin.Messages
-	WHERE Active = 1 ;
-END;
+
+create procedure Admin.spMarkMessageSenderDeleted(
+	@MessageID int,
+	@Username varchar(20)
+)
+as
+begin
+	UPDATE Admin.Messages
+	SET SenderDeleted = 1
+	WHERE MessageID = @MessageID
+	AND Sender = @Username
+end;
 go
 
---created by ibrahim 2-19-16
-CREATE PROCEDURE Admin.spUpdateMessage (
-@MessageID      int,
-@MessageContent varchar(250),
-@MessageDate    smalldatetime,
-@Subject        varchar(100),
-@MessageSender  varchar(20),
-@Active bit,
-@originalMessageContent varchar(250),
-@originalMessageDate    smalldatetime,
-@originalSubject        varchar(100),
-@originalMessageSender  varchar(20),
-@originalActive bit)
-AS
-BEGIN
-        UPDATE Admin.Messages
-		     SET   
-				   MessageContent = @MessageContent,
-				   MessageDate    = @MessageDate,
-				   Subject        = @Subject,
-				   MessageSender  =	@MessageSender,
-				   Active         = @Active				 				 
-			WHERE 
-			            MessageID = @MessageID AND
-			       MessageContent = @originalMessageContent AND
-				     MessageDate  = @originalMessageDate AND
-				         Subject  = @originalSubject AND
-				    MessageSender =	@originalMessageSender AND
-				          Active  = @originalActive;	
-
-	return @@ROWCOUNT;   
-END;
-go
-
---created by ibrahim 2-19-16
-CREATE PROCEDURE Admin.spUpdateMessageRemove (
-@MessageID int)
-AS
-BEGIN
-      UPDATE Admin.Messages 
-	    SET Active = 0
-		WHERE MessageID = @MessageID;
-
-	return @@ROWCOUNT;
-END;
+create procedure Admin.spMarkMessageReceiverDeleted(
+	@MessageID int,
+	@Username varchar(20)
+)
+as
+begin
+	UPDATE Admin.Messages
+	SET ReceiverDeleted = 1
+	WHERE MessageID = @MessageID
+	AND Receiver = @Username
+end;
 go
 
 ------------------------------------------
@@ -4857,11 +4710,8 @@ go
 --* spInsertActivityLog					@UserID int, 	@date smalldatetime,	@LogEntry varchar(250)	@UserAction varchar(100)
 exec Admin.spInsertActivityLog			1000, 			'12/12/15', 			'This is a log entry',	'logged'
 
---* spInsertMessages					@MessageContent varchar(250),	@MessageDate smalldatetime,	@Subject varchar(100),	@MessageSender int
-exec Admin.spInsertMessage				'This is a message, wahoo!!'	,'3/2/38'					,'Testing'				,1000
-
---* spInsertMessageLineItems			@MessageID int,	@SenderID int,	@DateSent smalldatetime,	@ReadBy int,	@DateRead smalldatetime,	@MessageContent varchar(250)
-exec Admin.spInsertMessageLineItems		1000			,1001			,'1/23/52'					,1002			,'1/4/99'					,'This is a test message'
+--* spInsertMessage					@MessageContent varchar(250), @subject varchar(50), 	@Sender varchar(20),	@Receiver varchar(20)
+exec Admin.spInsertMessage			'This is a message, wahoo!!'	,'Test Message'					,'jeffb'				,'jeffb'
 
 --* spInsertRoles						@RoleID				@Description varchar(100),	@CreatedBy int,	@CreatedDate smalldatetime 
 exec Admin.spInsertRoles				'Guest'				,'Guest'					,1003			,'1/4/99'
