@@ -1,0 +1,115 @@
+/*
+    STUFF TO DO:
+
+    - FOUC
+
+*/
+/*VARIABLES*/
+/*FONTS*/
+@font-face {
+  font-family: firasansregular;
+  src: url(../fonts/FiraSans-Regular.otf); }
+@font-face {
+  font-family: firasansultralight;
+  src: url(../fonts/FiraSans-UltraLight.otf); }
+@font-face {
+  font-family: firasanslight;
+  src: url(../fonts/FiraSans-Light.otf); }
+@font-face {
+  font-family: firasansbook;
+  src: url(../fonts/FiraSans-Book.otf); }
+@font-face {
+  font-family: firasansmedium;
+  src: url(../fonts/FiraSans-Medium.otf); }
+@font-face {
+  font-family: helveticalight;
+  src: url(../fonts/Helvetica%20Light.ttf); }
+@font-face {
+  font-family: helvetica;
+  src: url(../fonts/Helvetica.otf); }
+@font-face {
+  font-family: helveticaneuethin;
+  src: url(../fonts/HelveticaNeue-Thin.otf); }
+/*MIXINS*/
+.parent-element {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d; }
+
+/*STYLES*/
+body {
+  background-image: url(http://www.pixeledpaper.com/shared/img/green_leaves_bokeh.jpg);
+  background-size: cover;
+  font-size: 16px;
+  font-family: firasanslight;
+  background-attachment: fixed;
+  overflow: hidden;
+  color: #222222; }
+
+a {
+  color: white;
+  text-decoration: underline;
+  -o-transition: .5s;
+  -ms-transition: .5s;
+  -moz-transition: .5s;
+  -webkit-transition: .5s;
+  /* ...and now for the proper property */
+  transition: .5s; }
+
+a:hover {
+  color: #e4e208; }
+
+.navbar a {
+  text-decoration: none; }
+
+.dark-div {
+  background-color: #222222;
+  float: none; }
+
+.round {
+  border-radius: 50px; }
+
+.home-intro h1 {
+  font-family: firasanslight; }
+
+.home-intro h3 {
+  font-family: firasansmedium; }
+
+/*DESKTOP*/
+@media (min-width: 1024px) {
+  .dark-div {
+    padding: 4em;
+    margin-top: 2em;
+    margin-bottom: 2em; }
+
+  .home-intro h1 {
+    padding-top: 1.5em;
+    font-size: 500%; }
+
+  .home-intro h3 {
+    font-size: 250%; }
+
+  .home-intro-div p {
+    font-size: 140%; }
+
+  .home-intro-div img {
+    height: 120px;
+    display: block;
+    margin: auto; } }
+/*MOBILE*/
+@media screen and (max-width: 1024px) {
+  body {
+    background-position: center;
+    background-size: cover; }
+
+  .dark-div {
+    margin: 2em;
+    padding: 1.5em; }
+
+  .home-intro h1 {
+    font-size: 200%; }
+
+  .home-intro-div img {
+    height: 200px; } }
+
+/*# sourceMappingURL=Styles.css.map */
