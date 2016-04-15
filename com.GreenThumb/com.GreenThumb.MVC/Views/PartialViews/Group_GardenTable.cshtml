@@ -1,4 +1,8 @@
-﻿@*Created by: Chris Schwebach, Nick King  04/03/2016*@
+﻿@*Created by: Chris Schwebach, Nick King  04/03/2016
+  Modified by: Ashlyn DUhautois 04/15/2016
+    Changed table headers -> user friendly    
+*@
+
 
 @model com.GreenThumb.BusinessObjects.Group
 
@@ -8,22 +12,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().GardenID)
+                Garden #
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().GroupID)
+                Group #
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().GardenName)
+                Name
             </th>
             <th>
                 @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().UserID)
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().GardenDescription)
+                Description
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().GardenRegion)
+                Region
             </th>
         </tr>
     </thead>
