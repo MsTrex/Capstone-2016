@@ -22,64 +22,64 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
     /// </summary>
     public partial class AdminMessages : Page
     {
-        private Message message = new Message();
-        private static MessageManager messageManager = new MessageManager();
-        private List<Message> messages = messageManager.GetUserMessages();
+        //private Message message = new Message();
+        //private static MessageManager messageManager = new MessageManager();
+        ////private List<Message> messages = messageManager.GetUserMessages();
         
-        public AdminMessages(AccessToken _assessToken)
-        {
-            InitializeComponent();
-            if(_assessToken != null)
-            {
+        //public AdminMessages(AccessToken _assessToken)
+        //{
+        //    InitializeComponent();
+        //    if(_assessToken != null)
+        //    {
 
-            }
-            else
-            { }
-        }
+        //    }
+        //    else
+        //    { }
+        //}
 
-        /// <summary>
-        /// This method will populate the list of emails
-        /// </summary>
-        public void bindListView()
-        {
-            lvEmails.ItemsSource = messages;
-        }
+        ///// <summary>
+        ///// This method will populate the list of emails
+        ///// </summary>
+        //public void bindListView()
+        //{
+        //    lvEmails.ItemsSource = messages;
+        //}
 
-        /// <summary>
-        /// Binds the Message content
-        /// </summary>
-        public void BindLabel(int index)
-        {
-            lblEmailContent.Content = "";
+        ///// <summary>
+        ///// Binds the Message content
+        ///// </summary>
+        //public void BindLabel(int index)
+        //{
+        //    lblEmailContent.Content = "";
 
-            if (messages.Count > 0)
-            {
-                Message message = (Message) lvEmails.Items[index];
-                lblEmailContent.Content += message.MessageDate+ "\n\n";
-                lblEmailContent.Content += message.MessageContent;
-            }
-        }
+        //    if (messages.Count > 0)
+        //    {
+        //        Message message = (Message) lvEmails.Items[index];
+        //        lblEmailContent.Content += message.MessageDate+ "\n\n";
+        //        lblEmailContent.Content += message.MessageContent;
+        //    }
+        //}
 
-        private void lvEmails_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            BindLabel(lvEmails.SelectedIndex);
-        }
+        //private void lvEmails_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    BindLabel(lvEmails.SelectedIndex);
+        //}
 
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            bindListView();
-        }
+        //private void Window_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    bindListView();
+        //}
 
-        private void btnSendMessage_Click(object sender, RoutedEventArgs e)
-        {
+        //private void btnSendMessage_Click(object sender, RoutedEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void lvEmails_Loaded(object sender, RoutedEventArgs e)
-        {
-            bindListView();
-        }
+        //private void lvEmails_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    bindListView();
+        //}
     }
 }
 

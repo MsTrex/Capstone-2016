@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BusinessLogic.Interfaces
+namespace com.GreenThumb.BusinessLogic.Interfaces
 {
+    /// <summary>
+    /// Ryan Taylor
+    /// Created: 4/14/2016
+    /// </summary>
     public interface IMessageManager
     {
-        //IEnumerable<Message> Inbox { get; }
-
-        //bool SendMessage(Message message);
-        //bool DeleteMessage(Message message);
-        //bool DeleteMessages(IEnumerable<Message> messages);
-        //bool MarkRead(Message message);
-        //bool MarkRead(IEnumerable<Message> messages);
+        System.Collections.Generic.List<com.GreenThumb.BusinessObjects.Message> GetUserMessages(string Username);
+        bool MarkMessageDeletedReceiver(string Username, int MessageID);
+        bool MarkMessageDeletedSender(string Username, int MessageID);
+        bool MarkMessageRead(string Username, int MessageID);
+        bool SendMessage(string MessageContent, string Subject, string SenderUsername, string ReceiverUsername);
     }
 }

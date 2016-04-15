@@ -47,6 +47,7 @@
     <Compile Include="FakeStuff\FakeCreateOrgManager.cs" />
     <Compile Include="FakeStuff\FakeGardenManager.cs" />
     <Compile Include="FakeStuff\FakeGroupManager.cs" />
+    <Compile Include="FakeStuff\FakeMessageManager.cs" />
     <Compile Include="FakeStuff\FakeSecurityManager.cs" />
     <Compile Include="FakeStuff\FakeUserManager.cs" />
     <Compile Include="GardenManager.cs" />

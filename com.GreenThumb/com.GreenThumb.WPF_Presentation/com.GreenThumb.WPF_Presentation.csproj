@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-     </PropertyGroup>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
@@ -128,6 +128,12 @@
     </Compile>
     <Compile Include="GardenPages\ViewTasks.xaml.cs">
       <DependentUpon>ViewTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProfilePages\MessageCompose.xaml.cs">
+      <DependentUpon>MessageCompose.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProfilePages\Messages.xaml.cs">
+      <DependentUpon>Messages.xaml</DependentUpon>
     </Compile>
     <Compile Include="ProfilePages\ProfileMenu.xaml.cs" />
     <Compile Include="RegionPage.xaml.cs" />
@@ -413,6 +419,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ProfilePages\EditPersonalInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProfilePages\MessageCompose.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProfilePages\Messages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

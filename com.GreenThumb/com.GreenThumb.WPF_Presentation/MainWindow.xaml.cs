@@ -389,7 +389,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             btnSideBar1.Content = "Edit Personal Info";
             btnSideBar2.Content = "Profile Menu";
-            btnSideBar3.Content = "btnSideBar3";
+            btnSideBar3.Content = "Messages";
             btnSideBar4.Content = "btnSideBar4";
             btnSideBar5.Content = "btnSideBar5";
             btnSideBar6.Content = "btnSideBar6";
@@ -458,7 +458,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             if (btnSideBar2.Content.ToString() == "Messages")
             {
-                mainFrame.NavigationService.Navigate(new GardenPages.AdminMessages(_accessToken));
+                mainFrame.NavigationService.Navigate(new ProfilePages.Messages(_accessToken));
             }
             else if (btnSideBar2.Content.ToString() == "Insert Recipe")
             {
@@ -492,6 +492,10 @@ namespace com.GreenThumb.WPF_Presentation
             else if (btnSideBar3.Content.ToString() == "Search for Questions")
             {
                 mainFrame.NavigationService.Navigate(new ExpertPages.SearchForQuestions(_accessToken));
+            }
+            else if (btnSideBar3.Content.ToString() == "Messages")
+            {
+                mainFrame.NavigationService.Navigate(new ProfilePages.Messages(_accessToken));
             }
         }
         /// <summary>
