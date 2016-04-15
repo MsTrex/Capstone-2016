@@ -276,7 +276,7 @@ namespace com.GreenThumb.MVC.Controllers
 
                     try
                     {
-                        oldUser = userManager.GetUserByUserName(model.UserName);
+                        oldUser = userManager.RetrieveUserByUserName(model.UserName);
                     }
                     catch (Exception)
                     {

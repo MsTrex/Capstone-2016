@@ -33,7 +33,7 @@ namespace com.GreenThumb.WPF_Presentation
             /// Added by Trevor
             /// Checking to see if there are users in the DB----- If not prompt to create admin account
             UserManager um = new UserManager();
-            int users = um.GetUserCount();
+            int users = um.RetrieveUserCount();
             if (users == 0)
             {
                 _newUser = new NewUserCreation(true);

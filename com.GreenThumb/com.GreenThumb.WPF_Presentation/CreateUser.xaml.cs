@@ -48,7 +48,7 @@ namespace com.GreenThumb.WPF_Presentation
 
             try
             {
-                User myUser = _myUserManager.GetUserByUserName(this.userName.Text);
+                User myUser = _myUserManager.RetrieveUserByUserName(this.userName.Text);
                 MessageBox.Show("Username Already in use.");
             }
             catch (Exception)

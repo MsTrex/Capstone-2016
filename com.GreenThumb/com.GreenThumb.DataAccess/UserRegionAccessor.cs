@@ -12,7 +12,7 @@ namespace com.GreenThumb.DataAccess
 {
     public class UserRegionAccessor
     {
-        public static List<User> FetchUserList(Active group = Active.active)
+        public static List<User> RetrieveUserList(Active group = Active.active)
         {
             // create a list to hold the returned data
             var userList = new List<User>();
@@ -83,7 +83,7 @@ namespace com.GreenThumb.DataAccess
             return userList;
         }
 
-        public static int FetchUserCount(Active group = Active.active)
+        public static int RetrieveUserCount(Active group = Active.active)
         {
             int count = 0;
 
@@ -123,7 +123,7 @@ namespace com.GreenThumb.DataAccess
             return count;
         }
 
-        public static User SelectUser(int userID)
+        public static User RetrieveUser(int userID)
         {
             // create a list to hold the returned data
         //    var userList = new User();
