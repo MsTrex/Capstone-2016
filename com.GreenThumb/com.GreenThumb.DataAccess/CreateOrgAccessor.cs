@@ -16,7 +16,14 @@ namespace com.GreenThumb.DataAccess
     /// </summary>
     public class CreateOrgAccessor
     {
-        
+
+        /// <summary>
+        /// These comments added by TRex
+        /// This method allows a group leader to add an organization
+        /// </summary>
+        /// <param name="org"></param>
+        /// <param name="groupLeaderID"></param>
+        /// <returns> rowCount </returns>
         public static int InsertOrganization(Organization org, int groupLeaderID)
         {
             int rowCount = 0;
@@ -33,7 +40,7 @@ namespace com.GreenThumb.DataAccess
             cmd.Parameters.AddWithValue("@OrganizationName", org.Name);
             cmd.Parameters.AddWithValue("@OrganizationLeader", groupLeaderID);
             cmd.Parameters.AddWithValue("@ContactPhone", org.ContactPhone);
-           
+
 
 
             cmd.Parameters.Add(new SqlParameter("@RowCount", SqlDbType.Int));

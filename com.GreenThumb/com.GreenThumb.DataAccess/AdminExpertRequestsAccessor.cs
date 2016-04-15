@@ -28,7 +28,7 @@ namespace com.GreenThumb.DataAccess
         /// <param name="accessToken">To confirm access as administrator.</param>
         public AdminExpertRequestsAccessor(AccessToken accessToken)
         {
-            if (CheckAdminRoleStatus(accessToken))
+            if (RetrieveAdminRoleStatus(accessToken))
             {
                 this.accessToken = accessToken;
             }
@@ -49,7 +49,7 @@ namespace com.GreenThumb.DataAccess
         {
             IList<ExpertRequest> requests = null;
 
-            if (CheckAdminRoleStatus(accessToken))
+            if (RetrieveAdminRoleStatus(accessToken))
             {
                 requests = new List<ExpertRequest>();
 
@@ -123,7 +123,7 @@ namespace com.GreenThumb.DataAccess
         {
             IList<User> users = null;
 
-            if (CheckAdminRoleStatus(accessToken))
+            if (RetrieveAdminRoleStatus(accessToken))
             {
                 users = new List<User>();
 
@@ -186,7 +186,7 @@ namespace com.GreenThumb.DataAccess
         {
             IList<User> experts = null;
 
-            if (CheckAdminRoleStatus(accessToken))
+            if (RetrieveAdminRoleStatus(accessToken))
             {
                 experts = new List<User>();
 
@@ -245,7 +245,10 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="request">To confirm access as administrator.</param>
         /// <returns>Rows affected by action.</returns>
-        public int ApproveRequest(ExpertRequest request)
+        /// 
+        //TRex changed method name from ApproveRequest to UpdateExpertRequestApprove 4/11/16
+
+        public int UpdateExpertRequestApprove(ExpertRequest request)
         {
             int rowsAffected = 0;
 
@@ -254,7 +257,7 @@ namespace com.GreenThumb.DataAccess
             var cmd = new SqlCommand("Admin.spUpdateExpertRequest", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SetRequestParams(cmd, request, approved: true);
+            CreateRequestParams(cmd, request, approved: true);
 
             try
             {
@@ -281,7 +284,9 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="request">ExpertRequest to be declined.</param>
         /// <returns>Rows affected by action.</returns>
-        public int DeclineRequest(ExpertRequest request)
+        /// 
+        /// TRex changed method name from DeclineRequest to UpdateExpertRequestDecline on 4/11/16
+        public int UpdateExpertRequestDecline(ExpertRequest request)
         {
             int rowsAffected = 0;
 
@@ -290,7 +295,7 @@ namespace com.GreenThumb.DataAccess
             var cmd = new SqlCommand("Admin.spUpdateExpertRequest", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SetRequestParams(cmd, request);
+            CreateRequestParams(cmd, request);
 
             try
             {
@@ -317,7 +322,9 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="user">User that is not an expert to be promoted.</param>
         /// <returns>Rows affected by action.</returns>
-        public int PromoteUser(User user)
+        /// 
+        ///TRex changed name of method from PromoteUser to UpdateUserPromote 4/11/16
+        public int UpdateUserPromote(User user)
         {
             int rowsAffected = 0;
 
@@ -326,7 +333,7 @@ namespace com.GreenThumb.DataAccess
             var cmd = new SqlCommand("Admin.spUpdateUsersUserRole", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SetExpertChangeParams(cmd, user);
+            CreateExpertChangeParams(cmd, user);
 
             try
             {
@@ -353,7 +360,10 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="user">User that is an expert to be demoted.</param>
         /// <returns>Rows affected by action.</returns>
-        public int DemoteExpert(User user)
+        /// 
+
+        ///TRex changed the name of the method from DemoteExpert to UpdateExpertDemote 4/11/16
+        public int UpdateExpertDemote(User user)
         {
             int rowsAffected = 0;
 
@@ -362,7 +372,7 @@ namespace com.GreenThumb.DataAccess
             var cmd = new SqlCommand("Admin.spUpdateUsersUserRole", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SetExpertChangeParams(cmd, user, active: false);
+            CreateExpertChangeParams(cmd, user, active: false);
 
             try
             {
@@ -383,13 +393,27 @@ namespace com.GreenThumb.DataAccess
         }
 
         // Created By: Trent Cullinan 03/15/2016
-        private bool CheckAdminRoleStatus(AccessToken accessToken)
+
+        /// <summary>
+        /// TRex added these comments and changed the name of the method from CheckAdminRoleStatus to RetrieveAdminRoleStatus 4/11/16
+        /// This method checks to see if the user is an admin
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns>A boolean value whether or not the user is an admin</returns>
+        private bool RetrieveAdminRoleStatus(AccessToken accessToken)
         {
             return 0 < accessToken.Roles.Where(r => r.RoleID.Equals(ADMIN)).Count();
         }
 
         // Created By: Trent Cullinan 03/15/2016
-        private void SetRequestParams(SqlCommand cmd, ExpertRequest request, bool approved = false)
+        /// <summary>
+        /// These comments were added by TRex and the name of the method changed from SetRequestParams to CreateRequestParams 4/11/16
+        /// This method sets out the parameters to add an expert.
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="request"></param>
+        /// <param name="approved"></param>
+        private void CreateRequestParams(SqlCommand cmd, ExpertRequest request, bool approved = false)
         {
             cmd.Parameters.AddWithValue("@RequestID",
                 request.RequestID);
@@ -402,7 +426,15 @@ namespace com.GreenThumb.DataAccess
         }
 
         // Created By: Trent Cullinan 03/15/2016
-        private void SetExpertChangeParams(SqlCommand cmd, User user, bool active = true)
+
+        /// <summary>
+        /// TRex added these comments and changed the name of the method from SetExpertChangeParams to CreateExpertChangeParams  4/11/16
+        /// This method sets out the parameters to change and expert's statuc.
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="user"></param>
+        /// <param name="active"></param>
+        private void CreateExpertChangeParams(SqlCommand cmd, User user, bool active = true)
         {
             cmd.Parameters.AddWithValue("@UserID",
                 user.UserID);
