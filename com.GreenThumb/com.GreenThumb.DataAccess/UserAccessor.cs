@@ -535,12 +535,12 @@ namespace com.GreenThumb.DataAccess
             return user;
         }
 
-        /**
-         * Is no need for two User Count methods. I commented this one out as the other one uses a 
-         * Stored Procedure. I'm leaving this here, just in case it is decided to just fix this one and delete the other for 
-         * some reason
-         * -Emily 4-14-16
-         * public static int FetchUserCount(int userID)
+        ///
+         /// Is no need for two User Count methods. I commented this one out as the other one uses a 
+         /// Stored Procedure. I'm leaving this here, just in case it is decided to just fix this one and delete the other for 
+         /// some reason
+         ///-Emily 4-14-16
+         public static int FetchUserCount(int userID)
         {
             int count = 0;
 
@@ -571,9 +571,8 @@ namespace com.GreenThumb.DataAccess
 
             return count;
         }
-        */
-        /** There is already an UpdateUserInformation method
-         * Emily 4.14.16
+       
+     
         public static int UpdateUser(User usr)
         {
             int rowsAffected = 0;
@@ -612,7 +611,7 @@ namespace com.GreenThumb.DataAccess
                 conn.Close();
             }
             return rowsAffected;
-        }*/
+        }
 
         /// <summary>
         /// Checks to see if the value exists as a username in the database.

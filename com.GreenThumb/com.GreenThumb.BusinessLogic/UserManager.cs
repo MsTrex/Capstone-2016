@@ -13,6 +13,7 @@ namespace com.GreenThumb.BusinessLogic
 {
     public class UserManager
     {
+        private int userID;
         ///<summary>
         ///Author: Chris Schwebach
         ///EditUserPersonalInfo validates input from user calling to the UserAccessor
@@ -100,7 +101,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                var userList = UserAccessor.RetrieveUserList(group);
+                var userList = UserAccessor.RetrieveUserList(userID);
 
                 if (userList.Count > 0)
                 {
@@ -125,7 +126,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return UserAccessor.FetchUserCount(group);
+                return UserAccessor.RetrieveUserCount();
             }
             catch (Exception)
             {
@@ -163,7 +164,7 @@ namespace com.GreenThumb.BusinessLogic
                 throw;
             }
         }
-        public bool ChangeUserData(User usr)
+        public bool ChangeUserData(User usr, User newUsr)
         {
            //                 var usr = new User()
 
@@ -174,7 +175,7 @@ namespace com.GreenThumb.BusinessLogic
             
             try
             {
-                if(UserAccessor.UpdateUser(usr)==1)
+                if(UserAccessor.UpdateUserInformation(usr, newUsr)==true)
                 {
                     return true;
                 }
