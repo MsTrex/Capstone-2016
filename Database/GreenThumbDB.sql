@@ -4714,7 +4714,6 @@ exec Admin.spInsertActivityLog			1000, 			'12/12/15', 			'This is a log entry',	
 exec Admin.spInsertMessage			'This is a message, wahoo!!'	,'Test Message'					,'jeffb'				,'jeffb'
 
 --* spInsertRoles						@RoleID				@Description varchar(100),	@CreatedBy int,	@CreatedDate smalldatetime 
-exec Admin.spInsertRoles				'Guest'				,'Guest'					,1003			,'1/4/99'
 exec Admin.spInsertRoles				'User'				,'User'						,1003			,'1/4/99'
 exec Admin.spInsertRoles				'Admin'				,'Admin'					,1003			,'1/4/99'
 exec Admin.spInsertRoles				'Expert'			,'Expert'					,1003			,'1/4/99'
@@ -4722,14 +4721,10 @@ exec Admin.spInsertRoles				'GroupMember'		,'Group Member'				,1003			,'1/4/99'
 exec Admin.spInsertRoles				'GroupLeader'	    ,'Group Leader'				,1003			,'1/4/99'
 			
 --* spInsertUserRoles           		@UserID int,	@RoleID int,	
-exec Admin.spInsertUserRoles			1000			,'Guest'					
-exec Admin.spInsertUserRoles			1001			,'Admin'		
-exec Admin.spInsertUserRoles			1002			,'Guest'		
-exec Admin.spInsertUserRoles			1003			,'Admin'		
-		
-
-
---* spInsertUserRoles           		@UserID int,	@RoleID int,	
+exec Admin.spInsertUserRoles			1000			,'Expert'					
+exec Admin.spInsertUserRoles			1001			,'Expert'		
+exec Admin.spInsertUserRoles			1002			,'GroupMember'		
+exec Admin.spInsertUserRoles			1003			,'GroupLeader'	
 exec Admin.spInsertUserRoles			1000			,'Admin'		
 
 -----------------------------GARDENS--------------------------------------
@@ -4862,6 +4857,17 @@ exec Expert.spInsertPlants				'Red Potato'		,'Potato'			,'Vegetable'			,'Small p
 --* spInsertExpertBecomeAnExpert       		@Username int,	@WhyShouldIBeAnExpert varchar(200),	@ApprovedBy int,	@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
 exec Expert.spInsertExpertBecomeAnExpert	1001			,'I am the best'					,1000				,1001			,'12/3/99'					,1000				,'8/20/13'
 	
+
+--DECLARE @Note VARCHAR (200)
+--SET @Note = 'Line One.[crlf];Line Two[crlf]Line Three.'
+--SET @Note = REPLACE(@Note,'[crlf]',CHAR(13)+CHAR(10))
+---PRINT @Note
+
+
+
+
+
+
 --* spInsertBlogEntry            		@BlogData varchar(max),		@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
 exec Expert.spInsertBlogEntry			'This is a blog about...'	,'Vegetables in Florida'	,1000			,'7/19/06'					,1002				,'2/17/87'	
 --* spInsertContent              		@UserID int,	@RegionID int,	@Title varchar(50),		@Category varchar(50),	@Content varchar(max),	@Date smalldatetime ,	@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
