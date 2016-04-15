@@ -27,6 +27,8 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         List<Plant> plants = new List<Plant>();
         List<Plant> minPlants = new List<Plant>();
         int regionID = 0;
+        bool hasAuthority = false;
+        RoleManager roleManager = new RoleManager();
 
         public ViewPlants()
         {
@@ -259,6 +261,41 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             icPlants.ItemsSource = null;
             icPlants.ItemsSource = minPlants;
             showGrid(grdPlantList);
+        }
+
+        private void btnAddNutrient_Click(object sender, RoutedEventArgs e)
+        {
+            Plant plant = ((Button)sender).Tag as Plant;
+            this.NavigationService.Navigate(new ExpertPages.AddNutrientsToPlant(accessToken, plant));
+        }
+
+        private void btnAddNutrient_Loaded(object sender, RoutedEventArgs e)
+        {
+            CheckForAuthority();
+
+            if (hasAuthority)
+            {
+                Button button = ((Button)sender) as Button;
+                button.Content = "Add/View Nutrients";
+            }
+            else
+            {
+                Button button = ((Button)sender) as Button;
+                button.Content = "View Nutrients";
+            }
+        }
+
+        private void CheckForAuthority()
+        {
+            if (roleManager.IsUserThisRole(accessToken, "Expert") ||
+                roleManager.IsUserThisRole(accessToken, "Admin"))
+            {
+                hasAuthority = true;
+            }
+            else
+            {
+                hasAuthority = false;
+            }
         }
     }
 }

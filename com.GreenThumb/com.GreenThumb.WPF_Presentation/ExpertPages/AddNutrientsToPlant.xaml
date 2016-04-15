@@ -7,7 +7,8 @@
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="AddNutrientsToPlant"
       ScrollViewer.VerticalScrollBarVisibility="Auto"
-      Width="{Binding Source={x:Static SystemParameters.ScrollWidth}, Path=Width}" >
+      Width="{Binding Source={x:Static SystemParameters.ScrollWidth}, Path=Width}"
+      xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit" >
     <Page.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Cursor" Value="Hand"/>
@@ -97,7 +98,7 @@
         </Style>
     </Page.Resources>
     <ScrollViewer>
-    <Grid x:Name="grid">
+        <Grid x:Name="grid">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.25,1" StartPoint="0.25,0">
                     <GradientStop Color="White" Offset="0"/>
@@ -105,38 +106,49 @@
                 </LinearGradientBrush>
             </Grid.Background>
             <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="grdAdd" Grid.Row="0" Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Content="Nutrient:" VerticalAlignment="Center" Margin="0 20 0 0" />
-                <ComboBox x:Name="cmbNutrients" Grid.Row="0" Grid.Column="1" Margin="0 20 0 0" DataContext="{Binding Source=list}" SelectionChanged="cmbNutrients_SelectionChanged" />
-            <Button x:Name="btnAdd" Grid.Row="1" Grid.Column="1" Margin="5" Padding="10" FontSize="15" Width="114" Content="Add Nutrient" Click="btnAdd_Click" />
-            <Label x:Name="lblError" Grid.Row="1" Grid.Column="2" Content="" Foreground="Red" VerticalAlignment="Center"  />
-        </Grid>
-        <Grid x:Name="grdView" Grid.Row="1" Grid.Column="0">
-            <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="lblNutrients" Grid.Row="0" Grid.Column="0" Text="List of Nutrients" Margin="0 50 0 0" FontWeight="Bold" HorizontalAlignment="Center" FontSize="20" />
-            <ItemsControl x:Name="icNutrients" Grid.Row="1" Grid.Column="0">
+            <Grid x:Name="grdAdd" Grid.Row="0" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Nutrient:" VerticalAlignment="Center" Margin="0 20 0 0" />
+
+
+
+                <ComboBox x:Name="cmbNutrients1" Grid.Row="0" Grid.Column="1" Margin="0 20 0 0" DataContext="{Binding Source=list}" Visibility="Collapsed" />
+
+
+
+                <toolkit:AutoCompleteBox x:Name="cmbNutrients" Grid.Row="0" Grid.Column="1" Visibility="Visible" Margin="0 20 0 0" DataContext="{Binding Source=list}"   AllowDrop="False" FilterMode="Contains" SelectionChanged="cmbNutrients_SelectionChanged" />
+
+
+
+
+                <Button x:Name="btnAdd" Grid.Row="1" Grid.Column="1" Margin="5" Padding="10" FontSize="15" Width="114" Content="Add Nutrient" Click="btnAdd_Click" />
+                <Label x:Name="lblError" Grid.Row="1" Grid.Column="2" Content="" Foreground="Red" VerticalAlignment="Center"  />
+            </Grid>
+            <Grid x:Name="grdView" Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="lblNutrients" Grid.Row="0" Grid.Column="0" Text="List of Nutrients" Margin="0 50 0 0" FontWeight="Bold" HorizontalAlignment="Center" FontSize="20" />
+                <ItemsControl x:Name="icNutrients" Grid.Row="1" Grid.Column="0" MaxWidth="750">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel ItemWidth="{Binding ElementName=grid, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -152,12 +164,12 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock x:Name="tbNutrientName" Grid.Row="0" Grid.Column="0" Margin="5" Text="{Binding Name}" Foreground="#FF19320B" FontWeight="Bold" HorizontalAlignment="Center"/>
-                                
+
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+            </Grid>
         </Grid>
-    </Grid>
     </ScrollViewer>
 </Page>
