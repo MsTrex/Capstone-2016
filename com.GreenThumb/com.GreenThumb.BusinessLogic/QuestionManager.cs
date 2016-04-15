@@ -23,7 +23,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                created = QuestionAccessor.InsertQuestion(question);
+                created = QuestionAccessor.CreateQuestion(question);
             }
             catch(Exception ex)
             {
@@ -46,7 +46,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                question = QuestionAccessor.FetchQuestionByID(questionID);
+                question = QuestionAccessor.RetrieveQuestionByID(questionID);
             }
             catch (Exception ex)
             {
@@ -69,7 +69,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                questions = QuestionAccessor.FetchQuestionsByRegionID(regionID);
+                questions = QuestionAccessor.RetrieveQuestionsByRegionID(regionID);
             }
             catch (Exception ex)
             {
@@ -92,7 +92,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                questions = QuestionAccessor.FetchQuestionsByUserID(userID);
+                questions = QuestionAccessor.RetrieveQuestionsByUserID(userID);
             }
             catch (Exception ex)
             {
@@ -115,7 +115,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                questions = QuestionAccessor.FetchQuestionsWithKeyword(keyword);
+                questions = QuestionAccessor.RetrieveQuestionsWithKeyword(keyword);
             }
             catch (Exception ex)
             {
@@ -139,7 +139,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                questions = QuestionAccessor.FetchQuestionsWithKeywordAndRegion(keyword, regionID);
+                questions = QuestionAccessor.RetrieveQuestionsWithKeywordAndRegion(keyword, regionID);
             }
             catch (Exception ex)
             {
@@ -161,7 +161,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                questions = QuestionAccessor.FetchQuestionsWithNoRegion();
+                questions = QuestionAccessor.RetrieveQuestionsWithNoRegion();
             }
             catch (Exception ex)
             {
@@ -183,7 +183,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                questions = QuestionAccessor.FetchQuestions();
+                questions = QuestionAccessor.RetrieveQuestions();
             }
             catch (Exception ex)
             {

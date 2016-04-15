@@ -17,7 +17,7 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="questionID">QuestionID</param>
         /// <returns>Question desired</returns>
-        public static Question FetchQuestionByID(int questionID)
+        public static Question RetrieveQuestionByID(int questionID)
         {
             Question question = new Question();
 
@@ -102,7 +102,7 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="regionID">RegionID</param>
         /// <returns>All questions based on a specified region</returns>
-        public static List<Question> FetchQuestionsByRegionID(int regionID)
+        public static List<Question> RetrieveQuestionsByRegionID(int regionID)
         {
             List<Question> questions = new List<Question>();
 
@@ -191,7 +191,7 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="userID">UserID of user that asked questions</param>
         /// <returns>All questions asked by a user</returns>
-        public static List<Question> FetchQuestionsByUserID(int userID)
+        public static List<Question> RetrieveQuestionsByUserID(int userID)
         {
             List<Question> questions = new List<Question>();
 
@@ -280,7 +280,7 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="keyword">Keyword that is compared with question titles and content</param>
         /// <returns>All questions like question titles and content</returns>
-        public static List<Question> FetchQuestionsWithKeyword(string keyword)
+        public static List<Question> RetrieveQuestionsWithKeyword(string keyword)
         {
             List<Question> questions = new List<Question>();
 
@@ -370,7 +370,7 @@ namespace com.GreenThumb.DataAccess
         /// <param name="keyword">Keyword that is compared with question titles and content</param>
         /// <param name="regionID">RegionID</param>
         /// <returns>All questions like question titles and content and specified region</returns>
-        public static List<Question> FetchQuestionsWithKeywordAndRegion(string keyword, int? regionID)
+        public static List<Question> RetrieveQuestionsWithKeywordAndRegion(string keyword, int? regionID)
         {
             List<Question> questions = new List<Question>();
 
@@ -468,7 +468,7 @@ namespace com.GreenThumb.DataAccess
         /// Gets all questions with no region
         /// </summary>
         /// <returns>All questions with no region</returns>
-        public static List<Question> FetchQuestionsWithNoRegion()
+        public static List<Question> RetrieveQuestionsWithNoRegion()
         {
             List<Question> questions = new List<Question>();
 
@@ -555,7 +555,7 @@ namespace com.GreenThumb.DataAccess
         /// Gets all questions
         /// </summary>
         /// <returns>All questions</returns>
-        public static List<Question> FetchQuestions()
+        public static List<Question> RetrieveQuestions()
         {
             List<Question> questions = new List<Question>();
 
@@ -639,11 +639,11 @@ namespace com.GreenThumb.DataAccess
         /// <summary>
         /// Rhett Allen
         /// Created Date: 3/23/16
-        /// Inserts a question into the database
+        /// Create a question to the database
         /// </summary>
         /// <param name="question">Question to be inserted</param>
         /// <returns>True if the question was created successfully</returns>
-        public static bool InsertQuestion(Question question)
+        public static bool CreateQuestion(Question question)
         {
             bool inserted = false;
 
