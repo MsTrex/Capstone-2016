@@ -158,6 +158,10 @@ namespace com.GreenThumb.WPF_Presentation
         /// Ryan Taylor
         /// Updated: 2016/03/07
         /// Fixed the access token creation event
+        /// 
+        /// Chris Sheehan
+        /// Updated: 2016/04/14
+        /// Fixed the logout event, redirected user to home page, disable all other tabs
         /// </remarks>
         private void Login_Click(object sender, RoutedEventArgs e)
         {
@@ -403,7 +407,7 @@ namespace com.GreenThumb.WPF_Presentation
         //Chris S - had to refactor - using in multiple places
         private void SetProfileButtons()
         {
-            btnSideBar1.Content = "";
+            btnSideBar1.Content = "My Profile";
             btnSideBar2.Content = "Edit Profile";
             btnSideBar3.Content = "btnSideBar3";
             btnSideBar4.Content = "btnSideBar4";
@@ -441,7 +445,13 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 mainFrame.NavigationService.Navigate(new ExpertPages.RequestExpert(_accessToken));
             }
+            else if (btnSideBar1.Content.ToString() == "My Profile")
+            {
+                mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
+            }
             
+           
+
 
         }
         /// <summary>
@@ -458,7 +468,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </remarks>
         private void btnSideBar2_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (btnSideBar1.Content.ToString() == "Edit Profile")
+            if (btnSideBar2.Content.ToString() == "Edit Profile")
             {
                 mainFrame.NavigationService.Navigate(new ProfilePages.EditPersonalInfo(_accessToken));
             }
