@@ -15,7 +15,7 @@ namespace com.GreenThumb.DataAccess
     /// </summary>
     public class BlogAccessor
     {
-        public List<Blog> fetchBlogs()
+        public List<Blog> retrieveBlogs()
         {
             List<Blog> blogs = new List<Blog>();
 
@@ -70,7 +70,12 @@ namespace com.GreenThumb.DataAccess
             }
             return blogs;
         }
-
+        /// <summary>
+        /// Comments added by TRex
+        /// This method allows a user to add a blog.
+        /// </summary>
+        /// <param name="blog"></param>
+        /// <returns></returns>
         public static int InsertBlog(Blog blog)
         {
             int count = 0;
