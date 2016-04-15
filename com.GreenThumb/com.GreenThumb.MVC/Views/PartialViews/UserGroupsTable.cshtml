@@ -1,6 +1,8 @@
 ﻿@* Created by: Trent Cullinan 03/31/16 
    Modified by: Nicholas King 04/03/2016
         Converted into partial page and updated to use new viewmodel
+   Modified by: Ashlyn Duhautois 04/15/2016
+        Hid 'Created On' field - not functional
 *@
 @using com.GreenThumb.MVC.Models;
 @model IEnumerable<GroupIndexViewModel.UserGroupViewModel>
@@ -9,23 +11,23 @@
     ViewBag.Title = "ViewUserGroups";
 }
 
-<h2>ViewUserGroups</h2>
+<h2>My list of groups:</h2>
 <p></p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(m => m.SingleOrDefault().Name)
+                Name
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.SingleOrDefault().LeaderUserName)
+                Leader
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.SingleOrDefault().LeaderEmail)
+                E-mail
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(m => m.SingleOrDefault().CreatedDate)
-            </th>
+            </th>*@
             <th>
                 Options
             </th>
@@ -44,9 +46,9 @@
                 <td>
                     @groupView.LeaderEmail
                 </td>
-                <td>
+                @*<td>
                     @groupView.CreatedDate
-                </td>
+                </td>*@
                 <td>
                     @Html.ActionLink("Leave Group", "LeaveGroup", "Group", new { group = groupView.GroupId }, null)
                 </td>

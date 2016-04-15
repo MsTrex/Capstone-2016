@@ -1,7 +1,14 @@
 ﻿/*
-    STUFF TO DO:
 
+    Created by: Ashlyn Duhautois
+    DO NOT EDIT
+
+
+
+
+    STUFF TO DO:
     - FOUC
+    - Mobile tables not resizing
 
 */
 
@@ -80,7 +87,6 @@ body {
     font-size: 16px;
     font-family: firasanslight;
     background-attachment: fixed;
-    overflow: hidden;
     color: $darkgrey;
 }
 
@@ -98,11 +104,31 @@ a:hover {
     text-decoration: none;
 }
 
-.dark-div {
+.home-intro-div .dark-div {
     background-color: $darkgrey;
     float: none;
 }
 
+.dark-div {
+    background-color: $darkgrey;
+    color: white;
+}
+
+.green-btn {
+    border: none;
+    background-color: $green;
+    color: $darkgrey;
+    padding: 1em;
+    text-transform: uppercase;
+    @include transition;
+    display: block;
+    margin: auto;
+}
+
+.green-btn:hover {
+    background-color: white;
+    @include transition;
+}
 .round {
     border-radius: 50px;
 }
@@ -111,38 +137,87 @@ a:hover {
     font-family: firasanslight;
 }
 
-.home-intro h3 {
+h3 {
     font-family: firasansmedium;
 }
+
+.top-pad-lite {
+    padding-top: 1em;
+}
     
+.create-group {
+    margin-left: 1em;
+}
+
+.create-group input[type="text"] {
+    padding: .5em;
+    width: 100%;    
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    color: $darkgrey;
+}
+    
+.group-index-image {
+    background-image: url("http://www.pixeledpaper.com/shared/img/garden.jpg");
+    background-size: cover;
+    height: 30vh;
+}
+
+.garden-index-create .green-btn {
+    width: 200px;
+    text-align: center;
+    display: block;
+    margin: auto;
+
+    a {
+        color: $darkgrey;
+        text-decoration: none;
+    }
+}
+
 /*DESKTOP*/
 
 @media (min-width: 1024px) {
 
     .dark-div {
         padding: 4em;
+        margin-bottom: 2em;
+    }
+
+    h1 {
+        padding-top: 1em;
+        font-size: 500%;
+    }
+
+    h3 {
+        font-size: 250%;
+    }
+
+    p {
+        font-size: 140%;
+    }
+    
+    .home-intro-div .dark-div {
         margin-top: 2em;
         margin-bottom: 2em;
     }
 
-    .home-intro h1 {
-        padding-top: 1.5em;
-        font-size: 500%;
-    }
-
-    .home-intro h3 {
-        font-size: 250%;
-    }
-
-    .home-intro-div p {
-        font-size: 140%;
-    }
 
     .home-intro-div img {
         height: 120px;
         display: block;
         margin: auto;
     }
+
+    .group-index-create {
+        padding-left: 4em;
+    }
+
+    .group-index-image {    
+        margin-left: 4em;
+    }
+
 }
 
 /*MOBILE*/
@@ -151,17 +226,20 @@ a:hover {
     body {
         background-position: center;
         background-size: cover;
+        min-width: 500px;
     }
     .dark-div {
         margin: 2em;
-        padding: 1.5em;
+        padding: 3em;
     }
 
-    .home-intro h1 {
+    h1 {
         font-size: 200%;
     }
 
     .home-intro-div img {
         height: 200px;
+        display: block;
+        margin: auto;
     }
 }
