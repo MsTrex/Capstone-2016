@@ -30,6 +30,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         private NutrientManager nutrientManager = new NutrientManager();
         private RoleManager roleManager = new RoleManager();
         private bool hasAuthority = false;
+        private List<Nutrient> _nutrients;
         public AddNutrientsToPlant(AccessToken accessToken, Plant plant)
         {
             InitializeComponent();
@@ -48,13 +49,13 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         {
             try
             {
-                cmbNutrients.ItemsSource = nutrientManager.RetrieveNutrients();
-                cmbNutrients.SelectedIndex = 0;
+                _nutrients = nutrientManager.RetrieveNutrients();
+                cmbNutrients.ItemsSource = _nutrients;
+                cmbNutrients.ToolTip = "Choose a nutrient";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                cmbNutrients.Items.Add(ex.Message);
-                cmbNutrients.SelectedIndex = 0;
+                cmbNutrients.ToolTip = "No nutrients yet added";
             }
 
         }
