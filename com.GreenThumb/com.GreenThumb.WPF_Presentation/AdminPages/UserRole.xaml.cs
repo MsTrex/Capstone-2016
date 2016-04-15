@@ -60,10 +60,10 @@ namespace com.GreenThumb.WPF_Presentation
             
             try
             {
-                var users = myUserManager.GetUserList(Active.active);
+                var users = myUserManager.RetrieveUserList(Active.active);
                 grdUserList.ItemsSource = users;
 
-                var count = myUserManager.GetUserCount(Active.active);
+                var count = myUserManager.RetrieveUserCount(Active.active);
                 lblUserCount.Content = "Count: " + count.ToString();
             }
             catch (Exception)

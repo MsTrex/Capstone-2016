@@ -599,7 +599,7 @@ namespace com.GreenThumb.DataAccess
          /// Stored Procedure. I'm leaving this here, just in case it is decided to just fix this one and delete the other for 
          /// some reason
          ///-Emily 4-14-16
-         public static int FetchUserCount(int userID)
+         public static int RetrieveUserCount(int userID)
         {
             int count = 0;
 

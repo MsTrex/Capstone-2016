@@ -16,7 +16,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                var userList = UserRegionAccessor.FetchUserList(group);
+                var userList = UserRegionAccessor.RetrieveUserList(group);
 
                 if (userList.Count > 0)
                 {
@@ -39,7 +39,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return UserRegionAccessor.FetchUserCount(group);
+                return UserRegionAccessor.RetrieveUserCount(group);
             }
             catch (Exception)
             {
@@ -116,7 +116,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                usr = UserRegionAccessor.SelectUser(userID);            
+                usr = UserRegionAccessor.RetrieveUser(userID);            
                 return usr;
             }
             catch (Exception)

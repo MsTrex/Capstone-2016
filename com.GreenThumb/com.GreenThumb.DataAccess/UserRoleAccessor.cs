@@ -19,7 +19,7 @@ namespace com.GreenThumb.DataAccessor
         /// 
         /// Added 3/25 By Ibarahim
         /// </summary>
-        public static List<UserRole> FetchUserRoleList()
+        public static List<UserRole> RetrieveUserRoleList()
         {
             // create a list to hold the returned data
             var userRoleList = new List<UserRole>();
@@ -89,7 +89,7 @@ namespace com.GreenThumb.DataAccessor
         /// 
         /// Added 4-15-16 By Ibarahim Abuzaid
         /// </summary>
-        public static List<UserRole> FetchUserRoleListByUser(int userID)
+        public static List<UserRole> RetrieveUserRoleListByUser(int userID)
         {
             // create a list to hold the returned data
             var userRoleList = new List<UserRole>();
@@ -153,7 +153,7 @@ namespace com.GreenThumb.DataAccessor
             return userRoleList;
         }
 
-        public static int FetchUserRoleCount()
+        public static int RetrieveUserRoleCount()
         {
             int count = 0;
 

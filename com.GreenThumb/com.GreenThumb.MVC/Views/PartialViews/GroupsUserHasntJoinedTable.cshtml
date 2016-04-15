@@ -1,8 +1,11 @@
-﻿@*Created by: Nicholas King AND Trent Cullinan  04/03/2016*@
+﻿@*Created by: Nicholas King AND Trent Cullinan  04/03/2016
+  Modified by: Ashlyn Duhautois 04/15/2016
+    Disabled CreatedDate columns - not functional
+*@
 @using com.GreenThumb.MVC.Models;
 @model IEnumerable <GroupIndexViewModel.UserGroupViewModel>
 
-<h2>Groups to Join</h2>
+<h2>Groups open for joining:</h2>
 <p></p>
 <table class="table">
     <thead>
@@ -16,9 +19,9 @@
             <th>
                 @Html.DisplayNameFor(m => m.SingleOrDefault().LeaderEmail)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(m => m.SingleOrDefault().CreatedDate)
-            </th>
+            </th>*@
             <th>
                 Options
             </th>
@@ -37,9 +40,9 @@
                 <td>
                     @groupView.LeaderEmail
                 </td>
-                <td>
+                @*<td>
                     @groupView.CreatedDate
-                </td>
+                </td>*@
                 <td>
                     @Html.ActionLink("Request to Join", "RequestJoinGroup", "Group", new { group = groupView.GroupId }, null)
                 </td>

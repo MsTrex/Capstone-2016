@@ -22,7 +22,7 @@ namespace com.GreenThumb.BusinessLogic
             /// </summary>
             try
             {
-                var userRoleList = UserRoleAccessor.FetchUserRoleList();
+                var userRoleList = UserRoleAccessor.RetrieveUserRoleList();
 
                 if (userRoleList.Count > 0)
                 {
@@ -59,7 +59,7 @@ namespace com.GreenThumb.BusinessLogic
             /// </summary>
             try
             {
-                var userRoleList = UserRoleAccessor.FetchUserRoleListByUser(userID);
+                var userRoleList = UserRoleAccessor.RetrieveUserRoleListByUser(userID);
 
                 if (userRoleList.Count > 0)
                 {
@@ -83,7 +83,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return UserRoleAccessor.FetchUserRoleCount();
+                return UserRoleAccessor.RetrieveUserRoleCount();
             }
             catch (Exception)
             {

@@ -28,11 +28,17 @@
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs8883.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Dat\AppData\Local\Temp\vs866D.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs4FCD.tmp\Debug\</IntermediateOutputPath>
+
+    
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs8C3F.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u10\AppData\Local\Temp\vsCF7E.tmp\Debug\</IntermediateOutputPath>
+
     <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs4CB9.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs543E.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs40.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs543E.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u27\AppData\Local\Temp\vsB659.tmp\Debug\</IntermediateOutputPath>
+
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,12 +55,17 @@
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs54E5.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs8883.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Dat\AppData\Local\Temp\vs866D.tmp\Release\</IntermediateOutputPath>
+
+   
+    <IntermediateOutputPath>C:\Users\nh229u10\AppData\Local\Temp\vsCF7E.tmp\Release\</IntermediateOutputPath>
+
     <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs4FCD.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs4CB9.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs543E.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs40.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs543E.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u27\AppData\Local\Temp\vsB659.tmp\Release\</IntermediateOutputPath>
+
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
