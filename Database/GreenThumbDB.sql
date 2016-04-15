@@ -1,4 +1,4 @@
-/* Check if database already exists and delete it if it does exist*/
+﻿/* Check if database already exists and delete it if it does exist*/
 use master
 go
 IF EXISTS(SELECT 1 FROM master.dbo.sysdatabases WHERE name = 'GreenThumbGardens') 
@@ -4700,6 +4700,8 @@ exec Admin.spInsertRegions				6					,'dry'					,99.3						,66.2 						,40.5 				
 exec Admin.spInsertRegions				7					,'dry'					,99.3						,66.2 						,40.5 						,58.5 						,5.8 						,1000 			,'3/7/89' 					,1000 			,'4/8/98';
 exec Admin.spInsertRegions				8					,'dry'					,99.3						,66.2 						,40.5 						,58.5 						,5.8 						,1000 			,'3/7/89' 					,1000 			,'4/8/98';
 exec Admin.spInsertRegions				9					,'dry'					,99.3						,66.2 						,40.5 						,58.5 						,5.8 						,1000 			,'3/7/89' 					,1000 			,'4/8/98';
+exec Admin.spInsertRegions				10					,'dry'					,99.3						,66.2 						,40.5 						,58.5 						,5.8 						,1000 			,'3/7/89' 					,1000 			,'4/8/98';
+
 
 go
 --* spInsertUsers						@FirstName varchar(50),	@LastName varchar(100),	@Zip char(9) ,	@EmailAddress varchar(100),	@UserName varchar(20),	@Password varchar(150),	@RegionID int
@@ -4714,7 +4716,6 @@ exec Admin.spInsertActivityLog			1000, 			'12/12/15', 			'This is a log entry',	
 exec Admin.spInsertMessage			'This is a message, wahoo!!'	,'Test Message'					,'jeffb'				,'jeffb'
 
 --* spInsertRoles						@RoleID				@Description varchar(100),	@CreatedBy int,	@CreatedDate smalldatetime 
-exec Admin.spInsertRoles				'Guest'				,'Guest'					,1003			,'1/4/99'
 exec Admin.spInsertRoles				'User'				,'User'						,1003			,'1/4/99'
 exec Admin.spInsertRoles				'Admin'				,'Admin'					,1003			,'1/4/99'
 exec Admin.spInsertRoles				'Expert'			,'Expert'					,1003			,'1/4/99'
@@ -4722,14 +4723,10 @@ exec Admin.spInsertRoles				'GroupMember'		,'Group Member'				,1003			,'1/4/99'
 exec Admin.spInsertRoles				'GroupLeader'	    ,'Group Leader'				,1003			,'1/4/99'
 			
 --* spInsertUserRoles           		@UserID int,	@RoleID int,	
-exec Admin.spInsertUserRoles			1000			,'Guest'					
-exec Admin.spInsertUserRoles			1001			,'Admin'		
-exec Admin.spInsertUserRoles			1002			,'Guest'		
-exec Admin.spInsertUserRoles			1003			,'Admin'		
-		
-
-
---* spInsertUserRoles           		@UserID int,	@RoleID int,	
+exec Admin.spInsertUserRoles			1000			,'Expert'					
+exec Admin.spInsertUserRoles			1001			,'Expert'		
+exec Admin.spInsertUserRoles			1002			,'GroupMember'		
+exec Admin.spInsertUserRoles			1003			,'GroupLeader'	
 exec Admin.spInsertUserRoles			1000			,'Admin'		
 
 -----------------------------GARDENS--------------------------------------
@@ -4862,8 +4859,25 @@ exec Expert.spInsertPlants				'Red Potato'		,'Potato'			,'Vegetable'			,'Small p
 --* spInsertExpertBecomeAnExpert       		@Username int,	@WhyShouldIBeAnExpert varchar(200),	@ApprovedBy int,	@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
 exec Expert.spInsertExpertBecomeAnExpert	1001			,'I am the best'					,1000				,1001			,'12/3/99'					,1000				,'8/20/13'
 	
+
+DECLARE @Note VARCHAR (max)
+
+SET @Note = 'If you’re tossing all your scraps into your compost pile, read this before you toss any more! Here’s some of my favourite things to regrow, though many more plants can be regrown.[crlf][crlf]Potatoes - If you have organic potatoes (those sprayed with chemicals often are sprayed to resist growth), cut the eyes out but leave a very large chunk of potato attached (1-2″)- a medium size whole potato can yield 4-6 plants. Plant in soil as you would any seed potato.[crlf][crlf]Romaine Lettuce & Cabbage - The white stem of romaine lettuce and cabbage leaves will grow roots and make a new plant – place your leaf flat in a dish, thick stem side down, with just enough water to allow the stem to stay wet, but not enough to cover the top. Mist with water daily or as needed to keep the top most. Transplant when roots are established. [crlf][crlf]Celery - Celery is very easy to regrow. Take the base/root end and place in a glass of water for a few days, once roots are established and you see the tops start to grow, transplant to soil. Leeks and green onions too![crlf][crlf]Onions - Onions are one of the easiest things in the world to replant ~ take the root end cut after you’ve cut if off your onion, and stick it room side down in soil. Cover with about 1/2″ of soil and water.'
+SET @Note = REPLACE(@Note,'[crlf]',CHAR(13)+CHAR(10))
+--* spInsertBlogEntry            		@BlogData varchar(max),		@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
+exec Expert.spInsertBlogEntry			@note	,'Compost that scrap – or regrow it?'	,1000			,'7/19/06'					,1002				,'2/17/87'	
+
+
+
+
+--SET @Note = 'Line One.[crlf];Line Two[crlf]Line Three.'
+--SET @Note = REPLACE(@Note,'[crlf]',CHAR(13)+CHAR(10))
 --* spInsertBlogEntry            		@BlogData varchar(max),		@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
 exec Expert.spInsertBlogEntry			'This is a blog about...'	,'Vegetables in Florida'	,1000			,'7/19/06'					,1002				,'2/17/87'	
+
+
+
+
 --* spInsertContent              		@UserID int,	@RegionID int,	@Title varchar(50),		@Category varchar(50),	@Content varchar(max),	@Date smalldatetime ,	@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
 exec Expert.spInsertContent				1001			,1 				,'Home Page'			,'home'					,'Welcome home'			,'2/8/93'				,1000			,'9/29/91'					,1001				,'6/14/05'		
 	

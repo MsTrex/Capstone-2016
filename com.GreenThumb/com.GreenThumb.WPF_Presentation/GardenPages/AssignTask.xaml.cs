@@ -60,7 +60,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
         {
             try
             {
-                var user = userManager.GetUserList();
+                var user = userManager.RetrieveUserList();
 
                 grdUsers.ItemsSource = user;
             }
@@ -78,7 +78,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
             int userID = int.Parse(UserIDtxt.Text);
             try
             {
-                var user = userManager.GetPersonalInfo(userID);
+                var user = userManager.RetrievePersonalInfo(userID);
                 grdUsers.ItemsSource = user;
 
 

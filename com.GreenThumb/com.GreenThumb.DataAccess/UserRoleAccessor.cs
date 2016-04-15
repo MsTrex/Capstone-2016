@@ -19,7 +19,7 @@ namespace com.GreenThumb.DataAccessor
         /// 
         /// Added 3/25 By Ibarahim
         /// </summary>
-        public static List<UserRole> FetchUserRoleList()
+        public static List<UserRole> RetrieveUserRoleList()
         {
             // create a list to hold the returned data
             var userRoleList = new List<UserRole>();
@@ -38,7 +38,77 @@ namespace com.GreenThumb.DataAccessor
             // create a command object
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            
 
+            // Try catch block to deal with the data
+            try
+            {
+                // open connection
+
+                conn.Open();
+
+                // execute the command and return a data reader
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                // before trying to read the reader, be sure it has data
+                if (reader.HasRows)
+                {
+                    // now we just need a loop to process the reader
+                    while (reader.Read())
+                    {
+                        UserRole currentUserRole = new UserRole()
+                        {
+                            UserID = reader.GetInt32(0),
+                            RoleID = reader.GetString(1),
+                            CreatedBy = reader.GetInt32(2),
+                            CreatedDate = reader.GetDateTime(3),
+                            Active = reader.GetBoolean(4)
+                        };
+
+                        userRoleList.Add(currentUserRole);
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                // rethrow all Exceptions, let the logic layer sort them out
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            // this list may be empty, if so, the logic layer will need to deal with it
+            return userRoleList;
+        }
+        /// <summary>
+        /// 
+        /// method to retrieve user roles by passing userID
+        /// 
+        /// 
+        /// Added 4-15-16 By Ibarahim Abuzaid
+        /// </summary>
+        public static List<UserRole> RetrieveUserRoleListByUser(int userID)
+        {
+            // create a list to hold the returned data
+            var userRoleList = new List<UserRole>();
+
+            // get a connection to the database
+            var conn = DBConnection.GetDBConnection();
+
+            // create a query to send through the connection
+
+            /*         string query = @"SELECT UserID, RoleID, CreatedBy, CreatedDate " +
+                                    @"FROM Admin.UserRoles ";
+   
+                     query += @"ORDER BY UserID, RoleID "; */
+            string cmdText = "Admin.spSelectUserRoleByUser";
+
+            // create a command object
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserID", userID);
 
             // Try catch block to deal with the data
             try
@@ -83,7 +153,7 @@ namespace com.GreenThumb.DataAccessor
             return userRoleList;
         }
 
-        public static int FetchUserRoleCount()
+        public static int RetrieveUserRoleCount()
         {
             int count = 0;
 

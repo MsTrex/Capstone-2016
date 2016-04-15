@@ -166,7 +166,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
         {
             try
             {
-                var user = myUserManager.GetPersonalInfo(_accessToken.UserID);
+                var user = myUserManager.RetrievePersonalInfo(_accessToken.UserID);
                 grdPersonalInfo.ItemsSource = user;
             }
             catch (Exception ex)
@@ -204,7 +204,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             try
             {
 
-                myUserManager.EditUserPersonalInfo(_accessToken.UserID, firstName, lastName, zip, emailAddress, regionId);
+                myUserManager.UpdateUserPersonalInfo(_accessToken.UserID, firstName, lastName, zip, emailAddress, regionId);
                 DisplayPersonalInfo();
                 txtFirstName.Clear();
                 txtLastName.Clear();

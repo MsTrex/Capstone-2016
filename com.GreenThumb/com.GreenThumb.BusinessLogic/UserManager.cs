@@ -21,7 +21,7 @@ namespace com.GreenThumb.BusinessLogic
         ///Updated Date: 3/19/16
         ///Updated regionID user input parameters
         ///</summary>
-        public bool EditUserPersonalInfo(int userID, string firstName, string lastName, string zip, string emailAddress, int? regionId)
+        public bool UpdateUserPersonalInfo(int userID, string firstName, string lastName, string zip, string emailAddress, int? regionId)
         {
            bool result = false;
 
@@ -78,7 +78,7 @@ namespace com.GreenThumb.BusinessLogic
         ///calling to the user accessor
         ///Date: 3/3/16
         ///</summary>
-        public List<User> GetPersonalInfo(int userID)
+        public List<User> RetrievePersonalInfo(int userID)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace com.GreenThumb.BusinessLogic
         /// 
         /// Added 3/4 By Ibarahim
         /// </summary>
-       public List<User> GetUserList(Active group = Active.active)
+       public List<User> RetrieveUserList(Active group = Active.active)
         {
             try
             {
@@ -122,7 +122,7 @@ namespace com.GreenThumb.BusinessLogic
         
 
 
-        public int GetUserCount(Active group = Active.active)
+        public int RetrieveUserCount(Active group = Active.active)
         {
             try
             {
@@ -135,7 +135,7 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
-        public int AddNewUser(string firstName,
+        public int CreateNewUser(string firstName,
                                    string lastName,
                                    string zip,
                                    string emailAddress,
@@ -164,7 +164,7 @@ namespace com.GreenThumb.BusinessLogic
                 throw;
             }
         }
-        public bool ChangeUserData(User usr, User newUsr)
+        public bool RetrieveUserData(User usr, User newUsr)
         {
            //                 var usr = new User()
 
@@ -194,7 +194,7 @@ namespace com.GreenThumb.BusinessLogic
         ///Date: 3/4/16
 		///</summary>
 
-        public User GetUserByUserName(string username)
+        public User RetrieveUserByUserName(string username)
         {
             try
             {
@@ -213,12 +213,23 @@ namespace com.GreenThumb.BusinessLogic
 		//calling to the user accessor
         ///Date: 3/4/16
 		///</summary>
-        public User FetchUser(int userId)
+        public User RetrieveUser(int userId)
         {
             return UserAccessor.RetrieveUserByID(userId);
         }
 
+        public User RetrieveUser()
+        {
+            try
+            {
+                return UserAccessor.RetrieveUser();
+            }
 
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 		///<summary>
         ///Author: Stenner Kvindlog         
         ///createUser sends user to database to be created  

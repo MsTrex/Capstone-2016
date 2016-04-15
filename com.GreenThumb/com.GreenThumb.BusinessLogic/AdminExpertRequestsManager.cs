@@ -259,7 +259,7 @@ namespace com.GreenThumb.BusinessLogic
             {
                 try
                 {
-                    flag = 2 == adminExpertRequestsAccessor.ApproveRequest(request); // 2 records should be affected.
+                    flag = 2 == adminExpertRequestsAccessor.UpdateExpertRequestApprove(request); // 2 records should be affected.
 
                     if (flag) { RemoveRequest(request); }
                 }
@@ -288,7 +288,7 @@ namespace com.GreenThumb.BusinessLogic
             {
                 try
                 {
-                    flag = 1 == adminExpertRequestsAccessor.DeclineRequest(request); // 1 record should be affected.
+                    flag = 1 == adminExpertRequestsAccessor.UpdateExpertRequestDecline(request); // 1 record should be affected.
 
                     if (flag) { RemoveRequest(request); }
                 }
@@ -319,7 +319,7 @@ namespace com.GreenThumb.BusinessLogic
                 {
                     try
                     {
-                        flag = 1 == adminExpertRequestsAccessor.PromoteUser(user); // 1 record should be affected.
+                        flag = 1 == adminExpertRequestsAccessor.UpdateUserPromote(user); // 1 record should be affected.
 
                         if (flag)
                         {
@@ -358,7 +358,7 @@ namespace com.GreenThumb.BusinessLogic
                 {
                     try
                     {
-                        flag = 1 == adminExpertRequestsAccessor.DemoteExpert(user); // 1 record should be affected.
+                        flag = 1 == adminExpertRequestsAccessor.UpdateExpertDemote(user); // 1 record should be affected.
 
                         if (flag)
                         {

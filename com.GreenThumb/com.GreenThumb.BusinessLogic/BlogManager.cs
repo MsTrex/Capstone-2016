@@ -19,14 +19,14 @@ namespace com.GreenThumb.BusinessLogic
 
         public List<Blog> GetBlogs()
         {
-            blogs = blogAccessor.fetchBlogs();
+            blogs = blogAccessor.retrieveBlogs();
             return blogs;
         }
 
         public Blog GetBlogById(int blogId)
         {
             Blog blogReturn = null;
-            blogs = blogAccessor.fetchBlogs();
+            blogs = blogAccessor.retrieveBlogs();
             foreach (Blog blog in blogs)
             {
                 if (blog.BlogID == blogId)
@@ -38,7 +38,7 @@ namespace com.GreenThumb.BusinessLogic
         }
         public List<Blog> GetBlogByDate()
         {
-            blogs = blogAccessor.fetchBlogs();
+            blogs = blogAccessor.retrieveBlogs();
             //sortByDate
             return blogs;
         }

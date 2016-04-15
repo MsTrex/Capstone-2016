@@ -82,6 +82,65 @@ namespace com.GreenThumb.DataAccess
             }
             return user;
         }
+        public static User RetrieveUser()
+        {
+            User user;
+            var conn = DBConnection.GetDBConnection();
+            var query = @"Admin.spSelectUsers";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    int? regionID = 0;
+                    string zip = "";
+                    if (!reader.IsDBNull(4))
+                    {
+                        zip = reader.GetString(4);
+                    }
+                    if (!reader.IsDBNull(6))
+                    {
+                        // Rhett Allen 3/24/16 - regionID is now being assigned
+                        regionID = reader.GetInt32(6);
+                    }
+                    else
+                    {
+                        // Rhett Allen 3/24/16 - added else. Made region default null instead of zero since region is nullable
+                        regionID = null;
+                    }
+                    user = new User()
+                    {
+                        UserID = reader.GetInt32(0),
+                        UserName = reader.GetString(1),
+                        FirstName = reader.GetString(2),
+                        LastName = reader.GetString(3),
+                        Zip = zip,
+                        EmailAddress = reader.GetString(5),
+                        RegionId = regionID,
+                        Active = reader.GetBoolean(7)
+                    };
+                }
+                else
+                {
+                    throw new ApplicationException("Data not found");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return user;
+        }
         //Updated class name 4/14/16 Emily
         public static int RetrieveUserByUsernameAndPassword(string username, string password)
         {
@@ -540,7 +599,7 @@ namespace com.GreenThumb.DataAccess
          /// Stored Procedure. I'm leaving this here, just in case it is decided to just fix this one and delete the other for 
          /// some reason
          ///-Emily 4-14-16
-         public static int FetchUserCount(int userID)
+         public static int RetrieveUserCount(int userID)
         {
             int count = 0;
 
