@@ -91,15 +91,22 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             frmRole.Visibility = Visibility.Hidden;
             grdGarden.Visibility = Visibility.Hidden;
             frmPassword.Visibility = Visibility.Visible;
-       
-           if (txtOldPassword.Password != user.Password)
-               lblMessage.Content = "Invalid Password";
 
-    
+            if (txtOldPassword.Password != null && txtOldPassword.Password != _accessToken.Password)
+            {
+                lblMessage.Content = "Invalid old Password";
+            }
+
+            if (txtNewPassword2.Password == null || txtNewPassword1.Password == null)
+            {
+               lblMessage.Content = "enter new Password twice";
+            } 
+
             if (txtNewPassword2.Password != txtNewPassword1.Password)
             {
-                lblMessage.Content = "Password doesn't match!";
+                lblMessage.Content = "new Password doesn't match!";
             } 
+
         }
         private void btnPasswordSave_Click(object sender, RoutedEventArgs e)
         {
@@ -112,7 +119,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                 if (res == true)
                 {
                     lblMessage.Content = "Operation Succeeded. ";
-                    populateUser();
+                    
                 }
                 else
                 {
@@ -125,8 +132,11 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             }
             finally
             {
-
-
+                txtOldPassword.Password = "";
+                txtNewPassword1.Password = "";
+                txtNewPassword2.Password = "";
+                frmPassword.Visibility = Visibility.Hidden;
+                populateUser();
             }
         }
          
@@ -185,6 +195,12 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                         {
 
                             lblMessage.Content = "Operation Succeeded. ";
+                            _accessToken.FirstName = user.FirstName;
+                            _accessToken.LastName = user.LastName;
+                            _accessToken.UserName = user.UserName;
+                            _accessToken.EmailAddress = user.EmailAddress;
+                            _accessToken.Zip = user.Zip;
+                            _accessToken.RegionId = user.RegionId;
                             populateUser();
                         }
                         else
@@ -214,7 +230,9 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
         }
         public void DataGrid_SelectionChanged(object sender, RoutedEventArgs e)
         {
-         //   frmPassword.Visibility = Visibility.Hidden;
+             frmPassword.Visibility = Visibility.Hidden;
         }
+
+        
     }
 }

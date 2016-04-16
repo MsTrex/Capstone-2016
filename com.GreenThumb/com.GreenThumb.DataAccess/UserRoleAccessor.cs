@@ -99,10 +99,6 @@ namespace com.GreenThumb.DataAccessor
 
             // create a query to send through the connection
 
-            /*         string query = @"SELECT UserID, RoleID, CreatedBy, CreatedDate " +
-                                    @"FROM Admin.UserRoles ";
-   
-                     query += @"ORDER BY UserID, RoleID "; */
             string cmdText = "Admin.spSelectUserRoleByUser";
 
             // create a command object
@@ -130,11 +126,24 @@ namespace com.GreenThumb.DataAccessor
                         {
                             UserID = reader.GetInt32(0),
                             RoleID = reader.GetString(1),
-                            CreatedBy = reader.GetInt32(2),
-                            CreatedDate = reader.GetDateTime(3),
                             Active = reader.GetBoolean(4)
                         };
-
+                        if (reader.IsDBNull(2))
+                        {
+                            currentUserRole.CreatedBy = null;
+                        }
+                        else
+                        {
+                            currentUserRole.CreatedBy = reader.GetInt32(2);
+                        }
+                        if (reader.IsDBNull(3))
+                        {
+                            currentUserRole.CreatedDate = null;
+                        }
+                        else
+                        {
+                            currentUserRole.CreatedDate = reader.GetDateTime(3);
+                        }
                         userRoleList.Add(currentUserRole);
                     }
                 }
