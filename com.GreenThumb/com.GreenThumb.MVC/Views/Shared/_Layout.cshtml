@@ -30,15 +30,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @*@if (User.IsInRole("Group Member")) 
-                    {*@ 
+                    
                     <li>@Html.ActionLink("Group", "Index", "Group")</li>
                     <li>@Html.ActionLink("Garden", "Index", "Garden")</li>
                     <li>@Html.ActionLink("Tasks", "Index", "GardenTask")</li>
-                    @*}*@
+                    
                     @if (User.IsInRole("Administrator"))
                     {
                     <li>@Html.ActionLink("Admin", "Index", "Admin")</li>}

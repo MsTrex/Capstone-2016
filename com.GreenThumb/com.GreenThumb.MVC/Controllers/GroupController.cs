@@ -11,6 +11,7 @@ using com.GreenThumb.BusinessLogic;
 
 namespace com.GreenThumb.MVC.Controllers
 {
+    [Authorize]
     public class GroupController : Controller
     {
         // GET: Group

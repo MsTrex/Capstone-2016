@@ -10,8 +10,10 @@ using com.GreenThumb.BusinessObjects;
 
 namespace com.GreenThumb.MVC.Controllers
 {
+    [Authorize]
     public class GardenTaskController : Controller
     {
+        
         // GET: GardenTask
         public ActionResult Index()
         {
