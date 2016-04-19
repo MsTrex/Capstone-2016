@@ -26,6 +26,8 @@ namespace com.GreenThumb.WPF_Presentation
         Login _login;
         RoleManager roleManager = new RoleManager();
         NewUserCreation _newUser;
+        MessageManager messageMgr = new MessageManager();
+        
 
         public MainWindow()
         {
@@ -181,6 +183,7 @@ namespace com.GreenThumb.WPF_Presentation
                 this.btnLogin.Header = "Log In";
                 // change things back to default here.
                 lblLoggedIn.Header = "";
+                lblCurrentMessages.Header = "";
                 CheckPermissions();
                 btnSignUp.Visibility = System.Windows.Visibility.Visible;
             }
@@ -212,8 +215,18 @@ namespace com.GreenThumb.WPF_Presentation
             {
                 this._accessToken = a;
                 lblLoggedIn.Header = "Logged in as " + a.FirstName + " " + a.LastName;
+                SetNewMessageLabel(a);
                 btnSignUp.Visibility = System.Windows.Visibility.Collapsed;
             }
+        }
+        /// <summary>
+        /// ADDED by Trevor Glisch
+        /// Method to change the label when someone logs in or checks messages
+        /// </summary>
+        /// <param name="a"></param>
+        public void SetNewMessageLabel(AccessToken a)
+        {
+            lblCurrentMessages.Header = a.FirstName + " You Have " + messageMgr.UnreadMessageCount(_accessToken.UserName) + " New Messages";
         }
         /// <summary>
         /// Author: Ryan Taylor
@@ -658,6 +671,14 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnSideBar15_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        private void lblCurrentMessages_Click(object sender, RoutedEventArgs e)
+        {
+            btnProfile.Focus();
+            mainFrame.NavigationService.Navigate(new ProfilePages.Messages(_accessToken));
+            CheckPermissions();
+            SetProfileButtons();
         }
 
 

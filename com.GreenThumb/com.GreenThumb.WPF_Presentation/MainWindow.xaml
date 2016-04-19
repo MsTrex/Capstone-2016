@@ -118,7 +118,8 @@
                         <MenuItem Header="_Close" IsCheckable="False"/>
                     </MenuItem>
                     <MenuItem Header="_Help" Grid.Column="1"></MenuItem>
-                    <MenuItem FontSize="15" FontStyle="Italic" Name="lblLoggedIn" Click="lblLoggedIn_Click" Grid.Column="3" Header="" />
+                    <MenuItem FontSize="15" FontStyle="Normal" Name="lblCurrentMessages" Grid.Column="3" Header="" HorizontalAlignment="Right" Click="lblCurrentMessages_Click"/>
+                    <MenuItem FontSize="15" FontStyle="Italic" Name="lblLoggedIn" Click="lblLoggedIn_Click" Grid.Column="3" Header="" Visibility="Hidden" />
                     <MenuItem x:Name="btnLogin" Header="Log In" Click="Login_Click" Grid.Column="4" />
                     <MenuItem x:Name="btnSignUp" Header="Sign Up" Click="NewUser_Click" Grid.Column="5" />
                 </Menu>

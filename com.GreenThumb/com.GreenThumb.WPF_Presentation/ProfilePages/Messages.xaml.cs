@@ -94,6 +94,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                 try
                 {
                     _mgr.MarkMessageRead(_at.UserName, _selectedMessage.MessageID);
+                    
                 }
                 catch (Exception ex)
                 {

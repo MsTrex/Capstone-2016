@@ -145,6 +145,22 @@ namespace com.GreenThumb.BusinessLogic
 
 
         }
+        /// <summary>
+        /// ADDED BY Trevor Glisch
+        /// Method to return the number of new messages when a user logs in
+        /// </summary>
+        /// <param name="Username"></param>
+        /// <returns> Returns an count of the messages</returns>
+        public int UnreadMessageCount(string Username)
+        {
+            int count;
+            List<Message> Messages = GetUserMessages(Username);
+            Messages = Messages.Where(s => s.Unread == true).ToList();
+            count = Messages.Count;
+
+            return count;
+
+        }
 
 
 
