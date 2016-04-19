@@ -78,6 +78,8 @@ namespace com.GreenThumb.MVC.Controllers
         /// Author: Chris Schwebach 
         /// Post: Index/EditPersonal Info 
         /// Date: 3/31/16
+        /// Update: Fix View Action
+        /// Date 4/19/16
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -96,7 +98,7 @@ namespace com.GreenThumb.MVC.Controllers
                     UserManager.AddClaim(identity.GetUserId(), new Claim(ClaimTypes.Surname, lastName));
                     UserManager.AddClaim(identity.GetUserId(), new Claim(ClaimTypes.GivenName, firstName));
                     UserManager.SetEmail(identity.GetUserId(), emailAddress);
-                    ViewBag.StatusMessage = "Profile Saved!";
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch (Exception ex)

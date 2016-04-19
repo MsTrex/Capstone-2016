@@ -13,20 +13,17 @@ namespace com.GreenThumb.MVC.Controllers
     [Authorize]
     public class GardenController : Controller
     {
-        // GET: Garden
-        //Created by: Chris Schwebach
+        /// <summary>
+        /// GET the list of gardens you belong to by group.
+        /// Author: Chris Schwebach 4/18/2016
+        /// </summary>
+        /// <returns>GardenList by group</returns>
         public ActionResult Index()
         {
             int userId = RetrieveUserId();
-            try
-            {
-                var model = new com.GreenThumb.BusinessLogic.GardenManager().GetGardenByUser(userId);
-                return View(model);
-            }
-            catch
-            {
-                throw;
-            }
+            var model = new com.GreenThumb.BusinessLogic.GardenManager().GetGardenByUser(userId);
+            return View(model);
+       
         }
 
         /// <summary>
