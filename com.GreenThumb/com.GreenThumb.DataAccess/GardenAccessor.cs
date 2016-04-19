@@ -57,7 +57,7 @@ namespace com.GreenThumb.DataAccess
         /// <param name="userID"></param>
         /// <param name="garden"></param>
         /// <returns></returns>
-        public static bool AddGarden(Garden garden)
+        public static bool CreateAddGarden(Garden garden)
         {
             var conn = DBConnection.GetDBConnection();
             var query = "Gardens.spInsertGardens";
@@ -95,7 +95,7 @@ namespace com.GreenThumb.DataAccess
         /// Accessor function fetch all gardens : Poonam Dubey  (20th March 2016)
         /// </summary> 
         /// <returns></returns>
-        public static List<Garden> GetGardens()
+        public static List<Garden> RetrieveGardens()
         {
             // create a list to hold the returned data
             var gardenList = new List<Garden>();
@@ -126,15 +126,7 @@ namespace com.GreenThumb.DataAccess
                     {
                         Garden garden = new Garden()
                         {
-                            //CustomerID = reader.GetInt32(0),
-                            //FirstName = reader.GetString(1),
-                            //LastName = reader.GetString(2),
-                            //EmailID = reader.GetString(3),
-                            //PhoneNo1 = reader.GetString(4),
-                            //Address1 = reader.GetString(5),
-                            //PostalCode = reader.GetString(6),
-                            //City = reader.GetString(7),
-                            //State = reader.GetString(8)
+                           
                         };
 
 
@@ -162,7 +154,7 @@ namespace com.GreenThumb.DataAccess
         /// Date: 04/6/16
         /// Gets gardens the user belongs to returns garen list
         /// </summary> 
-        public static List<Group> FetchGardenInfo(int userID)
+        public static List<Group> RetrieveGardenInfo(int userID)
         {
             //var gardenInfo = new List<Garden>();
 

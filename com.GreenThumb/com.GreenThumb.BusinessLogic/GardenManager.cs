@@ -43,7 +43,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return GardenAccessor.AddGarden(garden);
+                return GardenAccessor.CreateAddGarden(garden);
             }
             catch (Exception ex)
             {
@@ -61,7 +61,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return GardenAccessor.GetGardens();
+                return GardenAccessor.RetrieveGardens();
             }
             catch (Exception)
             {
@@ -79,7 +79,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return GardenAccessor.FetchGardenInfo(userID);
+                return GardenAccessor.RetrieveGardenInfo(userID);
             }
             catch (Exception)
             {

@@ -4611,7 +4611,7 @@ BEGIN
 		ON g.GroupID = u.UserID 
 	WHERE g.Active = 1 and gm.UserID = @UserID; 
 END;
-go
+go 
 
 --- Created By : Poonam Dubey 04/07/2016
 CREATE PROCEDURE [Gardens].[spSelectTasksGarden](

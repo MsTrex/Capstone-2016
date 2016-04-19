@@ -15,7 +15,7 @@ namespace com.GreenThumb.DataAccess
     /// </summary>
     public class GroupAccessor
     {
-        public static List<Group> GetGroupList(int userID, Active recordType = Active.active)
+        public static List<Group> RetrieveGroupList(int userID, Active recordType = Active.active)
         {
             var groupList = new List<Group>();
 
@@ -79,7 +79,7 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="UserID"></param>
         /// <returns></returns>
-        public static List<Group> FetchJoinableGroups(int UserID)
+        public static List<Group> RetrieveJoinableGroups(int UserID)
         {
             List<Group> joinableGroups = new List<Group>();
             var conn = DBConnection.GetDBConnection();
@@ -142,7 +142,7 @@ namespace com.GreenThumb.DataAccess
         /// added by Nicholas King
         /// creates a group leader request
         /// </summary>
-        public static int InsertGroupLeaderRequest(int userID, int groupID, DateTime time)
+        public static int CreateGroupLeaderRequest(int userID, int groupID, DateTime time)
         {
             int count = 0;
             var conn = DBConnection.GetDBConnection();
@@ -179,7 +179,7 @@ namespace com.GreenThumb.DataAccess
         /// added by Nicholas King
         /// gets a list of all groups the user is in
         /// </summary>
-        public static List<Group> GetUsersGroups(int userID, Active recordType = Active.active)
+        public static List<Group> RetrieveUsersGroups(int userID, Active recordType = Active.active)
         {
             var groupList = new List<Group>();
 
@@ -268,7 +268,7 @@ namespace com.GreenThumb.DataAccess
         /// <param name="userID">ID of user to check status</param>
         /// <param name="groupID">ID of the group to query for user status</param>
         /// <returns>True if data was added, False otherwise</returns>
-        public static bool GroupLeaderStatus(int userID, int groupID)
+        public static bool RetrieveGroupLeaderStatus(int userID, int groupID)
         {
             bool isLeader = false;
 
@@ -346,7 +346,7 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="reqObj"></param>
         /// <returns></returns>
-        public static int AddGroupMember(GroupRequest reqObj)
+        public static int CreateGroupMember(GroupRequest reqObj)
         {
             string query = @"Admin.spInsertGroupRequest";
             int rowCount = 0;
@@ -384,7 +384,7 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="groupID">ID of the group to deactivate</param>
         /// <returns>True if deactivated, False otherwise</returns>
-        public static bool DeactivateGroupByID(int groupID)
+        public static bool UpdateDeactivateGroupByID(int groupID)
         {
             int rowCount = 0;
 
@@ -491,7 +491,7 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="groupID"></param>
         /// <returns>Members associtated with groupID</returns>
-        public static List<GroupMember> GetMemberList(int groupID)
+        public static List<GroupMember> RetrieveMemberList(int groupID)
         {
             var memberList = new List<GroupMember>();
             var conn = DBConnection.GetDBConnection();
@@ -545,7 +545,7 @@ namespace com.GreenThumb.DataAccess
         /// <param name="userId">User from group to be modified.</param>
         /// <param name="groupId">Group the user belongs to.</param>
         /// <returns>Rows affected by change.</returns>
-        public static int InactivateGroupMember(int userId, int groupId)
+        public static int UpdateInactivateGroupMember(int userId, int groupId)
         {
             int rowsAffected = 0;
 
@@ -586,7 +586,7 @@ namespace com.GreenThumb.DataAccess
         /// <param name="userID"></param>
         /// <param name="recordType"></param>
         /// <returns></returns>
-        public static List<Group> GetGroupsToView(int userID)
+        public static List<Group> RetrieveGroupsToView(int userID)
         {
             var groupList = new List<Group>();
 

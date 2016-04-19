@@ -41,7 +41,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                return JobAccessor.FetchTasks();
+                return JobAccessor.RetrieveTasks();
             }
             catch (Exception ex)
             {
@@ -148,7 +148,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                gardens = JobAccessor.GetUsersGardens(userID);
+                gardens = JobAccessor.RetrieveUsersGardens(userID);
             }
             catch (Exception ex)
             {

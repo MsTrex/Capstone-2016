@@ -20,7 +20,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                return GroupAccessor.GetGroupList(OrganizationID);
+                return GroupAccessor.RetrieveGroupList(OrganizationID);
             }
             catch (Exception ex)
             {
@@ -40,7 +40,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                joinable = GroupAccessor.FetchJoinableGroups(userID);
+                joinable = GroupAccessor.RetrieveJoinableGroups(userID);
             }
             catch (Exception){
                 joinable = new List<Group>();
@@ -62,7 +62,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                groups = GroupAccessor.GetUsersGroups(userID);
+                groups = GroupAccessor.RetrieveUsersGroups(userID);
             }
             catch (Exception ex)
             {
@@ -108,7 +108,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return GroupAccessor.GroupLeaderStatus(userID, groupID);
+                return GroupAccessor.RetrieveGroupLeaderStatus(userID, groupID);
             }
             catch (Exception ex)
             {
@@ -149,7 +149,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return GroupAccessor.AddGroupMember(reqObj);
+                return GroupAccessor.CreateGroupMember(reqObj);
             }
             catch (Exception)
             {
@@ -170,7 +170,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return GroupAccessor.DeactivateGroupByID(group.GroupID);
+                return GroupAccessor.UpdateDeactivateGroupByID(group.GroupID);
             }
             catch (Exception)
             {
@@ -192,7 +192,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                memberList = GroupAccessor.GetMemberList(groupID);
+                memberList = GroupAccessor.RetrieveMemberList(groupID);
             }
             catch (Exception)
             {
@@ -236,7 +236,7 @@ namespace com.GreenThumb.BusinessLogic
             {
                 // 1 row should be affected
                 flag =
-                    1 == GroupAccessor.InactivateGroupMember(userId, groupId);
+                    1 == GroupAccessor.UpdateInactivateGroupMember(userId, groupId);
             }
             catch (Exception) { } // flag set to false
 
@@ -256,7 +256,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                groups = GroupAccessor.GetGroupsToView(userID);
+                groups = GroupAccessor.RetrieveGroupsToView(userID);
             }
             catch (Exception ex)
             {
