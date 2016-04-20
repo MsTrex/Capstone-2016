@@ -178,6 +178,7 @@
     <Compile Include="Models\GardenTaskViewModel.cs" />
     <Compile Include="Models\GroupCreationViewModels.cs" />
     <Compile Include="Models\GroupIndexViewModel.cs" />
+    <Compile Include="Models\GroupMemberRequestModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -275,6 +276,7 @@
     <Content Include="Views\PartialViews\GroupGardenTask.cshtml" />
     <Content Include="Views\PartialViews\GardenTask.cshtml" />
     <Content Include="Views\PartialViews\TasksForGarden.cshtml" />
+    <Content Include="Views\PartialViews\_GroupRequestTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

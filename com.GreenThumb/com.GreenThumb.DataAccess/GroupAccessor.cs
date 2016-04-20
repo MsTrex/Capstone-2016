@@ -73,8 +73,38 @@ namespace com.GreenThumb.DataAccess
             return groupList;
         }
 
+
+        public static int UpdateGroupMemberRequest(GroupRequest request)
+        {
+            int count = 0;
+
+            var conn = DBConnection.GetDBConnection();
+            string cmdText = "Gardens.spAcceptRequest";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@GroupID", request.GroupID);
+            cmd.Parameters.AddWithValue("@UserID", request.UserID);
+            cmd.Parameters.AddWithValue("@ApprovedID", request.ApprovedBy);
+            cmd.Parameters.AddWithValue("@ApprovedDate", request.ApprovedDate);
+            try
+            {
+                conn.Open();
+                count = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return count;
+        }
+
+
         /// <summary>
-        /// 
+        /// retrieves a list of groups the user is not in
         /// Created by: Nicholas King 04/03/2016
         /// </summary>
         /// <param name="UserID"></param>
@@ -161,7 +191,7 @@ namespace com.GreenThumb.DataAccess
             try
             {
                 conn.Open();
-                count = (int)cmd.ExecuteNonQuery();
+                count = cmd.ExecuteNonQuery();
             }
             catch (Exception)
             {
@@ -343,6 +373,8 @@ namespace com.GreenThumb.DataAccess
         /// Poonam Dubey
         /// 04/06/2016
         /// Function to call DB and insert groupmember request
+        /// 
+        /// Altered by Nicholas King
         /// </summary>
         /// <param name="reqObj"></param>
         /// <returns></returns>
@@ -356,13 +388,14 @@ namespace com.GreenThumb.DataAccess
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@GroupID", reqObj.GroupID);
             cmd.Parameters.AddWithValue("@UserID", reqObj.UserID);
-            cmd.Parameters.AddWithValue("@RequestStatus", reqObj.RequestStatus);
+            //This Para is not used by the stored procedure
+            //cmd.Parameters.AddWithValue("@RequestStatus", reqObj.RequestStatus);
             cmd.Parameters.AddWithValue("@RequestDate", reqObj.RequestDate);
 
             try
             {
                 conn.Open();
-                rowCount = (int)cmd.ExecuteScalar();
+                rowCount = cmd.ExecuteNonQuery();
             }
             catch (Exception)
             {
@@ -375,6 +408,53 @@ namespace com.GreenThumb.DataAccess
 
             return rowCount;
 
+        }
+
+        /// <summary>
+        /// Gets a list of group requests for the selected group
+        /// 
+        /// created by Nicholas King
+        /// </summary>
+        /// <param name="groupid">Id of the group</param>
+        /// <returns></returns>
+        public static List<GroupRequest> RetrieveGroupRequestsByGroup(int groupid)
+        {
+            List<GroupRequest> requests = new List<GroupRequest>();
+
+            var conn = DBConnection.GetDBConnection();
+
+            var cmd = new SqlCommand("Admin.spGetRequestsForGroup", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@GroupID", groupid);
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        GroupRequest request = new GroupRequest();
+                        request.UserID = reader.GetInt32(0);
+                        request.RequestDate = reader.GetDateTime(1);
+
+                        requests.Add(request);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return requests;
         }
 
         /// <summary>

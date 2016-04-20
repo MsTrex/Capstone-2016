@@ -295,5 +295,46 @@ namespace com.GreenThumb.BusinessLogic
 
             return group;
         }
+
+        /// <summary>
+        /// Gets a list of group requests baised on group id
+        /// Created by Nicholas King
+        /// </summary>
+        /// <param name="groupid"></param>
+        /// <returns></returns>
+        public List<GroupRequest> RetrieveGroupRequests(int groupid)
+        {
+            List<GroupRequest> requests = new List<GroupRequest>();
+            if (groupid != null)
+            {
+                try
+                {
+                    requests = GroupAccessor.RetrieveGroupRequestsByGroup(groupid);
+                }
+                catch (Exception)
+                {
+                    //causes an empty but not null list to return
+                }
+            }
+            return requests;
+        }
+
+
+        public bool AcceptGroupRequest(GroupRequest request)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (GroupAccessor.UpdateGroupMemberRequest(request) == 1);
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+            
+            
+            return result;
+        }
     }
 }

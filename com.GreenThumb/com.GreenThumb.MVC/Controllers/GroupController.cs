@@ -109,6 +109,7 @@ namespace com.GreenThumb.MVC.Controllers
         /// Logged in user will view group details
         /// 
         /// Created by: Trent Cullinan 04/05/2016
+        /// Modified by: Nicholas King
         /// </summary>
         /// <param name="id">Group Id</param>
         /// <returns></returns>
@@ -138,11 +139,84 @@ namespace com.GreenThumb.MVC.Controllers
                         = ConvertGardenCollection(gardens)
                 };
 
+
+                //Added by Nicholas King
+                if (true)//do check for if user is group leader
+                {
+                    viewModel.Requests = new List<GroupMemberRequestModel>();
+                    List<GroupRequest> requests = new GroupManager().RetrieveGroupRequests(id.Value);
+                    foreach (GroupRequest request in requests)
+                    {
+                        GroupMemberRequestModel requestModel = new GroupMemberRequestModel();
+                        requestModel.Request = request;
+                        requestModel.Requestor = new UserManager().RetrieveUser(request.UserID);
+
+                        viewModel.Requests.Add(requestModel);
+                    }
+                }
+
                 view = View(viewModel);
             }
-
             return view;
         }
+
+
+        public ActionResult ApproveRequestToJoin(GroupRequest gRequest)
+        {
+            if (gRequest != null)
+            {
+                if (gRequest.UserID != 0 && gRequest.GroupID != 0)
+                {
+                    gRequest.ApprovedBy = RetrieveUserId();
+                    gRequest.ApprovedDate = DateTime.Now;
+                    if (new GroupManager().AcceptGroupRequest(gRequest))
+                    {
+                        //accept completed
+                    }
+                    else
+                    {
+                        //accppet failed
+                    }
+
+                }
+            }
+            return View("Details", gRequest.GroupID);
+        }
+
+        /// <summary>
+        /// Submits a GroupRequest
+        /// 
+        /// Created by: Nicholas King
+        /// </summary>
+        /// <param name="groupID"></param>
+        /// <returns></returns>
+        public ActionResult RequestJoinGroup(int? groupID)
+        {
+            if (groupID != null)
+            {
+                GroupRequest request = new GroupRequest();
+                request.UserID = RetrieveUserId();
+                request.RequestDate = DateTime.Now;
+                request.GroupID = (int)groupID;
+
+                GroupManager manager = new GroupManager();
+                try
+                {
+                    if (manager.AddGroupMember(request) == 1)
+                    {
+                        return View("Index");
+                    }
+
+                }
+                catch (Exception)
+                {
+                    //request failed
+                }
+            }
+            return View("Index");
+        }
+
+
 
         // GET: Group/Create
         public ActionResult Create()
@@ -154,29 +228,29 @@ namespace com.GreenThumb.MVC.Controllers
 
         // POST: Group/Create
         [HttpPost]
-       
-        
+
+
         //take in userid and group name/create something to bind these too.
-       public ActionResult Create([Bind(Include="GroupName")]string groupName)
-         {
+        public ActionResult Create([Bind(Include = "GroupName")]string groupName)
+        {
             if (ModelState.IsValid)
             {
                 UserManager userManager = new UserManager();
                 var user = userManager.RetrieveUserByUserName(User.Identity.GetUserName());
-                
+
                 try
                 {
                     com.GreenThumb.BusinessLogic.GroupManager groupManager = new BusinessLogic.GroupManager();
                     groupManager.AddGroup(user.UserID, groupName); //hard coded garbage data-need to replace supplied by request
                     ViewBag.StatusMessage = "Your group was created!";
-                    
+
                 }
                 catch
                 {
                     return View();
                 }
-                
-                
+
+
             }
             return RedirectToAction("Index", "Group");
         }
@@ -223,6 +297,25 @@ namespace com.GreenThumb.MVC.Controllers
             {
                 return View();
             }
+        }
+
+
+
+        #region Helper Methods
+
+        // Created by: Trent Cullinan 03/31/2016
+        private int RetrieveUserId()
+        {
+            int userId = 0;
+
+            var userName = User.Identity.GetUserName();
+
+            if (null != userName)
+            {
+                userId = new UserManager().RetrieveUserId(userName);
+            }
+
+            return userId;
         }
 
         // Created by: Trent Cullinan 04/05/2016
@@ -284,25 +377,6 @@ namespace com.GreenThumb.MVC.Controllers
                     = garden.GardenDescription
             };
         }
-
-        #region Helper Methods
-
-        // Created by: Trent Cullinan 03/31/2016
-        private int RetrieveUserId()
-        {
-            int userId = 0;
-
-            var userName = User.Identity.GetUserName();
-
-            if (null != userName)
-            {
-                userId = new UserManager().RetrieveUserId(userName);
-            }
-
-            return userId;
-        }
-
-
 
 
 

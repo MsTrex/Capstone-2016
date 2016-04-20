@@ -1,4 +1,5 @@
 ﻿@* Created by: Trent Cullinan 04/05/2016 *@
+@using com.GreenThumb.MVC.Models
 @model com.GreenThumb.MVC.Models.GroupDetailViewModel
 
 @{
@@ -20,4 +21,11 @@
     <div>
         @Html.Partial("~/Views/PartialViews/GroupMemberTable.cshtml", Model.GroupMembers)
     </div>
+
+    @*Add groupleader check here*@
+    @if(true){
+    <div>
+        @Html.Partial("~/Views/PartialViews/_GroupRequestTable.cshtml", Model.Requests)
+    </div>
+    }
 </div>
