@@ -815,5 +815,39 @@ namespace com.GreenThumb.DataAccess
 
         }
 
+        /// <summary>
+        /// Poonam Dubey
+        /// 18th April 2016
+        /// Function to check if user is garden leader
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        //public static bool CheckIsGardenLeader(int userID)
+        //{
+        //    int count = 0;
+
+        //    var conn = DBConnection.GetDBConnection();
+        //    var cmd = new SqlCommand("Gardens.spCheckUserIsGroupLeader", conn);
+        //    cmd.CommandType = CommandType.StoredProcedure;
+
+        //    cmd.Parameters.AddWithValue("@UserID", userID);
+
+        //    try
+        //    {
+        //        conn.Open();
+        //        count = (int)cmd.ExecuteScalar();
+        //    }
+        //    catch (Exception)
+        //    {
+                
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        conn.Close();
+        //    }
+        //    return count == 1;
+        //}
+
     }
 }

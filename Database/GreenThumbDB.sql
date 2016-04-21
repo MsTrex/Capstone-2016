@@ -4629,6 +4629,21 @@ BEGIN
 END;
 go
 
+--- Created By : Chris Schwebach 04/15.2016
+CREATE PROCEDURE [Gardens].[spSelectTasksForGarden](
+	@GardenID int
+)
+AS
+BEGIN
+	SELECT TaskID, Description , CONVERT(VARCHAR(20),DateAssigned) 'AssignedOn',   ISNULL(CONVERT(VARCHAR(20),DateCompleted),'') 'CompletedOn', ISNULL(AUU.FirstName + ' ' + AUU.LastName,'') 'AssignedTo', AU.FirstName + ' ' + AU.LastName 'AssignedBy' , UserNotes, GT.Active , ISNULL(GT.AssignedTo, 0)  
+	FROM Gardens.Tasks GT
+	INNER JOIN Admin.Users AU 
+	ON GT.AssignedFrom = AU.UserID  
+	LEFT JOIN  Admin.Users AUU ON GT.AssignedTo = AUU.UserID  
+	WHERE GT.GardenID = @GardenID AND GT.Active = 1
+END;
+go
+
 ------------------------------------------
 -----------Gardens.WorkLogs---------------
 ------------------------------------------

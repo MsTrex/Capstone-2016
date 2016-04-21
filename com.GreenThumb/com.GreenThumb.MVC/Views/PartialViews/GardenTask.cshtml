@@ -1,48 +1,81 @@
-﻿@model IEnumerable<com.GreenThumb.BusinessObjects.Job>
+﻿@*Poonam Dubey*@
+@*14th April 2016*@
+@*Partial view to view garden tasks*@
+@model IEnumerable<com.GreenThumb.BusinessObjects.Task>
 
-    <h2></h2>
-    <p></p>
-    <table class="table">
-        <thead>
+<h2></h2>
+<p></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m.TaskDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.AssignedTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.AssignedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.AssignedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.CompletedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.UserNotes)
+            </th>
+            <th>
+                @Html.DisplayName("Volunteer for Task")
+            </th>
+            <th>
+                @Html.DisplayName("Mark Completed")
+            </th>
+            <th class="deactivate">
+                @Html.DisplayName("Deactivate Task")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (com.GreenThumb.BusinessObjects.Task jobs in Model)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(m => m.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(m => m.AssignedTo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(m => m.DateAssigned)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(m => m.DateCompleted)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(m => m.UserNotes)
-                </th>
+                <td>
+                    @jobs.TaskDescription
+                </td>
+                <td>
+                    @jobs.AssignedTo
+                </td>
+                <td>
+                    @jobs.AssignedBy
+                </td>
+                <td>
+                    @jobs.AssignedOn
+                </td>
+                <td>
+                    @jobs.CompletedOn
+                </td>
+                <td>
+                    @jobs.UserNotes
+                </td>
+                <td>
+                    @if (String.IsNullOrEmpty(@jobs.AssignedTo))
+                    {
+                        @Html.ActionLink("Volunteer", "VolunteerTask", "GardenTask", new { taskID = @jobs.TaskID, gardenID = -1 }, new { @class = "volunteerTask" })
+                    }
+                </td>
+                <td>
+                    @if (String.IsNullOrEmpty(@jobs.CompletedOn) && !String.IsNullOrEmpty(@jobs.AssignedTo))
+                    {
+                        @Html.ActionLink("Mark Complete", "CompleteTask", "GardenTask", new { taskID = @jobs.TaskID, gardenID = -1 }, new { @class = "completeTask", @id=@jobs.AssignedToUserID, style="display:none;" })
+                    }
+                </td>
+                <td class="deactivate">
+                    @Html.ActionLink("Deactivate", "DeactivateTask", "GardenTask", new { taskID = @jobs.TaskID, gardenID = -1 }, new { @class = "deleteTask" })
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (com.GreenThumb.BusinessObjects.Job jobs in Model)
-            {
-                <tr>
-                    <td>
-                        @jobs.Description
-                    </td>
-                    <td>
-                        @jobs.AssignedTo
-                    </td>
-                    <td>
-                       @jobs.DateAssigned
-                    </td>
-                    <td>
-                       @jobs.DateCompleted
-                    </td>
-                    <td>
-                        @jobs.UserNotes
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <script src="~/Scripts/GardenTask.js"></script>
+        }
+    </tbody>
+</table>
+<script src="~/Scripts/GardenTask.js"></script>

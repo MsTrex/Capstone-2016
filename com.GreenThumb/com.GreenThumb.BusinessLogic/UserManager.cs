@@ -386,5 +386,25 @@ namespace com.GreenThumb.BusinessLogic
 
             return userId;
         }
+
+        /// <summary>
+        /// Poonam Dubey
+        /// 18th April 2016
+        /// Function to check if user is garden leader
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        //public bool CheckIsGardenLeader(int userID)
+        //{
+        //    try
+        //    {
+        //        return UserAccessor.CheckIsGardenLeader(userID);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw;
+        //    }
+        //}
     }
 }
