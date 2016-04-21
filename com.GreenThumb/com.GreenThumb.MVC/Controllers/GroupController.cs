@@ -160,7 +160,12 @@ namespace com.GreenThumb.MVC.Controllers
             return view;
         }
 
-
+        /// <summary>
+        /// Approves a join request
+        /// Created by Nicholas King
+        /// </summary>
+        /// <param name="gRequest"></param>
+        /// <returns></returns>
         public ActionResult ApproveRequestToJoin(GroupRequest gRequest)
         {
             if (gRequest != null)
@@ -180,7 +185,7 @@ namespace com.GreenThumb.MVC.Controllers
 
                 }
             }
-            return View("Details", gRequest.GroupID);
+            return RedirectToAction("Details", "Group", gRequest.GroupID);
         }
 
         /// <summary>
@@ -204,7 +209,7 @@ namespace com.GreenThumb.MVC.Controllers
                 {
                     if (manager.AddGroupMember(request) == 1)
                     {
-                        return View("Index");
+                        return RedirectToAction("Index", "Group");
                     }
 
                 }
@@ -213,7 +218,7 @@ namespace com.GreenThumb.MVC.Controllers
                     //request failed
                 }
             }
-            return View("Index");
+            return RedirectToAction("Index", "Group");
         }
 
 
