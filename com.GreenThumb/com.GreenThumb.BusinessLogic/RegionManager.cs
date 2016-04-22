@@ -22,7 +22,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                regions = RegionAccessor.FetchRegions();
+                regions = RegionAccessor.RetrieveRegions();
             }
             catch (Exception ex)
             {

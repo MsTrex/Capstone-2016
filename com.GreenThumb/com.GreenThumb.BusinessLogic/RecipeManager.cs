@@ -41,7 +41,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                if (RecipeAccessor.InputRecipe(newRecipe, userId) == 1)
+                if (RecipeAccessor.CreateRecipe(newRecipe, userId) == 1)
                 {
                     result = true;
                 }
@@ -75,7 +75,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                recipes = RecipeAccessor.FetchRecipesWithKeywordAndCategory(keyword, category, offset, perPage);
+                recipes = RecipeAccessor.RetrieveRecipesWithKeywordAndCategory(keyword, category, offset, perPage);
 
                 if (recipes.Count > 0)
                 {
@@ -106,7 +106,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                count = RecipeAccessor.CountRecipes(keyword, category);
+                count = RecipeAccessor.RetrieveRecipeCount(keyword, category);
                 return count;
             }
             catch (Exception ex)

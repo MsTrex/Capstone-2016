@@ -17,7 +17,8 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="response">Response to be added</param>
         /// <returns>True if the response was successfully added</returns>
-        public static bool InsertResponse(Response response)
+        /// Changed method name to CreateResponse from InsertResponse 4/21/16 Steve Hoover
+        public static bool CreateResponse(Response response)
         {
             bool inserted = false;
 
@@ -55,7 +56,8 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="questionID">Question ID</param>
         /// <returns>All responses to a certain question</returns>
-        public static List<Response> FetchResponsesByQuestionID(int questionID)
+        /// changed method name from FetchResponsesByQuestionID 4/21/16 Steve Hoover
+        public static List<Response> RetrieveResponsesByQuestionID(int questionID)
         {
             List<Response> responses = new List<Response>();
 
@@ -108,7 +110,8 @@ namespace com.GreenThumb.DataAccess
         /// <param name="questionID">QuestionID</param>
         /// <param name="userID">UserID of user that replied</param>
         /// <returns>A response to a question from a user</returns>
-        public static Response FetchResponseByQuestionIDAndUser(int questionID, int userID)
+        /// changed method name from FetchResponseByQuestionIDAndUser 4/21/16 Steve Hoover
+        public static Response RetrieveResponseByQuestionIDAndUser(int questionID, int userID)
         {
             Response response = new Response();
 

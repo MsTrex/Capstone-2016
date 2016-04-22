@@ -84,7 +84,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
             {
                 try
                 {
-                    _grpManager.ChangeGroupName(_group.GroupID, txtGroupName.Text, _group.Name);
+                    _grpManager.EditGroupName(_group.GroupID, txtGroupName.Text, _group.Name);
                     _group.Name = txtGroupName.Text;
                 }
                 catch (Exception ex)
@@ -105,7 +105,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
             var result = MessageBox.Show("Are you sure you wish to deactivate this group?","Deactivate Group",MessageBoxButton.YesNo,MessageBoxImage.Exclamation);
             if (result == MessageBoxResult.Yes)
             {
-                bool success = _grpManager.DeactivateGroup(_group);
+                bool success = _grpManager.EditDeactivateGroup(_group);
                 if (success)
                 {
                     this.NavigationService.Navigate(new GardenPages.GroupMain(_accessToken));

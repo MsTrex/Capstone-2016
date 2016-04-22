@@ -19,7 +19,8 @@ namespace com.GreenThumb.DataAccess
         /// 
         /// Added 3/4 By Ibarahim
         /// </summary>
-        public static List<Role> FetchRoleList()
+        /// changed method name from FetchRoleList 4/21/16 Steve Hoover
+        public static List<Role> RetrieveRoleList()
         {
             // create a list to hold the returned data
             var roleList = new List<Role>();
@@ -76,7 +77,8 @@ namespace com.GreenThumb.DataAccess
             return roleList;
         }
 
-        public static int FetchRoleCount()
+        // changed method name from FetchRoleCount 4/21/16 Steve Hoover
+        public static int RetrieveRoleCount()
         {
             int count = 0;
 
@@ -100,8 +102,8 @@ namespace com.GreenThumb.DataAccess
 
             return count;
         }
-
-        public static int InsertRole(Role role)
+        // changed method name from InsertRole 4/21/16 Steve Hoover
+        public static int CreateRole(Role role)
         {
             int count = 0;
 

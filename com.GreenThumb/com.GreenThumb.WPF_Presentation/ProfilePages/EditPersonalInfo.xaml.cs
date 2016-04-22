@@ -167,7 +167,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             try
             {
                 var user = myUserManager.RetrievePersonalInfo(_accessToken.UserID);
-                grdPersonalInfo.ItemsSource = user;
+                grdPersonalInfo.ItemsSource = new List<User>{user};
             }
             catch (Exception ex)
             {

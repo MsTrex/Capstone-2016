@@ -345,7 +345,10 @@ namespace com.GreenThumb.DataAccess
 
             return rowCount;
         }
-
+        /*
+         * Removed by Steve Hoover - 4/21/15
+         * References to this method should be changed to RetrieveUserList
+         * 
         ///<summary>
         ///Author: Chris Schwebach
         ///FetchUserPersonalInfo gets a database connection and retrieves user personal information 
@@ -401,7 +404,7 @@ namespace com.GreenThumb.DataAccess
             return user;
         }
 
-
+        */
         /// <summary>
         /// Rhett Allen
         /// Created: 2016/02/26
@@ -460,7 +463,6 @@ namespace com.GreenThumb.DataAccess
 
             return updated;
         }
-
         /// <summary>
         /// Rhett Allen
         /// Created: 2016/02/26
@@ -538,7 +540,7 @@ namespace com.GreenThumb.DataAccess
             }
             return user;
         }
-
+        
        
         /// <summary>
         /// Author: Ibrahim Abuzaid
@@ -547,8 +549,10 @@ namespace com.GreenThumb.DataAccess
         /// 
         /// Added 3/4 By Ibarahim
         /// Updated Stored Procedure and Method Name 4/14/16 Emily
+        /// 
+        /// Updated method - SP calls for active 4/21/16 Steve Hoover
         /// </summary>
-        public static List<User> RetrieveUserList(int userID)
+        public static List<User> RetrieveUserList(Active active)
         {
             var user = new List<User>();
 
@@ -558,7 +562,7 @@ namespace com.GreenThumb.DataAccess
 
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@UserID", userID);
+            cmd.Parameters.AddWithValue("@Active", active);
 
             try
             {
