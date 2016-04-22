@@ -13,7 +13,7 @@ namespace com.GreenThumb.BusinessLogic.FakeStuff
         /// </summary>
         /// <param name="garden"></param>
         /// <returns></returns>
-        public bool CreateGarden(Garden garden)
+        public bool AddNewGarden(Garden garden)
         {
             if (!string.IsNullOrEmpty(garden.GardenDescription) && garden.GroupID >= 1000 && garden.UserID >= 1000)
             {
