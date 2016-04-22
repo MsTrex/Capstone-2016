@@ -49,7 +49,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             try
             {
-                var myPlant = myPlantManager.FetchPlant(plantId);
+                var myPlant = myPlantManager.GetPlant(plantId);
                 oldPlant = myPlant;
 
                 this.plantId.Text = myPlant.PlantID.ToString();

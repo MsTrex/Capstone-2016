@@ -321,10 +321,10 @@ namespace com.GreenThumb.BusinessLogicUnitTests
         public void Test_ApproveRequest_Success()
         {
             // Arrange
-            // bool result = 2 == requestsAccessor.ApproveRequest(TestRequest);
+            // bool result = 2 == requestsAccessor.EditApproveRequest(TestRequest);
 
             // Act
-            // result = requestsManager.ApproveRequest(this.accessToken, TestRequest);
+            // result = requestsManager.EditApproveRequest(this.accessToken, TestRequest);
 
             // Assert
         }
@@ -338,10 +338,10 @@ namespace com.GreenThumb.BusinessLogicUnitTests
         public void Test_DeclineRequest_Success()
         {
             // Arrange
-            // bool actual = 1 == requestsAccessor.DeclineRequest(TestRequest);
+            // bool actual = 1 == requestsAccessor.EditDeclineRequest(TestRequest);
 
             // Act
-            // bool result = requestsManager.DeclineRequest(this.accessToken, TestRequest);
+            // bool result = requestsManager.EditDeclineRequest(this.accessToken, TestRequest);
             // Assert
             // Assert.AreEqual(actual, result);
         }

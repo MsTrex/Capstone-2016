@@ -9,7 +9,7 @@ namespace BusinessLogic.Interfaces
     public interface IRequestStatusManager
     {
         //IEnumerable<Request> RetrievePendingRequests();
-        //bool ApproveRequest(Request request);
-        //bool DeclineRequest(Request request);
+        //bool EditApproveRequest(Request request);
+        //bool EditDeclineRequest(Request request);
     }
 }

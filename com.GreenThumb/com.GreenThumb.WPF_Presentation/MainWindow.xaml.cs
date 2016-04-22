@@ -226,7 +226,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// <param name="a"></param>
         public void SetNewMessageLabel(AccessToken a)
         {
-            lblCurrentMessages.Header = a.FirstName + " You Have " + messageMgr.UnreadMessageCount(_accessToken.UserName) + " New Messages";
+            lblCurrentMessages.Header = a.FirstName + " You Have " + messageMgr.GetUnreadMessageCount(_accessToken.UserName) + " New Messages";
         }
         /// <summary>
         /// Author: Ryan Taylor

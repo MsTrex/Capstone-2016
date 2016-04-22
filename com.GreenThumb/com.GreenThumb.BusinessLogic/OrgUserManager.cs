@@ -59,7 +59,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="accessToken">Confirm user is valid to use method.</param>
         /// <param name="refresh"></param>
         /// <returns>Collection of group members.</returns>
-        public IEnumerable<GroupMember> FetchOrgUsers(AccessToken accessToken, bool refresh = false)
+        public IEnumerable<GroupMember> GetOrgUsers(AccessToken accessToken, bool refresh = false)
         {
             if (null == this.orgUsers || refresh)
             {
@@ -93,7 +93,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="accessToken">Confirm user is valid to use method.</param>
         /// <returns>Collection of groups.</returns>
-        public IEnumerable<Group> FetchOrgGroups(AccessToken accessToken)
+        public IEnumerable<Group> GetOrgGroups(AccessToken accessToken)
         {
             IEnumerable<Group> orgGroups = null;
 
@@ -127,7 +127,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="accessToken">Confirm user is valid to use method.</param>
         /// <param name="groupMember">User to be referenced.</param>
         /// <returns>Collection of groups.</returns>
-        public IEnumerable<Group> FetchUserOrgGroups(AccessToken accessToken, GroupMember groupMember)
+        public IEnumerable<Group> GetUserOrgGroups(AccessToken accessToken, GroupMember groupMember)
         {
             IEnumerable<Group> orgUserGroups = null;
 
@@ -161,7 +161,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="accessToken">Confirm user is valid to use method.</param>
         /// <param name="groupMember">User to be changed.</param>
         /// <returns>Whether process was successful.</returns>
-        public bool ChangeUserLeader(AccessToken accessToken, GroupMember groupMember)
+        public bool EditUserLeader(AccessToken accessToken, GroupMember groupMember)
         {
             bool flag = false;
 
@@ -247,7 +247,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="group">Group to be changed.</param>
         /// <param name="groupMember">User to be referenced.</param>
         /// <returns>Whether process was successful.</returns>
-        public bool ChangePrimaryLeader(AccessToken accessToken, Group group, GroupMember groupMember)
+        public bool EditPrimaryLeader(AccessToken accessToken, Group group, GroupMember groupMember)
         {
             bool flag = false;
 
@@ -270,7 +270,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="accessToken">Confirm user is valid to use method.</param>
         /// <param name="user">User to be referenced.</param>
         /// <returns>GroupMember object.</returns>
-        public GroupMember RetrieveGroupMember(AccessToken accessToken, User user)
+        public GroupMember GetGroupMember(AccessToken accessToken, User user)
         {
             if (!CheckAccessToken(accessToken, this.organization))
             {

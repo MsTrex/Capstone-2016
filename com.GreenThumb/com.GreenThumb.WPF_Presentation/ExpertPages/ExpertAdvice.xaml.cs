@@ -100,7 +100,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
 
                 question.CreatedDate = DateTime.Now;
 
-                bool created = questionManager.CreateQuestion(question);
+                bool created = questionManager.AddQuestion(question);
 
                 if (created)
                 {

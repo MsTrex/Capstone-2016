@@ -54,7 +54,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
 
             if (_accessToken != null)
             {
-                questions = questionManager.RetrieveQuestionsByUserID(_accessToken.UserID);
+                questions = questionManager.GetQuestionsByUserID(_accessToken.UserID);
                 if (questions.Count > 0)
                 {
                     gridMyQuestions.Visibility = System.Windows.Visibility.Visible;
@@ -76,7 +76,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         {
             try
             {
-                gridQuestions.ItemsSource = questionManager.RetrieveQuestionsWithKeyword(txtKeywords.Text);
+                gridQuestions.ItemsSource = questionManager.GetQuestionsWithKeyword(txtKeywords.Text);
             }
             catch (Exception)
             {
@@ -116,14 +116,14 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         private void ChangeQuestionAndResponses(int questionID)
         {
             gridQuestion.Visibility = System.Windows.Visibility.Visible;
-            Question question = questionManager.RetrieveQuestionByID(questionID);
+            Question question = questionManager.GetQuestionByID(questionID);
             lblContent.Text = question.Content;
             lblQuestion.Content = userManager.GetUser(question.CreatedBy).UserName + " asks...";
             List<Response> responses = new List<Response>();
 
             try
             {
-                responses = responseManager.RetrieveResponsesByQuestionID(questionID);
+                responses = responseManager.GetResponsesByQuestionID(questionID);
             }
             catch(Exception)
             {

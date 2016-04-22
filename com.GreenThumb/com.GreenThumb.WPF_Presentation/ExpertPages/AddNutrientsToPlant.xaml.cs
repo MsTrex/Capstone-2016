@@ -49,7 +49,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         {
             try
             {
-                _nutrients = nutrientManager.RetrieveNutrients();
+                _nutrients = nutrientManager.GetNutrients();
                 cmbNutrients.ItemsSource = _nutrients;
                 cmbNutrients.ToolTip = "Choose a nutrient";
             }
@@ -64,7 +64,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         {
             try
             {
-                icNutrients.ItemsSource = nutrientManager.RetrievePlantNutrients(_plant.PlantID);
+                icNutrients.ItemsSource = nutrientManager.GetPlantNutrients(_plant.PlantID);
             }
             catch (Exception ex)
             {
