@@ -4687,13 +4687,21 @@ BEGIN
 END;
 go
 
+
+--- Created By : Chris Schwebach 04/15.2016
+
 --created by chris schwebach 4-15-16
+
 CREATE PROCEDURE [Gardens].[spSelectTasksForGarden](
 	@GardenID int
 )
 AS
 BEGIN
+
+	SELECT TaskID, Description , CONVERT(VARCHAR(20),DateAssigned) 'AssignedOn',   ISNULL(CONVERT(VARCHAR(20),DateCompleted),'') 'CompletedOn', ISNULL(AUU.FirstName + ' ' + AUU.LastName,'') 'AssignedTo', AU.FirstName + ' ' + AU.LastName 'AssignedBy' , UserNotes, GT.Active , ISNULL(GT.AssignedTo, 0)  
+
 	SELECT TaskID, Description , CONVERT(VARCHAR(20),DateAssigned) 'AssignedOn',   ISNULL(CONVERT(VARCHAR(20),DateCompleted),'') 'CompletedOn', ISNULL(AUU.FirstName + ' ' + AUU.LastName,'') 'AssignedTo', AU.FirstName + ' ' + AU.LastName 'AssignedBy' , UserNotes, GT.Active  
+
 	FROM Gardens.Tasks GT
 	INNER JOIN Admin.Users AU 
 	ON GT.AssignedFrom = AU.UserID  
@@ -4701,6 +4709,8 @@ BEGIN
 	WHERE GT.GardenID = @GardenID AND GT.Active = 1
 END;
 go
+
+
 
 --created by nasr mohammed 4-19-16
 CREATE PROCEDURE Gardens.spSelectTasks  	 	
@@ -4767,6 +4777,7 @@ BEGIN
 END
 GO
 
+>>>>>>> origin/master
 ------------------------------------------
 -----------Gardens.WorkLogs---------------
 ------------------------------------------
