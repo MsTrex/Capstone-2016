@@ -4667,6 +4667,62 @@ BEGIN
 END;
 GO
 
+-- Author:		Poonam Dubey
+-- Create date: 19th April 2016
+-- Description:	Procedure to volunteer for a task
+CREATE PROCEDURE Gardens.spVolunteerForTask 
+	-- Add the parameters for the stored procedure here
+	@TaskID int = 0, 
+	@UserID int = 0
+AS
+BEGIN
+	UPDATE Gardens.Tasks
+	SET AssignedTo = @UserID,
+		DateAssigned = GETDATE()
+	WHERE TaskID = @TaskID
+END
+GO
+
+
+-- Author:		Poonam Dubey
+-- Create date: 19th April 2016
+-- Description:	Procedure to Mark a task as completed
+CREATE PROCEDURE Gardens.spMarkTaskAsComplete 
+	-- Add the parameters for the stored procedure here
+	@TaskID int = 0
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	UPDATE Gardens.Tasks
+	SET DateCompleted = GETDATE()
+	WHERE TaskID = @TaskID
+
+END
+GO
+
+
+-- Author:		Poonam Dubey
+-- Create date: 17th April 2016
+-- Description:	Procedure to deactivate task
+CREATE PROCEDURE Gardens.spDeactivateTask 
+	@TaskID INT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	UPDATE Gardens.Tasks
+	SET Active = 0
+	WHERE TaskID = @TaskID
+   
+END
+GO
+
 ------------------------------------------
 -----------Gardens.WorkLogs---------------
 ------------------------------------------
