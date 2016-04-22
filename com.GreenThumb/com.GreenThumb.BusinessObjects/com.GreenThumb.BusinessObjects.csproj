@@ -20,23 +20,12 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6456.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs81EF.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u03\AppData\Local\Temp\vs7FF3.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vsB259.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs54E5.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs8883.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Dat\AppData\Local\Temp\vs866D.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs4FCD.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs8C3F.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u10\AppData\Local\Temp\vsCF7E.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs4CB9.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs543E.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs40.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs3398.tmp\Debug\</IntermediateOutputPath>
-=======
->>>>>>> origin/master
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,7 +34,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6456.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs81EF.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vsB259.tmp\Release\</IntermediateOutputPath>
@@ -57,11 +45,6 @@
     <IntermediateOutputPath>C:\Users\nh229u10\AppData\Local\Temp\vsCF7E.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs4FCD.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs4CB9.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs543E.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs40.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs3398.tmp\Release\</IntermediateOutputPath>
-=======
->>>>>>> origin/master
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
