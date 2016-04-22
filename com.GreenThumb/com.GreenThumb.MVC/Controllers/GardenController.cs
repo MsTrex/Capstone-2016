@@ -62,6 +62,7 @@ namespace com.GreenThumb.MVC.Controllers
                 ///using Trent's helper method to get a userID
                 garden.UserID = RetrieveUserId();
                 garden.GardenDescription = model.GardenDescription;
+                garden.GardenName = model.GardenName;
                 garden.GroupID = model.GroupID;
 
 
@@ -74,6 +75,70 @@ namespace com.GreenThumb.MVC.Controllers
             }
 
             return RedirectToAction("Index", "Garden");
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/21/16
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult GardenDetail(int? id)
+        {
+            ActionResult viewResult = RedirectToAction("Index", "Garden");
+
+            if (id.HasValue)
+            {
+                ViewBag.GardenId = id.Value;
+
+                viewResult = View();
+            }
+
+            return viewResult;
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/21/16
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult AddNeed(int? id)
+        {
+            ActionResult viewResult = RedirectToAction("Index", "Garden");
+
+            if (id.HasValue)
+            {
+                CreateNeedViewModel model = new CreateNeedViewModel()
+                {
+                    GardenId = id.Value
+                };
+
+                viewResult = View(model);
+            }
+
+            return viewResult;
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/21/16
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult AddNeed(CreateNeedViewModel model)
+        {
+            ActionResult viewResult = View(model);
+
+            if (ModelState.IsValid)
+            {
+                viewResult = RedirectToAction("GardenDetail", new { id = model.GardenId });
+            }
+
+            return viewResult;
         }
 
 
