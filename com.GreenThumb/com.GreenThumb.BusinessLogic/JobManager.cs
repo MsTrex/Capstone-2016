@@ -212,5 +212,87 @@ namespace com.GreenThumb.BusinessLogic
             return gardens;
         }
 
+        /// <summary>
+        /// Poonam Dubey
+        /// 14th April 2016
+        /// Manager function to fetch tasks based on garden
+        /// </summary>
+        /// <param name="gardenId"></param>
+        /// <returns></returns>
+        public List<com.GreenThumb.BusinessObjects.Task> RetrieveTasksByGardenId(int gardenId)
+        {
+            try
+            {
+                return JobAccessor.RetrieveTasksByGardenId(gardenId);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("No records found!", ex);
+            }
+        }
+
+        /// <summary>
+        /// Poonam Dubey
+        /// 18th April 2016
+        /// Function to Deactivate a task
+        /// </summary>
+        /// <param name="gardenId"></param>
+        /// <returns></returns>
+        public bool DeactivateTask(int taskID)
+        {
+            try
+            {
+                return JobAccessor.DeactivateTask(taskID);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Error Deactivating task!", ex);
+            }
+        }
+
+        /// <summary>
+        /// Poonam Dubey
+        /// 19th April 2016
+        /// Function to Volunteer for a task 
+        /// </summary>
+        /// <param name="taskID"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public bool VolunteerForTask(int taskID, int userID)
+        {
+            try
+            {
+                return JobAccessor.VolunteerForTask(taskID, userID);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Error Volunteering for task!", ex);
+            }
+        }
+
+        /// <summary>
+        /// Poonam Dubey
+        /// 19th April 2016
+        /// Function to Mark task as completed
+        /// </summary>
+        /// <param name="taskID"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public bool CompleteTask(int taskID)
+        {
+            try
+            {
+                return JobAccessor.CompleteTask(taskID);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Error Marking task as Completed!", ex);
+            }
+        }
+
     }
 }
