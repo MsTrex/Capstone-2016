@@ -79,7 +79,7 @@ namespace com.GreenThumb.BusinessLogic.FakeStuff
         }
 
 
-        public List<string> GetUserNames()
+        public List<User> GetUserNames()
         {
             throw new NotImplementedException();
         }

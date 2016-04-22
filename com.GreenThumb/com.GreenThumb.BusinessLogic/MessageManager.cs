@@ -162,7 +162,7 @@ namespace com.GreenThumb.BusinessLogic
 
         }
 
-        public List<string> GetUserNames()
+        public List<User> GetUserNames()
         {
             try
             {

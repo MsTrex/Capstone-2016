@@ -226,7 +226,26 @@ namespace com.GreenThumb.WPF_Presentation
         /// <param name="a"></param>
         public void SetNewMessageLabel(AccessToken a)
         {
-            lblCurrentMessages.Header = a.FirstName + " You Have " + messageMgr.UnreadMessageCount(_accessToken.UserName) + " New Messages";
+            try
+            {
+                int count = messageMgr.UnreadMessageCount(_accessToken.UserName);
+                string message = "";
+                if (count > 0)
+                {
+                    message = count.ToString();
+                }
+                else
+                {
+                    message = "No";
+                }
+
+                lblCurrentMessages.Header = a.FirstName + " You Have " + message + " New Messages";
+            }
+            catch (Exception)
+            {
+                lblCurrentMessages.Header = a.FirstName + " You Have No New Messages";
+            }
+            
         }
         /// <summary>
         /// Author: Ryan Taylor
@@ -679,6 +698,7 @@ namespace com.GreenThumb.WPF_Presentation
             mainFrame.NavigationService.Navigate(new ProfilePages.Messages(_accessToken));
             CheckPermissions();
             SetProfileButtons();
+
         }
 
 

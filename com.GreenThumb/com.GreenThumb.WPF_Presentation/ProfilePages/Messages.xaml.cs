@@ -86,7 +86,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             }
         }
 
-        
+
         public void dataInbox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (dataInbox.SelectedIndex >= 0)
@@ -95,7 +95,6 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                 try
                 {
                     _mgr.MarkMessageRead(_at.UserName, _selectedMessage.MessageID);
-                    // change unread count
                 }
                 catch (Exception ex)
                 {

@@ -60,6 +60,12 @@ namespace com.GreenThumb.BusinessObjects
             Active = active;
             RegionId = regionId;
         }
+
+
+        public override string ToString()
+        {
+            return FirstName + " " + LastName;
+        }
              
 
     }
