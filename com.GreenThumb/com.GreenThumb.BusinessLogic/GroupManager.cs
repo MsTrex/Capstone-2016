@@ -336,5 +336,27 @@ namespace com.GreenThumb.BusinessLogic
             
             return result;
         }
+
+        /// <summary>
+        /// Retrieves group by groupName.
+        /// 
+        /// Created by: Chris Schwebach 04/22/2016
+        /// </summary>
+        /// <param name="groupId">Identifier to be used.</param>
+        /// <returns>Group that was requested by Id</returns>
+        public Group RetrieveGroupByName(string groupName)
+        {
+            Group group = null;
+
+            try
+            {
+                group = GroupAccessor. RetrieveGroupIdByGroupName(groupName);
+        
+            }
+            catch (Exception) { } // group will be null.
+
+            return group;
+        }
+
     }
 }

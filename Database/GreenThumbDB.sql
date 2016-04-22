@@ -70,7 +70,7 @@ CREATE TABLE [Admin].[ExpertRequests](
 create TABLE [Admin].[GroupRequest](
 	[GroupID] [int] NOT NULL,
 	[UserID] [int] NOT NULL,
-	[RequestStatus] [char](1) default 'A' NOT NULL,
+	[RequestStatus] [bit] default 1 NOT NULL,
 	[RequestDate] [smalldatetime] NOT NULL,
 	[ApprovedDate] [smalldatetime] NULL,
 	[ApprovedBy] [int] NULL,
@@ -1600,30 +1600,7 @@ GO
 -----------Admin.GroupRequest-------------
 ------------------------------------------
 
--- SETS REQUEST STATUS TO ACCEPPTED AND THEN RUNS STORED PROCEDURE TO ADD USER TO THE GROUP
--- UPDATED BY TREVOR GLISCH 4/6/16
-CREATE PROCEDURE Admin.spAcceptRequest(
-	@GroupID int,
-	@UserID int,
-	@ApprovedID int,
-	@ApprovedDate smalldatetime)
-AS
-BEGIN
-UPDATE Admin.GroupRequest
-	SET
-		RequestStatus = 0,
-		ApprovedDate = @ApprovedDate,
-		ApprovedBy = @ApprovedID,
-		Added = 1
-	WHERE
-		GroupID = @GroupID AND
-		UserID = @UserID ;
-	
-	EXEC Gardens.spInsertGroupMember @GroupID, @UserID;
-	-- THIS LINE CAN LATER BE USED TO SEND A MESSAGE TO A USER THAT THEY HAVE BEEN ACCEPTED
-	--EXEC Admin.spInsertMessageLineItems 	
-END;
-GO
+
 
 -- SETS THE REQUESTSTATUS AND ACTIVE FEILDS TO 0 LEAVING OUT AND APPROVED BY AND APPROVED DATE, THIS INDICATES THE REQUEST WAS DECLINED
 -- UPDATED BY TREVOR GLISCH 4/6/16
@@ -4674,6 +4651,44 @@ BEGIN
 END;
 GO
 
+-- SETS REQUEST STATUS TO ACCEPPTED AND THEN RUNS STORED PROCEDURE TO ADD USER TO THE GROUP
+-- UPDATED BY TREVOR GLISCH 4/6/16
+CREATE PROCEDURE Admin.spAcceptRequest(
+	@GroupID int,
+	@UserID int,
+	@ApprovedID int,
+	@ApprovedDate smalldatetime)
+AS
+BEGIN
+UPDATE Admin.GroupRequest
+	SET
+		RequestStatus = 0,
+		ApprovedDate = @ApprovedDate,
+		ApprovedBy = @ApprovedID,
+		Added = 1
+	WHERE
+		GroupID = @GroupID AND
+		UserID = @UserID ;
+	
+	EXEC Gardens.spInsertGroupMembers @GroupID, @UserID, @ApprovedDate, @ApprovedID, 1;
+	-- THIS LINE CAN LATER BE USED TO SEND A MESSAGE TO A USER THAT THEY HAVE BEEN ACCEPTED
+	--EXEC Admin.spInsertMessageLineItems 	
+END;
+GO
+
+
+--Chris Schwebach gets gardenID by gardenName
+CREATE PROCEDURE Gardens.spSelectGroupIdByGroupName (
+	@GroupName	varchar(100)
+)
+AS
+BEGIN
+	SELECT GroupID, GroupName, GroupLeaderID, Active, OrganizationID
+	FROM Gardens.Groups
+	WHERE GroupName = @GroupName;
+END;
+go
+
 
 /**********************************************************************************/
 /******************************* Test Data ****************************************/
@@ -4738,6 +4753,7 @@ exec Gardens.spInsertOrganizations			'Hiawatha School'				,1003								,'1234567
 	
 --* spInsertGroups               			@GroupName varchar(100),	@GroupLeaderID int,	@OrganizationID int
 exec Gardens.spInsertGroups					'Mrs.Smith - 3rd grade'		,1003				,1000
+--exec Gardens.spInsertGroups					'ExpertContributor'			,1004				,null
 
 --* spInsertAnnouncements        			@UserID int,	@Date smalldatetime,	@OrganizationID int,	@Announcement VARCHAR(250)
 exec Gardens.spInsertAnnouncements			1000			,'3/4/89'				,1000					,'New garden templates available'
