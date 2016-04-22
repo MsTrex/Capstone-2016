@@ -79,7 +79,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
             try
             {
                 var user = userManager.GetPersonalInfo(userID);
-                grdUsers.ItemsSource = user;
+                grdUsers.ItemsSource = new List<User>{user};
 
 
                 
@@ -105,7 +105,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                     
                     job.DateAssigned = DateTime.Now;
 
-                    if (jobManager.ChangeTask(job, oldJob) == true)
+                    if (jobManager.EditTask(job, oldJob) == true)
                     {
                         MessageBox.Show("You've assigned this task successfuly");
                         // commented out for test purposes.

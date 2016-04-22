@@ -22,42 +22,40 @@ namespace com.GreenThumb.DataAccess
         /// Created By: Nasr Mohammed 3/4/2016 Modified 3/15/2016
         /// </summary>
         /// <returns>A list of tasks.</returns>
-        public static List<Job> FetchTasks()
+        public static List<Job> RetrieveTasks()
         {
 
-            var jobs = new List<Job>();
+            List<Job> jobs = new List<Job>();
             var conn = DBConnection.GetDBConnection();
-            // var query = @"spSelectTasks";
-            string query = @"SELECT TaskID, GardenID,  Description , DateAssigned, AssignedFrom, UserNotes, Active " +
-                         @"FROM Gardens.Tasks ";
+            var query = @"Gardens.spSelectTasks";
 
             var cmd = new SqlCommand(query, conn);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
             try
             {
                 conn.Open();
-                var reader = cmd.ExecuteReader();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        var job = new Job();
-
-                        job.JobID = reader.GetInt32(0);
-                        job.GardenID = reader.GetInt32(1);
-                        job.Description = reader.GetString(2);
-                        job.DateAssigned = reader.GetDateTime(3);
-                        job.AssignedFrom = reader.GetInt32(4);
-                        job.UserNotes = reader.GetString(5);
-                        job.Active = reader.GetBoolean(6);
-
+                        Job job = new Job()
+                          {
+                        JobID = reader.GetInt32(0),
+                        GardenID = reader.GetInt32(1),
+                        Description = reader.GetString(2),
+                        DateAssigned = reader.GetDateTime(3),
+                        AssignedFrom = reader.GetInt32(4),
+                        UserNotes = reader.GetString(5),
+                        Active = reader.GetBoolean(6)
+                    };
                         jobs.Add(job);
                     }
                 }
-                else
-                {
-                    throw new ApplicationException("Data not found");
-                }
+               
             }
             catch (Exception)
             {
@@ -349,7 +347,7 @@ namespace com.GreenThumb.DataAccess
             return ints;
         }
 
-        public static List<Garden> GetUsersGardens(int userID, Active recordType = Active.active)
+        public static List<Garden> RetrieveUsersGardens(int userID, Active recordType = Active.active)
         {
             var gardenList = new List<Garden>();
 

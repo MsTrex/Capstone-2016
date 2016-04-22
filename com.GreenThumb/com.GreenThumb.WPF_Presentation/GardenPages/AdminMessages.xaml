@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1000"
       Title="AdminMessages">
-    <Grid>
+    <!--<Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -22,8 +22,6 @@
         <Grid Grid.Row="1">
             <Button x:Name="btnSendMessage" Grid.Column="1" Click="btnSendMessage_Click" Visibility="Hidden">Send a New Message</Button>
         </Grid>
-
-        <!--MESSAGE SECTION-->
         <Grid x:Name="Messages" Margin="20,20" Grid.Row="2" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*"/>
@@ -41,5 +39,5 @@
             </ListView>
             <Label x:Name="lblEmailContent" Grid.Column="3" Content="" Background="White" FontSize="16" />
         </Grid>
-    </Grid>
+    </Grid>-->
 </Page>

@@ -57,7 +57,7 @@ namespace com.GreenThumb.DataAccess
         /// <param name="userID"></param>
         /// <param name="garden"></param>
         /// <returns></returns>
-        public static bool AddGarden(Garden garden)
+        public static bool CreateAddGarden(Garden garden)
         {
             var conn = DBConnection.GetDBConnection();
             var query = "Gardens.spInsertGardens";
@@ -65,6 +65,7 @@ namespace com.GreenThumb.DataAccess
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@GroupID", garden.GroupID);
+            cmd.Parameters.AddWithValue("@GardenName", garden.GardenName);
             cmd.Parameters.AddWithValue("@UserID", garden.UserID);
             cmd.Parameters.AddWithValue("@GardenDescription", garden.GardenDescription);
             cmd.Parameters.AddWithValue("@GardenRegion", DBNull.Value);
@@ -95,7 +96,7 @@ namespace com.GreenThumb.DataAccess
         /// Accessor function fetch all gardens : Poonam Dubey  (20th March 2016)
         /// </summary> 
         /// <returns></returns>
-        public static List<Garden> GetGardens()
+        public static List<Garden> RetrieveGardens()
         {
             // create a list to hold the returned data
             var gardenList = new List<Garden>();
@@ -126,15 +127,7 @@ namespace com.GreenThumb.DataAccess
                     {
                         Garden garden = new Garden()
                         {
-                            //CustomerID = reader.GetInt32(0),
-                            //FirstName = reader.GetString(1),
-                            //LastName = reader.GetString(2),
-                            //EmailID = reader.GetString(3),
-                            //PhoneNo1 = reader.GetString(4),
-                            //Address1 = reader.GetString(5),
-                            //PostalCode = reader.GetString(6),
-                            //City = reader.GetString(7),
-                            //State = reader.GetString(8)
+                           
                         };
 
 
@@ -162,7 +155,7 @@ namespace com.GreenThumb.DataAccess
         /// Date: 04/6/16
         /// Gets gardens the user belongs to returns garen list
         /// </summary> 
-        public static List<Group> FetchGardenInfo(int userID)
+        public static List<Group> RetrieveGardenInfo(int userID)
         {
             //var gardenInfo = new List<Garden>();
 
@@ -283,6 +276,59 @@ namespace com.GreenThumb.DataAccess
             }
 
             return gardens;
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/21/16
+        /// </summary>
+        /// <param name="gardenId"></param>
+        /// <returns></returns>
+        public static Group RetrieveGroupByGarden(int gardenId)
+        {
+            Group group = null;
+
+            var conn = DBConnection.GetDBConnection();
+
+            var cmd = new SqlCommand("Gardens.SelectGroupByGardenID", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@GardenID", gardenId);
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    group = new Group()
+                    {
+                        GroupID 
+                            = reader.GetInt32(0),
+                        Name 
+                            = reader.GetString(2),
+                        GroupLeader = new GroupMember()
+                        {
+                            User = new User()
+                            {
+                                UserID = reader.GetInt32(1)
+                            }
+                        }
+                    };
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return group;
         }
     }
 }

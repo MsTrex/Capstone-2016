@@ -15,12 +15,13 @@ namespace com.GreenThumb.BusinessLogic
 {
     public class GroupManager : com.GreenThumb.BusinessLogic.Interfaces.IGroupManager
     {
+
         public List<Group> GetGroupList(int OrganizationID)
         {
 
             try
             {
-                return GroupAccessor.GetGroupList(OrganizationID);
+                return GroupAccessor.RetrieveGroupList(OrganizationID);
             }
             catch (Exception ex)
             {
@@ -34,13 +35,13 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="userID"></param>
         /// <returns></returns>
-        public List<Group> FetchGroupsToJoin(int userID)
+        public List<Group> GetGroupsToJoin(int userID)
         {
             List<Group> joinable;
 
             try
             {
-                joinable = GroupAccessor.FetchJoinableGroups(userID);
+                joinable = GroupAccessor.RetrieveJoinableGroups(userID);
             }
             catch (Exception){
                 joinable = new List<Group>();
@@ -62,7 +63,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                groups = GroupAccessor.GetUsersGroups(userID);
+                groups = GroupAccessor.RetrieveUsersGroups(userID);
             }
             catch (Exception ex)
             {
@@ -108,7 +109,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return GroupAccessor.GroupLeaderStatus(userID, groupID);
+                return GroupAccessor.RetrieveGroupLeaderStatus(userID, groupID);
             }
             catch (Exception ex)
             {
@@ -127,7 +128,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <returns>
         /// Boolean of result: success or failure
         /// </returns>
-        public bool ChangeGroupName(int groupID, string newGroupName, string oldGroupName)
+        public bool EditGroupName(int groupID, string newGroupName, string oldGroupName)
         {
             try
             {
@@ -149,7 +150,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return GroupAccessor.AddGroupMember(reqObj);
+                return GroupAccessor.CreateGroupMember(reqObj);
             }
             catch (Exception)
             {
@@ -166,11 +167,11 @@ namespace com.GreenThumb.BusinessLogic
         /// <returns>
         /// Boolean of result for deactivating group
         /// </returns>
-        public bool DeactivateGroup(Group group)
+        public bool EditDeactivateGroup(Group group)
         {
             try
             {
-                return GroupAccessor.DeactivateGroupByID(group.GroupID);
+                return GroupAccessor.UpdateDeactivateGroupByID(group.GroupID);
             }
             catch (Exception)
             {
@@ -192,7 +193,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                memberList = GroupAccessor.GetMemberList(groupID);
+                memberList = GroupAccessor.RetrieveMemberList(groupID);
             }
             catch (Exception)
             {
@@ -207,7 +208,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="userId">User Id of user to retrieve groups for.</param>
         /// <returns>Collection of groups that a user belongs to.</returns>
-        public IEnumerable<Group> RetrieveUserGroups(int userId)
+        public IEnumerable<Group> GetUserGroups(int userId)
         {
             IEnumerable<Group> groups = new List<Group>(); // Empty collection to return
 
@@ -228,7 +229,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="userId">User Id of user leaving.</param>
         /// <param name="groupId">Group Id of which group.</param>
         /// <returns>Whether the group removal was successful.</returns>
-        public bool LeaveGroup(int userId, int groupId)
+        public bool EditLeaveGroup(int userId, int groupId)
         {
             bool flag = false;
 
@@ -236,7 +237,7 @@ namespace com.GreenThumb.BusinessLogic
             {
                 // 1 row should be affected
                 flag =
-                    1 == GroupAccessor.InactivateGroupMember(userId, groupId);
+                    1 == GroupAccessor.UpdateInactivateGroupMember(userId, groupId);
             }
             catch (Exception) { } // flag set to false
 
@@ -256,7 +257,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                groups = GroupAccessor.GetGroupsToView(userID);
+                groups = GroupAccessor.RetrieveGroupsToView(userID);
             }
             catch (Exception ex)
             {
@@ -273,7 +274,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="groupId">Identifier to be used.</param>
         /// <returns>Group that was requested by Id</returns>
-        public Group RetrieveGroup(int groupId)
+        public Group GetGroup(int groupId)
         {
             Group group = null;
 
@@ -294,6 +295,47 @@ namespace com.GreenThumb.BusinessLogic
             catch (Exception) { } // group will be null.
 
             return group;
+        }
+
+        /// <summary>
+        /// Gets a list of group requests baised on group id
+        /// Created by Nicholas King
+        /// </summary>
+        /// <param name="groupid"></param>
+        /// <returns></returns>
+        public List<GroupRequest> GetGroupRequests(int groupid)
+        {
+            List<GroupRequest> requests = new List<GroupRequest>();
+            if (groupid != null)
+            {
+                try
+                {
+                    requests = GroupAccessor.RetrieveGroupRequestsByGroup(groupid);
+                }
+                catch (Exception)
+                {
+                    //causes an empty but not null list to return
+                }
+            }
+            return requests;
+        }
+
+
+        public bool UpateAcceptGroupRequest(GroupRequest request)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (GroupAccessor.UpdateGroupMemberRequest(request) == 1);
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+            
+            
+            return result;
         }
     }
 }

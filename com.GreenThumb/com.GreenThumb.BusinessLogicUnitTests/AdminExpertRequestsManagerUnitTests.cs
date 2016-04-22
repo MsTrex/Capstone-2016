@@ -106,7 +106,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
                     }
                     catch (Exception)
                     {
-                        flag = 1 == userManager.createUser(new User()
+                        flag = 1 == userManager.AddUser(new User()
                         {
                             UserName
                                 = userName,
@@ -146,7 +146,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
 
             // Act
             IEnumerable<ExpertRequest> target
-                = requestsManager.RetrieveExpertRequests(accessToken);
+                = requestsManager.GetExpertRequests(accessToken);
 
             // Assert
             if (sampleRequests.Count() == target.Count())
@@ -178,7 +178,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
 
             // Act
             IEnumerable<User> target
-                = requestsManager.RetrieveAllUsers(accessToken);
+                = requestsManager.GetAllUsers(accessToken);
 
             // Assert
             if (sampleUsers.Count() == target.Count())
@@ -210,7 +210,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
 
             // Act
             IEnumerable<User> target
-                = requestsManager.RetrieveAllExperts(accessToken);
+                = requestsManager.GetAllExperts(accessToken);
 
             // Assert
             if (sampleExperts.Count() == target.Count())
@@ -240,7 +240,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             string query = "Jeff";
 
             IEnumerable<User> sampleUsers
-                = requestsManager.RetrieveAllUsers(accessToken); ;
+                = requestsManager.GetAllUsers(accessToken); ;
 
             IEnumerable<User> sampleResult = sampleUsers.Where(
                 u => u.UserName.ToLower().Contains(query.ToLower()));
@@ -252,7 +252,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
                 sampleUsers.Where(u => u.LastName.ToLower().Contains(query.ToLower())));
 
             // Act
-            IEnumerable<User> result = requestsManager.SearchUsers(query);
+            IEnumerable<User> result = requestsManager.GetUsers(query);
 
             // Assert
             if (sampleResult.Count() == result.Count())
@@ -282,7 +282,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             string query = "s";
 
             IEnumerable<User> sampleUsers
-                = requestsManager.RetrieveAllUsers(accessToken); ;
+                = requestsManager.GetAllUsers(accessToken); ;
 
             IEnumerable<User> sampleResult = sampleUsers.Where(
                 u => u.UserName.ToLower().Contains(query.ToLower()));
@@ -294,7 +294,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
                 sampleUsers.Where(u => u.LastName.ToLower().Contains(query.ToLower())));
 
             // Act
-            IEnumerable<User> result = requestsManager.SearchUsers(query);
+            IEnumerable<User> result = requestsManager.GetUsers(query);
 
             // Assert
             if (sampleResult.Count() == result.Count())
@@ -321,10 +321,10 @@ namespace com.GreenThumb.BusinessLogicUnitTests
         public void Test_ApproveRequest_Success()
         {
             // Arrange
-            // bool result = 2 == requestsAccessor.ApproveRequest(TestRequest);
+            // bool result = 2 == requestsAccessor.EditApproveRequest(TestRequest);
 
             // Act
-            // result = requestsManager.ApproveRequest(this.accessToken, TestRequest);
+            // result = requestsManager.EditApproveRequest(this.accessToken, TestRequest);
 
             // Assert
         }
@@ -338,10 +338,10 @@ namespace com.GreenThumb.BusinessLogicUnitTests
         public void Test_DeclineRequest_Success()
         {
             // Arrange
-            // bool actual = 1 == requestsAccessor.DeclineRequest(TestRequest);
+            // bool actual = 1 == requestsAccessor.EditDeclineRequest(TestRequest);
 
             // Act
-            // bool result = requestsManager.DeclineRequest(this.accessToken, TestRequest);
+            // bool result = requestsManager.EditDeclineRequest(this.accessToken, TestRequest);
             // Assert
             // Assert.AreEqual(actual, result);
         }
@@ -355,14 +355,14 @@ namespace com.GreenThumb.BusinessLogicUnitTests
         public void Test_PromoteUser_Success()
         {
             // Arrange
-            bool actual = 1 == requestsAccessor.PromoteUser(TestUser);
+            bool actual = 1 == requestsAccessor.UpdateUserPromote(TestUser);
 
-            requestsAccessor.DemoteExpert(TestUser);
+            requestsAccessor.UpdateExpertDemote(TestUser);
 
-            requestsManager.RetrieveAllUsers(this.accessToken); // Initialize list
+            requestsManager.GetAllUsers(this.accessToken); // Initialize list
 
             // Act
-            bool result = requestsManager.PromoteUser(this.accessToken, TestUser);
+            bool result = requestsManager.EditUserPromoted(this.accessToken, TestUser);
 
             // Assetr
             Assert.AreEqual(actual, result);
@@ -377,14 +377,14 @@ namespace com.GreenThumb.BusinessLogicUnitTests
         public void Test_DemoteExpert_Success()
         {
             // Arrange
-            requestsAccessor.PromoteUser(TestUser); // Yay dependant test code!
+            requestsAccessor.UpdateUserPromote(TestUser); // Yay dependant test code!
 
-            bool actual = 1 == requestsAccessor.DemoteExpert(TestUser);
+            bool actual = 1 == requestsAccessor.UpdateExpertDemote(TestUser);
 
-            requestsAccessor.PromoteUser(TestUser); // Yay dependant test code!
+            requestsAccessor.UpdateUserPromote(TestUser); // Yay dependant test code!
 
             // Act
-            bool result = requestsManager.DemoteExpert(this.accessToken, TestUser);
+            bool result = requestsManager.EditExpertDemoted(this.accessToken, TestUser);
 
             // Assert
             Assert.AreEqual(actual, result);

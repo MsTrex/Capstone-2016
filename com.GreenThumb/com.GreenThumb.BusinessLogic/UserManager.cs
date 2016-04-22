@@ -13,6 +13,7 @@ namespace com.GreenThumb.BusinessLogic
 {
     public class UserManager
     {
+        private int userID;
         ///<summary>
         ///Author: Chris Schwebach
         ///EditUserPersonalInfo validates input from user calling to the UserAccessor
@@ -76,12 +77,14 @@ namespace com.GreenThumb.BusinessLogic
         ///GetUserPersonalInfo get the Personal information from user based on accessToken.UserID
         ///calling to the user accessor
         ///Date: 3/3/16
+        ///
+        /// Updated to return a single user, call RetrieveUserByUserID 4/21/16 Steve Hoover 
         ///</summary>
-        public List<User> GetPersonalInfo(int userID)
+        public User GetPersonalInfo(int userID)
         {
             try
             {
-                return UserAccessor.FetchPersonalInfo(userID);
+                return UserAccessor.RetrieveUserByID(userID);
             }
             catch (ApplicationException)
             {
@@ -100,7 +103,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                var userList = UserAccessor.FetchUserList(group);
+                var userList = UserAccessor.RetrieveUserList(group);
 
                 if (userList.Count > 0)
                 {
@@ -125,7 +128,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return UserAccessor.FetchUserCount(group);
+                return UserAccessor.RetrieveUserCount();
             }
             catch (Exception)
             {
@@ -156,14 +159,14 @@ namespace com.GreenThumb.BusinessLogic
                     Active = active,
                     RegionId= regionID
                 };
-                return UserAccessor.InsertUser(usr);
+                return UserAccessor.CreateUser(usr);
             }
             catch (Exception)
             {
                 throw;
             }
         }
-        public bool ChangeUserData(User usr)
+        public bool GetUserData(User usr, User newUsr)
         {
            //                 var usr = new User()
 
@@ -174,7 +177,7 @@ namespace com.GreenThumb.BusinessLogic
             
             try
             {
-                if(UserAccessor.UpdateUser(usr)==1)
+                if(UserAccessor.UpdateUserInformation(usr, newUsr)==true)
                 {
                     return true;
                 }
@@ -212,23 +215,34 @@ namespace com.GreenThumb.BusinessLogic
 		//calling to the user accessor
         ///Date: 3/4/16
 		///</summary>
-        public User FetchUser(int userId)
+        public User GetUser(int userId)
         {
             return UserAccessor.RetrieveUserByID(userId);
         }
 
-
-		///<summary>
-        ///Author: Stenner Kvindlog         
-        ///createUser sends user to database to be created  
-		//calling to the user accessor
-        ///Date: 3/4/16
-		///</summary>
-        public int createUser(User newUser)
+        public User GetUser()
         {
             try
             {
-                int num = UserAccessor.InsertUser(newUser);
+                return UserAccessor.RetrieveUser();
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+		///<summary>
+        ///Author: Stenner Kvindlog         
+        ///AddUser sends user to database to be created  
+		//calling to the user accessor
+        ///Date: 3/4/16
+		///</summary>
+        public int AddUser(User newUser)
+        {
+            try
+            {
+                int num = UserAccessor.CreateUser(newUser);
                 return num;
             }
             catch (Exception)
@@ -248,7 +262,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                bool flag = UserAccessor.EditUser(newUser, oldUser);
+                bool flag = UserAccessor.UpdateUserInformation(newUser, oldUser);
                 return flag;
             }
             catch (Exception)
@@ -271,7 +285,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="userName">Value to check database.</param>
         /// <param name="password">Value to check database.</param>
         /// <returns>Whether user has given correct information to be available.</returns>
-        public bool UserExists(string userName, string password = null)
+        public bool ConfirmUserExists(string userName, string password = null)
         {
             bool flag = true;
             bool passwordFlag = String.IsNullOrEmpty(password);
@@ -326,13 +340,13 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="oldPassword">What the password was previously.</param>
         /// <param name="newPassword">What to change password to.</param>
         /// <returns>Whether the password change was successful.</returns>
-        public bool ChangePasssword(string userName, string oldPassword, string newPassword)
+        public bool EditPasssword(string userName, string oldPassword, string newPassword)
         {
             bool flag = false;
 
             try
             {
-                flag = UserAccessor.ChangeUserPassword(userName, oldPassword.HashSha256(), newPassword.HashSha256());
+                flag = UserAccessor.UpdateUserPassword(userName, oldPassword.HashSha256(), newPassword.HashSha256());
             }
             catch (Exception) { } // flag set to false
 
@@ -349,7 +363,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="user">User with required base information.</param>
         /// <param name="password">Value to be set as password.</param>
         /// <returns>Whether the password change was successful.</returns>
-        public bool CreateNewUser(User user, string password)
+        public bool AddNewUserPasswordChange(User user, string password)
         {
             bool flag = false;
 
@@ -357,7 +371,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                flag = 1 == UserAccessor.InsertUser(user);
+                flag = 1 == UserAccessor.CreateUser(user);
             }
             catch (Exception) { } // flag set to false
 
@@ -372,7 +386,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="userName">The username to get id for.</param>
         /// <returns>User Id</returns>
-        public int RetrieveUserId(string userName)
+        public int GetUserId(string userName)
         {
             int userId = 0;
 

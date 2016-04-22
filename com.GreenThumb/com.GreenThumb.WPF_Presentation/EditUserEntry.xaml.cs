@@ -52,7 +52,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             try
             {             
-                var myUser = myUserManager.FetchUser(userId);
+                var myUser = myUserManager.GetUser(userId);
                 oldUser = myUser;
                 this.firstName.Text = myUser.FirstName;
                 this.lastName.Text = myUser.LastName;

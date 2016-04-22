@@ -20,8 +20,14 @@ namespace com.GreenThumb.BusinessLogic
         }
 
 
-
-        public bool SaveTemplate(string filePath, AccessToken at, string fileName)
+        /// <summary>
+        /// created by: Nicholas King
+        /// Created: 3/15/2016
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="fileName"></param>
+        /// <returns>true if it's succssufully added file name</returns>
+        public bool AddTemplate(string filePath, AccessToken at, string fileName)
         {
             bool result = false;
 
@@ -45,7 +51,13 @@ namespace com.GreenThumb.BusinessLogic
             return result;
         }
 
-        public byte[] LoadTemplate(string fileName)
+        /// <summary>
+        /// created by: Nicholas King
+        /// Created: 3/15/2016
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns>data if it's succssufully added file name</returns>
+        public byte[] AddLoadTemplate(string fileName)
         {
             byte[] data = null;
 
@@ -56,7 +68,11 @@ namespace com.GreenThumb.BusinessLogic
 
             return data;
         }
-
+        /// <summary>
+        /// created by: Nicholas King
+        /// Created: 3/25/2016
+        /// </summary>
+        /// <returns>a list of garden templete</returns>
         public List<GardenTemplate> GetTemplateList()
         {
             return ExpertAccessor.RetrieveAllGardenTemplates();

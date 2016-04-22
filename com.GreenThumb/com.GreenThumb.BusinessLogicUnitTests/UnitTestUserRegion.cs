@@ -17,7 +17,7 @@ namespace com.GreenThumb.UnitTest
             User usr = new User();
 
             //Act
-            bool result = userMgr.ChangeUserData(1007, 1);
+            bool result = userMgr.EditUserData(1007, 1);
 
             //Assert
             Assert.AreEqual(result, true);
@@ -31,7 +31,7 @@ namespace com.GreenThumb.UnitTest
 
             //Act
             var userNo = 1001;
-            User result = userMgr.DisplayUserRecord(userNo);
+            User result = userMgr.GetAndDisplayUserRecord(userNo);
 
             //Assert
             Assert.AreEqual(result.UserID, userNo);

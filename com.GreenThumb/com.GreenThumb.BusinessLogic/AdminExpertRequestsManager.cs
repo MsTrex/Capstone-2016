@@ -101,7 +101,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="accessToken">To confirm access as administrator.</param>
         public AdminExpertRequestsManager(AccessToken accessToken)
         {
-            if (CheckAdminRoleStatus(accessToken))
+            if (GetAdminRoleStatus(accessToken))
             {
                 try
                 {
@@ -126,9 +126,9 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="accessToken">To confirm access as administrator.</param>
         /// <param name="refresh">Retrieve fresh data from database.</param>
         /// <returns>Collection of ExpertRequests that need reviewed and processed.</returns>
-        public IEnumerable<ExpertRequest> RetrieveExpertRequests(AccessToken accessToken, bool refresh = false)
+        public IEnumerable<ExpertRequest> GetExpertRequests(AccessToken accessToken, bool refresh = false)
         {
-            if (CheckAdminRoleStatus(accessToken))
+            if (GetAdminRoleStatus(accessToken))
             {
                 if (refresh)
                 {
@@ -159,9 +159,9 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="accessToken">To confirm access as administrator.</param>
         /// <param name="refresh">Retrieve fresh data from database.</param>
         /// <returns>Collection of Users that are not experts.</returns>
-        public IEnumerable<User> RetrieveAllUsers(AccessToken accessToken, bool refresh = false)
+        public IEnumerable<User> GetAllUsers(AccessToken accessToken, bool refresh = false)
         {
-            if (CheckAdminRoleStatus(accessToken))
+            if (GetAdminRoleStatus(accessToken))
             {
                 if (refresh)
                 {
@@ -192,9 +192,9 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="accessToken">To confirm access as administrator.</param>
         /// <param name="refresh">Retrieve fresh data from database.</param>
         /// <returns>Collection of Users that are experts.</returns>
-        public IEnumerable<User> RetrieveAllExperts(AccessToken accessToken, bool refresh = false)
+        public IEnumerable<User> GetAllExperts(AccessToken accessToken, bool refresh = false)
         {
-            if (CheckAdminRoleStatus(accessToken))
+            if (GetAdminRoleStatus(accessToken))
             {
                 if (refresh)
                 {
@@ -225,9 +225,9 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="query">Value to search with.</param>
         /// <returns>Collection of users that meet the search query.</returns>
-        public IEnumerable<User> SearchUsers(string query)
+        public IEnumerable<User> GetUsers(string query)
         {
-            return SearchUserCollection(this.users, query);
+            return GetUserCollection(this.users, query);
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <returns>Collection of users that meet the search query.</returns>
         public IEnumerable<User> SearchExperts(string query)
         {
-            return SearchUserCollection(this.experts, query);
+            return GetUserCollection(this.experts, query);
         }
 
         /// <summary>
@@ -251,15 +251,15 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="accessToken">To confirm access as administrator.</param>
         /// <param name="request">ExpertRequest to be declined.</param>
         /// <returns>Whether the action was successful.</returns>
-        public bool ApproveRequest(AccessToken accessToken, ExpertRequest request)
+        public bool AddRequestApproved(AccessToken accessToken, ExpertRequest request)
         {
             bool flag = false;
 
-            if (CheckAdminRoleStatus(accessToken))
+            if (GetAdminRoleStatus(accessToken))
             {
                 try
                 {
-                    flag = 2 == adminExpertRequestsAccessor.ApproveRequest(request); // 2 records should be affected.
+                    flag = 2 == adminExpertRequestsAccessor.UpdateExpertRequestApprove(request); // 2 records should be affected.
 
                     if (flag) { RemoveRequest(request); }
                 }
@@ -280,15 +280,15 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="accessToken">To confirm access as administrator.</param>
         /// <param name="request">ExpertRequest to be declined.</param>
         /// <returns>Whether the action was successful.</returns>
-        public bool DeclineRequest(AccessToken accessToken, ExpertRequest request)
+        public bool AddRequestDeclined(AccessToken accessToken, ExpertRequest request)
         {
             bool flag = false;
 
-            if (CheckAdminRoleStatus(accessToken))
+            if (GetAdminRoleStatus(accessToken))
             {
                 try
                 {
-                    flag = 1 == adminExpertRequestsAccessor.DeclineRequest(request); // 1 record should be affected.
+                    flag = 1 == adminExpertRequestsAccessor.UpdateExpertRequestDecline(request); // 1 record should be affected.
 
                     if (flag) { RemoveRequest(request); }
                 }
@@ -309,17 +309,17 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="accessToken">To confirm access as administrator.</param>
         /// <param name="user">User that is not an expert to be promoted.</param>
         /// <returns>Whether the action was successful.</returns>
-        public bool PromoteUser(AccessToken accessToken, User user)
+        public bool EditUserPromoted(AccessToken accessToken, User user)
         {
             bool flag = false;
 
-            if (CheckAdminRoleStatus(accessToken))
+            if (GetAdminRoleStatus(accessToken))
             {
-                if (0 == UserExpertCount(user))
+                if (0 == GetUserExpertCount(user))
                 {
                     try
                     {
-                        flag = 1 == adminExpertRequestsAccessor.PromoteUser(user); // 1 record should be affected.
+                        flag = 1 == adminExpertRequestsAccessor.UpdateUserPromote(user); // 1 record should be affected.
 
                         if (flag)
                         {
@@ -348,17 +348,17 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="accessToken">To confirm access as administrator.</param>
         /// <param name="user">User that is an expert to be demoted.</param>
         /// <returns>Whether the action was successful.</returns>
-        public bool DemoteExpert(AccessToken accessToken, User user)
+        public bool EditExpertDemoted(AccessToken accessToken, User user)
         {
             bool flag = false;
 
-            if (CheckAdminRoleStatus(accessToken))
+            if (GetAdminRoleStatus(accessToken))
             {
-                if (1 == UserExpertCount(user))
+                if (1 == GetUserExpertCount(user))
                 {
                     try
                     {
-                        flag = 1 == adminExpertRequestsAccessor.DemoteExpert(user); // 1 record should be affected.
+                        flag = 1 == adminExpertRequestsAccessor.UpdateExpertDemote(user); // 1 record should be affected.
 
                         if (flag)
                         {
@@ -380,13 +380,13 @@ namespace com.GreenThumb.BusinessLogic
         }
 
         // Created By: Trent Cullinan 03/15/2016
-        private bool CheckAdminRoleStatus(AccessToken accessToken)
+        private bool GetAdminRoleStatus(AccessToken accessToken)
         {
             return 0 < accessToken.Roles.Where(r => r.RoleID.Equals(ADMIN)).Count();
         }
 
         // Created By: Trent Cullinan 03/15/2016
-        private IEnumerable<User> SearchUserCollection(IEnumerable<User> users, string query)
+        private IEnumerable<User> GetUserCollection(IEnumerable<User> users, string query)
         {
             IEnumerable<User> results = null;
 
@@ -406,7 +406,7 @@ namespace com.GreenThumb.BusinessLogic
         }
 
         // Created By: Trent Cullinan 03/15/2016
-        private int UserExpertCount(User user)
+        private int GetUserExpertCount(User user)
         {
             return experts.Where(u => u.UserID == user.UserID).Count();
         }
@@ -423,7 +423,7 @@ namespace com.GreenThumb.BusinessLogic
         ///passes application data to data access layer
         ///Date: 3/19/16
         ///</summary>
-        public bool ExpertApplication(String Title, String Description, int UserID, DateTime Time)
+        public bool AddExpertApplication(String Title, String Description, int UserID, DateTime Time)
         {
 
             try

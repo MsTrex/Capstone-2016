@@ -15,7 +15,12 @@ namespace com.GreenThumb.BusinessLogic
     /// </summary>
     public class JobManager
     {
-
+        /// <summary>
+        /// created by: Nasr Mohammed
+        /// Created: 3/4/2016
+        /// </summary>
+        /// <param name="job"></param>
+        /// <returns> if it succssuful will add a task to database</returns>
         public bool AddNewTask(Job job)
         {
 
@@ -36,12 +41,17 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
+        /// <summary>
+        /// created by: Nasr Mohammed
+        /// Created: 3/4/2016
+        /// </summary>
+        /// <returns> get a list of jobs</returns>
         public List<Job> GetTaskList()
         {
 
             try
             {
-                return JobAccessor.FetchTasks();
+                return JobAccessor.RetrieveTasks();
             }
             catch (Exception ex)
             {
@@ -50,7 +60,13 @@ namespace com.GreenThumb.BusinessLogic
 
         }
 
-        public bool ChangeTask(Job job, Job oldJob)
+        /// <summary>
+        /// created by: Nasr Mohammed
+        /// Created: 3/4/2016
+        /// </summary>
+        /// <param name="job"></param>
+        /// <returns> update the task record</returns>
+        public bool EditTask(Job job, Job oldJob)
         {
 
             try
@@ -65,11 +81,32 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
-        public Job FetchJob(int jobId)
+        /// <summary>
+        /// created by: Nasr Mohammed
+        /// Created: 3/4/2016
+        /// </summary>
+        /// <param name="jobId"></param>
+        /// <returns> get a task record</returns>
+        public Job GetJob(int jobId)
         {
-            return JobAccessor.RetrieveJob(jobId);
+
+            try
+            {
+                return JobAccessor.RetrieveJob(jobId);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException(" No records Found!", ex);
+            }
         }
 
+        /// <summary>
+        /// created by: Steve Hoover
+        /// Created: 4/1/2016
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns> get user by id/returns>
         public List<Job> RetrieveJobByUserId(int userId)
         {
             try
@@ -83,8 +120,13 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
-       
 
+        /// <summary>
+        /// created by: Steve Hoover
+        /// Created: 4/1/2016
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns> get task  by garden id/returns>
         public List<Job> RetrieveJobByGardenId(int gardenId)
         {
             try
@@ -97,7 +139,12 @@ namespace com.GreenThumb.BusinessLogic
                 throw new ApplicationException("No records found!", ex);
             }
         }
-
+        /// <summary>
+        /// created by: Steve Hoover
+        /// Created: 4/1/2016
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns> get garden by user id/returns>
         public List<int> RetrieveGardenIdByUserId(int userId)
         {
             try
@@ -112,6 +159,7 @@ namespace com.GreenThumb.BusinessLogic
         }
 
         /// <summary>
+        /// 
         /// This method adds a test user to validate the functionality of the CompleteTask things.
         /// Steve Hoover 3-24-16
         /// </summary>
@@ -142,13 +190,19 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
+        /// <summary>
+        /// created by: Nasr Mohammed
+        /// Created: 3/4/2016
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns> get a list of garden by userId</returns>
         public List<Garden> GetGardensForUser(int userID)
         {
             List<Garden> gardens = null;
 
             try
             {
-                gardens = JobAccessor.GetUsersGardens(userID);
+                gardens = JobAccessor.RetrieveUsersGardens(userID);
             }
             catch (Exception ex)
             {

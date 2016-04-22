@@ -49,7 +49,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         {
             try
             {
-                _nutrients = nutrientManager.RetrieveNutrients();
+                _nutrients = nutrientManager.GetNutrients();
                 cmbNutrients.ItemsSource = _nutrients;
                 cmbNutrients.ToolTip = "Choose a nutrient";
             }
@@ -64,7 +64,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         {
             try
             {
-                icNutrients.ItemsSource = nutrientManager.RetrievePlantNutrients(_plant.PlantID);
+                icNutrients.ItemsSource = nutrientManager.GetPlantNutrients(_plant.PlantID);
             }
             catch (Exception ex)
             {
@@ -86,8 +86,8 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
 
         private void CheckForAuthority()
         {
-            if (roleManager.IsUserThisRole(_accessToken, "Expert") ||
-                roleManager.IsUserThisRole(_accessToken, "Admin"))
+            if (roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ||
+                roleManager.ConfirmUserIsAssignedRole(_accessToken, "Admin"))
             {
                 hasAuthority = true;
             }

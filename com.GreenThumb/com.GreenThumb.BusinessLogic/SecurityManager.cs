@@ -31,7 +31,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                if (1 == UserAccessor.FindUserByUsernameAndPassword(username, password.HashSha256()))
+                if (1 == UserAccessor.RetrieveUserByUsernameAndPassword(username, password.HashSha256()))
                 {
                     var user = UserAccessor.RetrieveUserByUsername(username);
                     var roles = UserAccessor.RetrieveRolesByUserID(user.UserID);
@@ -52,9 +52,9 @@ namespace com.GreenThumb.BusinessLogic
         public AccessToken ValidateNewUser(string username, string newPassword)
         {
             // check for new user
-            if (1 == UserAccessor.FindUserByUsernameAndPassword(username, "NEWUSER"))
+            if (1 == UserAccessor.RetrieveUserByUsernameAndPassword(username, "NEWUSER"))
             {
-                UserAccessor.SetPasswordForUsername(username, "NEWUSER", newPassword.HashSha256());
+                UserAccessor.CreatePasswordForUsername(username, "NEWUSER", newPassword.HashSha256());
             }
             else
             {

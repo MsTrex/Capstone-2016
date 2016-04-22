@@ -160,6 +160,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\GardenController.cs" />
     <Compile Include="Controllers\GardenTaskController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
@@ -174,10 +175,12 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DonationViewModels.cs" />
     <Compile Include="Models\GardenCreationViewModel.cs" />
     <Compile Include="Models\GardenTaskViewModel.cs" />
     <Compile Include="Models\GroupCreationViewModels.cs" />
     <Compile Include="Models\GroupIndexViewModel.cs" />
+    <Compile Include="Models\GroupMemberRequestModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -193,6 +196,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\2015_zones.jpg" />
+    <Content Include="images\plantHardinessMap.jpg" />
+    <Content Include="images\states.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -203,6 +209,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\Styles.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.2.2.intellisense.js" />
     <Content Include="Scripts\GardenTask.js" />
@@ -221,6 +228,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Scripts.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -275,6 +283,14 @@
     <Content Include="Views\PartialViews\GroupGardenTask.cshtml" />
     <Content Include="Views\PartialViews\GardenTask.cshtml" />
     <Content Include="Views\PartialViews\TasksForGarden.cshtml" />
+    <Content Include="Views\PartialViews\_GroupRequestTable.cshtml" />
+    <Content Include="Views\Garden\GardenDetail.cshtml" />
+    <Content Include="Views\PartialViews\_GardenNeedsTable.cshtml" />
+    <Content Include="Views\PartialViews\_CreateNeedForm.cshtml" />
+    <Content Include="Views\Garden\AddNeed.cshtml" />
+    <Content Include="Views\PartialViews\_NeedsContributionsTable.cshtml" />
+    <Content Include="Views\Donation\Index.cshtml" />
+    <Content Include="Views\Donation\SendContribution.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

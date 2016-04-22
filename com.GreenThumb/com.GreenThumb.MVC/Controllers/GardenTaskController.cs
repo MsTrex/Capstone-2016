@@ -11,13 +11,18 @@ using System.Web.Mvc;
 
 namespace com.GreenThumb.MVC.Controllers
 {
+    [Authorize]
     public class GardenTaskController : Controller
     {
+
         /// <summary>
         /// Author: Poonam Dubey
         /// Date : Apr.15th.2016
         /// Controller to manage the Task
         /// </summary>
+
+
+        
 
         // GET: GardenTask
         public ActionResult Index()
@@ -114,7 +119,7 @@ namespace com.GreenThumb.MVC.Controllers
 
             if (null != userName)
             {
-                userId = new UserManager().RetrieveUserId(userName);
+                userId = new UserManager().GetUserId(userName);
             }
 
             return userId;

@@ -76,7 +76,7 @@ namespace com.GreenThumb.WPF_Presentation
                         newUser.Active = false;
                     }
 
-                    flag = myUserManager.createUser(newUser);
+                    flag = myUserManager.AddUser(newUser);
 
                 }
                 catch (Exception ax)

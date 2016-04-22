@@ -180,7 +180,7 @@ namespace com.GreenThumb.WPF_Presentation
                   else
                  if (insertUpdate.Equals("u"))
                  {
-                      var res =  myUserRoleManager.ChangeUserRoleStatus(UserID, RoleID, active);
+                      var res =  myUserRoleManager.EditUserRoleStatus(UserID, RoleID, active);
                       if (res == true)
                       {
                           lblCrudRes.Content = "Record Updated successfully.";

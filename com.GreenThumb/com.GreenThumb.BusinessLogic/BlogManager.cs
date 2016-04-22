@@ -19,14 +19,20 @@ namespace com.GreenThumb.BusinessLogic
 
         public List<Blog> GetBlogs()
         {
-            blogs = blogAccessor.fetchBlogs();
+            blogs = blogAccessor.retrieveBlogs();
             return blogs;
         }
+        /// <summary>
+        /// Comments added by TRex 4/19/16
+        /// This method retrieves a specific blog.
+        /// </summary>
+        /// <param name="blogId"></param>
+        /// <returns></returns>
 
         public Blog GetBlogById(int blogId)
         {
             Blog blogReturn = null;
-            blogs = blogAccessor.fetchBlogs();
+            blogs = blogAccessor.retrieveBlogs();
             foreach (Blog blog in blogs)
             {
                 if (blog.BlogID == blogId)
@@ -36,12 +42,24 @@ namespace com.GreenThumb.BusinessLogic
             }
             return blogReturn;
         }
+
+        /// <summary>
+        /// Comments added by TRex
+        /// This method retrieves blogs by date.
+        /// </summary>
+        /// <returns></returns>
         public List<Blog> GetBlogByDate()
         {
-            blogs = blogAccessor.fetchBlogs();
+            blogs = blogAccessor.retrieveBlogs();
             //sortByDate
             return blogs;
         }
+
+        /// <summary>
+        /// Comments added by TRex 4/19/16
+        /// This method retrieves a blog by name.
+        /// </summary>
+        /// <returns></returns>
 
         public List<Blog> GetBlogByName()
         {
@@ -49,7 +67,15 @@ namespace com.GreenThumb.BusinessLogic
 
             return blogs;
         }
-        public bool CreateBlog(Blog blog)
+
+        /// <summary>
+        /// Comments added by TRex 4/19/16
+        /// This method creates a new blog.
+        /// Method name changed by TRex 4/19/16
+        /// </summary>
+        /// <param name="blog"></param>
+        /// <returns></returns>
+        public bool AddBlog(Blog blog)
         {
             bool created;
             try

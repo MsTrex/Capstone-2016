@@ -20,6 +20,7 @@ namespace com.GreenThumb.DataAccess
 {
     public class UserAccessor
     {
+        //Updated class name 4/14/16 Emily
         public static User RetrieveUserByUsername(string username)
         {
             User user;
@@ -81,8 +82,67 @@ namespace com.GreenThumb.DataAccess
             }
             return user;
         }
+        public static User RetrieveUser()
+        {
+            User user;
+            var conn = DBConnection.GetDBConnection();
+            var query = @"Admin.spSelectUsers";
+            var cmd = new SqlCommand(query, conn);
 
-        public static int FindUserByUsernameAndPassword(string username, string password)
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    int? regionID = 0;
+                    string zip = "";
+                    if (!reader.IsDBNull(4))
+                    {
+                        zip = reader.GetString(4);
+                    }
+                    if (!reader.IsDBNull(6))
+                    {
+                        // Rhett Allen 3/24/16 - regionID is now being assigned
+                        regionID = reader.GetInt32(6);
+                    }
+                    else
+                    {
+                        // Rhett Allen 3/24/16 - added else. Made region default null instead of zero since region is nullable
+                        regionID = null;
+                    }
+                    user = new User()
+                    {
+                        UserID = reader.GetInt32(0),
+                        UserName = reader.GetString(1),
+                        FirstName = reader.GetString(2),
+                        LastName = reader.GetString(3),
+                        Zip = zip,
+                        EmailAddress = reader.GetString(5),
+                        RegionId = regionID,
+                        Active = reader.GetBoolean(7)
+                    };
+                }
+                else
+                {
+                    throw new ApplicationException("Data not found");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return user;
+        }
+        //Updated class name 4/14/16 Emily
+        public static int RetrieveUserByUsernameAndPassword(string username, string password)
         {
             int count = 0;
             var conn = DBConnection.GetDBConnection();
@@ -110,8 +170,8 @@ namespace com.GreenThumb.DataAccess
             }
             return count;
         }
-
-        public static int SetPasswordForUsername(string username, string oldPassword, string newPassword)
+        //Updated class name 4/14/16 Emily
+        public static int CreatePasswordForUsername(string username, string oldPassword, string newPassword)
         {
             int count = 0;
             var conn = DBConnection.GetDBConnection();
@@ -146,7 +206,8 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static int InsertUser(User user)
+        /// //Updated class name 4/14/16 Emily
+        public static int CreateUser(User user)
         {
             int count = 0;
 
@@ -284,7 +345,10 @@ namespace com.GreenThumb.DataAccess
 
             return rowCount;
         }
-
+        /*
+         * Removed by Steve Hoover - 4/21/15
+         * References to this method should be changed to RetrieveUserList
+         * 
         ///<summary>
         ///Author: Chris Schwebach
         ///FetchUserPersonalInfo gets a database connection and retrieves user personal information 
@@ -293,7 +357,7 @@ namespace com.GreenThumb.DataAccess
         ///Updated Date: 3/8/16
         ///Updated regionID data retrieval 
         ///</summary>
-        public static List<User> FetchPersonalInfo(int userID)
+        public static List<User> RetrievePersonalInfo(int userID)
         {
 
             var user = new List<User>();
@@ -340,7 +404,7 @@ namespace com.GreenThumb.DataAccess
             return user;
         }
 
-
+        */
         /// <summary>
         /// Rhett Allen
         /// Created: 2016/02/26
@@ -350,7 +414,7 @@ namespace com.GreenThumb.DataAccess
         /// <param name="updateUser">The user that includes all of the updated fields</param>
         /// <param name="originalUser">The original user object to be checked for concurrency</param>
         /// <returns>A boolean based on if the user has been updated successfully</returns>
-        public static bool EditUser(User updatedUser, User originalUser)
+        public static bool UpdateUserInformation(User updatedUser, User originalUser)
         {
             var conn = DBConnection.GetDBConnection();
             var query = "Admin.spUpdateUser";
@@ -399,7 +463,6 @@ namespace com.GreenThumb.DataAccess
 
             return updated;
         }
-
         /// <summary>
         /// Rhett Allen
         /// Created: 2016/02/26
@@ -477,7 +540,7 @@ namespace com.GreenThumb.DataAccess
             }
             return user;
         }
-
+        
        
         /// <summary>
         /// Author: Ibrahim Abuzaid
@@ -485,39 +548,35 @@ namespace com.GreenThumb.DataAccess
         /// Database
         /// 
         /// Added 3/4 By Ibarahim
+        /// Updated Stored Procedure and Method Name 4/14/16 Emily
+        /// 
+        /// Updated method - SP calls for active 4/21/16 Steve Hoover
         /// </summary>
-        public static List<User> FetchUserList(Active group = Active.active)
+        public static List<User> RetrieveUserList(Active active)
         {
-            // create a list to hold the returned data
-            var userList = new List<User>();
+            var user = new List<User>();
+            int _active = 0;
 
-            // get a connection to the database
             var conn = DBConnection.GetDBConnection();
-
-            // create a query to send through the connection
-
-            string query = @"SELECT UserID, FirstName, LastName, " +
-                           @"Zip, EmailAddress, UserName, PassWord, Active, RegionID " +
-                           @"FROM Admin.Users ";
-
-            query += @"ORDER BY LastName ";
-
-            // create a command object
+            var query = @"Admin.spSelectUsers";
             var cmd = new SqlCommand(query, conn);
 
-            // be safe, not sorry! use a try-catch
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            if (active == Active.active)
+            {
+                _active = 1;
+            }
+
+            cmd.Parameters.AddWithValue("@Active", _active);
+
             try
             {
-                // open connection
                 conn.Open();
+                var reader = cmd.ExecuteReader();
 
-                // execute the command and return a data reader
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                // before trying to read the reader, be sure it has data
                 if (reader.HasRows)
                 {
-                    // now we just need a loop to process the reader
                     while (reader.Read())
                     {
                         User currentUser = new User()
@@ -530,30 +589,62 @@ namespace com.GreenThumb.DataAccess
                             UserName = reader.GetString(5),
                             Password = reader.GetString(6),
                             Active = reader.GetBoolean(7)
-                            //    RegionID = reader.GetInt32(8) 
 
                         };
 
-                        userList.Add(currentUser);
+                        if (reader.IsDBNull(3))
+                        {
+                            currentUser.Zip = null;
+                        }
+                        else
+                        {
+                            currentUser.Zip = reader.GetString(3);
+                        }
 
+                        if (reader.IsDBNull(4))
+                        {
+                            currentUser.EmailAddress = null;
+                        }
+                        else
+                        {
+                            currentUser.EmailAddress = reader.GetString(4);
+                        }
+
+
+                        if (reader.IsDBNull(8))
+                        {
+                            currentUser.RegionId = null;
+                        }
+                        else
+                        {
+                            currentUser.RegionId = reader.GetInt32(8);
+                        }
+
+                        user.Add(currentUser);
                     }
                 }
-
+                else
+                {
+                    throw new ApplicationException("Data not found");
+                }
             }
             catch (Exception)
             {
-                // rethrow all Exceptions, let the logic layer sort them out
                 throw;
             }
             finally
             {
                 conn.Close();
             }
-            // this list may be empty, if so, the logic layer will need to deal with it
-            return userList;
+            return user;
         }
 
-        public static int FetchUserCount(Active group = Active.active)
+        ///
+         /// Is no need for two User Count methods. I commented this one out as the other one uses a 
+         /// Stored Procedure. I'm leaving this here, just in case it is decided to just fix this one and delete the other for 
+         /// some reason
+         ///-Emily 4-14-16
+         public static int RetrieveUserCount(int userID)
         {
             int count = 0;
 
@@ -566,15 +657,7 @@ namespace com.GreenThumb.DataAccess
             string query = @"SELECT COUNT(*) " +
                            @"FROM Admin.Users ";
 
-            // include our WHERE logic
-            if (group == Active.active)
-            {
-                query += @"WHERE Active = 1 ";
-            }
-            else if (group == Active.inactive)
-            {
-                query += @"WHERE Active = 0 ";
-            }
+           
 
             // create a command object
             var cmd = new SqlCommand(query, conn);
@@ -592,7 +675,8 @@ namespace com.GreenThumb.DataAccess
 
             return count;
         }
-
+       
+     
         public static int UpdateUser(User usr)
         {
             int rowsAffected = 0;
@@ -759,7 +843,7 @@ namespace com.GreenThumb.DataAccess
         /// <param name="oldPassWord">Password to be verified against database.</param>
         /// <param name="newPassWord">New password to be set in database.</param>
         /// <returns>Whether the action was successful.</returns>
-        public static bool ChangeUserPassword(string userName, string oldPassWord, string newPassWord)
+        public static bool UpdateUserPassword(string userName, string oldPassWord, string newPassWord)
         {
             bool flag = false;
 
@@ -789,7 +873,7 @@ namespace com.GreenThumb.DataAccess
 
             return flag;
         }
-        public static int GetUserCount()
+        public static int RetrieveUserCount()
         {
             int count = 0;
 

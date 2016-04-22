@@ -17,5 +17,9 @@ namespace com.GreenThumb.BusinessObjects
         public DateTime CreateDate { get; set; }
         public byte[] Image { get; set; }
 
+        public override string ToString()
+        {
+            return TemplateName;
+        }
     }
 }

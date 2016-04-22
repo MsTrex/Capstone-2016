@@ -21,11 +21,19 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
     /// </summary>
     public partial class ProfileMain : Page
     {
+        /// <summary>
+        /// Author: Chris Sheehan
+        /// Logic for ProfileMain page
+        /// Date: 4/14/16
+        /// </summary>
         public ProfileMain(AccessToken _accessToken)
         {
             InitializeComponent();
             if (_accessToken != null)
             {
+                //_accessToken.Roles
+                grdRoles.ItemsSource = _accessToken.Roles;
+                grdRoles.IsHitTestVisible = false;
                 //lblTest.Content = "Hello " + _accessToken.FirstName + " " + _accessToken.LastName + ", welcome to the profile tab main page!";
             }
             else

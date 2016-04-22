@@ -67,7 +67,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
                 {
                     try
                     {
-                        if (adminExpertRequestsManager.ApproveRequest(
+                        if (adminExpertRequestsManager.AddRequestApproved(
                             this.accessToken, request))
                         {
                             BindExpertRequests();
@@ -99,7 +99,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
                 {
                     try
                     {
-                        if (adminExpertRequestsManager.PromoteUser(
+                        if (adminExpertRequestsManager.EditUserPromoted(
                             this.accessToken, user))
                         {
                             BindCurrentUsers();
@@ -129,7 +129,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
                 {
                     try
                     {
-                        if (adminExpertRequestsManager.DemoteExpert(
+                        if (adminExpertRequestsManager.EditExpertDemoted(
                             this.accessToken, expert))
                         {
                             BindCurrentExperts();
@@ -164,7 +164,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
                 {
                     try
                     {
-                        if (adminExpertRequestsManager.DeclineRequest(
+                        if (adminExpertRequestsManager.AddRequestDeclined(
                             this.accessToken, request))
                         {
                             BindExpertRequests();
@@ -194,7 +194,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
         private void btnSearchUsers_Click(object sender, RoutedEventArgs e)
         {
             dgAllUsers.ItemsSource
-                = adminExpertRequestsManager.SearchUsers(txtSearchUsers.Text);
+                = adminExpertRequestsManager.GetUsers(txtSearchUsers.Text);
 
             txtSearchUsers.Clear();
         }
@@ -279,7 +279,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
             try
             {
                 dgExpertRequests.ItemsSource
-                    = adminExpertRequestsManager.RetrieveExpertRequests(this.accessToken, refresh);
+                    = adminExpertRequestsManager.GetExpertRequests(this.accessToken, refresh);
                 dgExpertRequests.Items.Refresh();
             }
             catch (Exception ex)
@@ -294,7 +294,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
             try
             {
                 dgAllUsers.ItemsSource
-                    = adminExpertRequestsManager.RetrieveAllUsers(this.accessToken, refresh);
+                    = adminExpertRequestsManager.GetAllUsers(this.accessToken, refresh);
                 dgAllUsers.Items.Refresh();
             }
             catch (Exception ex)
@@ -309,7 +309,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
             try
             {
                 dgCurrentExperts.ItemsSource
-                    = adminExpertRequestsManager.RetrieveAllExperts(this.accessToken, refresh);
+                    = adminExpertRequestsManager.GetAllExperts(this.accessToken, refresh);
                 dgCurrentExperts.Items.Refresh();
             }
             catch (Exception ex)

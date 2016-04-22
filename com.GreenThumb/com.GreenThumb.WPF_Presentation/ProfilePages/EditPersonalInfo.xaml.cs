@@ -34,6 +34,11 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
 
         private int? regionId;
 
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Logic for constructor
+        /// Date: 3/19/16
+        /// </summary>
         public EditPersonalInfo(AccessToken _accessToken)
         {
             this._accessToken = _accessToken;
@@ -53,67 +58,116 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             txtEmailAddress.Text = _accessToken.EmailAddress;
 
         }
-
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Logic for item selected ddl
+        /// Date: 3/19/16
+        /// </summary>
         private void Na_Item_Selected(object sender, RoutedEventArgs e)
         {
             regionId = 10;
         }
-
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Logic for item selected ddl
+        /// Date: 3/19/16
+        /// </summary>
         private void None_Item_Selected(object sender, RoutedEventArgs e)
         {
             regionId = null;
         }
-
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Logic for item selected ddl
+        /// Date: 3/19/16
+        /// </summary>
         private void one_Item_Selected(object sender, RoutedEventArgs e)
         {
             regionId = 1;
         }
-
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Logic for item selected ddl
+        /// Date: 3/19/16
+        /// </summary>
         private void two_Item_Selected(object sender, RoutedEventArgs e)
         {
             regionId = 2;
         }
-
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Logic for item selected ddl
+        /// Date: 3/19/16
+        /// </summary>
         private void three_Item_Selected(object sender, RoutedEventArgs e)
         {
             regionId = 3;
         }
-
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Logic for item selected ddl
+        /// Date: 3/19/16
+        /// </summary>
         private void four_Item_Selected(object sender, RoutedEventArgs e)
         {
             regionId = 4;
         }
-
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Logic for item selected ddl
+        /// Date: 3/19/16
+        /// </summary>
         private void five_Item_Selected(object sender, RoutedEventArgs e)
         {
             regionId = 5;
         }
-
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Logic for item selected ddl
+        /// Date: 3/19/16
+        /// </summary>
         private void six_Item_Selected(object sender, RoutedEventArgs e)
         {
             regionId = 6;
         }
-
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Logic for item selected ddl
+        /// Date: 3/19/16
+        /// </summary>
         private void seven_Item_Selected(object sender, RoutedEventArgs e)
         {
             regionId = 7;
         }
-
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Logic for item selected ddl
+        /// Date: 3/19/16
+        /// </summary>
         private void eight_Item_Selected(object sender, RoutedEventArgs e)
         {
             regionId = 8;
         }
-
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Logic for item selected ddl
+        /// Date: 3/19/16
+        /// </summary>
         private void nine_Item_Selected(object sender, RoutedEventArgs e)
         {
             regionId = 9;
         }
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Logic for getting current user info
+        /// Date: 3/19/16
+        /// </summary>
         private void DisplayPersonalInfo()
         {
             try
             {
                 var user = myUserManager.GetPersonalInfo(_accessToken.UserID);
-                grdPersonalInfo.ItemsSource = user;
+                grdPersonalInfo.ItemsSource = new List<User>{user};
             }
             catch (Exception ex)
             {
@@ -121,16 +175,25 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             }
 
         }
-
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Logic for cancel button
+        /// Date: 3/19/16
+        /// </summary>
+        /// <remarks>
+        /// Modified By Chris Sheehan
+        /// rerouted cancel button to main profile tab page
+        /// Date: 4/14/16
+        /// </remarks>
         private void btnCancelEdit_Click(object sender, RoutedEventArgs e)
         {
-            txtFirstName.Clear();
-            txtLastName.Clear();
-            txtZip.Clear();
-            txtEmailAddress.Clear();
-
+            NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
         }
-
+        /// <summary>
+        /// Author: Chris Schwebach
+        /// Logic for save button
+        /// Date: 3/19/16
+        /// </summary>
         private void btnEditPersonalInfo_Click(object sender, RoutedEventArgs e)
         {
             string firstName = txtFirstName.Text;

@@ -1,22 +1,60 @@
-﻿@*Created by Nicholas King  04/03/2016*@
+﻿@*Created by Nicholas King  04/03/2016
+  Modified by Ashlyn Duhautois 04/15/2016
+    Styles + greeting    
+*@
+
+@using Microsoft.AspNet.Identity
+@using System.Security.Claims
+@{
+    var greeting = "Hello";
+    if (Request.IsAuthenticated)
+    {
+        var identity = (ClaimsIdentity)User.Identity;
+        var firstName
+            = identity.FindFirstValue(ClaimTypes.GivenName) ?? identity.GetUserName();
+
+        greeting += ", " + firstName;
+    }
+    else
+    {
+        greeting = "Hello";
+    }
+}
 @model com.GreenThumb.MVC.Models.GroupIndexViewModel
 
-<div class="GroupIndex">
-    @if (Model.UserGroupList.Count() > 0)
-    {
-        <div class="UsersGroupList">
-            @Html.Partial("~/Views/PartialViews/UserGroupsTable.cshtml", Model.UserGroupList)
+<div class="row">
+    <div class="col-lg-12">
+        <h1>Groups</h1>
+    </div>
+</div>
+<div class="row group-index dark-div round">
+    <div class="col-lg-6 col-md-11 col-sm-12">
+        <h3>My Groups</h3>
+        <div class="group-index-mygroups">
+            @if (Model.UserGroupList.Count() > 0)
+            {
+                @Html.Partial("~/Views/PartialViews/UserGroupsTable.cshtml", Model.UserGroupList)
+            }
+            else
+            {
+                <p>No groups to display.</p>
+            }
         </div>
-    }
-    
-    <div class="createGarden">
+    </div>
+    <div class="col-lg-6 col-md-11 col-sm-12 group-index-create">
+        <h3>Create Group</h3>
         @Html.Partial("~/Views/PartialViews/CreateGroup.cshtml")
     </div>
-
-    @if (Model.NonUserGroupList.Count() > 0)
-    {
-        <div class="UsersGroupList">
+</div>
+<div class="row dark-div round">
+    <div class="col-lg-6 col-md-11 col-sm-12">
+        <h3>Join a Group</h3>
+        @if (Model.NonUserGroupList.Count() > 0)
+        {
             @Html.Partial("~/Views/PartialViews/GroupsUserHasntJoinedTable.cshtml", Model.NonUserGroupList)
-        </div>
-    }
+        }
+    </div>
+    <div class="col-lg-5 col-md-11 col-sm-12 round group-index-image">
+        
+    </div>
 </div>

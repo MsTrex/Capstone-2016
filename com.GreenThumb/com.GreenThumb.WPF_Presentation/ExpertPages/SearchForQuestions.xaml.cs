@@ -45,7 +45,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             ChangeQuestionAndResponses(question.QuestionID);
             lblNoReplies.Content = "Your question has been successfully submitted. Come back later to check replies.";
             lblContent.Text = question.Content;
-            lblQuestion.Content = userManager.FetchUser(question.CreatedBy).UserName + " asks...";
+            lblQuestion.Content = userManager.GetUser(question.CreatedBy).UserName + " asks...";
         }
 
         private void ValidateAccessToken()
@@ -54,7 +54,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
 
             if (_accessToken != null)
             {
-                questions = questionManager.RetrieveQuestionsByUserID(_accessToken.UserID);
+                questions = questionManager.GetQuestionsByUserID(_accessToken.UserID);
                 if (questions.Count > 0)
                 {
                     gridMyQuestions.Visibility = System.Windows.Visibility.Visible;
@@ -76,7 +76,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         {
             try
             {
-                gridQuestions.ItemsSource = questionManager.RetrieveQuestionsWithKeyword(txtKeywords.Text);
+                gridQuestions.ItemsSource = questionManager.GetQuestionsWithKeyword(txtKeywords.Text);
             }
             catch (Exception)
             {
@@ -116,14 +116,14 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         private void ChangeQuestionAndResponses(int questionID)
         {
             gridQuestion.Visibility = System.Windows.Visibility.Visible;
-            Question question = questionManager.RetrieveQuestionByID(questionID);
+            Question question = questionManager.GetQuestionByID(questionID);
             lblContent.Text = question.Content;
-            lblQuestion.Content = userManager.FetchUser(question.CreatedBy).UserName + " asks...";
+            lblQuestion.Content = userManager.GetUser(question.CreatedBy).UserName + " asks...";
             List<Response> responses = new List<Response>();
 
             try
             {
-                responses = responseManager.RetrieveResponsesByQuestionID(questionID);
+                responses = responseManager.GetResponsesByQuestionID(questionID);
             }
             catch(Exception)
             {
@@ -152,7 +152,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
                 foreach (Response response in responses)
                 {
                     Label lblName = new Label();
-                    lblName.Content = userManager.FetchUser(response.UserID).UserName + " posted...";
+                    lblName.Content = userManager.GetUser(response.UserID).UserName + " posted...";
                     lblName.SetValue(Grid.ColumnProperty, 0);
                     lblName.SetValue(Grid.RowProperty, i);
                     lblName.Margin = new Thickness(20.0, 20.0, 20.0, 0.0);

@@ -1,4 +1,14 @@
-﻿@*Created by: Chris Schwebach, Nick King  04/03/2016*@
+﻿@*
+    <summary>
+     Partial View table of gardens by group.
+     Author: Chris Schwebach
+     Date:  4/03/2016
+     Modified by: Ashlyn DUhautois 04/15/2016
+     Changed table headers -> user friendly
+     </summary>
+     <returns>GardenList by group</returns>
+*@
+
 
 @model com.GreenThumb.BusinessObjects.Group
 
@@ -8,22 +18,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().GardenID)
+                Name
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().GroupID)
+                Description
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().GardenName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().UserID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().GardenDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.GardenList.SingleOrDefault().GardenRegion)
+                Region
             </th>
         </tr>
     </thead>
@@ -32,16 +33,7 @@
         {
             <tr>
                 <td>
-                    @GardenInfo.GardenID 
-                </td>
-                <td>
-                    @GardenInfo.GroupID
-                </td>
-                <td>
                     @GardenInfo.GardenName
-                </td>
-                <td>
-                    @GardenInfo.UserID
                 </td>
                 <td>
                     @GardenInfo.GardenDescription

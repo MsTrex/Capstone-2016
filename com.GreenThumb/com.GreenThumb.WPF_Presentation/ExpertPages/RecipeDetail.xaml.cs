@@ -41,7 +41,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         {
             lblTitle.Content = "Recipe: " + _recipe.Title;
             lblDescription.Text = _recipe.Directions;
-            lblCreatedBy.Content = "Made by " + userManager.FetchUser(_recipe.CreatedBy).UserName;
+            lblCreatedBy.Content = "Made by " + userManager.GetUser(_recipe.CreatedBy).UserName;
             lblDate.Content = "Date: " + _recipe.CreatedDate.ToShortDateString();
             lblCategory.Content = "Category: " + _recipe.Category;
         }

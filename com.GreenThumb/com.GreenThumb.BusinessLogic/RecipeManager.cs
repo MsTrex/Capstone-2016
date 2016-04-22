@@ -41,7 +41,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                if (RecipeAccessor.InputRecipe(newRecipe, userId) == 1)
+                if (RecipeAccessor.CreateRecipe(newRecipe, userId) == 1)
                 {
                     result = true;
                 }
@@ -67,7 +67,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="pageNumber">The page number of the datagrid for recipes. Used to create the offset.</param>
         /// <param name="perPage">The number of recipes displayed per page.</param>
         /// <returns>List of recipes based on the category and keyword search</returns>
-        public List<Recipe> RetrieveRecipesWithKeywordAndCategory(string keyword, string category, int pageNumber, int perPage)
+        public List<Recipe> GetRecipesWithKeywordAndCategory(string keyword, string category, int pageNumber, int perPage)
         {
             List<Recipe> recipes = new List<Recipe>();
 
@@ -75,7 +75,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                recipes = RecipeAccessor.FetchRecipesWithKeywordAndCategory(keyword, category, offset, perPage);
+                recipes = RecipeAccessor.RetrieveRecipesWithKeywordAndCategory(keyword, category, offset, perPage);
 
                 if (recipes.Count > 0)
                 {
@@ -100,13 +100,13 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="keyword">Word that is contained in the recipe fields</param>
         /// <param name="category">The recipe's category</param>
         /// <returns>Number of recipes in the database with specified category and contain a similar keyword</returns>
-        public int CountRecipes(string keyword, string category)
+        public int GetRecipesCount(string keyword, string category)
         {
             int count = 0;
 
             try
             {
-                count = RecipeAccessor.CountRecipes(keyword, category);
+                count = RecipeAccessor.RetrieveRecipeCount(keyword, category);
                 return count;
             }
             catch (Exception ex)

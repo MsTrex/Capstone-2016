@@ -11,13 +11,99 @@
 @using (Html.BeginForm("CreateGarden", "Garden", FormMethod.Post))
 {
     <div>
+        @Html.LabelFor(m => m.GardenName)
+        @Html.TextBoxFor(m => m.GardenName)
+        <br />
         @Html.LabelFor(m => m.GardenDescription)
         @Html.TextBoxFor(m => m.GardenDescription)
+        <p>Please select a region from the map below!</p>
+        <p class="h4">Selected Region: </p>
+        @Html.TextBoxFor(m => m.RegionID, new { value = "" })
+
+
+        <div class="fullwidth">
+            <canvas id='mapCanvas'></canvas>
+        </div>
+        <script type="text/javascript">
+            function zone(name, minF, maxF, r, g, b) {
+                this.name = name;
+                this.minF = minF;
+                this.maxF = maxF;
+                this.r = r;
+                this.g = g;
+                this.b = b;
+            }
+
+            function nearestZone(p) {
+                var min = Number.MAX_VALUE;
+                var nearest = "unknown";
+
+                for (var i in zones) {
+                    var dr = p[0] - zones[i].r;
+                    var dg = p[1] - zones[i].g;
+                    var db = p[2] - zones[i].b;
+                    var dist = (dr * dr) + (dg * dg) + (db * db);
+                    if (dist < min) {
+                        min = dist;
+                        nearest = zones[i].name;
+                    }
+                }
+
+                return nearest;
+            }
+
+              var zones = [
+                new zone("0", 0, 0, 0, 0, 0),
+                new zone("0", 0, 0, 255, 255, 255),
+                new zone("2", -50, -40, 190, 163, 191),
+                new zone("3", -40, -30, 63, 37, 64),
+                new zone("4", -30, -20, 116, 117, 251),
+                new zone("5", -20, -10, 23, 142, 69),
+                new zone("6", -10, 0, 79, 204, 66),
+                new zone("7", 0, 10, 248, 251, 97),
+                new zone("8", 10, 20, 251, 149, 82),
+                new zone("9", 20, 30, 237, 109, 52),
+                new zone("10", 30, 40, 251, 176, 176)
+            ]
+
+            $(document).ready(function () {
+                var canvas = document.getElementById('mapCanvas');
+                var ctx = canvas.getContext('2d');
+                var img = new Image();
+                img.onload = function () {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    var scale = 0.3;
+                    canvas.height *= scale;
+                    canvas.width *= scale;
+                    ctx.drawImage(img, 0, 0, img.width * scale, img.height * scale);
+
+                    $('#mapCanvas').click(function (e) {
+                        var x = e.offsetX;
+                        var y = e.offsetY;
+                        var pixel = ctx.getImageData(x, y, 1, 1).data;
+                        console.log(nearestZone(pixel));
+                        $("#RegionID").val(nearestZone(pixel));
+                    });
+                }
+                img.src = '/images/2015_zones.jpg';
+            });
+
+            function draw(img, scale, translate) {
+                var zWidth = img.width * scale;
+                var zHeight = img.height * scale;
+                ctx.drawImage(img, 0, 0, zWidth, zHeight);
+            }
+
+        </script>
     </div>
     <br />
     @Html.HiddenFor(m => m.GroupID)
     <br />
     <input type="submit" value="Submit" />
+    // @Html.DisplayFor(m => m.RegionID, new { value="7"})
+
+
 }
 
 
