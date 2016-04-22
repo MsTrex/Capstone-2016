@@ -17,6 +17,7 @@ namespace com.GreenThumb.BusinessLogic
     {
         /// <summary>
         /// Bool Method to create Garden by Poonam Dubey
+        /// Created: 3/3/2016
         /// </summary>
         /// <param name="garden"></param>
         /// <returns></returns>
@@ -35,6 +36,7 @@ namespace com.GreenThumb.BusinessLogic
 
         /// <summary>
         ///Created by: Kristine Johnson
+        /// Created: 4/8/2016
         /// </summary>
         /// <param name="userID"></param>
         /// <param name="garden"></param>
@@ -54,7 +56,9 @@ namespace com.GreenThumb.BusinessLogic
 
 
         /// <summary>
-        /// Manager function to fetch all gardens : Poonam Dubey  (20th March 2016)
+        ///  Created by: Poonam Dubey
+        ///  3/20/2016
+        /// Manager function to fetch all gardens 
         /// </summary> 
         /// <returns></returns>
         public List<Garden> GetGardens()
@@ -115,7 +119,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="groupId">Identifier to retrieve gardens by.</param>
         /// <returns>Collection of gardens.</returns>
-        public IEnumerable<Garden> RetrieveGroupGardens(int groupId)
+        public IEnumerable<Garden> GetGroupGardens(int groupId)
         {
             IEnumerable<Garden> gardens = null;
 
