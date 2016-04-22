@@ -107,7 +107,7 @@ namespace com.GreenThumb.WPF_Presentation
                                 /// Added by Trevor Glisch for first Run
                                 if (FirstRun)
                                 {
-                                    if (_userManagerObj.CreateNewUser(fName, lName, string.Empty, string.Empty, username, password.HashSha256(), isActive, null) == 1)
+                                    if (_userManagerObj.AddNewUser(fName, lName, string.Empty, string.Empty, username, password.HashSha256(), isActive, null) == 1)
                                     {
                                         ClearControls();
                                         MessageBoxResult result = MessageBox.Show("User has been created successfully!!", "User Created", MessageBoxButton.OK);
@@ -147,7 +147,7 @@ namespace com.GreenThumb.WPF_Presentation
                                 }
                                 else
                                 {
-                                    if (_userManagerObj.CreateNewUser(fName, lName, string.Empty, string.Empty, username, password.HashSha256(), isActive, null) == 1)
+                                    if (_userManagerObj.AddNewUser(fName, lName, string.Empty, string.Empty, username, password.HashSha256(), isActive, null) == 1)
                                     {
                                         ClearControls();
                                         MessageBoxResult result = MessageBox.Show("User has been created successfully!!", "User Created", MessageBoxButton.OK);

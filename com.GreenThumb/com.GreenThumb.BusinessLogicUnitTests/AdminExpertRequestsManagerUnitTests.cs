@@ -102,11 +102,11 @@ namespace com.GreenThumb.BusinessLogicUnitTests
 
                     try
                     {
-                        this._testUser = userManager.RetrieveUserByUserName(userName);
+                        this._testUser = userManager.GetUserByUserName(userName);
                     }
                     catch (Exception)
                     {
-                        flag = 1 == userManager.createUser(new User()
+                        flag = 1 == userManager.AddUser(new User()
                         {
                             UserName
                                 = userName,
@@ -124,7 +124,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
                                 = true,
                         });
 
-                        if (flag) { this._testUser = userManager.RetrieveUserByUserName(userName); }
+                        if (flag) { this._testUser = userManager.GetUserByUserName(userName); }
                     }
                 }
 

@@ -254,7 +254,7 @@ namespace com.GreenThumb.MVC.Controllers
 
             if (null != userName)
             {
-                userId = new UserManager().RetrieveUserId(userName);
+                userId = new UserManager().GetUserId(userName);
             }
 
             return userId;
