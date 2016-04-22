@@ -26,12 +26,11 @@ namespace com.GreenThumb.WPF_Presentation
         Login _login;
         RoleManager roleManager = new RoleManager();
         NewUserCreation _newUser;
-        MessageManager messageMgr = new MessageManager();
-        
 
         public MainWindow()
         {
             InitializeComponent();
+            //clearUnusedSidebars();
             /// Added by Trevor
             /// Checking to see if there are users in the DB----- If not prompt to create admin account
             UserManager um = new UserManager();
@@ -43,7 +42,7 @@ namespace com.GreenThumb.WPF_Presentation
                 _newUser.ShowDialog();
                 if (_accessToken != null)
                 {
-                    this.btnLogin.Header = "Log Out";                 
+                    this.btnLogin.Content = "Log Out";
                 }
             }
 
@@ -51,31 +50,20 @@ namespace com.GreenThumb.WPF_Presentation
             CheckPermissions();
         }
 
+        /// <summary>
+        /// </summary>
+        /// <remarks>
+        /// Sara Nanke
+        /// Updated: 4/22
+        /// Code cleanup
+        /// </remarks>
         private void CheckPermissions()
         {
-            btnGardens.Visibility = Visibility.Hidden;
-            btnAdmin.Visibility = Visibility.Hidden;
-            btnExpert.Visibility = Visibility.Hidden;
-            btnHome.Visibility = Visibility.Visible;
-            btnProfile.Visibility = Visibility.Hidden;
-            btnVolunteer.Visibility = Visibility.Hidden;
+            List<Label> visibleTabs = new List<Label>();
+            var allTabs = new Label[] { btnAdmin, btnGardens, btnExpert, btnHome, btnProfile, btnVolunteer };
             if (_accessToken == null)
-            {                
-                btnSideBar1.Content = "";
-                btnSideBar2.Content = "";
-                btnSideBar3.Content = "";
-                btnSideBar4.Content = "";
-                btnSideBar5.Content = "";
-                btnSideBar6.Content = "";
-                btnSideBar7.Content = "";
-                btnSideBar8.Content = "";
-                btnSideBar9.Content = "";
-                btnSideBar10.Content = "";
-                btnSideBar11.Content = "";
-                btnSideBar12.Content = "";
-                btnSideBar13.Content = "";
-                btnSideBar14.Content = "";
-                btnSideBar15.Content = "";
+            {
+                clearSideBar();
             }
             if (_accessToken != null)
             {
@@ -83,65 +71,48 @@ namespace com.GreenThumb.WPF_Presentation
                 {
                     if (r.RoleID == "Admin")
                     {
-                        btnGardens.Visibility = Visibility.Visible;
-                        btnAdmin.Visibility = Visibility.Visible;
-                        btnExpert.Visibility = Visibility.Visible;
-                        btnHome.Visibility = Visibility.Visible;
-                        btnProfile.Visibility = Visibility.Visible;
-                        btnVolunteer.Visibility = Visibility.Visible;
+                        var adminTabs = new Label[] { btnAdmin, btnGardens, btnExpert, btnHome, btnProfile, btnVolunteer };
+                        visibleTabs.AddRange(adminTabs);
                         break;
                     }
                     if (r.RoleID == "Expert")
                     {
-                        btnGardens.Visibility = Visibility.Visible;
-                        btnAdmin.Visibility = Visibility.Hidden;
-                        btnExpert.Visibility = Visibility.Visible;
-                        btnHome.Visibility = Visibility.Visible;
-                        btnProfile.Visibility = Visibility.Visible;
-                        btnVolunteer.Visibility = Visibility.Visible;
+                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile, btnVolunteer };
+                        visibleTabs.AddRange(expertTabs);
                         break;
                     }
                     if (r.RoleID == "GroupLeader")
                     {
-                        btnGardens.Visibility = Visibility.Visible;
-                        btnAdmin.Visibility = Visibility.Hidden;
-                        btnExpert.Visibility = Visibility.Visible;
-                        btnHome.Visibility = Visibility.Visible;
-                        btnProfile.Visibility = Visibility.Visible;
-                        btnVolunteer.Visibility = Visibility.Visible;
+                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile, btnVolunteer };
+                        visibleTabs.AddRange(expertTabs);
                         break;
                     }
                     if (r.RoleID == "GroupMember")
                     {
-                        btnGardens.Visibility = Visibility.Visible;
-                        btnAdmin.Visibility = Visibility.Hidden;
-                        btnExpert.Visibility = Visibility.Visible;
-                        btnHome.Visibility = Visibility.Visible;
-                        btnProfile.Visibility = Visibility.Visible;
-                        btnVolunteer.Visibility = Visibility.Visible;
+                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile, btnVolunteer };
+                        visibleTabs.AddRange(expertTabs);
                         break;
                     }
                     if (r.RoleID == "User")
                     {
-                        btnGardens.Visibility = Visibility.Visible;
-                        btnAdmin.Visibility = Visibility.Hidden;
-                        btnExpert.Visibility = Visibility.Visible;
-                        btnHome.Visibility = Visibility.Visible;
-                        btnProfile.Visibility = Visibility.Visible;
-                        btnVolunteer.Visibility = Visibility.Visible;
-                        break;
-                    }
-                    if (r.RoleID == "Guest")
-                    {
-                        btnGardens.Visibility = Visibility.Visible;
-                        btnAdmin.Visibility = Visibility.Hidden;
-                        btnExpert.Visibility = Visibility.Visible;
-                        btnHome.Visibility = Visibility.Visible;
-                        btnProfile.Visibility = Visibility.Visible;
-                        btnVolunteer.Visibility = Visibility.Visible;
+                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile, btnVolunteer };
+                        visibleTabs.AddRange(expertTabs);
                         break;
                     }
                 }
+            }
+            else
+            {
+                var guestTabs = new Label[] { btnHome };
+                visibleTabs.AddRange(guestTabs);
+            }
+            foreach (Label tab in allTabs)
+            {
+                tab.Visibility = Visibility.Hidden;
+            }
+            foreach (Label tab in visibleTabs)
+            {
+                tab.Visibility = Visibility.Visible;
             }
         }
 
@@ -163,7 +134,7 @@ namespace com.GreenThumb.WPF_Presentation
                 _login.AccessTokenCreatedEvent += setAccessToken;
                 if (_login.ShowDialog() == true && _accessToken != null) // login succeeded
                 {
-                    this.btnLogin.Header = "Log Out";
+                    this.btnLogin.Content = "Log Out";
                     // this is where we will set the initial privilages based on roles
                     CheckPermissions();
                     SetHomeButtons();
@@ -173,17 +144,16 @@ namespace com.GreenThumb.WPF_Presentation
                     // clear the access token reference
                     _accessToken = null;
                     MessageBox.Show("Login Failed.");
-                    lblLoggedIn.Header = "";
+                    lblLoggedIn.Content = "";
                     CheckPermissions();
                 }
             }
             else // somebody is already logged in
             {
                 _accessToken = null;
-                this.btnLogin.Header = "Log In";
+                this.btnLogin.Content = "Log In";
                 // change things back to default here.
-                lblLoggedIn.Header = "";
-                lblCurrentMessages.Header = "";
+                lblLoggedIn.Content = "";
                 CheckPermissions();
                 btnSignUp.Visibility = System.Windows.Visibility.Visible;
             }
@@ -214,19 +184,9 @@ namespace com.GreenThumb.WPF_Presentation
             if (sender == _login || sender == _newUser) // Made changes to login when user registers By : Poonam Dubey
             {
                 this._accessToken = a;
-                lblLoggedIn.Header = "Logged in as " + a.FirstName + " " + a.LastName;
-                SetNewMessageLabel(a);
+                lblLoggedIn.Content = "Logged in as " + a.FirstName + " " + a.LastName;
                 btnSignUp.Visibility = System.Windows.Visibility.Collapsed;
             }
-        }
-        /// <summary>
-        /// ADDED by Trevor Glisch
-        /// Method to change the label when someone logs in or checks messages
-        /// </summary>
-        /// <param name="a"></param>
-        public void SetNewMessageLabel(AccessToken a)
-        {
-            lblCurrentMessages.Header = a.FirstName + " You Have " + messageMgr.GetUnreadMessageCount(_accessToken.UserName) + " New Messages";
         }
         /// <summary>
         /// Author: Ryan Taylor
@@ -238,11 +198,25 @@ namespace com.GreenThumb.WPF_Presentation
             // Made changes to login when user registers By : Poonam Dubey
             _newUser = new NewUserCreation();
             _newUser.AccessTokenCreatedEvent += setAccessToken;
-            _newUser.ShowDialog(); 
+            _newUser.ShowDialog();
             if (_accessToken != null)
             {
-                this.btnLogin.Header = "Log Out";
+                this.btnLogin.Content = "Log Out";
                 CheckPermissions();
+            }
+        }
+
+        private void collapse_Click(object sender, RoutedEventArgs e)
+        {
+            if (sidePanelDefinition.Width.Value > 0)
+            {
+                sidePanelDefinition.Width = new GridLength(0);
+                btnCollapse.Content = "\u276F\u276F"; // ">>"
+            }
+            else
+            {
+                sidePanelDefinition.Width = new GridLength(220);
+                btnCollapse.Content = "\u276E\u276E"; // "<<"
             }
         }
 
@@ -254,26 +228,14 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new HomeContent(_accessToken));
+            clearSideBar();
             SetHomeButtons();
+            clearUnusedSidebars();
         }
         // Chris S - Had to refactor - using in two places
         private void SetHomeButtons()
         {
             btnSideBar1.Content = "Blog";
-            btnSideBar2.Content = "";
-            btnSideBar3.Content = "";
-            btnSideBar4.Content = "";
-            btnSideBar5.Content = "";
-            btnSideBar6.Content = "";
-            btnSideBar7.Content = "";
-            btnSideBar8.Content = "";
-            btnSideBar9.Content = "";
-            btnSideBar10.Content = "";
-            btnSideBar11.Content = "";
-            btnSideBar12.Content = "";
-            btnSideBar13.Content = "";
-            btnSideBar14.Content = "";
-            btnSideBar15.Content = "";
         }
 
         /// <summary>
@@ -285,6 +247,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             mainFrame.NavigationService.Navigate(new GardenPages.GardenMain(_accessToken));
             //btnSideBar1.Content = "Create a Garden";
+            clearSideBar();
             btnSideBar1.Content = "DO NOT USE";
             btnSideBar2.Content = "DO NOT USE";
             btnSideBar3.Content = "DO NOT USE";
@@ -300,17 +263,15 @@ namespace com.GreenThumb.WPF_Presentation
             }
             else
             {
-                btnSideBar7.Content = "btnSideBar7";
+                btnSideBar7.Content = "";
             }
             btnSideBar7.Content = "Create Garden";
             btnSideBar8.Content = "View Tasks By Garden";
-            btnSideBar9.Content = "";
             btnSideBar10.Content = "View Groups";
             btnSideBar11.Content = "Your Groups";
             btnSideBar12.Content = "Request to be a Group Leader";
-            btnSideBar13.Content = "Assgin Task to a Member";
-            btnSideBar14.Content = "btnSideBar14";
-            btnSideBar15.Content = "btnSideBar15";
+            btnSideBar13.Content = "Aasign Task to a Member";
+            clearUnusedSidebars();
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -320,21 +281,17 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnExpert_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new ExpertPages.ExpertHome(_accessToken));
+            clearSideBar();
             btnSideBar1.Content = "Become an Expert";
             btnSideBar2.Content = "Insert Recipe";
             btnSideBar3.Content = "Search for Questions";
-            btnSideBar4.Content = _accessToken != null ? "Ask a Question" : "btnSideBar4";
-            btnSideBar5.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ? "Answer Questions" : "btnSideBar5";
+            btnSideBar4.Content = _accessToken != null ? "Ask a Question" : "";
+            btnSideBar5.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ? "Answer Questions" : "";
             btnSideBar6.Content = "Upload Garden Template";
             btnSideBar7.Content = "View Garden Templates";
             btnSideBar8.Content = "View Recipes";
             btnSideBar9.Content = "Plants";
-            btnSideBar10.Content = "btnSideBar10";
-            btnSideBar11.Content = "btnSideBar11";
-            btnSideBar12.Content = "btnSideBar12";
-            btnSideBar13.Content = "btnSideBar13";
-            btnSideBar14.Content = "btnSideBar14";
-            btnSideBar15.Content = "btnSideBar15";
+            clearUnusedSidebars();
         }
 
         /// <summary>
@@ -344,21 +301,10 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnVolunteer_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new VolunteerPages.VolunteerHome(_accessToken));
+            clearSideBar();
             btnSideBar1.Content = "Edit Volunteer Availability";
             btnSideBar2.Content = "Volunteer Sign Up";
-            btnSideBar3.Content = "btnSideBar3";
-            btnSideBar4.Content = "btnSideBar4";
-            btnSideBar5.Content = "btnSideBar5";
-            btnSideBar6.Content = "btnSideBar6";
-            btnSideBar7.Content = "btnSideBar7";
-            btnSideBar8.Content = "btnSideBar8";
-            btnSideBar9.Content = "btnSideBar9";
-            btnSideBar10.Content = "btnSideBar10";
-            btnSideBar11.Content = "btnSideBar11";
-            btnSideBar12.Content = "btnSideBar12";
-            btnSideBar13.Content = "btnSideBar13";
-            btnSideBar14.Content = "btnSideBar14";
-            btnSideBar15.Content = "btnSideBar15";
+            clearUnusedSidebars();
 
         }
 
@@ -370,21 +316,13 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnAdmin_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new AdminPages.AdminHome(_accessToken));
-            btnSideBar1.Content = "btnSideBar1";
+            clearSideBar();
+            btnSideBar1.Content = "";
             btnSideBar2.Content = "Messages";
             btnSideBar3.Content = "Expert Requests";
             btnSideBar4.Content = "User Role";
             btnSideBar5.Content = "User Region";
-            btnSideBar6.Content = "btnSideBar6";
-            btnSideBar7.Content = "btnSideBar7";
-            btnSideBar8.Content = "btnSideBar8";
-            btnSideBar9.Content = "btnSideBar9";
-            btnSideBar10.Content = "btnSideBar10";
-            btnSideBar11.Content = "btnSideBar11";
-            btnSideBar12.Content = "btnSideBar12";
-            btnSideBar13.Content = "btnSideBar13";
-            btnSideBar14.Content = "btnSideBar14";
-            btnSideBar15.Content = "btnSideBar15";
+            clearUnusedSidebars();
         }
 
         /// <summary>
@@ -395,7 +333,9 @@ namespace com.GreenThumb.WPF_Presentation
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
+            clearSideBar();
             SetProfileButtons();
+            clearUnusedSidebars();
         }
         //Chris S - had to refactor - using in multiple places
         private void SetProfileButtons()
@@ -403,284 +343,144 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar1.Content = "Edit Personal Info";
             btnSideBar2.Content = "Profile Menu";
             btnSideBar3.Content = "Messages";
-            btnSideBar4.Content = "btnSideBar4";
-            btnSideBar5.Content = "btnSideBar5";
-            btnSideBar6.Content = "btnSideBar6";
-            btnSideBar7.Content = "btnSideBar7";
-            btnSideBar8.Content = "btnSideBar8";
-            btnSideBar9.Content = "btnSideBar9";
-            btnSideBar10.Content = "btnSideBar10";
-            btnSideBar11.Content = "btnSideBar11";
-            btnSideBar12.Content = "btnSideBar12";
-            btnSideBar13.Content = "btnSideBar13";
-            btnSideBar14.Content = "btnSideBar14";
-            btnSideBar15.Content = "btnSideBar15";
         }
 
-
-
+        public void clearSideBar()
+        {
+            //clear side panel content
+            foreach (Label label in sidePanel.Children)
+            {
+                label.Content = "";
+            }
+        }
 
         /// <summary>
         /// Author: Sara Nanke
         /// Click logic for the btnsidebarclick event
         /// Date: 3/9/16
-        /// Updated By: Chris Sheehan 3/24/16
-        /// cast content to string
+        /// Updated by many people
+        /// Condensed by Sara Nanke
+        /// Combined all sidebar clicks together in same method
+        /// Date: 4/18/15
+        /// 
         /// </summary>
-        private void btnSideBar1_MouseDown(object sender, MouseButtonEventArgs e)
-        {            
-            if (btnSideBar1.Content.ToString() == "Edit Personal Info")
+        private void btnSideBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ColorConverter cc = new ColorConverter();
+            foreach (Label label in sidePanel.Children)
             {
-                mainFrame.NavigationService.Navigate(new ProfilePages.EditPersonalInfo(_accessToken));
+                //label.Background = new SolidColorBrush(Color.FromArgb(0,0,0,0));
             }
-            else if (btnSideBar1.Content.ToString() == "Edit Volunteer Availability")
+            Label lblClicked = (Label)sender;
+            //lblClicked.Background = new SolidColorBrush(Color.FromArgb(0,9,9,9));
+            String content = lblClicked.Content.ToString();
+            Page page = new HomePages.ViewBlog();
+            try
             {
-                mainFrame.NavigationService.Navigate(new VolunteerPages.EditVolunteerAvailability(_accessToken));
-            }
-            else if (btnSideBar1.Content.ToString() == "Become an Expert")
-            {
-                mainFrame.NavigationService.Navigate(new ExpertPages.RequestExpert(_accessToken));
-            }
-            else if (btnSideBar1.Content.ToString() == "Blog")
-            {
-                if (_accessToken == null)
+                switch (content)
                 {
-                    mainFrame.NavigationService.Navigate(new HomePages.ViewBlog());
+                    case "Edit Personal Info":
+                        page = new ProfilePages.EditPersonalInfo(_accessToken);
+                        break;
+                    case "Edit Volunteer Availability":
+                        page = new VolunteerPages.EditVolunteerAvailability(_accessToken);
+                        break;
+                    case "Messages":
+                        page = new ProfilePages.Messages(_accessToken);
+                        break;
+                    case "Insert Recipe":
+                        page = new ExpertPages.RecipeInput(_accessToken);
+                        break;
+                    case "Volunteer Sign Up":
+                        page = new VolunteerPages.VolunteerSignUp(_accessToken);
+                        break;
+                    case "Profile Menu":
+                        page = new ProfilePages.ProfileMenu(_accessToken);
+                        break;
+                    case "Expert Requests":
+                        page = new AdminPages.AdminProcessExpertRequests(_accessToken);
+                        break;
+                    case "Search for Questions":
+                        page = new ExpertPages.SearchForQuestions(_accessToken);
+                        break;
+                    case "Complete A Task":
+                        page = new ProfilePages.Messages(_accessToken);
+                        break;
+                    case "Ask a Question":
+                        page = new ExpertPages.ExpertAdvice(_accessToken);
+                        break;
+                    case "User Role":
+                        //page = new AdminPages.UserRole(_accessToken);
+                        return;
+                    case "Answer Questions":
+                        page = new ExpertPages.ExpertAdviceRespond(_accessToken);
+                        break;
+                    case "Create a Task":
+                        page = new GardenPages.ManageTask(_accessToken);
+                        break;
+                    case "User Region":
+                        //page = new Uri("AdminPages/RegionPage.xaml", UriKind.Relative);
+                        page = new AdminPages.RegionPage();
+                        return;
+                    case "Upload Garden Template":
+                        page = new ExpertPages.ExpertGardenTemplate(_accessToken);
+                        break;
+                    case "Sign Up for Task":
+                        page = new GardenPages.SelectTasks(_accessToken);
+                        break;
+                    case "View Garden Templates":
+                        page = new ExpertPages.ViewGardenTemplate();
+                        break;
+                    case "create garden":
+                        page = new GardenPages.CreateGarden(_accessToken);
+                        break;
+                    case "View Tasks By Garden":
+                        page = new GardenPages.ViewTasks(_accessToken);
+                        break;
+                    case "View Recipes":
+                        page = new ExpertPages.ViewRecipe(_accessToken);
+                        break;
+                    case "Plants":
+                        page = new ExpertPages.ViewPlants(_accessToken);
+                        break;
+                    case "view groups":
+                        page = new GardenPages.ViewGroups(_accessToken);
+                        break;
+                    case "Your Groups":
+                        page = new GardenPages.GroupMain(_accessToken);
+                        break;
+                    case "Request to be a Group Leader":
+                        page = new GardenPages.RequestGroupLeader(_accessToken);
+                        break;
+                    case "Assign Task to a Member":
+                        page = new GardenPages.AssignTask(_accessToken);
+                        break;
+                    default: //Blog
+                        page = page = new HomePages.ViewBlog(_accessToken);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                page = new HomePages.ViewBlog();
+            }
+
+            mainFrame.NavigationService.Navigate(page);
+        }
+
+        public void clearUnusedSidebars()
+        {
+            foreach (Label label in sidePanel.Children)
+            {
+                if (String.IsNullOrWhiteSpace(label.Content.ToString()))
+                {
+                    label.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    mainFrame.NavigationService.Navigate(new HomePages.ViewBlog(_accessToken));
-                }
-
-            }
-
-        }
-        /// <summary>
-        /// Author: Chris Sheehan
-        /// Click logic for the btnsidebar2click event
-        /// Date: 3/9/16
-        /// </summary>
-        /// <remarks>
-        /// Updater Chris Schwebach
-        /// Updated: 2016/03/15
-        /// Changed btnSideBar2 event Insert Recipe 
-        /// Updated By: Chris Sheehan 3/24/16
-        /// cast content to string
-        /// </remarks>
-        private void btnSideBar2_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (btnSideBar2.Content.ToString() == "Messages")
-            {
-                mainFrame.NavigationService.Navigate(new ProfilePages.Messages(_accessToken));
-            }
-            else if (btnSideBar2.Content.ToString() == "Insert Recipe")
-            {
-                mainFrame.NavigationService.Navigate(new ExpertPages.RecipeInput(_accessToken));
-            }            
-            else if (btnSideBar2.Content.ToString() == "Volunteer Sign Up")
-            {
-                mainFrame.NavigationService.Navigate(new VolunteerPages.VolunteerSignUp(_accessToken));
-            }
-            else if (btnSideBar2.Content.ToString().Equals("Profile Menu"))
-            {
-                mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMenu(_accessToken));
-            }
-            
-        }
-        /// <summary>
-        /// Author: Chris Sheehan
-        /// Click logic for the btnsidebar3click event
-        /// Date: 3/9/16
-        /// </summary>
-        private void btnSideBar3_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-            if ("Expert Requests" == btnSideBar3.Content.ToString())
-            {
-                AdminPages.AdminProcessExpertRequests processExperts
-                    = new AdminPages.AdminProcessExpertRequests(_accessToken);
-
-                mainFrame.NavigationService.Navigate(processExperts);
-            }
-            else if (btnSideBar3.Content.ToString() == "Search for Questions")
-            {
-                mainFrame.NavigationService.Navigate(new ExpertPages.SearchForQuestions(_accessToken));
-            }
-            else if (btnSideBar3.Content.ToString() == "Messages")
-            {
-                mainFrame.NavigationService.Navigate(new ProfilePages.Messages(_accessToken));
-            }
-        }
-        /// <summary>
-        /// Author: Chris Sheehan
-        /// Click logic for the btnsidebar4click event
-        /// Date: 3/9/16
-        /// </summary>
-        private void btnSideBar4_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-            if (btnSideBar4.Content.ToString() == "Complete A Task")
-            {
-                mainFrame.NavigationService.Navigate(new GardenPages.CompleteTask(_accessToken));
-            }
-            else if (btnSideBar4.Content.ToString() == "Ask a Question")
-            {
-                mainFrame.NavigationService.Navigate(new ExpertPages.ExpertAdvice(_accessToken));
-            }
-            else if (btnSideBar4.Content.ToString().Equals("User Role"))
-            {
-                mainFrame.NavigationService.Navigate(new UserRole(_accessToken));
-            }
-        }
-        /// <summary>
-        /// Author: Chris Sheehan
-        /// Click logic for the btnsidebar5click event
-        /// Date: 3/9/16
-        /// </summary>
-        private void btnSideBar5_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (btnSideBar5.Content.ToString() == "Answer Questions")
-            {
-                mainFrame.NavigationService.Navigate(new ExpertPages.ExpertAdviceRespond(_accessToken));
-            }
-            else if (btnSideBar5.Content.ToString() == "Create a Task")
-            {
-                mainFrame.NavigationService.Navigate(new GardenPages.ManageTask(_accessToken));
-            }
-            else if (btnSideBar5.Content.ToString().Equals("User Region"))
-            {
-                mainFrame.NavigationService.Navigate(new Uri("AdminPages/RegionPage.xaml", UriKind.Relative));
-            }
-        }
-        /// <summary>
-        /// Author: Chris Sheehan
-        /// Click logic for the btnsidebar6click event
-        /// Date: 3/9/16
-        /// </summary>
-        private void btnSideBar6_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (btnSideBar6.Content.ToString() == "Upload Garden Template")
-            {
-                mainFrame.NavigationService.Navigate(new ExpertPages.ExpertGardenTemplate(_accessToken));
-            }
-            else if (btnSideBar6.Content.ToString() == "Sign Up for Task")
-            {
-                mainFrame.NavigationService.Navigate(new GardenPages.SelectTasks(_accessToken));
-            }
-            
-        }
-        /// <summary>
-        /// Author: Chris Sheehan
-        /// Click logic for the btnsidebar7click event
-        /// Date: 3/9/16
-        /// </summary>
-        private void btnSideBar7_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (btnSideBar7.Content.ToString() == "View Garden Templates")
-            {
-                mainFrame.NavigationService.Navigate(new ExpertPages.ViewGardenTemplate());
-            }
-            //else if (btnSideBar7.Content.ToString() == "Manage Garden Group")
-            if (btnSideBar7.Content.ToString().ToLowerInvariant() == "create garden")
-            {
-                mainFrame.NavigationService.Navigate(new GardenPages.CreateGarden(_accessToken));
-            }
-            else if (btnSideBar7.Content.ToString() == "View Garden Templates")
-            {
-                mainFrame.NavigationService.Navigate(new ExpertPages.ViewGardenTemplate());
-            }
-        }
-        /// <summary>
-        /// Author: Chris Sheehan
-        /// Click logic for the btnsidebar8click event
-        /// Date: 3/9/16
-        /// </summary>
-        private void btnSideBar8_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (btnSideBar8.Content.ToString() == "View Tasks By Garden")
-            {
-                mainFrame.NavigationService.Navigate(new GardenPages.ViewTasks(_accessToken));
-            }
-            //if (btnSideBar8.Content.ToString() == "Plants")
-            //{
-            //    mainFrame.NavigationService.Navigate(new ExpertPages.ViewPlants());
-            //}
-
-            else if (btnSideBar8.Content.ToString() == "View Recipes")
-            {
-                mainFrame.NavigationService.Navigate(new ExpertPages.ViewRecipe(_accessToken));
-            }
-        }
-        /// <summary>
-        /// Author: Chris Sheehan
-        /// Click logic for the btnsidebar9click event
-        /// Date: 3/9/16
-        /// </summary>
-        private void btnSideBar9_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (btnSideBar9.Content.ToString() == "Plants")
-            {
-                if (_accessToken != null)
-                {
-                    mainFrame.NavigationService.Navigate(new ExpertPages.ViewPlants(_accessToken));
-                }
-                else
-                {
-                    mainFrame.NavigationService.Navigate(new ExpertPages.ViewPlants());
+                    label.Visibility = Visibility.Visible;
                 }
             }
-            
         }
-        /// <summary>
-        /// Author: Chris Sheehan
-        /// Click logic for the btnsidebar10click event
-        /// Date: 3/9/16
-        /// </summary>
-        private void btnSideBar10_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (btnSideBar10.Content.ToString().ToLowerInvariant() == "view groups")
-            {
-                mainFrame.NavigationService.Navigate(new GardenPages.ViewGroups(_accessToken));
-            }
-        }
-        private void btnSideBar11_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (btnSideBar11.Content.ToString().Equals("Your Groups"))
-            {
-                mainFrame.NavigationService.Navigate(new GardenPages.GroupMain(_accessToken));
-            }
-        }
-        private void btnSideBar12_MouseDown(object sender, MouseButtonEventArgs e)
-        {            
-            if (btnSideBar12.Content.ToString().Equals("Request to be a Group Leader"))
-            {
-                mainFrame.NavigationService.Navigate(new GardenPages.RequestGroupLeader(_accessToken));
-            }
-        }
-        private void btnSideBar13_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-               if (btnSideBar13.Content.ToString().Equals("Assgin Task to a Member"))
-               {
-                   mainFrame.NavigationService.Navigate(new GardenPages.AssignTask(_accessToken));
-               }
-        }
-        private void btnSideBar14_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-        private void btnSideBar15_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void lblCurrentMessages_Click(object sender, RoutedEventArgs e)
-        {
-            btnProfile.Focus();
-            mainFrame.NavigationService.Navigate(new ProfilePages.Messages(_accessToken));
-            CheckPermissions();
-            SetProfileButtons();
-        }
-
-
     }
 }

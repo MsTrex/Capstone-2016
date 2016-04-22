@@ -489,6 +489,7 @@
     <Resource Include="Images\RegionId.jpeg" />
     <Resource Include="Images\greenThumb.png" />
     <Resource Include="Images\cutting-board-with-vegetables.jpg" />
+    <Resource Include="Images\Leaf.png" />
     <Content Include="Images\organic-vegetable-garden-1319014.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
