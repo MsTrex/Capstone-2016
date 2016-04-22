@@ -32,7 +32,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         {
             InitializeComponent();
             
-            List<Region> regions = regionManager.RetrieveRegions();
+            List<Region> regions = regionManager.GetRegions();
             _accessToken = accessToken;
             cmbRegions.Items.Add("All regions");
             cmbRegions.Items.Add("No region");
@@ -49,17 +49,17 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             try
             {
                 Region region = (Region)cmbRegions.SelectedValue;
-                gridQuestions.ItemsSource = questionManager.RetrieveQuestionsByRegionID(region.RegionID);
+                gridQuestions.ItemsSource = questionManager.GetQuestionsByRegionID(region.RegionID);
             }
             catch(Exception)
             {
                 if(cmbRegions.SelectedIndex == 1)
                 {
-                    gridQuestions.ItemsSource = questionManager.RetrieveQuestionsWithNoRegion();
+                    gridQuestions.ItemsSource = questionManager.GetQuestionsWithNoRegion();
                 }
                 else if(cmbRegions.SelectedIndex == 0)
                 {
-                    gridQuestions.ItemsSource = questionManager.RetrieveQuestions();
+                    gridQuestions.ItemsSource = questionManager.GetQuestions();
                 }
             }
 
@@ -78,7 +78,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
                 lblContent.Content = question.Content;
                 lblQuestion.Content = "Question asked by " + userManager.RetrieveUser(question.CreatedBy).UserName;
 
-                Response response = responseManager.RetrieveResponseByQuestionIDAndUser(question.QuestionID, _accessToken.UserID);
+                Response response = responseManager.GetResponseByQuestionIDAndUser(question.QuestionID, _accessToken.UserID);
                 if(response.QuestionID == question.QuestionID)
                 {
                     btnResponse.Content = "Edit";
@@ -116,17 +116,17 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             try // Selected region
             {
                 Region region = (Region)cmbRegions.SelectedValue;
-                gridQuestions.ItemsSource = questionManager.RetrieveQuestionsWithKeywordAndRegion(txtKeywords.Text, region.RegionID);
+                gridQuestions.ItemsSource = questionManager.GetQuestionsWithKeywordAndRegion(txtKeywords.Text, region.RegionID);
             }
             catch (Exception)
             {
                 if (cmbRegions.SelectedIndex == 0) // All regions
                 {
-                    gridQuestions.ItemsSource = questionManager.RetrieveQuestionsWithKeyword(txtKeywords.Text);
+                    gridQuestions.ItemsSource = questionManager.GetQuestionsWithKeyword(txtKeywords.Text);
                 }
                 else if (cmbRegions.SelectedIndex == 1) // No region
                 {
-                    gridQuestions.ItemsSource = questionManager.RetrieveQuestionsWithKeywordAndRegion(txtKeywords.Text, null);
+                    gridQuestions.ItemsSource = questionManager.GetQuestionsWithKeywordAndRegion(txtKeywords.Text, null);
                 }
             }
 
@@ -151,13 +151,13 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
 
                     if (responseText.Length <= 250)
                     {
-                        responseManager.CreateResponse(response);
+                        responseManager.AddResponse(response);
                         btnResponse.Content = "Edit";
                     }
                 }
                 catch (Exception)
                 {
-                    Response oldResponse = responseManager.RetrieveResponseByQuestionIDAndUser(response.QuestionID, _accessToken.UserID);
+                    Response oldResponse = responseManager.GetResponseByQuestionIDAndUser(response.QuestionID, _accessToken.UserID);
                     responseManager.EditResponse(response, oldResponse);
                 }
             }

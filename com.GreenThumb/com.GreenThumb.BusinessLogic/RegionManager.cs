@@ -16,7 +16,7 @@ namespace com.GreenThumb.BusinessLogic
         /// Gets all regions
         /// </summary>
         /// <returns>All known regions</returns>
-        public List<Region> RetrieveRegions()
+        public List<Region> GetRegions()
         {
             List<Region> regions = new List<Region>();
 

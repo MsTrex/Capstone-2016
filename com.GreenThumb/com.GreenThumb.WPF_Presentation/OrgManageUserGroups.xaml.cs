@@ -50,7 +50,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             try
             {
-                dgrdGroups.ItemsSource = orgUserManager.FetchOrgGroups(accessToken);
+                dgrdGroups.ItemsSource = orgUserManager.GetOrgGroups(accessToken);
                 dgrdGroups.Items.Refresh();
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             try
             {
-                dgrdUserLeads.ItemsSource = orgUserManager.FetchUserOrgGroups(accessToken, this.orgMember);
+                dgrdUserLeads.ItemsSource = orgUserManager.GetUserOrgGroups(accessToken, this.orgMember);
                 dgrdUserLeads.Items.Refresh();
             }
             catch (Exception ex)
@@ -141,7 +141,7 @@ namespace com.GreenThumb.WPF_Presentation
 
                 if (null != group)
                 {
-                    lblResponseMessage.Content = orgUserManager.ChangePrimaryLeader(
+                    lblResponseMessage.Content = orgUserManager.EditPrimaryLeader(
                         accessToken, group, this.orgMember) ?
                         "Set user as primary group leader." : "Unable to set as primary group leader.";
 

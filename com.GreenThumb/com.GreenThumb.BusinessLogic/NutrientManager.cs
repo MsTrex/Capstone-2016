@@ -40,7 +40,7 @@ namespace com.GreenThumb.BusinessLogic
         /// Gets a list of nutrients
         /// </summary>
         /// <returns>List of nutrients</returns>
-        public List<Nutrient> RetrieveNutrients()
+        public List<Nutrient> GetNutrients()
         {
             List<Nutrient> nutrients = new List<Nutrient>();
 
@@ -68,7 +68,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="plantID">The plant ID of the plant to get the nutrients from</param>
         /// <returns>List of all the nutrients for a single plant</returns>
-        public List<Nutrient> RetrievePlantNutrients(int? plantID)
+        public List<Nutrient> GetPlantNutrients(int? plantID)
         {
             List<Nutrient> nutrients = new List<Nutrient>();
 

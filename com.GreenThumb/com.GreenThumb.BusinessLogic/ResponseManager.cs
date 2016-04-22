@@ -17,7 +17,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="response">The response to be added</param>
         /// <returns>True if the response was successfully created</returns>
-        public bool CreateResponse(Response response)
+        public bool AddResponse(Response response)
         {
             bool created = false;
 
@@ -64,7 +64,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="questionID">Question ID</param>
         /// <returns>All responses to a certain question</returns>
-        public List<Response> RetrieveResponsesByQuestionID(int questionID)
+        public List<Response> GetResponsesByQuestionID(int questionID)
         {
             List<Response> responses = new List<Response>();
 
@@ -88,7 +88,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="questionID">Question ID</param>
         /// <param name="userID">User ID of the user that owns the response</param>
         /// <returns>The response to a question that a user has replied to</returns>
-        public Response RetrieveResponseByQuestionIDAndUser(int questionID, int userID)
+        public Response GetResponseByQuestionIDAndUser(int questionID, int userID)
         {
             Response response = new Response();
 
