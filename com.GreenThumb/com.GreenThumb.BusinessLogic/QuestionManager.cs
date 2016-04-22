@@ -17,7 +17,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="question">The question asked</param>
         /// <returns>True if the question was created successfully</returns>
-        public bool CreateQuestion(Question question)
+        public bool AddQuestion(Question question)
         {
             bool created = false;
 
@@ -40,7 +40,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="questionID">Question ID</param>
         /// <returns>Desired question</returns>
-        public Question RetrieveQuestionByID(int questionID)
+        public Question GetQuestionByID(int questionID)
         {
             Question question = new Question();
 
@@ -63,7 +63,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="regionID">Region ID</param>
         /// <returns>List of questions related to a region</returns>
-        public List<Question> RetrieveQuestionsByRegionID(int regionID)
+        public List<Question> GetQuestionsByRegionID(int regionID)
         {
             List<Question> questions = new List<Question>();
 
@@ -86,7 +86,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="userID">User ID</param>
         /// <returns>List of questions asked by a user</returns>
-        public List<Question> RetrieveQuestionsByUserID(int userID)
+        public List<Question> GetQuestionsByUserID(int userID)
         {
             List<Question> questions = new List<Question>();
 
@@ -109,7 +109,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="keyword">The string that is compared to question titles and content</param>
         /// <returns>List of questions that have the keyword in the title or content</returns>
-        public List<Question> RetrieveQuestionsWithKeyword(string keyword)
+        public List<Question> GetQuestionsWithKeyword(string keyword)
         {
             List<Question> questions = new List<Question>();
 
@@ -133,7 +133,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="keyword">The string that is compared to question titles and content</param>
         /// <param name="regionID">Region ID</param>
         /// <returns>List of questions that have the keyword in the title or content and are related to the region</returns>
-        public List<Question> RetrieveQuestionsWithKeywordAndRegion(string keyword, int? regionID)
+        public List<Question> GetQuestionsWithKeywordAndRegion(string keyword, int? regionID)
         {
             List<Question> questions = new List<Question>();
 
@@ -155,7 +155,7 @@ namespace com.GreenThumb.BusinessLogic
         /// Gets all questions that have a null region
         /// </summary>
         /// <returns>List of questions with no region</returns>
-        public List<Question> RetrieveQuestionsWithNoRegion()
+        public List<Question> GetQuestionsWithNoRegion()
         {
             List<Question> questions = new List<Question>();
 
@@ -177,7 +177,7 @@ namespace com.GreenThumb.BusinessLogic
         /// Gets all questions
         /// </summary>
         /// <returns>List of all questions</returns>
-        public List<Question> RetrieveQuestions()
+        public List<Question> GetQuestions()
         {
             List<Question> questions = new List<Question>();
 

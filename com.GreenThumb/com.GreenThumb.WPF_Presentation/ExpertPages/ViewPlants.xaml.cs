@@ -47,7 +47,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             InitializeComponent();
 
             pageDetails = InitializePageDetails();
-            fullList = plantManager.FetchPlantList(Active.all);
+            fullList = plantManager.GetPlantList(Active.all);
 
             setupPage();
             SelectPlants();
@@ -63,8 +63,8 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         public void setupPage()
         {
             //Name Search
-            plants = plantManager.FetchPlantList(Active.all);
-            //plants = plantManager.CreateTestPlants();
+            plants = plantManager.GetPlantList(Active.all);
+            //plants = plantManager.AddTestPlants();
             //List<String> plantNames = new List<String>();
             //foreach(Plant plant in plants){
             //    plantNames.Add(plant.Name);
@@ -297,8 +297,8 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
 
         private void CheckForAuthority()
         {
-            if (roleManager.IsUserThisRole(accessToken, "Expert") ||
-                roleManager.IsUserThisRole(accessToken, "Admin"))
+            if (roleManager.ConfirmUserIsAssignedRole(accessToken, "Expert") ||
+                roleManager.ConfirmUserIsAssignedRole(accessToken, "Admin"))
             {
                 hasAuthority = true;
             }
@@ -357,7 +357,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         private PageDetails InitializePageDetails()
         {
             PageDetails p = new PageDetails();
-            p.Count = plantManager.FetchPlantList(Active.active).Count;
+            p.Count = plantManager.GetPlantList(Active.active).Count;
             p.CurrentPage = 1;
             p.PerPage = 5;
 

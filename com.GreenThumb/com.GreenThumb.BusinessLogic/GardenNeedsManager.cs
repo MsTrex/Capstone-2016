@@ -63,7 +63,7 @@ namespace com.GreenThumb.BusinessLogic
                 // TODO: Refactor to pull user information on first stored proc
                 foreach (GardenNeed gardenNeed in needs)
                 {
-                    gardenNeed.CreatedBy = userManager.RetrieveUser(gardenNeed.CreatedBy.UserID);
+                    gardenNeed.CreatedBy = userManager.GetUser(gardenNeed.CreatedBy.UserID);
                 }
             }
             catch (Exception) { }

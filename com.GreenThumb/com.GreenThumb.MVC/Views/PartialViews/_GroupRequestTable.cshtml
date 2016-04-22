@@ -24,7 +24,7 @@
                             <td>@requestInfo.Requestor.FirstName</td>
                             <td>@requestInfo.Requestor.LastName</td>
                             <td>@requestInfo.Request.RequestDate</td>
-                            <td>@Html.ActionLink("Request to Join", "RequestJoinGroup", "Group", requestInfo.Request, null)</td>
+                            <td>@Html.ActionLink("Approve", "ApproveRequestJoin", "Group", requestInfo.Request, null)</td>
                         </tr>
                     }
                 </tbody>

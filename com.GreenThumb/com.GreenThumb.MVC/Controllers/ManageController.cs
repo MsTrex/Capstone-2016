@@ -69,7 +69,7 @@ namespace com.GreenThumb.MVC.Controllers
                 : " ";
 
             var userName = User.Identity.GetUserName();
-            var model = new com.GreenThumb.BusinessLogic.UserManager().RetrieveUserByUserName(userName);
+            var model = new com.GreenThumb.BusinessLogic.UserManager().GetUserByUserName(userName);
 
             return View(model);
         }
@@ -89,7 +89,7 @@ namespace com.GreenThumb.MVC.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    usermgr.UpdateUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, null);
+                    usermgr.EditUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, null);
                     var identity = (ClaimsIdentity)User.Identity;
 
                     UserManager.RemoveClaim(identity.GetUserId(), identity.FindFirst(ClaimTypes.Surname));

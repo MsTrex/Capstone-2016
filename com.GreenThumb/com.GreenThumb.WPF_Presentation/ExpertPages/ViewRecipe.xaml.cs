@@ -90,7 +90,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
                 category = null;
             }
 
-            int count = recipeManager.CountRecipes(keyword, category);
+            int count = recipeManager.GetRecipesCount(keyword, category);
 
             CountPages(count);
         }
@@ -119,7 +119,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         {
             try
             {
-                gridRecipes.ItemsSource = recipeManager.RetrieveRecipesWithKeywordAndCategory(keyword, category, currentPage, perPage);
+                gridRecipes.ItemsSource = recipeManager.GetRecipesWithKeywordAndCategory(keyword, category, currentPage, perPage);
             }
             catch (Exception)
             {

@@ -10,7 +10,7 @@ namespace com.GreenThumb.BusinessLogic
     /// <summary>
     /// Rhett Allen
     /// Created Date: 4/21/16
-    /// </summary>
+    /// </summary> Get list of page and page details
     /// <typeparam name="T">The type of object you want to page</typeparam>
     public class Paginate<T>
     {

@@ -4,26 +4,28 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="368.955" d:DesignWidth="499.403"
+      d:DesignHeight="368.955" d:DesignWidth="600.403"
 	Title="Messages">
 
     <Grid>
-        <DataGrid HorizontalAlignment="Left" x:Name="dataInbox" Margin="10,95,0,0" VerticalAlignment="Top" Height="104" Width="114" SelectionMode="Single" Cursor="Hand" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="dataInbox_MouseDoubleClick">
+        <DataGrid HorizontalAlignment="Left" x:Name="dataInbox" Margin="9,104,0,0" VerticalAlignment="Top" Height="104" Width="270" SelectionMode="Single" Cursor="Hand" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="dataInbox_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="From" Binding="{Binding MessageSender}" Width="Auto"/>
                 <DataGridTextColumn Header="Subject" Binding="{Binding MessageSubject}" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid HorizontalAlignment="Left" x:Name="dataOutbox" Margin="164,95,0,0" VerticalAlignment="Top" Height="104" Width="114" SelectionMode="Single" Cursor="Hand" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="dataOutbox_MouseDoubleClick">
+        <DataGrid HorizontalAlignment="Left" x:Name="dataOutbox" Margin="309,104,0,0" VerticalAlignment="Top" Height="104" Width="270" SelectionMode="Single" Cursor="Hand" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="dataOutbox_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="To" Binding="{Binding MessageReceiver}" Width="Auto"/>
                 <DataGridTextColumn Header="Subject" Binding="{Binding MessageSubject}" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Get Messages" x:Name="btn_GetMessages"  HorizontalAlignment="Left" Margin="10,228,0,0" VerticalAlignment="Top" Width="97" Click="btn_GetMessages_Click"/>
-        <Button Content="Delete Message" x:Name="btn_DeleteMessages" HorizontalAlignment="Left" Margin="164,228,0,0" VerticalAlignment="Top" Width="93" Click="btn_DeleteMessages_Click"/>
-        <Button Content="Compose" x:Name="btn_ComposeMessage" HorizontalAlignment="Left" Margin="108,38,0,0" VerticalAlignment="Top" Width="75" Click="btn_ComposeMessage_Click"/>
-        <TextBlock x:Name="txtMessage" Background="White" HorizontalAlignment="Left" Margin="10,283,0,0" TextWrapping="Wrap" Text="Select A Message" VerticalAlignment="Top" Height="57" Width="297"/>
+        <Button Content="Get Messages" x:Name="btn_GetMessages"  HorizontalAlignment="Left" Margin="10,228,0,0" VerticalAlignment="Top" Width="97" Click="btn_GetMessages_Click" Visibility="Hidden"/>
+        <Button Content="Delete Message" x:Name="btn_DeleteMessages" HorizontalAlignment="Left" Margin="263,228,0,0" VerticalAlignment="Top" Width="93" Click="btn_DeleteMessages_Click"/>
+        <Button Content="Compose" x:Name="btn_ComposeMessage" HorizontalAlignment="Left" Margin="263,39,0,0" VerticalAlignment="Top" Width="75" Click="btn_ComposeMessage_Click"/>
+        <TextBlock x:Name="txtMessage" Background="White" HorizontalAlignment="Left" Margin="10,283,0,0" TextWrapping="Wrap" Text="Select A Message" VerticalAlignment="Top" Height="57" Width="558"/>
+        <Label Content="Inbox" HorizontalAlignment="Left" Margin="80,82,0,0" VerticalAlignment="Top"/>
+        <Label Content="Outbox" HorizontalAlignment="Left" Margin="416,78,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>
