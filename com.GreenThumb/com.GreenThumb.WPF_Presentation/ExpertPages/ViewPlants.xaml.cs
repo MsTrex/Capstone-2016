@@ -297,8 +297,8 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
 
         private void CheckForAuthority()
         {
-            if (roleManager.IsUserThisRole(accessToken, "Expert") ||
-                roleManager.IsUserThisRole(accessToken, "Admin"))
+            if (roleManager.ConfirmUserIsAssignedRole(accessToken, "Expert") ||
+                roleManager.ConfirmUserIsAssignedRole(accessToken, "Admin"))
             {
                 hasAuthority = true;
             }

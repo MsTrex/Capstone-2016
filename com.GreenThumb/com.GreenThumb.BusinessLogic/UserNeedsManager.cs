@@ -47,7 +47,7 @@ namespace com.GreenThumb.BusinessLogic
         /// Created By: Trent Cullinan 04/14/16
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<NeedContribution> RetrieveSentContributions()
+        public IEnumerable<NeedContribution> GetSentContributions()
         {
             IEnumerable<NeedContribution> contributions = null;
 
@@ -65,7 +65,7 @@ namespace com.GreenThumb.BusinessLogic
         /// Created By: Trent Cullinan 04/14/16
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<NeedContribution> RetrieveAcceptedContributions()
+        public IEnumerable<NeedContribution> GetAcceptedContributions()
         {
             IEnumerable<NeedContribution> contributions = null;
 
@@ -83,7 +83,7 @@ namespace com.GreenThumb.BusinessLogic
         /// Created By: Trent Cullinan 04/14/16
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<NeedContribution> RetrieveDeclinedContributions()
+        public IEnumerable<NeedContribution> GetDeclinedContributions()
         {
             IEnumerable<NeedContribution> contributions = null;
 
@@ -101,7 +101,7 @@ namespace com.GreenThumb.BusinessLogic
         /// Created By: Trent Cullinan 04/14/16
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<GardenNeed> RetrieveAvailableNeeds()
+        public IEnumerable<GardenNeed> GetAvailableNeeds()
         {
             IEnumerable<GardenNeed> needs = null;
 

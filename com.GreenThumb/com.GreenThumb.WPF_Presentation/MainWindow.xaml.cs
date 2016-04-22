@@ -35,7 +35,7 @@ namespace com.GreenThumb.WPF_Presentation
             /// Added by Trevor
             /// Checking to see if there are users in the DB----- If not prompt to create admin account
             UserManager um = new UserManager();
-            int users = um.RetrieveUserCount();
+            int users = um.GetUserCount();
             if (users == 0)
             {
                 _newUser = new NewUserCreation(true);
@@ -324,7 +324,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar2.Content = "Insert Recipe";
             btnSideBar3.Content = "Search for Questions";
             btnSideBar4.Content = _accessToken != null ? "Ask a Question" : "btnSideBar4";
-            btnSideBar5.Content = roleManager.IsUserThisRole(_accessToken, "Expert") ? "Answer Questions" : "btnSideBar5";
+            btnSideBar5.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ? "Answer Questions" : "btnSideBar5";
             btnSideBar6.Content = "Upload Garden Template";
             btnSideBar7.Content = "View Garden Templates";
             btnSideBar8.Content = "View Recipes";

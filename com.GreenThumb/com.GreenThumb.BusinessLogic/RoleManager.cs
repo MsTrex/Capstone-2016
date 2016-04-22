@@ -62,7 +62,8 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="roleName">RoleID to check</param>
         /// <param name="accessToken">The user's access token</param>
         /// <returns>True if the user is the role name</returns>
-        public bool IsUserThisRole(AccessToken accessToken, string roleName)
+        /// Changed Method Name - Emily
+        public bool ConfirmUserIsAssignedRole(AccessToken accessToken, string roleName)
         {
             bool isRole = false;
 

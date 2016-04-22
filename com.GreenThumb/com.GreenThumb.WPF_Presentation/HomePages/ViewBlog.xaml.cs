@@ -70,7 +70,7 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
         {
             string userCreated = "";
             UserManager userManager = new UserManager();
-            User user = userManager.RetrieveUser(userId);
+            User user = userManager.GetUser(userId);
             userCreated = user.FirstName + " " + user.LastName;
             return userCreated;
         }

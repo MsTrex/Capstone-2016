@@ -27,7 +27,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             };
             ///create a new instance of list of group-(typeOf(List<Group> group)
             ///arrange/act
-            bool isSuccess = gardenManager.CreateGarden(garden);
+            bool isSuccess = gardenManager.AddNewGarden(garden);
             Assert.AreEqual(true, isSuccess);
 
         }
@@ -45,7 +45,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             };
             ///create a new instance of list of group-(typeOf(List<Group> group)
             ///arrange/act
-            bool isSuccess = gardenManager.CreateGarden(garden);
+            bool isSuccess = gardenManager.AddNewGarden(garden);
             Assert.AreNotEqual(true, isSuccess);
 
         }
@@ -63,7 +63,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             };
             ///create a new instance of list of group-(typeOf(List<Group> group)
             ///arrange/act
-            bool isSuccess = gardenManager.CreateGarden(garden);
+            bool isSuccess = gardenManager.AddNewGarden(garden);
             Assert.AreNotEqual(true, isSuccess);
 
         }
@@ -81,7 +81,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             };
             ///create a new instance of list of group-(typeOf(List<Group> group)
             ///arrange/act
-            bool isSuccess = gardenManager.CreateGarden(garden);
+            bool isSuccess = gardenManager.AddNewGarden(garden);
             Assert.AreNotEqual(true, isSuccess);
 
         }
