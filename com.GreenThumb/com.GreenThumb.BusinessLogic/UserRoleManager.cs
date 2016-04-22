@@ -115,7 +115,7 @@ namespace com.GreenThumb.BusinessLogic
             return false;
         }
         // should not be used after approval
-        public bool ChangeUserRole(UserRole userRole)
+        public bool EditUserRole(UserRole userRole)
         {
             if (userRole.UserID < 1000)
             {
@@ -135,8 +135,8 @@ namespace com.GreenThumb.BusinessLogic
             }
             return false;
         }
-        // should be replaced by ChangeUserRoleStatus
-        public bool DeleteUserRole(int usr, string role)
+        // should be replaced by EditUserRoleStatus
+        public bool RemoveUserRole(int usr, string role)
         {
             if (usr < 1000)
             {
@@ -157,7 +157,7 @@ namespace com.GreenThumb.BusinessLogic
             return false;
         }
 
-        public bool ChangeUserRoleStatus(int usr, string role, bool active)
+        public bool EditUserRoleStatus(int usr, string role, bool active)
         {
             if (usr < 1000)
             {

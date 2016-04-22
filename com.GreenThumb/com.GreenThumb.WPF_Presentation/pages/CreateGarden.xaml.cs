@@ -105,7 +105,7 @@ namespace com.GreenThumb.WPF_Presentation.pages
                      garden.GardenRegion = gRegion;
 
 
-                     if (gardenManager.CreateGarden(garden))
+                     if (gardenManager.AddNewGarden(garden))
                     
                      {
                          MessageBox.Show("New Garden has been created.", "New Record", MessageBoxButton.OK, MessageBoxImage.Information);

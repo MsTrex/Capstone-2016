@@ -21,7 +21,8 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="garden"></param>
         /// <returns></returns>
-        public bool CreateGarden(Garden garden)
+        /// Method name changed by TRex 4/21/16
+        public bool AddNewGarden(Garden garden)
         {
             try
             {

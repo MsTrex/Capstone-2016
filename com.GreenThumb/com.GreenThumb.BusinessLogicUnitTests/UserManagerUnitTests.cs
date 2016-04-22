@@ -35,7 +35,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             int? regionId = 1;
 
             //act
-            bool result = userManager.UpdateUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, regionId);
+            bool result = userManager.EditUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, regionId);
 
             //assert
             Assert.AreEqual(true, result);
@@ -58,7 +58,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             int? regionId = null;
 
             //act
-            bool result = userManager.UpdateUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, regionId);
+            bool result = userManager.EditUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, regionId);
 
         }
 
@@ -79,7 +79,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             int? regionId = 1;
 
             //act
-            bool result = userManager.UpdateUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, regionId);
+            bool result = userManager.EditUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, regionId);
 
         }
 
@@ -100,7 +100,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             int? regionId = null;
 
             //act
-            bool result = userManager.UpdateUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, regionId);
+            bool result = userManager.EditUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, regionId);
 
         }
 
@@ -116,7 +116,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             int UserID = 1000;
 
             //act
-            var user = userManager.RetrievePersonalInfo(UserID);
+            var user = userManager.GetPersonalInfo(UserID);
 
             //assert
             //Assert.AreEqual(1, user.Count);

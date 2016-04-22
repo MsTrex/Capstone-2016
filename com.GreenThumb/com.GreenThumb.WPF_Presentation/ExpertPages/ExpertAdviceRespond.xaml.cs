@@ -76,7 +76,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             {
                 question = (Question)gridQuestions.SelectedItem;
                 lblContent.Content = question.Content;
-                lblQuestion.Content = "Question asked by " + userManager.RetrieveUser(question.CreatedBy).UserName;
+                lblQuestion.Content = "Question asked by " + userManager.GetUser(question.CreatedBy).UserName;
 
                 Response response = responseManager.RetrieveResponseByQuestionIDAndUser(question.QuestionID, _accessToken.UserID);
                 if(response.QuestionID == question.QuestionID)
