@@ -70,7 +70,7 @@ CREATE TABLE [Admin].[ExpertRequests](
 create TABLE [Admin].[GroupRequest](
 	[GroupID] [int] NOT NULL,
 	[UserID] [int] NOT NULL,
-	[RequestStatus] [char](1) default 'A' NOT NULL,
+	[RequestStatus] BIT default 1 NOT NULL,
 	[RequestDate] [smalldatetime] NOT NULL,
 	[ApprovedDate] [smalldatetime] NULL,
 	[ApprovedBy] [int] NULL,
@@ -611,14 +611,19 @@ create table Expert.Templates(
 	Active bit not null default 1
 );
 
+
 --created by Dat Tran 2-25-16
-CREATE TABLE Gardens.Announcements(
-	AnnouncementID int not null primary key identity(1000,1),
-	UserID	int not null,
-	Date smalldatetime not null,
-	OrganizationID int null,
-	Announcement VARCHAR(250) not null
+--updated by luke frahm 4-22-16
+CREATE TABLE Gardens.Announcements (
+	AnnouncementID 			INT 					NOT NULL				PRIMARY KEY 			IDENTITY(1000,1),
+	UserName				VARCHAR(20)				NOT NULL,
+	FirstName				VARCHAR(50)				NOT NULL,
+	LastName				VARCHAR(100)			NOT NULL,
+	GroupID					INT						NOT NULL,
+	Date 					SMALLDATETIME 			NOT NULL,
+	Announcement			VARCHAR(MAX) 			NOT NULL
 );
+GO
 
 --modified by team king 4-7-16
 create table Gardens.Gardens(
@@ -1298,17 +1303,22 @@ GO
 ALTER TABLE Expert.Templates CHECK CONSTRAINT [FK_Templates_UserID];
 GO
 
-ALTER TABLE Gardens.Announcements WITH NOCHECK ADD  CONSTRAINT [FK_Announcements_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
+
+-- created by luke frahm 4-22-16 FK UserName
+ALTER TABLE Gardens.Announcements WITH NOCHECK ADD CONSTRAINT [FK_Announcements_UserName] FOREIGN KEY(UserName)
+REFERENCES Admin.Users(UserName);
 GO
-ALTER TABLE Gardens.Announcements CHECK CONSTRAINT [FK_Announcements_UserID];
+ALTER TABLE Gardens.Announcements CHECK CONSTRAINT [FK_Announcements_UserName];
 GO
 
-ALTER TABLE Gardens.Announcements WITH NOCHECK ADD  CONSTRAINT [FK_Announcements_OrganizationID] FOREIGN KEY(OrganizationID)
-REFERENCES Gardens.Organizations(OrganizationID);
+
+-- created by luke frahm 4-22-16-- FK GroupID
+ALTER TABLE Gardens.Announcements WITH NOCHECK ADD CONSTRAINT [FK_Announcements_GroupID] FOREIGN KEY(GroupID)
+REFERENCES Gardens.Groups(GroupID);
 GO
-ALTER TABLE Gardens.Announcements CHECK CONSTRAINT [FK_Announcements_OrganizationID];
+ALTER TABLE Gardens.Announcements CHECK CONSTRAINT [FK_Announcements_GroupID];
 GO
+
 
 ALTER TABLE Gardens.Gardens WITH NOCHECK ADD  CONSTRAINT [FK_Gardens_GroupID] FOREIGN KEY(GroupID)
 REFERENCES Gardens.Groups(GroupID);
@@ -1601,6 +1611,7 @@ GO
 ------------------------------------------
 
 -- SETS REQUEST STATUS TO ACCEPPTED AND THEN RUNS STORED PROCEDURE TO ADD USER TO THE GROUP
+-- UPDATED BY Nick king 4/22/16
 -- UPDATED BY TREVOR GLISCH 4/6/16
 CREATE PROCEDURE Admin.spAcceptRequest(
 	@GroupID int,
@@ -1619,7 +1630,7 @@ UPDATE Admin.GroupRequest
 		GroupID = @GroupID AND
 		UserID = @UserID ;
 	
-	EXEC Gardens.spInsertGroupMember @GroupID, @UserID;
+	EXEC Gardens.spInsertGroupMembers @GroupID, @UserID, @ApprovedDate, @ApprovedID, 1;
 	-- THIS LINE CAN LATER BE USED TO SEND A MESSAGE TO A USER THAT THEY HAVE BEEN ACCEPTED
 	--EXEC Admin.spInsertMessageLineItems 	
 END;
@@ -2188,7 +2199,9 @@ AS BEGIN
 	RETURN @@ROWCOUNT
 END
 GO
-	
+
+
+/*	
 CREATE PROCEDURE Admin.spSelectAllUserNames
 AS
 BEGIN
@@ -2197,7 +2210,17 @@ BEGIN
 	WHERE Active = 1;
 END;
 go
+*/
 
+--updated by ryan taylor 4-22-16
+CREATE PROCEDURE Admin.spSelectAllUserNames
+AS
+BEGIN
+	SELECT Username, FirstName, LastName
+	FROM Admin.Users
+	WHERE Active = 1;
+END;
+go
 
 ------------------------------------------
 -----------Donations.EquipmentDonated-----
@@ -2907,22 +2930,19 @@ go
 ------------------------------------------
 
 --added by Sara Nanke 3/5/16
-create procedure Donations.spInsertVolunteerHours(
+create procedure Donations.spInsertVolunteers(
 	@UserID int,
 	@Date smalldatetime,
-	@HoursVolunteered int,
 	@City varchar(30))
 as
 begin
 insert into Donations.VolunteerHours(
 	UserID,
 	Date,
-	HoursVolunteered,
 	City)
 values(
 	@UserID,
 	@Date,
-	@HoursVolunteered,
 	@City);
 	return @@ROWCOUNT;
 end;
@@ -3904,48 +3924,72 @@ go
 -----------Gardens.Announcements----------
 ------------------------------------------
 
-create procedure Gardens.spInsertAnnouncements(
-	@UserID int,
-	@Date smalldatetime,
-	@OrganizationID int,
-	@Announcement VARCHAR(250))
-as
-begin
-insert into Gardens.Announcements(
-	UserID,
-	Date,
-	OrganizationID,
-	Announcement)
-values(
-	@UserID,
-	@Date,
-	@OrganizationID,
-	@Announcement);
-	return @@ROWCOUNT;
-end;
-go
+-- CREATE
+CREATE PROCEDURE Gardens.spInsertAnnouncements (
+	@UserName 				VARCHAR(20),
+	@FirstName				VARCHAR(50),
+	@LastName				VARCHAR(50),
+	@GroupID				INT,
+	@Date 					SMALLDATETIME,
+	@Announcement 			VARCHAR(MAX)
+)
+AS
+BEGIN
+	INSERT INTO Gardens.Announcements(UserName, FirstName, LastName, GroupID, Date, Announcement)
+	VALUES(@UserName, @FirstName, @LastName, @GroupID, @Date, @Announcement);
+	RETURN @@ROWCOUNT;
+END;
+GO
 
---Created 4-12-16 TR
-create procedure Gardens.spUpdateAnnouncements(
-     @AnnouncementID int,
-	 @Date smallDateTime,
-	 @Announcement VARCHAR(250),
-	 @UserID int)
-as
-begin
-insert 	into Gardens.Announcements(
-  AnnouncementID,
-  Date,
-  Announcement,
-  UserID)
- values(
-   @AnnouncementID,
-   @Date,
-   @Announcement,
-   @USerID);
-   return @@ROWCOUNT;
-end;
-go
+-- RETRIEVE All By Group
+CREATE PROCEDURE Gardens.spSelectAnnouncementsByGroupID (
+	@GroupID 				INT
+)
+AS
+BEGIN
+	SELECT AnnouncementID, UserName, FirstName, LastName, GroupID, Date, Announcement
+	FROM Gardens.Announcements
+	WHERE GroupID = @GroupID
+END;
+GO
+
+-- RETRIEVE TOP(10) By Group
+-- Jim requests announcements page only display 10 most recent announcements
+CREATE PROCEDURE Gardens.spSelectAnnouncementsByGroupIDTop10 (
+	@GroupID 				INT
+)
+AS
+BEGIN
+	SELECT TOP(10) AnnouncementID, UserName, FirstName, LastName, GroupID, Date, Announcement
+	FROM Gardens.Announcements
+	WHERE GroupID = @GroupID
+	ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC
+END;
+GO
+
+-- UPDATE
+CREATE PROCEDURE Gardens.spUpdateAnnouncements (
+	@AnnouncementID			INT,
+	@UserName 				VARCHAR(20),
+	@FirstName				VARCHAR(50),
+	@LastName				VARCHAR(50),
+	@GroupID				INT,
+	@Date 					SMALLDATETIME,
+	@Announcement 			VARCHAR(MAX)
+)
+AS
+BEGIN
+	UPDATE Gardens.Announcements
+	SET
+		UserName = @UserName,
+		FirstName = @FirstName,
+		LastName = @LastName,
+		GroupID = @GroupID,
+		Date = @Date,
+		Announcement = @Announcement
+	WHERE AnnouncementID = @AnnouncementID
+END;
+GO
 
 ------------------------------------------
 -----------Gardens.GardenGuides-----------
@@ -4835,7 +4879,7 @@ exec Gardens.spInsertOrganizations			'Hiawatha School'				,1003								,'1234567
 exec Gardens.spInsertGroups					'Mrs.Smith - 3rd grade'		,1003				,1000
 
 --* spInsertAnnouncements        			@UserID int,	@Date smalldatetime,	@OrganizationID int,	@Announcement VARCHAR(250)
-exec Gardens.spInsertAnnouncements			1000			,'3/4/89'				,1000					,'New garden templates available'
+--exec Gardens.spInsertAnnouncements			1000			,'3/4/89'				,1000					,'New garden templates available'
 
 --* spInsertGardens              			@GroupID int,	@UserID int,			@GardenName				@GardenDescription varchar(max),	@GardenRegion varchar(25)
 exec Gardens.spInsertGardens				1000			,1000					,'School Garden'			,'RoofTop garden'					,1
@@ -4940,7 +4984,7 @@ exec Donations.spInsertTimePledge				1001			,'12/3/92'					,'3/9/99'					,'9/8/7
 exec Donations.spInsertTimePledgeTrans			1000				,1000				,'10/5/99'					,'Iowa City'		,1000
 			
 --* spInsertVolunteerHours          			@UserID int,	@Date smalldatetime,	@HoursVolunteered int,	@City varchar(30)
-exec Donations.spInsertVolunteerHours			1001			,'2/22/94'				,3						,'Chicago'
+--exec Donations.spInsertVolunteerHours			1001			,'2/22/94'				,3						,'Chicago'
 
 -------------------------------EXPERT----------------------------------------
 print 'expert'

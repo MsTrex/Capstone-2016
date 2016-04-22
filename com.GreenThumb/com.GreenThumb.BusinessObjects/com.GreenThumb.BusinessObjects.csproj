@@ -80,9 +80,6 @@
     <Compile Include="BecomeExpert.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Equipment.cs" />
-    <Compile Include="EquipmentDonated.cs" />
-    <Compile Include="EquipmentNeeded.cs" />
-    <Compile Include="EquipmentPending.cs" />
     <Compile Include="EquipmentType.cs" />
     <Compile Include="Expertise.cs" />
     <Compile Include="ExpertRequest.cs" />
@@ -101,13 +98,8 @@
     <Compile Include="IUserInterface.cs" />
     <Compile Include="Jobs.cs" />
     <Compile Include="Land.cs" />
-    <Compile Include="LandDonated.cs" />
-    <Compile Include="LandNeeded.cs" />
-    <Compile Include="LandPending.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Money.cs" />
-    <Compile Include="MoneyDonated.cs" />
-    <Compile Include="MoneyNeeded.cs" />
     <Compile Include="MoneyPending.cs" />
     <Compile Include="NeedContribution.cs" />
     <Compile Include="NeedType.cs" />
