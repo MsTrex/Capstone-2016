@@ -1,0 +1,36 @@
+﻿@* Created By: Trent Cullinan 04/14/16 *@
+@using com.GreenThumb.BusinessObjects;
+@model IEnumerable<GardenNeed>
+
+<div>
+    @if (0 < Model.Count())
+    {
+        <table class="table table">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Title)</th>
+                    <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Description)</th>
+                    <th>@Html.DisplayNameFor(m => m.FirstOrDefault().DateCreated)</th>
+                    <th>@Html.DisplayNameFor(m => m.FirstOrDefault().CreatedBy.UserName)</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (GardenNeed gardenNeed in Model)
+                {
+                    <tr>
+                        <td>@gardenNeed.Title</td>
+                        <td>@gardenNeed.Description</td>
+                        <td>@gardenNeed.DateCreated.ToShortDateString()</td>
+                        <td>@gardenNeed.CreatedBy.UserName</td>
+                        <td>@Html.ActionLink("Remove", "CloseNeed", "Garden", new { id = ViewBag.GardenId, needId = gardenNeed.GardenNeedId }, null)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="h4">No needs found.</p>
+    }
+</div>

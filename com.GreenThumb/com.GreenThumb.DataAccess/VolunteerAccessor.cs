@@ -18,7 +18,7 @@ namespace com.GreenThumb.DataAccess
         
   
          
-            public static bool AddVolunteer(Volunteer volunteer)
+            public static bool CreateVolunteer(Volunteer volunteer)
         {
             var conn = DBConnection.GetDBConnection();
             var query = "Gardens.spInsertVolunteers";

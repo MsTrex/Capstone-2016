@@ -10,14 +10,19 @@ namespace com.GreenThumb.BusinessObjects
     {
         /// <summary>
         /// Added by Poonam Dubey on 02/27/2016
+        /// Changed by Trevor 04/14/16 To reflect Changes to DB Table
         /// </summary>
- 
+
         public int MessageID { get; set; }
         public string MessageContent { get; set; }
         public DateTime MessageDate { get; set; }
         //public TimeSpan MessageTime { get; set; }
         public string MessageSubject { get; set; }
-        public int MessageSender { get; set; }
+        public string MessageReceiver { get; set; }
+        public bool Unread { get; set; }
+        public bool SenderDeleted { get; set; }
+        public bool RecieverDeleted { get; set; }
+        public string MessageSender { get; set; }
         public bool Active { get; set; }
 
 
@@ -27,7 +32,7 @@ namespace com.GreenThumb.BusinessObjects
                         string messageContent,
                         DateTime messageDate,
                         string messageSubject,
-                        int messageSender,
+                        string messageSender,
                         bool active)
         {
             MessageID = messageID;

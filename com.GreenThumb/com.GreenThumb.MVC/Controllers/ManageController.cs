@@ -69,7 +69,7 @@ namespace com.GreenThumb.MVC.Controllers
                 : " ";
 
             var userName = User.Identity.GetUserName();
-            var model = new com.GreenThumb.BusinessLogic.UserManager().GetUserByUserName(userName);
+            var model = new com.GreenThumb.BusinessLogic.UserManager().RetrieveUserByUserName(userName);
 
             return View(model);
         }
@@ -78,6 +78,8 @@ namespace com.GreenThumb.MVC.Controllers
         /// Author: Chris Schwebach 
         /// Post: Index/EditPersonal Info 
         /// Date: 3/31/16
+        /// Update: Fix View Action
+        /// Date 4/19/16
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -87,7 +89,7 @@ namespace com.GreenThumb.MVC.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    usermgr.EditUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, null);
+                    usermgr.UpdateUserPersonalInfo(userID, firstName, lastName, zip, emailAddress, null);
                     var identity = (ClaimsIdentity)User.Identity;
 
                     UserManager.RemoveClaim(identity.GetUserId(), identity.FindFirst(ClaimTypes.Surname));
@@ -96,7 +98,7 @@ namespace com.GreenThumb.MVC.Controllers
                     UserManager.AddClaim(identity.GetUserId(), new Claim(ClaimTypes.Surname, lastName));
                     UserManager.AddClaim(identity.GetUserId(), new Claim(ClaimTypes.GivenName, firstName));
                     UserManager.SetEmail(identity.GetUserId(), emailAddress);
-                    ViewBag.StatusMessage = "Profile Saved!";
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch (Exception ex)

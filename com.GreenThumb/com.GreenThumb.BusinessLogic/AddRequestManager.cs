@@ -19,7 +19,7 @@ namespace com.GreenThumb.BusinessLogic
 
         public List<Group> GetUserGroups()
         {
-            myUserGroups = DataAccess.GroupAccessor.GetUsersGroups(myAccessToken.UserID, Active.active);
+            myUserGroups = DataAccess.GroupAccessor.RetrieveUsersGroups(myAccessToken.UserID, Active.active);
 
             return myUserGroups;
         }
@@ -36,7 +36,7 @@ namespace com.GreenThumb.BusinessLogic
                 
                 try
                 {
-                    count = DataAccess.GroupAccessor.InsertGroupLeaderRequest(myAccessToken.UserID, groupSelected.GroupID, DateTime.Now);
+                    count = DataAccess.GroupAccessor.CreateGroupLeaderRequest(myAccessToken.UserID, groupSelected.GroupID, DateTime.Now);
                 }
                 catch (Exception)
                 {

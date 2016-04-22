@@ -26,26 +26,29 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         private GardenTemplateManager manager = new GardenTemplateManager();
         private List<GardenTemplate> templateList;
         private string selectedTemplate;
+
+        // page variables
+        PageDetails pageDetails = new PageDetails();
+        Paginate<GardenTemplate> paginate = new Paginate<GardenTemplate>();
+        List<GardenTemplate> fullList = new List<GardenTemplate>();
         public ViewGardenTemplate()
         {
             templateList = manager.GetTemplateList();
             InitializeComponent();
-            for (int i = 0; i < templateList.Count; i++)
-            {
-                cmbTemplateName.Items.Add(templateList[i].TemplateName);
-            }
+
+            fullList = templateList;
+            pageDetails = InitializePageDetails();
+            icTemplates.ItemsSource = templateList;
 
         }
 
-
-        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        private void DisplayImage()
         {
-
             if (selectedTemplate != "" && selectedTemplate != null)
             {
                 try
                 {
-                    var data = manager.LoadTemplate(selectedTemplate);
+                    var data = manager.AddLoadTemplate(selectedTemplate);
                     var stream = new MemoryStream(data);
 
                     var bitmap = new BitmapImage();
@@ -57,20 +60,73 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
 
                     ImgTemplate.Source = bitmap;
                 }
-                catch(Exception ex)
+                catch (Exception)
                 {
                     lblError.Content = "Error loading image.";
                 }
             }
-
-
         }
 
-
-
-        private void cmbTemplateName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /* Rhett Allen - adding pages */
+        private void btnPrevious_Click(object sender, RoutedEventArgs e)
         {
-            selectedTemplate = cmbTemplateName.SelectedValue.ToString();
+            if (pageDetails.CurrentPage > 1)
+            {
+                pageDetails.CurrentPage--;
+            }
+
+            SelectTemplates();
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (pageDetails.CurrentPage < pageDetails.MaxPages)
+            {
+                pageDetails.CurrentPage++;
+            }
+
+            SelectTemplates();
+        }
+
+        private void btnFirst_Click(object sender, RoutedEventArgs e)
+        {
+            pageDetails.CurrentPage = 1;
+            SelectTemplates();
+        }
+
+        private void btnLast_Click(object sender, RoutedEventArgs e)
+        {
+            pageDetails.CurrentPage = pageDetails.MaxPages;
+            SelectTemplates();
+        }
+
+        private void SelectTemplates()
+        {
+            try
+            {
+                icTemplates.ItemsSource = paginate.GetList(pageDetails, fullList);
+                lblPage.Content = "Page " + pageDetails.CurrentPage;
+            }
+            catch (Exception)
+            {
+                icTemplates.ItemsSource = new List<GardenTemplate>();
+            }
+        }
+
+        private PageDetails InitializePageDetails()
+        {
+            PageDetails p = new PageDetails();
+            p.Count = manager.GetTemplateList().Count;
+            p.CurrentPage = 1;
+            p.PerPage = 5;
+
+            return p;
+        }
+
+        private void btnSelect_Click(object sender, RoutedEventArgs e)
+        {
+            selectedTemplate = (((Button)sender).Tag as GardenTemplate).ToString();
+            DisplayImage();
         }
     }
 }

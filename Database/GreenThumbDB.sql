@@ -1,4 +1,4 @@
-/* Check if database already exists and delete it if it does exist*/
+﻿/* Check if database already exists and delete it if it does exist*/
 use master
 go
 IF EXISTS(SELECT 1 FROM master.dbo.sysdatabases WHERE name = 'GreenThumbGardens') 
@@ -4611,7 +4611,7 @@ BEGIN
 		ON g.GroupID = u.UserID 
 	WHERE g.Active = 1 and gm.UserID = @UserID; 
 END;
-go
+go 
 
 --- Created By : Poonam Dubey 04/07/2016
 CREATE PROCEDURE [Gardens].[spSelectTasksGarden](
@@ -4700,6 +4700,8 @@ exec Admin.spInsertRegions				6					,'dry'					,99.3						,66.2 						,40.5 				
 exec Admin.spInsertRegions				7					,'dry'					,99.3						,66.2 						,40.5 						,58.5 						,5.8 						,1000 			,'3/7/89' 					,1000 			,'4/8/98';
 exec Admin.spInsertRegions				8					,'dry'					,99.3						,66.2 						,40.5 						,58.5 						,5.8 						,1000 			,'3/7/89' 					,1000 			,'4/8/98';
 exec Admin.spInsertRegions				9					,'dry'					,99.3						,66.2 						,40.5 						,58.5 						,5.8 						,1000 			,'3/7/89' 					,1000 			,'4/8/98';
+exec Admin.spInsertRegions				10					,'dry'					,99.3						,66.2 						,40.5 						,58.5 						,5.8 						,1000 			,'3/7/89' 					,1000 			,'4/8/98';
+
 
 go
 --* spInsertUsers						@FirstName varchar(50),	@LastName varchar(100),	@Zip char(9) ,	@EmailAddress varchar(100),	@UserName varchar(20),	@Password varchar(150),	@RegionID int
@@ -4722,14 +4724,10 @@ exec Admin.spInsertRoles				'GroupMember'		,'Member of a Garden'				,1003			,'1/
 exec Admin.spInsertRoles				'GroupLeader'	    ,'Leader of a Garden'				,1003			,'1/4/99'
 			
 --* spInsertUserRoles           		@UserID int,	@RoleID int,	
-exec Admin.spInsertUserRoles			1000			,'Guest'					
-exec Admin.spInsertUserRoles			1001			,'Admin'		
-exec Admin.spInsertUserRoles			1002			,'Guest'		
-exec Admin.spInsertUserRoles			1003			,'Admin'		
-		
-
-
---* spInsertUserRoles           		@UserID int,	@RoleID int,	
+exec Admin.spInsertUserRoles			1000			,'Expert'					
+exec Admin.spInsertUserRoles			1001			,'Expert'		
+exec Admin.spInsertUserRoles			1002			,'GroupMember'		
+exec Admin.spInsertUserRoles			1003			,'GroupLeader'	
 exec Admin.spInsertUserRoles			1000			,'Admin'		
 
 -----------------------------GARDENS--------------------------------------
@@ -4862,21 +4860,34 @@ exec Expert.spInsertPlants				'Red Potato'		,'Potato'			,'Vegetable'			,'Small p
 --* spInsertExpertBecomeAnExpert       		@Username int,	@WhyShouldIBeAnExpert varchar(200),	@ApprovedBy int,	@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
 exec Expert.spInsertExpertBecomeAnExpert	1001			,'I am the best'					,1000				,1001			,'12/3/99'					,1000				,'8/20/13'
 
+
 ------------------------
 --logic for creating text with carriage returns, used in the blog following...
 ------------------------
-DECLARE @CarriageReturn_LineFeed VARCHAR(max)
+DECLARE @CarriageReturn_LineFeed VARCHAR(max);
 --SET @CarriageReturn_LineFeed=REPLACE(@CarriageReturn_LineFeed,'[\r\n];',CHAR(13)+CHAR(10));
 --SET @CarriageReturn_LineFeed='Line One.[\r\n];[\r\n];Line Two.[\r\n];[\r\n];Line Three.[\r\n];[\r\n];'
 
 --* spInsertBlogEntry            		@BlogData varchar(max),		@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
-SET @CarriageReturn_LineFeed='Forest trees use carbon not only for themselves; they also trade large quantities of it with their neighbours. Botanists from the University of Basel report this in the journal Science. The extensive carbon trade among trees -- even among different species -- is conducted via symbiotic fungi in the soil.[\r\n];[\r\n];It is well known that plants take up carbon dioxide from the air by photosynthesis. The resulting sugar is used to build cellulose, wood pulp (lignin), protein and lipid -- the building blocks of plants. While growing, the tree transports sugar from its leaves to the building sites: to the branches, stems, roots and to their symbiotic fungi below ground (mycorrhizal fungi).[\r\n];[\r\n];Carbon dioxide shower for trees.[\r\n];Dr. Tamir Klein and Prof. Christian K�rner of the University of Basel together with Dr. Rolf Siegwolf of the Paul Scherrer Institute (PSI) now report, that this sugar export goes further than previously thought. In a forest near Basel the researchers used a construction crane and a network of fine tubes to flood the crowns of 120 year old and 40 meter tall spruce trees with carbon dioxide that carried a label. The researchers used carbon dioxide that, compared to normal air, contains less of the rare and heavier 13C atom.[\r\n];[\r\n];While this modification made no difference for the trees, it allowed the botanists to track the carbon through the entire tree using an atomic mass spectrometer. This way they were able to trace the path of the carbon taken up by photosynthesis from the crowns down to the root tips. The researchers found the labelled carbon not only in the roots of the marked spruce trees. The roots of the neighbouring trees also showed the same marker, even though they had not received labelled carbon dioxide. This included trees from other species.[\r\n];Forest is more than the sum of its trees.[\r\n];The only way the carbon could have been exchanged from spruce to beech, pine or larch tree -- or vice versa -- is by the network of tiny fungal filaments of the shared mycorrhizal fungi. Understory plants which partner up with other types of fungi remained entirely unmarked. The research group called the discovered exchange of large quantities of carbon among completely unrelated tree species in a natural forest "a big surprise".[\r\n];[\r\n];According to the researchers, the discovery questions the concept of tree individuality with regard to the single largest constituent of the biosphere, tree carbon. Furthermore, the results of the study funded by the Swiss National Science Foundation add a new dimension to the role of mycorrhizal fungi in forests. "Evidently the forest is more than the sum of its trees," comments Prof. Christian K�rner the findings. [\r\n];[\r\n];Source: https://www.sciencedaily.com/releases/2016/04/160414144711.htm[\r\n];[\r\n];'
+SET @CarriageReturn_LineFeed='Forest trees use carbon not only for themselves; they also trade large quantities of it with their neighbours. Botanists from the University of Basel report this in the journal Science. The extensive carbon trade among trees -- even among different species -- is conducted via symbiotic fungi in the soil.[\r\n];[\r\n];It is well known that plants take up carbon dioxide from the air by photosynthesis. The resulting sugar is used to build cellulose, wood pulp (lignin), protein and lipid -- the building blocks of plants. While growing, the tree transports sugar from its leaves to the building sites: to the branches, stems, roots and to their symbiotic fungi below ground (mycorrhizal fungi).[\r\n];[\r\n];Carbon dioxide shower for trees.[\r\n];Dr. Tamir Klein and Prof. Christian K�rner of the University of Basel together with Dr. Rolf Siegwolf of the Paul Scherrer Institute (PSI) now report, that this sugar export goes further than previously thought. In a forest near Basel the researchers used a construction crane and a network of fine tubes to flood the crowns of 120 year old and 40 meter tall spruce trees with carbon dioxide that carried a label. The researchers used carbon dioxide that, compared to normal air, contains less of the rare and heavier 13C atom.[\r\n];[\r\n];While this modification made no difference for the trees, it allowed the botanists to track the carbon through the entire tree using an atomic mass spectrometer. This way they were able to trace the path of the carbon taken up by photosynthesis from the crowns down to the root tips. The researchers found the labelled carbon not only in the roots of the marked spruce trees. The roots of the neighbouring trees also showed the same marker, even though they had not received labelled carbon dioxide. This included trees from other species.[\r\n];Forest is more than the sum of its trees.[\r\n];The only way the carbon could have been exchanged from spruce to beech, pine or larch tree -- or vice versa -- is by the network of tiny fungal filaments of the shared mycorrhizal fungi. Understory plants which partner up with other types of fungi remained entirely unmarked. The research group called the discovered exchange of large quantities of carbon among completely unrelated tree species in a natural forest "a big surprise".[\r\n];[\r\n];According to the researchers, the discovery questions the concept of tree individuality with regard to the single largest constituent of the biosphere, tree carbon. Furthermore, the results of the study funded by the Swiss National Science Foundation add a new dimension to the role of mycorrhizal fungi in forests. "Evidently the forest is more than the sum of its trees," comments Prof. Christian K�rner the findings. [\r\n];[\r\n];Source: https://www.sciencedaily.com/releases/2016/04/160414144711.htm[\r\n];[\r\n];'
 SET @CarriageReturn_LineFeed=REPLACE(@CarriageReturn_LineFeed,'[\r\n];',CHAR(13)+CHAR(10));
 exec Expert.spInsertBlogEntry			@CarriageReturn_LineFeed	,'Forest discovery: Trees trade carbon among each other'	,1000			,'7/19/06'					,1000				,'4/4/16'
 
-SET @CarriageReturn_LineFeed='The modern method of building is to wipe all the top soil away from a lot, build a house, and bring back 3 or 4 inches or soil or just sod and call it good.[\r\n];[\r\n];This, of course, is not good for gardening, and many people want to increase the depth of the top soil on their property. But how? I see advice posted how you just top dress your lawn, add an inch a year, or whatever. So you slowly bury your driveway and sidewalk? Other people bemoan the thought of digging up everything, digging out some of the fill soil, and then adding new top soil. Common knowledge is that there is no other way, that top soil is like fossil fuels, a nonrenewable resource we just use up. Common knowledge is wrong, you can in fact, make it.[\r\n];[\r\n];How is top soil formed to begin with, in the great American plains, where it is many feet deep, how did it form? Well, they say 1% of decaying organic matter ends up as stable humus in the soil. So over thousands of years as grass lived, and died, and animals grazed, and pooped, it formed. Dead grass and animal droppings? Is that it? Not quite.[\r\n];[\r\n];We often do not think about what happens beneath the soil, but things happen, many important things. We see plants above ground dropping leaves, and twigs, and shedding organic matter all over, but it also happens beneath the soil. Roots die off, they�re abandoned by their plant and they rot. When grasses grow up big and tall they need long deep roots, when the bison wander by and munch that grass down, they don�t need those roots anymore and some are abandoned. As those roots, which in some grasses can reach down over 10 feet deep (imagine, grass roots over 10 feet deep). The roots decay and add organic matter deep within the soil, once they decay they create channels for water, air, and nutrient infiltration. [\r\n];[\r\n];Source: http://www.gardeningblog.net/2016/03/24/how-to-add-more-topsoil-the-natural-way/[\r\n];[\r\n];'
+SET @CarriageReturn_LineFeed='The modern method of building is to wipe all the top soil away from a lot, build a house, and bring back 3 or 4 inches or soil or just sod and call it good.[\r\n];[\r\n];This, of course, is not good for gardening, and many people want to increase the depth of the top soil on their property. But how? I see advice posted how you just top dress your lawn, add an inch a year, or whatever. So you slowly bury your driveway and sidewalk? Other people bemoan the thought of digging up everything, digging out some of the fill soil, and then adding new top soil. Common knowledge is that there is no other way, that top soil is like fossil fuels, a nonrenewable resource we just use up. Common knowledge is wrong, you can in fact, make it.[\r\n];[\r\n];How is top soil formed to begin with, in the great American plains, where it is many feet deep, how did it form? Well, they say 1% of decaying organic matter ends up as stable humus in the soil. So over thousands of years as grass lived, and died, and animals grazed, and pooped, it formed. Dead grass and animal droppings? Is that it? Not quite.[\r\n];[\r\n];We often do not think about what happens beneath the soil, but things happen, many important things. We see plants above ground dropping leaves, and twigs, and shedding organic matter all over, but it also happens beneath the soil. Roots die off, they�re abandoned by their plant and they rot. When grasses grow up big and tall they need long deep roots, when the bison wander by and munch that grass down, they don�t need those roots anymore and some are abandoned. As those roots, which in some grasses can reach down over 10 feet deep (imagine, grass roots over 10 feet deep). The roots decay and add organic matter deep within the soil, once they decay they create channels for water, air, and nutrient infiltration. [\r\n];[\r\n];Source: http://www.gardeningblog.net/2016/03/24/how-to-add-more-topsoil-the-natural-way/[\r\n];[\r\n];'
 SET @CarriageReturn_LineFeed=REPLACE(@CarriageReturn_LineFeed,'[\r\n];',CHAR(13)+CHAR(10));
 exec Expert.spInsertBlogEntry			@CarriageReturn_LineFeed	,'How to add more topsoil the natural way'	,1000			,'7/19/15'					,1000				,'4/14/16'
+
+DECLARE @Note VARCHAR (max);
+SET @Note = 'If you’re tossing all your scraps into your compost pile, read this before you toss any more! Here’s some of my favourite things to regrow, though many more plants can be regrown.[crlf][crlf]Potatoes - If you have organic potatoes (those sprayed with chemicals often are sprayed to resist growth), cut the eyes out but leave a very large chunk of potato attached (1-2″)- a medium size whole potato can yield 4-6 plants. Plant in soil as you would any seed potato.[crlf][crlf]Romaine Lettuce & Cabbage - The white stem of romaine lettuce and cabbage leaves will grow roots and make a new plant – place your leaf flat in a dish, thick stem side down, with just enough water to allow the stem to stay wet, but not enough to cover the top. Mist with water daily or as needed to keep the top most. Transplant when roots are established. [crlf][crlf]Celery - Celery is very easy to regrow. Take the base/root end and place in a glass of water for a few days, once roots are established and you see the tops start to grow, transplant to soil. Leeks and green onions too![crlf][crlf]Onions - Onions are one of the easiest things in the world to replant ~ take the root end cut after you’ve cut if off your onion, and stick it room side down in soil. Cover with about 1/2″ of soil and water.[crlf][crlf]Source - http://www.garden-of-eatin.com/2014/06/24/compost-that-scrap-or-regrow-it/'
+SET @Note = REPLACE(@Note,'[crlf]',CHAR(13)+CHAR(10))
+--* spInsertBlogEntry            		@BlogData varchar(max),		@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
+exec Expert.spInsertBlogEntry			@note	,'Compost that scrap – or regrow it?'	,1000			,'7/19/06'					,1002				,'2/17/87'	
+
+
+--SET @Note = 'Line One.[crlf];Line Two[crlf]Line Three.'
+--SET @Note = REPLACE(@Note,'[crlf]',CHAR(13)+CHAR(10))
+--* spInsertBlogEntry            		@BlogData varchar(max),		@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
+exec Expert.spInsertBlogEntry			'This is a blog about...'	,'Vegetables in Florida'	,1000			,'7/19/06'					,1002				,'2/17/87'	
 
 --* spInsertContent              		@UserID int,	@RegionID int,	@Title varchar(50),		@Category varchar(50),	@Content varchar(max),	@Date smalldatetime ,	@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
 exec Expert.spInsertContent				1001			,1 				,'Home Page'			,'home'					,'Welcome home'			,'2/8/93'				,1000			,'9/29/91'					,1001				,'6/14/05'		

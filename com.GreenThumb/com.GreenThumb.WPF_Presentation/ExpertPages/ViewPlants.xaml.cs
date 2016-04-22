@@ -30,6 +30,11 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         bool hasAuthority = false;
         RoleManager roleManager = new RoleManager();
 
+        // page variables
+        PageDetails pageDetails = new PageDetails();
+        Paginate<Plant> paginate = new Paginate<Plant>();
+        List<Plant> fullList = new List<Plant>();
+
         public ViewPlants()
         {
             InitializeComponent();
@@ -40,7 +45,12 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         {
             this.accessToken = accessToken;
             InitializeComponent();
+
+            pageDetails = InitializePageDetails();
+            fullList = plantManager.FetchPlantList(Active.all);
+
             setupPage();
+            SelectPlants();
             foreach (Role role in accessToken.Roles)
             {
                 if (role.RoleID == "Admin")
@@ -296,6 +306,62 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             {
                 hasAuthority = false;
             }
+        }
+
+        /* Rhett Allen - adding pages */
+        private void btnPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            if (pageDetails.CurrentPage > 1)
+            {
+                pageDetails.CurrentPage--;
+            }
+
+            SelectPlants();
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (pageDetails.CurrentPage < pageDetails.MaxPages)
+            {
+                pageDetails.CurrentPage++;
+            }
+
+            SelectPlants();
+        }
+
+        private void btnFirst_Click(object sender, RoutedEventArgs e)
+        {
+            pageDetails.CurrentPage = 1;
+            SelectPlants();
+        }
+
+        private void btnLast_Click(object sender, RoutedEventArgs e)
+        {
+            pageDetails.CurrentPage = pageDetails.MaxPages;
+            SelectPlants();
+        }
+
+        private void SelectPlants()
+        {
+            try
+            {
+                dgrdNameSearch.ItemsSource = paginate.GetList(pageDetails, fullList);
+                lblPage.Content = "Page " + pageDetails.CurrentPage;
+            }
+            catch (Exception)
+            {
+                dgrdNameSearch.ItemsSource = new List<Plant>();
+            }
+        }
+
+        private PageDetails InitializePageDetails()
+        {
+            PageDetails p = new PageDetails();
+            p.Count = plantManager.FetchPlantList(Active.active).Count;
+            p.CurrentPage = 1;
+            p.PerPage = 5;
+
+            return p;
         }
     }
 }

@@ -43,7 +43,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             bool saveSuccessfull = false;
             if (txtFileName.Text != null || txtFileName.Text != "" && _templatePath != null)
             {
-                saveSuccessfull = manager.SaveTemplate(_templatePath, at, txtFileName.Text.ToString());
+                saveSuccessfull = manager.AddTemplate(_templatePath, at, txtFileName.Text.ToString());
             }
 
 

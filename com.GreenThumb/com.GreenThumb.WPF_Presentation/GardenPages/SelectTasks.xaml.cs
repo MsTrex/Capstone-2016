@@ -64,7 +64,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                     job.AssignedTo = accessToken.UserID;
                     job.DateAssigned = DateTime.Now;
 
-                    if (jobManager.ChangeTask(job, oldJob) == true)
+                    if (jobManager.EditTask(job, oldJob) == true)
                     {
                         MessageBox.Show("You've picked this task successfuly");
                         // commented out for test purposes.

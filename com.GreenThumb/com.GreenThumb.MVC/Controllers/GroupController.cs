@@ -11,6 +11,7 @@ using com.GreenThumb.BusinessLogic;
 
 namespace com.GreenThumb.MVC.Controllers
 {
+    [Authorize]
     public class GroupController : Controller
     {
         // GET: Group
@@ -31,7 +32,7 @@ namespace com.GreenThumb.MVC.Controllers
 
             if (0 != userId)
             {
-                var groups = new GroupManager().RetrieveUserGroups(userId);
+                var groups = new GroupManager().GetUserGroups(userId);
                 model.UserGroupList = new List<GroupIndexViewModel.UserGroupViewModel>(groups.Count());
 
                 foreach (Group group in groups)
@@ -51,7 +52,7 @@ namespace com.GreenThumb.MVC.Controllers
                     });
                 }
 
-                var joinableGroups = new GroupManager().FetchGroupsToJoin(userId);
+                var joinableGroups = new GroupManager().GetGroupsToJoin(userId);
                 model.NonUserGroupList = new List<GroupIndexViewModel.UserGroupViewModel>(joinableGroups.Count());
 
                 foreach (Group group in joinableGroups)
@@ -94,7 +95,7 @@ namespace com.GreenThumb.MVC.Controllers
 
                 if (0 != userId)
                 {
-                    if (new GroupManager().LeaveGroup(userId, group.Value))
+                    if (new GroupManager().EditLeaveGroup(userId, group.Value))
                     {
                         return RedirectToAction("Index", "Group");
                     }
@@ -108,6 +109,7 @@ namespace com.GreenThumb.MVC.Controllers
         /// Logged in user will view group details
         /// 
         /// Created by: Trent Cullinan 04/05/2016
+        /// Modified by: Nicholas King
         /// </summary>
         /// <param name="id">Group Id</param>
         /// <returns></returns>
@@ -118,10 +120,10 @@ namespace com.GreenThumb.MVC.Controllers
             if (id.HasValue)
             {
                 var group
-                    = new GroupManager().RetrieveGroup(id.Value);
+                    = new GroupManager().GetGroup(id.Value);
 
                 var gardens
-                    = new GardenManager().RetrieveGroupGardens(id.Value);
+                    = new GardenManager().GetGroupGardens(id.Value);
 
                 var viewModel = new GroupDetailViewModel()
                 {
@@ -137,45 +139,123 @@ namespace com.GreenThumb.MVC.Controllers
                         = ConvertGardenCollection(gardens)
                 };
 
+
+                //Added by Nicholas King
+                if (true)//do check for if user is group leader
+                {
+                    viewModel.Requests = new List<GroupMemberRequestModel>();
+                    List<GroupRequest> requests = new GroupManager().GetGroupRequests(id.Value);
+                    foreach (GroupRequest request in requests)
+                    {
+                        GroupMemberRequestModel requestModel = new GroupMemberRequestModel();
+                        requestModel.Request = request;
+                        requestModel.Requestor = new UserManager().RetrieveUser(request.UserID);
+
+                        viewModel.Requests.Add(requestModel);
+                    }
+                }
+
                 view = View(viewModel);
             }
-
             return view;
         }
+
+        /// <summary>
+        /// Approves a join request
+        /// Created by Nicholas King
+        /// </summary>
+        /// <param name="gRequest"></param>
+        /// <returns></returns>
+        public ActionResult ApproveRequestToJoin(GroupRequest gRequest)
+        {
+            if (gRequest != null)
+            {
+                if (gRequest.UserID != 0 && gRequest.GroupID != 0)
+                {
+                    gRequest.ApprovedBy = RetrieveUserId();
+                    gRequest.ApprovedDate = DateTime.Now;
+                    if (new GroupManager().UpateAcceptGroupRequest(gRequest))
+                    {
+                        //accept completed
+                    }
+                    else
+                    {
+                        //accppet failed
+                    }
+
+                }
+            }
+            return RedirectToAction("Details", "Group", gRequest.GroupID);
+        }
+
+        /// <summary>
+        /// Submits a GroupRequest
+        /// 
+        /// Created by: Nicholas King
+        /// </summary>
+        /// <param name="groupID"></param>
+        /// <returns></returns>
+        public ActionResult RequestJoinGroup(int? groupID)
+        {
+            if (groupID != null)
+            {
+                GroupRequest request = new GroupRequest();
+                request.UserID = RetrieveUserId();
+                request.RequestDate = DateTime.Now;
+                request.GroupID = (int)groupID;
+
+                GroupManager manager = new GroupManager();
+                try
+                {
+                    if (manager.AddGroupMember(request) == 1)
+                    {
+                        return RedirectToAction("Index", "Group");
+                    }
+
+                }
+                catch (Exception)
+                {
+                    //request failed
+                }
+            }
+            return RedirectToAction("Index", "Group");
+        }
+
+
 
         // GET: Group/Create
         public ActionResult Create()
         {
             var userName = User.Identity.GetUserName();
-            var model = new com.GreenThumb.BusinessLogic.UserManager().GetUserByUserName(userName);
+            var model = new com.GreenThumb.BusinessLogic.UserManager().RetrieveUserByUserName(userName);
             return View(model);
         }
 
         // POST: Group/Create
         [HttpPost]
-       
-        
+
+
         //take in userid and group name/create something to bind these too.
-       public ActionResult Create([Bind(Include="GroupName")]string groupName)
-         {
+        public ActionResult Create([Bind(Include = "GroupName")]string groupName)
+        {
             if (ModelState.IsValid)
             {
                 UserManager userManager = new UserManager();
-                var user = userManager.GetUserByUserName(User.Identity.GetUserName());
-                
+                var user = userManager.RetrieveUserByUserName(User.Identity.GetUserName());
+
                 try
                 {
                     com.GreenThumb.BusinessLogic.GroupManager groupManager = new BusinessLogic.GroupManager();
                     groupManager.AddGroup(user.UserID, groupName); //hard coded garbage data-need to replace supplied by request
                     ViewBag.StatusMessage = "Your group was created!";
-                    
+
                 }
                 catch
                 {
                     return View();
                 }
-                
-                
+
+
             }
             return RedirectToAction("Index", "Group");
         }
@@ -222,6 +302,25 @@ namespace com.GreenThumb.MVC.Controllers
             {
                 return View();
             }
+        }
+
+
+
+        #region Helper Methods
+
+        // Created by: Trent Cullinan 03/31/2016
+        private int RetrieveUserId()
+        {
+            int userId = 0;
+
+            var userName = User.Identity.GetUserName();
+
+            if (null != userName)
+            {
+                userId = new UserManager().RetrieveUserId(userName);
+            }
+
+            return userId;
         }
 
         // Created by: Trent Cullinan 04/05/2016
@@ -283,25 +382,6 @@ namespace com.GreenThumb.MVC.Controllers
                     = garden.GardenDescription
             };
         }
-
-        #region Helper Methods
-
-        // Created by: Trent Cullinan 03/31/2016
-        private int RetrieveUserId()
-        {
-            int userId = 0;
-
-            var userName = User.Identity.GetUserName();
-
-            if (null != userName)
-            {
-                userId = new UserManager().RetrieveUserId(userName);
-            }
-
-            return userId;
-        }
-
-
 
 
 

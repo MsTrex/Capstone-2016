@@ -17,6 +17,7 @@ namespace com.GreenThumb.BusinessLogic
     {
         /// <summary>
         /// Bool Method to create Garden by Poonam Dubey
+        /// Created: 3/3/2016
         /// </summary>
         /// <param name="garden"></param>
         /// <returns></returns>
@@ -35,6 +36,7 @@ namespace com.GreenThumb.BusinessLogic
 
         /// <summary>
         ///Created by: Kristine Johnson
+        /// Created: 4/8/2016
         /// </summary>
         /// <param name="userID"></param>
         /// <param name="garden"></param>
@@ -43,7 +45,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return GardenAccessor.AddGarden(garden);
+                return GardenAccessor.CreateAddGarden(garden);
             }
             catch (Exception ex)
             {
@@ -54,14 +56,16 @@ namespace com.GreenThumb.BusinessLogic
 
 
         /// <summary>
-        /// Manager function to fetch all gardens : Poonam Dubey  (20th March 2016)
+        ///  Created by: Poonam Dubey
+        ///  3/20/2016
+        /// Manager function to fetch all gardens 
         /// </summary> 
         /// <returns></returns>
         public List<Garden> GetGardens()
         {
             try
             {
-                return GardenAccessor.GetGardens();
+                return GardenAccessor.RetrieveGardens();
             }
             catch (Exception)
             {
@@ -79,7 +83,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return GardenAccessor.FetchGardenInfo(userID);
+                return GardenAccessor.RetrieveGardenInfo(userID);
             }
             catch (Exception)
             {
@@ -115,7 +119,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="groupId">Identifier to retrieve gardens by.</param>
         /// <returns>Collection of gardens.</returns>
-        public IEnumerable<Garden> RetrieveGroupGardens(int groupId)
+        public IEnumerable<Garden> GetGroupGardens(int groupId)
         {
             IEnumerable<Garden> gardens = null;
 
@@ -126,6 +130,25 @@ namespace com.GreenThumb.BusinessLogic
             catch (Exception) { } // collection will be null
 
             return gardens;
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/21/16
+        /// </summary>
+        /// <param name="gardenId"></param>
+        /// <returns></returns>
+        public int RetrieveGardenGroupId(int gardenId)
+        {
+            int groupId = 0;
+
+            try
+            {
+                groupId = GardenAccessor.RetrieveGroupByGarden(gardenId).GroupID;
+            }
+            catch (Exception) { } // groupId will be zero
+
+            return groupId;
         }
     }
 }

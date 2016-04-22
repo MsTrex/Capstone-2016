@@ -30,18 +30,31 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
         List<DateTime> dates = new List<DateTime>();
         AccessToken accessToken = null;
         List<String> roles = new List<String>();
+
+        // page variables
+        PageDetails pageDetails = new PageDetails();
+        Paginate<Blog> paginate = new Paginate<Blog>();
+        List<Blog> fullList = new List<Blog>();
         public ViewBlog()
         {
             InitializeComponent();
             blogs = blogManager.GetBlogs();
             icBlogs.ItemsSource = blogs;
+
+            pageDetails = InitializePageDetails();
+            fullList = blogManager.GetBlogs();
         }
 
         public ViewBlog(AccessToken accessToken)
         {
             this.accessToken = accessToken;
             InitializeComponent();
-            blogs = blogManager.GetBlogs();
+
+            pageDetails = InitializePageDetails();
+            fullList = blogManager.GetBlogs();
+
+            blogs = paginate.GetList(pageDetails, blogManager.GetBlogs());
+
             icBlogs.ItemsSource = blogs;
             foreach (Role role in accessToken.Roles)
             {
@@ -57,7 +70,7 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
         {
             string userCreated = "";
             UserManager userManager = new UserManager();
-            User user = userManager.FetchUser(userId);
+            User user = userManager.RetrieveUser(userId);
             userCreated = user.FirstName + " " + user.LastName;
             return userCreated;
         }
@@ -76,7 +89,14 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
 
         private void stpnlBlogs_Initialized(object sender, EventArgs e)
         {
-            blogs = blogManager.GetBlogs();
+            pageDetails = InitializePageDetails();
+            CreateBlogStack();
+        }
+
+        private void CreateBlogStack()
+        {
+            stpnlBlogs.Children.Clear();
+            blogs = paginate.GetList(pageDetails, blogManager.GetBlogs());
             foreach (Blog blog in blogs)
             {
                 Button button = new Button();
@@ -95,6 +115,8 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
             Button button = (Button)sender;
             try
             {
+                pageDetails.CurrentPage = 1;
+                lblPage.Content = "Page " + pageDetails.CurrentPage;
                 int blogId = Int32.Parse(button.Name.Substring(3));
                 Blog currentBlog = new Blog();
                 currentBlog = blogManager.GetBlogById(blogId);
@@ -110,8 +132,65 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
 
         private void allBlogs_Click(object sender, RoutedEventArgs e)
         {
-            blogs = blogManager.GetBlogs();
+            SelectBlogs();
             icBlogs.ItemsSource = blogs;
+        }
+
+        /* Rhett Allen - adding pages */
+        private void btnPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            if (pageDetails.CurrentPage > 1)
+            {
+                pageDetails.CurrentPage--;
+            }
+
+            SelectBlogs();
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (pageDetails.CurrentPage < pageDetails.MaxPages)
+            {
+                pageDetails.CurrentPage++;
+            }
+
+            SelectBlogs();
+        }
+
+        private void btnFirst_Click(object sender, RoutedEventArgs e)
+        {
+            pageDetails.CurrentPage = 1;
+            SelectBlogs();
+        }
+
+        private void btnLast_Click(object sender, RoutedEventArgs e)
+        {
+            pageDetails.CurrentPage = pageDetails.MaxPages;
+            SelectBlogs();
+        }
+
+        private void SelectBlogs()
+        {
+            try
+            {
+                icBlogs.ItemsSource = paginate.GetList(pageDetails, fullList);
+                lblPage.Content = "Page " + pageDetails.CurrentPage;
+                CreateBlogStack();
+            }
+            catch (Exception)
+            {
+                icBlogs.ItemsSource = new List<Blog>();
+            }
+        }
+
+        private PageDetails InitializePageDetails()
+        {
+            PageDetails p = new PageDetails();
+            p.Count = blogManager.GetBlogs().Count;
+            p.CurrentPage = 1;
+            p.PerPage = 5;
+
+            return p;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                created = QuestionResponseAccessor.InsertResponse(response);
+                created = QuestionResponseAccessor.CreateResponse(response);
             }
             catch(Exception ex)
             {
@@ -70,7 +70,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                responses = QuestionResponseAccessor.FetchResponsesByQuestionID(questionID);
+                responses = QuestionResponseAccessor.RetrieveResponsesByQuestionID(questionID);
             }
             catch(Exception)
             {
@@ -94,7 +94,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                response = QuestionResponseAccessor.FetchResponseByQuestionIDAndUser(questionID, userID);
+                response = QuestionResponseAccessor.RetrieveResponseByQuestionIDAndUser(questionID, userID);
             }
             catch (Exception)
             {

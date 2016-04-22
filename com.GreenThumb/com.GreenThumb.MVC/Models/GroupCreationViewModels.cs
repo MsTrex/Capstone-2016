@@ -27,6 +27,7 @@ namespace com.GreenThumb.MVC.Models
 
     /// <summary>
     /// Created by: Trent Cullinan 04/05/2016
+    /// Modified by Nicholas King
     /// </summary>
     public class GroupDetailViewModel
     {
@@ -42,6 +43,9 @@ namespace com.GreenThumb.MVC.Models
         public IEnumerable<GroupMemberViewModel> GroupMembers { get; set; }
 
         public IEnumerable<GroupGardenViewModel> Gardens { get; set; }
+
+        //Added by Nicholas King
+        public List<GroupMemberRequestModel> Requests { get; set; }
     }
 
     /// <summary>

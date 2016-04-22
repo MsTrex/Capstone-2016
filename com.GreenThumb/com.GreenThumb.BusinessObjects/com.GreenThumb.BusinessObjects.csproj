@@ -25,11 +25,15 @@
     <IntermediateOutputPath>C:\Users\nh229u03\AppData\Local\Temp\vs7FF3.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vsB259.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs54E5.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u27\AppData\Local\Temp\vsF90C.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs8883.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Dat\AppData\Local\Temp\vs866D.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs4FCD.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs80F9.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs8C3F.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u10\AppData\Local\Temp\vsCF7E.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs4CB9.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs543E.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs40.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs543E.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -44,11 +48,14 @@
     <IntermediateOutputPath>C:\Users\Kristine\AppData\Local\Temp\vs1B0E.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u03\AppData\Local\Temp\vs7FF3.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs54E5.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u27\AppData\Local\Temp\vsF90C.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs8883.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Dat\AppData\Local\Temp\vs866D.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u10\AppData\Local\Temp\vsCF7E.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs4FCD.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs80F9.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs4CB9.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs543E.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs40.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs543E.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -79,7 +86,8 @@
     <Compile Include="ExpertRequest.cs" />
     <Compile Include="ForumContent.cs" />
     <Compile Include="ForumEntry.cs" />
-    <Compile Include="GardenAnnoucement.cs" />
+    <Compile Include="Announcements.cs" />
+    <Compile Include="GardenNeed.cs" />
     <Compile Include="GardenTemplate.cs" />
     <Compile Include="GardenType.cs" />
     <Compile Include="Group.cs" />
@@ -99,9 +107,11 @@
     <Compile Include="MoneyDonated.cs" />
     <Compile Include="MoneyNeeded.cs" />
     <Compile Include="MoneyPending.cs" />
+    <Compile Include="NeedContribution.cs" />
     <Compile Include="NeedType.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="Organization.cs" />
+    <Compile Include="PageDetails.cs" />
     <Compile Include="Plant.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="Role.cs" />
