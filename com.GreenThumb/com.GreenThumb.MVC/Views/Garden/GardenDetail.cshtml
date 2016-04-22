@@ -1,0 +1,15 @@
+﻿@model com.GreenThumb.BusinessObjects.Garden
+
+@{
+    ViewBag.Title = "GardenDetail";
+}
+
+<h2>GardenDetail</h2>
+
+<div>
+    @Html.ActionLink("Add Need", "AddNeed", "Garden", new { id = ViewBag.GardenId }, null)
+    <p class="h3">Current Needs</p>
+    <p class="h3">Pending Needs</p>
+    <p class="h3">Completed Needs</p>
+</div>
+

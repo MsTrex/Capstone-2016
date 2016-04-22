@@ -77,10 +77,6 @@
       <Project>{ef319654-33fe-44a8-ab46-f89dd48f65fb}</Project>
       <Name>com.GreenThumb.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\com.GreenThumb.MVC_Presentation\com.GreenThumb.MVC_Presentation.csproj">
-      <Project>{a32daca0-f616-4940-8a86-4e116fb4cc8d}</Project>
-      <Name>com.GreenThumb.MVC_Presentation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\com.GreenThumb.WindowsForms_Presentation\com.GreenThumb.WindowsForms_Presentation.csproj">
       <Project>{7cb11741-19f3-49ba-acfc-778c0a554831}</Project>
       <Name>com.GreenThumb.WindowsForms_Presentation</Name>

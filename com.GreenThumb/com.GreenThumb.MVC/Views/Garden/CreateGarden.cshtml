@@ -13,6 +13,12 @@
     <div>
         @Html.LabelFor(m => m.GardenDescription)
         @Html.TextBoxFor(m => m.GardenDescription)
+        @Html.ValidationMessageFor(m => m.GardenDescription, "", new { @class = "text-danger" })
+    </div>
+    <div>
+        @Html.LabelFor(m => m.GardenName)
+        @Html.TextBoxFor(m => m.GardenName)
+        @Html.ValidationMessageFor(m => m.GardenName, "", new { @class = "text-danger" })
     </div>
     <br />
     @Html.HiddenFor(m => m.GroupID)

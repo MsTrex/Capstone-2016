@@ -65,6 +65,7 @@ namespace com.GreenThumb.DataAccess
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@GroupID", garden.GroupID);
+            cmd.Parameters.AddWithValue("@GardenName", garden.GardenName);
             cmd.Parameters.AddWithValue("@UserID", garden.UserID);
             cmd.Parameters.AddWithValue("@GardenDescription", garden.GardenDescription);
             cmd.Parameters.AddWithValue("@GardenRegion", DBNull.Value);
