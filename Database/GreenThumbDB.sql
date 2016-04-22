@@ -70,7 +70,7 @@ CREATE TABLE [Admin].[ExpertRequests](
 create TABLE [Admin].[GroupRequest](
 	[GroupID] [int] NOT NULL,
 	[UserID] [int] NOT NULL,
-	[RequestStatus] [bit] default 1 NOT NULL,
+	[RequestStatus] BIT default 1 NOT NULL,
 	[RequestDate] [smalldatetime] NOT NULL,
 	[ApprovedDate] [smalldatetime] NULL,
 	[ApprovedBy] [int] NULL,
@@ -611,14 +611,19 @@ create table Expert.Templates(
 	Active bit not null default 1
 );
 
+
 --created by Dat Tran 2-25-16
-CREATE TABLE Gardens.Announcements(
-	AnnouncementID int not null primary key identity(1000,1),
-	UserID	int not null,
-	Date smalldatetime not null,
-	OrganizationID int null,
-	Announcement VARCHAR(250) not null
+--updated by luke frahm 4-22-16
+CREATE TABLE Gardens.Announcements (
+	AnnouncementID 			INT 					NOT NULL				PRIMARY KEY 			IDENTITY(1000,1),
+	UserName				VARCHAR(20)				NOT NULL,
+	FirstName				VARCHAR(50)				NOT NULL,
+	LastName				VARCHAR(100)			NOT NULL,
+	GroupID					INT						NOT NULL,
+	Date 					SMALLDATETIME 			NOT NULL,
+	Announcement			VARCHAR(MAX) 			NOT NULL
 );
+GO
 
 --modified by team king 4-7-16
 create table Gardens.Gardens(
@@ -1298,17 +1303,22 @@ GO
 ALTER TABLE Expert.Templates CHECK CONSTRAINT [FK_Templates_UserID];
 GO
 
-ALTER TABLE Gardens.Announcements WITH NOCHECK ADD  CONSTRAINT [FK_Announcements_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
+
+-- created by luke frahm 4-22-16 FK UserName
+ALTER TABLE Gardens.Announcements WITH NOCHECK ADD CONSTRAINT [FK_Announcements_UserName] FOREIGN KEY(UserName)
+REFERENCES Admin.Users(UserName);
 GO
-ALTER TABLE Gardens.Announcements CHECK CONSTRAINT [FK_Announcements_UserID];
+ALTER TABLE Gardens.Announcements CHECK CONSTRAINT [FK_Announcements_UserName];
 GO
 
-ALTER TABLE Gardens.Announcements WITH NOCHECK ADD  CONSTRAINT [FK_Announcements_OrganizationID] FOREIGN KEY(OrganizationID)
-REFERENCES Gardens.Organizations(OrganizationID);
+
+-- created by luke frahm 4-22-16-- FK GroupID
+ALTER TABLE Gardens.Announcements WITH NOCHECK ADD CONSTRAINT [FK_Announcements_GroupID] FOREIGN KEY(GroupID)
+REFERENCES Gardens.Groups(GroupID);
 GO
-ALTER TABLE Gardens.Announcements CHECK CONSTRAINT [FK_Announcements_OrganizationID];
+ALTER TABLE Gardens.Announcements CHECK CONSTRAINT [FK_Announcements_GroupID];
 GO
+
 
 ALTER TABLE Gardens.Gardens WITH NOCHECK ADD  CONSTRAINT [FK_Gardens_GroupID] FOREIGN KEY(GroupID)
 REFERENCES Gardens.Groups(GroupID);
@@ -1600,7 +1610,31 @@ GO
 -----------Admin.GroupRequest-------------
 ------------------------------------------
 
-
+-- SETS REQUEST STATUS TO ACCEPPTED AND THEN RUNS STORED PROCEDURE TO ADD USER TO THE GROUP
+-- UPDATED BY Nick king 4/22/16
+-- UPDATED BY TREVOR GLISCH 4/6/16
+CREATE PROCEDURE Admin.spAcceptRequest(
+	@GroupID int,
+	@UserID int,
+	@ApprovedID int,
+	@ApprovedDate smalldatetime)
+AS
+BEGIN
+UPDATE Admin.GroupRequest
+	SET
+		RequestStatus = 0,
+		ApprovedDate = @ApprovedDate,
+		ApprovedBy = @ApprovedID,
+		Added = 1
+	WHERE
+		GroupID = @GroupID AND
+		UserID = @UserID ;
+	
+	EXEC Gardens.spInsertGroupMembers @GroupID, @UserID, @ApprovedDate, @ApprovedID, 1;
+	-- THIS LINE CAN LATER BE USED TO SEND A MESSAGE TO A USER THAT THEY HAVE BEEN ACCEPTED
+	--EXEC Admin.spInsertMessageLineItems 	
+END;
+GO
 
 -- SETS THE REQUESTSTATUS AND ACTIVE FEILDS TO 0 LEAVING OUT AND APPROVED BY AND APPROVED DATE, THIS INDICATES THE REQUEST WAS DECLINED
 -- UPDATED BY TREVOR GLISCH 4/6/16
@@ -1846,6 +1880,23 @@ Begin
 end;
 go
 
+-- Displaying userRoles for a specific User
+-- By Ibrahim Abuzaid 04-16-16
+CREATE PROCEDURE [Admin].[spSelectUserRoleByUser]
+(@UserID int)
+AS
+Begin
+
+   Select [UserID]
+      ,[RoleID]
+      ,[CreatedBy]
+      ,[CreatedDate]
+      ,[Active] 
+	  from Admin.UserRoles
+	  where UserID = @UserID;
+end;
+go
+
 --created by ibrahim 3-11-16
 CREATE PROCEDURE [Admin].[spUpdateUserRoles] (
 @UserID int,
@@ -1853,7 +1904,6 @@ CREATE PROCEDURE [Admin].[spUpdateUserRoles] (
 @CreatedBy int,
 @CreatedDate smallDateTime
 )
-
 AS
 BEGIN
         UPDATE Admin.UserRoles
@@ -1863,7 +1913,6 @@ BEGIN
 						 
 			WHERE    userID = @userID AND
 			        RoleID  = @RoleID;
-				 
 	return @@ROWCOUNT;     
 END;
 go
@@ -1877,7 +1926,6 @@ go
 --Modified By : Poonam Dubey 
 --Modified Date : 16th March 2016 
 --Description : Added code to insert value into userrole table
---==========================================================--
 CREATE procedure [Admin].[spInsertUsers] (
 	@FirstName varchar(50),
 	@LastName varchar(100),
@@ -1931,12 +1979,9 @@ ELSE
 		GETDATE(),
 		1
 		);
-
 			SELECT 1 AS 'ReturnValue';
 	END;
-
 END;
-
 GO
 
 CREATE PROCEDURE Admin.spUpdateUser (
@@ -2154,9 +2199,28 @@ AS BEGIN
 	RETURN @@ROWCOUNT
 END
 GO
-	
 
 
+/*	
+CREATE PROCEDURE Admin.spSelectAllUserNames
+AS
+BEGIN
+	SELECT Username
+	FROM Admin.Users
+	WHERE Active = 1;
+END;
+go
+*/
+
+--updated by ryan taylor 4-22-16
+CREATE PROCEDURE Admin.spSelectAllUserNames
+AS
+BEGIN
+	SELECT Username, FirstName, LastName
+	FROM Admin.Users
+	WHERE Active = 1;
+END;
+go
 
 ------------------------------------------
 -----------Donations.EquipmentDonated-----
@@ -2866,22 +2930,19 @@ go
 ------------------------------------------
 
 --added by Sara Nanke 3/5/16
-create procedure Donations.spInsertVolunteerHours(
+create procedure Donations.spInsertVolunteers(
 	@UserID int,
 	@Date smalldatetime,
-	@HoursVolunteered int,
 	@City varchar(30))
 as
 begin
 insert into Donations.VolunteerHours(
 	UserID,
 	Date,
-	HoursVolunteered,
 	City)
 values(
 	@UserID,
 	@Date,
-	@HoursVolunteered,
 	@City);
 	return @@ROWCOUNT;
 end;
@@ -3863,48 +3924,72 @@ go
 -----------Gardens.Announcements----------
 ------------------------------------------
 
-create procedure Gardens.spInsertAnnouncements(
-	@UserID int,
-	@Date smalldatetime,
-	@OrganizationID int,
-	@Announcement VARCHAR(250))
-as
-begin
-insert into Gardens.Announcements(
-	UserID,
-	Date,
-	OrganizationID,
-	Announcement)
-values(
-	@UserID,
-	@Date,
-	@OrganizationID,
-	@Announcement);
-	return @@ROWCOUNT;
-end;
-go
+-- CREATE
+CREATE PROCEDURE Gardens.spInsertAnnouncements (
+	@UserName 				VARCHAR(20),
+	@FirstName				VARCHAR(50),
+	@LastName				VARCHAR(50),
+	@GroupID				INT,
+	@Date 					SMALLDATETIME,
+	@Announcement 			VARCHAR(MAX)
+)
+AS
+BEGIN
+	INSERT INTO Gardens.Announcements(UserName, FirstName, LastName, GroupID, Date, Announcement)
+	VALUES(@UserName, @FirstName, @LastName, @GroupID, @Date, @Announcement);
+	RETURN @@ROWCOUNT;
+END;
+GO
 
---Created 4-12-16 TR
-create procedure Gardens.spUpdateAnnouncements(
-     @AnnouncementID int,
-	 @Date smallDateTime,
-	 @Announcement VARCHAR(250),
-	 @UserID int)
-as
-begin
-insert 	into Gardens.Announcements(
-  AnnouncementID,
-  Date,
-  Announcement,
-  UserID)
- values(
-   @AnnouncementID,
-   @Date,
-   @Announcement,
-   @USerID);
-   return @@ROWCOUNT;
-end;
-go
+-- RETRIEVE All By Group
+CREATE PROCEDURE Gardens.spSelectAnnouncementsByGroupID (
+	@GroupID 				INT
+)
+AS
+BEGIN
+	SELECT AnnouncementID, UserName, FirstName, LastName, GroupID, Date, Announcement
+	FROM Gardens.Announcements
+	WHERE GroupID = @GroupID
+END;
+GO
+
+-- RETRIEVE TOP(10) By Group
+-- Jim requests announcements page only display 10 most recent announcements
+CREATE PROCEDURE Gardens.spSelectAnnouncementsByGroupIDTop10 (
+	@GroupID 				INT
+)
+AS
+BEGIN
+	SELECT TOP(10) AnnouncementID, UserName, FirstName, LastName, GroupID, Date, Announcement
+	FROM Gardens.Announcements
+	WHERE GroupID = @GroupID
+	ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC
+END;
+GO
+
+-- UPDATE
+CREATE PROCEDURE Gardens.spUpdateAnnouncements (
+	@AnnouncementID			INT,
+	@UserName 				VARCHAR(20),
+	@FirstName				VARCHAR(50),
+	@LastName				VARCHAR(50),
+	@GroupID				INT,
+	@Date 					SMALLDATETIME,
+	@Announcement 			VARCHAR(MAX)
+)
+AS
+BEGIN
+	UPDATE Gardens.Announcements
+	SET
+		UserName = @UserName,
+		FirstName = @FirstName,
+		LastName = @LastName,
+		GroupID = @GroupID,
+		Date = @Date,
+		Announcement = @Announcement
+	WHERE AnnouncementID = @AnnouncementID
+END;
+GO
 
 ------------------------------------------
 -----------Gardens.GardenGuides-----------
@@ -4545,8 +4630,6 @@ CREATE PROCEDURE Gardens.spUpdateTasks
 END;
 GO
 
-
-
 --created by Nasr 3-4-16
 CREATE PROCEDURE Gardens.spInsertTasks 
 	(@GardenID int,
@@ -4554,8 +4637,6 @@ CREATE PROCEDURE Gardens.spInsertTasks
 	@dateAssigned smalldatetime,
 	@AssignedFrom int,
 	@userNotes varchar(250))	
-
-
 AS
 BEGIN
 INSERT INTO Gardens.Tasks
@@ -4606,6 +4687,97 @@ BEGIN
 END;
 go
 
+
+--- Created By : Chris Schwebach 04/15.2016
+
+--created by chris schwebach 4-15-16
+
+CREATE PROCEDURE [Gardens].[spSelectTasksForGarden](
+	@GardenID int
+)
+AS
+BEGIN
+
+	SELECT TaskID, Description , CONVERT(VARCHAR(20),DateAssigned) 'AssignedOn',   ISNULL(CONVERT(VARCHAR(20),DateCompleted),'') 'CompletedOn', ISNULL(AUU.FirstName + ' ' + AUU.LastName,'') 'AssignedTo', AU.FirstName + ' ' + AU.LastName 'AssignedBy' , UserNotes, GT.Active , ISNULL(GT.AssignedTo, 0)  
+
+	SELECT TaskID, Description , CONVERT(VARCHAR(20),DateAssigned) 'AssignedOn',   ISNULL(CONVERT(VARCHAR(20),DateCompleted),'') 'CompletedOn', ISNULL(AUU.FirstName + ' ' + AUU.LastName,'') 'AssignedTo', AU.FirstName + ' ' + AU.LastName 'AssignedBy' , UserNotes, GT.Active  
+
+	FROM Gardens.Tasks GT
+	INNER JOIN Admin.Users AU 
+	ON GT.AssignedFrom = AU.UserID  
+	LEFT JOIN  Admin.Users AUU ON GT.AssignedTo = AUU.UserID  
+	WHERE GT.GardenID = @GardenID AND GT.Active = 1
+END;
+go
+
+
+
+--created by nasr mohammed 4-19-16
+CREATE PROCEDURE Gardens.spSelectTasks  	 	
+AS
+BEGIN
+	SELECT TaskID, GardenID,  Description , DateAssigned, AssignedFrom, userNotes, Active
+	FROM Gardens.Tasks	
+END;
+GO
+
+-- Author:		Poonam Dubey
+-- Create date: 19th April 2016
+-- Description:	Procedure to volunteer for a task
+CREATE PROCEDURE Gardens.spVolunteerForTask 
+	-- Add the parameters for the stored procedure here
+	@TaskID int = 0, 
+	@UserID int = 0
+AS
+BEGIN
+	UPDATE Gardens.Tasks
+	SET AssignedTo = @UserID,
+		DateAssigned = GETDATE()
+	WHERE TaskID = @TaskID
+END
+GO
+
+
+-- Author:		Poonam Dubey
+-- Create date: 19th April 2016
+-- Description:	Procedure to Mark a task as completed
+CREATE PROCEDURE Gardens.spMarkTaskAsComplete 
+	-- Add the parameters for the stored procedure here
+	@TaskID int = 0
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	UPDATE Gardens.Tasks
+	SET DateCompleted = GETDATE()
+	WHERE TaskID = @TaskID
+
+END
+GO
+
+
+-- Author:		Poonam Dubey
+-- Create date: 17th April 2016
+-- Description:	Procedure to deactivate task
+CREATE PROCEDURE Gardens.spDeactivateTask 
+	@TaskID INT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	UPDATE Gardens.Tasks
+	SET Active = 0
+	WHERE TaskID = @TaskID
+   
+END
+GO
+
+>>>>>>> origin/master
 ------------------------------------------
 -----------Gardens.WorkLogs---------------
 ------------------------------------------
@@ -4651,44 +4823,6 @@ BEGIN
 END;
 GO
 
--- SETS REQUEST STATUS TO ACCEPPTED AND THEN RUNS STORED PROCEDURE TO ADD USER TO THE GROUP
--- UPDATED BY TREVOR GLISCH 4/6/16
-CREATE PROCEDURE Admin.spAcceptRequest(
-	@GroupID int,
-	@UserID int,
-	@ApprovedID int,
-	@ApprovedDate smalldatetime)
-AS
-BEGIN
-UPDATE Admin.GroupRequest
-	SET
-		RequestStatus = 0,
-		ApprovedDate = @ApprovedDate,
-		ApprovedBy = @ApprovedID,
-		Added = 1
-	WHERE
-		GroupID = @GroupID AND
-		UserID = @UserID ;
-	
-	EXEC Gardens.spInsertGroupMembers @GroupID, @UserID, @ApprovedDate, @ApprovedID, 1;
-	-- THIS LINE CAN LATER BE USED TO SEND A MESSAGE TO A USER THAT THEY HAVE BEEN ACCEPTED
-	--EXEC Admin.spInsertMessageLineItems 	
-END;
-GO
-
-
---Chris Schwebach gets gardenID by gardenName
-CREATE PROCEDURE Gardens.spSelectGroupIdByGroupName (
-	@GroupName	varchar(100)
-)
-AS
-BEGIN
-	SELECT GroupID, GroupName, GroupLeaderID, Active, OrganizationID
-	FROM Gardens.Groups
-	WHERE GroupName = @GroupName;
-END;
-go
-
 
 /**********************************************************************************/
 /******************************* Test Data ****************************************/
@@ -4731,11 +4865,12 @@ exec Admin.spInsertActivityLog			1000, 			'12/12/15', 			'This is a log entry',	
 exec Admin.spInsertMessage			'This is a message, wahoo!!'	,'Test Message'					,'jeffb'				,'jeffb'
 
 --* spInsertRoles						@RoleID				@Description varchar(100),	@CreatedBy int,	@CreatedDate smalldatetime 
-exec Admin.spInsertRoles				'User'				,'User'						,1003			,'1/4/99'
-exec Admin.spInsertRoles				'Admin'				,'Admin'					,1003			,'1/4/99'
-exec Admin.spInsertRoles				'Expert'			,'Expert'					,1003			,'1/4/99'
-exec Admin.spInsertRoles				'GroupMember'		,'Group Member'				,1003			,'1/4/99'
-exec Admin.spInsertRoles				'GroupLeader'	    ,'Group Leader'				,1003			,'1/4/99'
+exec Admin.spInsertRoles				'Guest'				,'Guest Account'					,1003			,'1/4/99'
+exec Admin.spInsertRoles				'User'				,'Basic User Account'						,1003			,'1/4/99'
+exec Admin.spInsertRoles				'Admin'				,'Admininistrator Account'					,1003			,'1/4/99'
+exec Admin.spInsertRoles				'Expert'			,'Expert Account - Admin of the Expert Tab'					,1003			,'1/4/99'
+exec Admin.spInsertRoles				'GroupMember'		,'Member of a Garden'				,1003			,'1/4/99'
+exec Admin.spInsertRoles				'GroupLeader'	    ,'Leader of a Garden'				,1003			,'1/4/99'
 			
 --* spInsertUserRoles           		@UserID int,	@RoleID int,	
 exec Admin.spInsertUserRoles			1000			,'Expert'					
@@ -4753,10 +4888,9 @@ exec Gardens.spInsertOrganizations			'Hiawatha School'				,1003								,'1234567
 	
 --* spInsertGroups               			@GroupName varchar(100),	@GroupLeaderID int,	@OrganizationID int
 exec Gardens.spInsertGroups					'Mrs.Smith - 3rd grade'		,1003				,1000
---exec Gardens.spInsertGroups					'ExpertContributor'			,1004				,null
 
 --* spInsertAnnouncements        			@UserID int,	@Date smalldatetime,	@OrganizationID int,	@Announcement VARCHAR(250)
-exec Gardens.spInsertAnnouncements			1000			,'3/4/89'				,1000					,'New garden templates available'
+--exec Gardens.spInsertAnnouncements			1000			,'3/4/89'				,1000					,'New garden templates available'
 
 --* spInsertGardens              			@GroupID int,	@UserID int,			@GardenName				@GardenDescription varchar(max),	@GardenRegion varchar(25)
 exec Gardens.spInsertGardens				1000			,1000					,'School Garden'			,'RoofTop garden'					,1
@@ -4861,7 +4995,7 @@ exec Donations.spInsertTimePledge				1001			,'12/3/92'					,'3/9/99'					,'9/8/7
 exec Donations.spInsertTimePledgeTrans			1000				,1000				,'10/5/99'					,'Iowa City'		,1000
 			
 --* spInsertVolunteerHours          			@UserID int,	@Date smalldatetime,	@HoursVolunteered int,	@City varchar(30)
-exec Donations.spInsertVolunteerHours			1001			,'2/22/94'				,3						,'Chicago'
+--exec Donations.spInsertVolunteerHours			1001			,'2/22/94'				,3						,'Chicago'
 
 -------------------------------EXPERT----------------------------------------
 print 'expert'
@@ -4874,25 +5008,35 @@ exec Expert.spInsertPlants				'Red Potato'		,'Potato'			,'Vegetable'			,'Small p
 
 --* spInsertExpertBecomeAnExpert       		@Username int,	@WhyShouldIBeAnExpert varchar(200),	@ApprovedBy int,	@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
 exec Expert.spInsertExpertBecomeAnExpert	1001			,'I am the best'					,1000				,1001			,'12/3/99'					,1000				,'8/20/13'
-	
 
-DECLARE @Note VARCHAR (max)
 
+------------------------
+--logic for creating text with carriage returns, used in the blog following...
+------------------------
+DECLARE @CarriageReturn_LineFeed VARCHAR(max);
+--SET @CarriageReturn_LineFeed=REPLACE(@CarriageReturn_LineFeed,'[\r\n];',CHAR(13)+CHAR(10));
+--SET @CarriageReturn_LineFeed='Line One.[\r\n];[\r\n];Line Two.[\r\n];[\r\n];Line Three.[\r\n];[\r\n];'
+
+--* spInsertBlogEntry            		@BlogData varchar(max),		@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
+SET @CarriageReturn_LineFeed='Forest trees use carbon not only for themselves; they also trade large quantities of it with their neighbours. Botanists from the University of Basel report this in the journal Science. The extensive carbon trade among trees -- even among different species -- is conducted via symbiotic fungi in the soil.[\r\n];[\r\n];It is well known that plants take up carbon dioxide from the air by photosynthesis. The resulting sugar is used to build cellulose, wood pulp (lignin), protein and lipid -- the building blocks of plants. While growing, the tree transports sugar from its leaves to the building sites: to the branches, stems, roots and to their symbiotic fungi below ground (mycorrhizal fungi).[\r\n];[\r\n];Carbon dioxide shower for trees.[\r\n];Dr. Tamir Klein and Prof. Christian K�rner of the University of Basel together with Dr. Rolf Siegwolf of the Paul Scherrer Institute (PSI) now report, that this sugar export goes further than previously thought. In a forest near Basel the researchers used a construction crane and a network of fine tubes to flood the crowns of 120 year old and 40 meter tall spruce trees with carbon dioxide that carried a label. The researchers used carbon dioxide that, compared to normal air, contains less of the rare and heavier 13C atom.[\r\n];[\r\n];While this modification made no difference for the trees, it allowed the botanists to track the carbon through the entire tree using an atomic mass spectrometer. This way they were able to trace the path of the carbon taken up by photosynthesis from the crowns down to the root tips. The researchers found the labelled carbon not only in the roots of the marked spruce trees. The roots of the neighbouring trees also showed the same marker, even though they had not received labelled carbon dioxide. This included trees from other species.[\r\n];Forest is more than the sum of its trees.[\r\n];The only way the carbon could have been exchanged from spruce to beech, pine or larch tree -- or vice versa -- is by the network of tiny fungal filaments of the shared mycorrhizal fungi. Understory plants which partner up with other types of fungi remained entirely unmarked. The research group called the discovered exchange of large quantities of carbon among completely unrelated tree species in a natural forest "a big surprise".[\r\n];[\r\n];According to the researchers, the discovery questions the concept of tree individuality with regard to the single largest constituent of the biosphere, tree carbon. Furthermore, the results of the study funded by the Swiss National Science Foundation add a new dimension to the role of mycorrhizal fungi in forests. "Evidently the forest is more than the sum of its trees," comments Prof. Christian K�rner the findings. [\r\n];[\r\n];Source: https://www.sciencedaily.com/releases/2016/04/160414144711.htm[\r\n];[\r\n];'
+SET @CarriageReturn_LineFeed=REPLACE(@CarriageReturn_LineFeed,'[\r\n];',CHAR(13)+CHAR(10));
+exec Expert.spInsertBlogEntry			@CarriageReturn_LineFeed	,'Forest discovery: Trees trade carbon among each other'	,1000			,'7/19/06'					,1000				,'4/4/16'
+
+SET @CarriageReturn_LineFeed='The modern method of building is to wipe all the top soil away from a lot, build a house, and bring back 3 or 4 inches or soil or just sod and call it good.[\r\n];[\r\n];This, of course, is not good for gardening, and many people want to increase the depth of the top soil on their property. But how? I see advice posted how you just top dress your lawn, add an inch a year, or whatever. So you slowly bury your driveway and sidewalk? Other people bemoan the thought of digging up everything, digging out some of the fill soil, and then adding new top soil. Common knowledge is that there is no other way, that top soil is like fossil fuels, a nonrenewable resource we just use up. Common knowledge is wrong, you can in fact, make it.[\r\n];[\r\n];How is top soil formed to begin with, in the great American plains, where it is many feet deep, how did it form? Well, they say 1% of decaying organic matter ends up as stable humus in the soil. So over thousands of years as grass lived, and died, and animals grazed, and pooped, it formed. Dead grass and animal droppings? Is that it? Not quite.[\r\n];[\r\n];We often do not think about what happens beneath the soil, but things happen, many important things. We see plants above ground dropping leaves, and twigs, and shedding organic matter all over, but it also happens beneath the soil. Roots die off, they�re abandoned by their plant and they rot. When grasses grow up big and tall they need long deep roots, when the bison wander by and munch that grass down, they don�t need those roots anymore and some are abandoned. As those roots, which in some grasses can reach down over 10 feet deep (imagine, grass roots over 10 feet deep). The roots decay and add organic matter deep within the soil, once they decay they create channels for water, air, and nutrient infiltration. [\r\n];[\r\n];Source: http://www.gardeningblog.net/2016/03/24/how-to-add-more-topsoil-the-natural-way/[\r\n];[\r\n];'
+SET @CarriageReturn_LineFeed=REPLACE(@CarriageReturn_LineFeed,'[\r\n];',CHAR(13)+CHAR(10));
+exec Expert.spInsertBlogEntry			@CarriageReturn_LineFeed	,'How to add more topsoil the natural way'	,1000			,'7/19/15'					,1000				,'4/14/16'
+
+DECLARE @Note VARCHAR (max);
 SET @Note = 'If you’re tossing all your scraps into your compost pile, read this before you toss any more! Here’s some of my favourite things to regrow, though many more plants can be regrown.[crlf][crlf]Potatoes - If you have organic potatoes (those sprayed with chemicals often are sprayed to resist growth), cut the eyes out but leave a very large chunk of potato attached (1-2″)- a medium size whole potato can yield 4-6 plants. Plant in soil as you would any seed potato.[crlf][crlf]Romaine Lettuce & Cabbage - The white stem of romaine lettuce and cabbage leaves will grow roots and make a new plant – place your leaf flat in a dish, thick stem side down, with just enough water to allow the stem to stay wet, but not enough to cover the top. Mist with water daily or as needed to keep the top most. Transplant when roots are established. [crlf][crlf]Celery - Celery is very easy to regrow. Take the base/root end and place in a glass of water for a few days, once roots are established and you see the tops start to grow, transplant to soil. Leeks and green onions too![crlf][crlf]Onions - Onions are one of the easiest things in the world to replant ~ take the root end cut after you’ve cut if off your onion, and stick it room side down in soil. Cover with about 1/2″ of soil and water.[crlf][crlf]Source - http://www.garden-of-eatin.com/2014/06/24/compost-that-scrap-or-regrow-it/'
 SET @Note = REPLACE(@Note,'[crlf]',CHAR(13)+CHAR(10))
 --* spInsertBlogEntry            		@BlogData varchar(max),		@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
 exec Expert.spInsertBlogEntry			@note	,'Compost that scrap – or regrow it?'	,1000			,'7/19/06'					,1002				,'2/17/87'	
 
 
-
-
 --SET @Note = 'Line One.[crlf];Line Two[crlf]Line Three.'
 --SET @Note = REPLACE(@Note,'[crlf]',CHAR(13)+CHAR(10))
 --* spInsertBlogEntry            		@BlogData varchar(max),		@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
 exec Expert.spInsertBlogEntry			'This is a blog about...'	,'Vegetables in Florida'	,1000			,'7/19/06'					,1002				,'2/17/87'	
-
-
-
 
 --* spInsertContent              		@UserID int,	@RegionID int,	@Title varchar(50),		@Category varchar(50),	@Content varchar(max),	@Date smalldatetime ,	@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
 exec Expert.spInsertContent				1001			,1 				,'Home Page'			,'home'					,'Welcome home'			,'2/8/93'				,1000			,'9/29/91'					,1001				,'6/14/05'		
