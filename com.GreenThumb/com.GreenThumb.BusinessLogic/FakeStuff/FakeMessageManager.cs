@@ -30,7 +30,7 @@ namespace com.GreenThumb.BusinessLogic.FakeStuff
             return msg;
         }
 
-        public bool MarkMessageDeletedReceiver(string Username, int MessageID)
+        public bool EditMessageDeletedReceiver(string Username, int MessageID)
         {
             bool result = false;
 
@@ -42,7 +42,7 @@ namespace com.GreenThumb.BusinessLogic.FakeStuff
             return result;
         }
 
-        public bool MarkMessageDeletedSender(string Username, int MessageID)
+        public bool EditMessageDeletedSender(string Username, int MessageID)
         {
             bool result = false;
 
@@ -54,7 +54,7 @@ namespace com.GreenThumb.BusinessLogic.FakeStuff
             return result;
         }
 
-        public bool MarkMessageRead(string Username, int MessageID)
+        public bool EditMessageRead(string Username, int MessageID)
         {
             bool result = false;
 

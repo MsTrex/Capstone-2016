@@ -27,7 +27,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="organization">Organization to be referenced.</param>
         public OrgRequestsManager(AccessToken accessToken, Organization organization)
         {
-            if (CheckAccessToken(accessToken, organization))
+            if (GetAccessToken(accessToken, organization))
             {
                 try
                 {
@@ -56,9 +56,9 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="accessToken">Confirm user is valid to use method.</param>
         /// <returns>Collection of group leader requests.</returns>
-        public IEnumerable<GroupLeaderRequest> FetchOrgRequests(AccessToken accessToken)
+        public IEnumerable<GroupLeaderRequest> GetOrgRequests(AccessToken accessToken)
         {
-            if (CheckAccessToken(accessToken, this.organization))
+            if (GetAccessToken(accessToken, this.organization))
             {
                 this.orgRequests = this.orgRequests ?? orgUserAccessor.FetchGroupLeaderRequests(accessToken);
             }
@@ -78,11 +78,11 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="request">Request to be approved.</param>
         /// <param name="groupMember">User to be changed.</param>
         /// <returns>Whether process was successful.</returns>
-        public bool ApproveRequest(AccessToken accessToken, GroupLeaderRequest request, GroupMember groupMember)
+        public bool EditApproveRequest(AccessToken accessToken, GroupLeaderRequest request, GroupMember groupMember)
         {
             bool flag = false;
 
-            if (CheckAccessToken(accessToken, this.organization))
+            if (GetAccessToken(accessToken, this.organization))
             {
                 int result = orgUserAccessor.AddLeaderToGroup(accessToken, request.Group, groupMember) +
                     orgUserAccessor.ProcessRequest(accessToken, request);
@@ -110,11 +110,11 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="accessToken">Confirm user is valid to use method.</param>
         /// <param name="request">Request to be declined.</param>
         /// <returns>Whether process was successful.</returns>
-        public bool DeclineRequest(AccessToken accessToken, GroupLeaderRequest request)
+        public bool EditDeclineRequest(AccessToken accessToken, GroupLeaderRequest request)
         {
             bool flag = false;
 
-            if (CheckAccessToken(accessToken, this.organization))
+            if (GetAccessToken(accessToken, this.organization))
             {
                 // Do nothing with request.
                 flag = 1 == orgUserAccessor.ProcessRequest(accessToken, request); // 1 row should be affected.
@@ -134,7 +134,7 @@ namespace com.GreenThumb.BusinessLogic
         }
 
         // Created By: Trent Cullinan 02/24/2016
-        private bool CheckAccessToken(AccessToken accessToken, Organization organization)
+        private bool GetAccessToken(AccessToken accessToken, Organization organization)
         {
             return organization.OrganizationLeader.UserID == accessToken.UserID;
         }

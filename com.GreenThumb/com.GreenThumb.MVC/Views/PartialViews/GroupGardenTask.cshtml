@@ -1,4 +1,7 @@
-﻿@model com.GreenThumb.BusinessObjects.Group
+﻿@*Poonam Dubey*@
+@*14th April 2016*@
+@*Partial view To view Gardens*@
+@model com.GreenThumb.BusinessObjects.Group
 
 <h2></h2>
 <p></p>
@@ -27,7 +30,7 @@
         {
             <tr>
                 <td>
-                    @Html.RadioButton("radioSelection", false, new { @id = GardenInfo.GardenID, @onclick = "radioClick(" + GardenInfo.GardenID + ")" })
+                    @Html.RadioButton("radioSelection", false, new { @id = GardenInfo.GardenID + "_Radio", @onclick = "radioClick(" + GardenInfo.GardenID + ")" })
                 </td>
                 <td>
                     @Model.Name

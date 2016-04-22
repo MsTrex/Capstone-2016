@@ -391,5 +391,181 @@ namespace com.GreenThumb.DataAccess
             return gardenList;
         }
 
+
+        /// <summary>
+        /// Poonam Dubey
+        /// 14th April 2016
+        /// Funtion to fetch tasks based on gardenid  
+        /// </summary>
+        /// <param name="gardenId"></param>
+        /// <returns></returns>
+        public static List<com.GreenThumb.BusinessObjects.Task> RetrieveTasksByGardenId(int gardenId)
+        {
+            var tasks = new List<com.GreenThumb.BusinessObjects.Task>();
+            var conn = DBConnection.GetDBConnection();
+            string cmdText = @"Gardens.spSelectTasksForGarden";
+
+            // need to send Chris stored procedure
+            //var query =   @"SELECT TaskID, Description , CONVERT(VARCHAR(20),DateAssigned) 'AssignedOn',   ISNULL(CONVERT(VARCHAR(20),DateCompleted),'') 'CompletedOn', ISNULL(AUU.FirstName + ' ' + AUU.LastName,'') 'AssignedTo', AU.FirstName + ' ' + AU.LastName 'AssignedBy' , UserNotes, GT.Active " +
+            //              @"FROM Gardens.Tasks GT INNER JOIN Admin.Users AU " +
+            //              @"ON GT.AssignedFrom = AU.UserID " + 
+            //              @"LEFT JOIN  Admin.Users AUU ON GT.AssignedTo = AUU.UserID " +
+            //              @"WHERE GardenID=" + gardenId + " AND GT.Active=1";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@GardenID", gardenId);
+
+            //cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var task = new com.GreenThumb.BusinessObjects.Task();
+
+                        task.TaskID = reader.GetInt32(0);
+                        task.TaskDescription = reader.GetString(1);
+                        task.AssignedOn = reader.GetString(2);
+                        task.CompletedOn = reader.GetString(3);
+                        task.AssignedTo = reader.GetString(4);
+                        task.AssignedBy = reader.GetString(5);
+                        task.UserNotes = reader.GetString(6);
+                        task.Active = reader.GetBoolean(7);
+                        task.AssignedToUserID = reader.GetInt32(8);
+                        tasks.Add(task);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return tasks;
+        }
+
+        /// <summary>
+        /// Poonam Dubey
+        /// 18th April 2016
+        /// Function to deactivate task
+        /// </summary>
+        /// <param name="taskID"></param>
+        public static bool DeactivateTask(int taskID)
+        {
+            var conn = DBConnection.GetDBConnection();
+            var query = "Gardens.spDeactivateTask";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@TaskID", taskID);
+
+            bool flag = false;
+
+            try
+            {
+                conn.Open();
+                if (cmd.ExecuteNonQuery() != 0)
+                {
+                    flag = true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return flag;
+        }
+
+
+        /// <summary>
+        /// Poonam Dubey
+        /// 19th April 2016
+        /// Data access class to volunteer for a task
+        /// </summary>
+        /// <param name="taskID"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public static bool VolunteerForTask(int taskID, int userID)
+        {
+            var conn = DBConnection.GetDBConnection();
+            var query = "Gardens.spVolunteerForTask";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@TaskID", taskID);
+            cmd.Parameters.AddWithValue("@UserID", userID);
+
+            bool flag = false;
+
+            try
+            {
+                conn.Open();
+                if (cmd.ExecuteNonQuery() != 0)
+                {
+                    flag = true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return flag;
+        }
+
+        /// <summary>
+        /// Poonam Dubey
+        /// 19th April 2016
+        /// Function to mark a task as completed
+        /// </summary>
+        /// <param name="taskID"></param>
+        /// <returns></returns>
+        public static bool CompleteTask(int taskID)
+        {
+            var conn = DBConnection.GetDBConnection();
+            var query = "Gardens.spMarkTaskAsComplete";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@TaskID", taskID);
+
+            bool flag = false;
+
+            try
+            {
+                conn.Open();
+                if (cmd.ExecuteNonQuery() != 0)
+                {
+                    flag = true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return flag;
+        }
     }
 }

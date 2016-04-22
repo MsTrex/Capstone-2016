@@ -9,9 +9,9 @@ namespace com.GreenThumb.BusinessLogic.Interfaces
     public interface IMessageManager
     {
         System.Collections.Generic.List<com.GreenThumb.BusinessObjects.Message> GetUserMessages(string Username);
-        bool MarkMessageDeletedReceiver(string Username, int MessageID);
-        bool MarkMessageDeletedSender(string Username, int MessageID);
-        bool MarkMessageRead(string Username, int MessageID);
+        bool EditMessageDeletedReceiver(string Username, int MessageID);
+        bool EditMessageDeletedSender(string Username, int MessageID);
+        bool EditMessageRead(string Username, int MessageID);
         bool SendMessage(string MessageContent, string Subject, string SenderUsername, string ReceiverUsername);
         List<com.GreenThumb.BusinessObjects.User> GetUserNames();
     }

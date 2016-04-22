@@ -21,7 +21,7 @@ namespace com.GreenThumb.BusinessLogic
         ///Updated Date: 3/19/16
         ///Updated regionID user input parameters
         ///</summary>
-        public bool UpdateUserPersonalInfo(int userID, string firstName, string lastName, string zip, string emailAddress, int? regionId)
+        public bool EditUserPersonalInfo(int userID, string firstName, string lastName, string zip, string emailAddress, int? regionId)
         {
            bool result = false;
 
@@ -80,7 +80,7 @@ namespace com.GreenThumb.BusinessLogic
         ///
         /// Updated to return a single user, call RetrieveUserByUserID 4/21/16 Steve Hoover 
         ///</summary>
-        public User RetrievePersonalInfo(int userID)
+        public User GetPersonalInfo(int userID)
         {
             try
             {
@@ -99,7 +99,7 @@ namespace com.GreenThumb.BusinessLogic
         /// 
         /// Added 3/4 By Ibarahim
         /// </summary>
-       public List<User> RetrieveUserList(Active group = Active.active)
+       public List<User> GetUserList(Active group = Active.active)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace com.GreenThumb.BusinessLogic
         
 
 
-        public int RetrieveUserCount(Active group = Active.active)
+        public int GetUserCount(Active group = Active.active)
         {
             try
             {
@@ -137,7 +137,7 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
-        public int CreateNewUser(string firstName,
+        public int AddNewUser(string firstName,
                                    string lastName,
                                    string zip,
                                    string emailAddress,
@@ -166,7 +166,7 @@ namespace com.GreenThumb.BusinessLogic
                 throw;
             }
         }
-        public bool RetrieveUserData(User usr, User newUsr)
+        public bool GetUserData(User usr, User newUsr)
         {
            //                 var usr = new User()
 
@@ -196,7 +196,7 @@ namespace com.GreenThumb.BusinessLogic
         ///Date: 3/4/16
 		///</summary>
 
-        public User RetrieveUserByUserName(string username)
+        public User GetUserByUserName(string username)
         {
             try
             {
@@ -215,12 +215,12 @@ namespace com.GreenThumb.BusinessLogic
 		//calling to the user accessor
         ///Date: 3/4/16
 		///</summary>
-        public User RetrieveUser(int userId)
+        public User GetUser(int userId)
         {
             return UserAccessor.RetrieveUserByID(userId);
         }
 
-        public User RetrieveUser()
+        public User GetUser()
         {
             try
             {
@@ -234,11 +234,11 @@ namespace com.GreenThumb.BusinessLogic
         }
 		///<summary>
         ///Author: Stenner Kvindlog         
-        ///createUser sends user to database to be created  
+        ///AddUser sends user to database to be created  
 		//calling to the user accessor
         ///Date: 3/4/16
 		///</summary>
-        public int createUser(User newUser)
+        public int AddUser(User newUser)
         {
             try
             {
@@ -285,7 +285,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="userName">Value to check database.</param>
         /// <param name="password">Value to check database.</param>
         /// <returns>Whether user has given correct information to be available.</returns>
-        public bool UserExists(string userName, string password = null)
+        public bool ConfirmUserExists(string userName, string password = null)
         {
             bool flag = true;
             bool passwordFlag = String.IsNullOrEmpty(password);
@@ -340,7 +340,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="oldPassword">What the password was previously.</param>
         /// <param name="newPassword">What to change password to.</param>
         /// <returns>Whether the password change was successful.</returns>
-        public bool ChangePasssword(string userName, string oldPassword, string newPassword)
+        public bool EditPasssword(string userName, string oldPassword, string newPassword)
         {
             bool flag = false;
 
@@ -363,7 +363,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="user">User with required base information.</param>
         /// <param name="password">Value to be set as password.</param>
         /// <returns>Whether the password change was successful.</returns>
-        public bool CreateNewUser(User user, string password)
+        public bool AddNewUserPasswordChange(User user, string password)
         {
             bool flag = false;
 
@@ -386,7 +386,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="userName">The username to get id for.</param>
         /// <returns>User Id</returns>
-        public int RetrieveUserId(string userName)
+        public int GetUserId(string userName)
         {
             int userId = 0;
 
@@ -400,5 +400,25 @@ namespace com.GreenThumb.BusinessLogic
 
             return userId;
         }
+
+        /// <summary>
+        /// Poonam Dubey
+        /// 18th April 2016
+        /// Function to check if user is garden leader
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        //public bool CheckIsGardenLeader(int userID)
+        //{
+        //    try
+        //    {
+        //        return UserAccessor.CheckIsGardenLeader(userID);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw;
+        //    }
+        //}
     }
 }

@@ -20,7 +20,7 @@ using System.Windows.Shapes;
 namespace com.GreenThumb.WPF_Presentation.ExpertPages
 {
     /// <summary>
-    /// Interaction logic for CreatePlant.xaml
+    /// Interaction logic for AddPlant.xaml
     /// 
     /// //Created by Stenner Kvindlog 
     /// //3/4/16
@@ -81,11 +81,11 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
                 newPlant.CreatedDate = DateTime.Now;
                 newPlant.CreatedBy = user.UserID;
 
-                myInt = myPlantManager.CreatePlant(newPlant);
+                myInt = myPlantManager.AddPlant(newPlant);
                 if (myInt > 100)
                 {
                     newPlant.PlantID = myInt;
-                    myBool = myPlantManager.CreatePlantRegions(newPlant, regions);
+                    myBool = myPlantManager.AddPlantRegions(newPlant, regions);
                 }
             }
             catch (Exception ax)

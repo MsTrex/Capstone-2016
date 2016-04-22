@@ -54,14 +54,14 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                 if (dataInbox.SelectedIndex >= 0)
                 {
                     _selectedMessage = (Message)dataInbox.SelectedItem;
-                    result = _mgr.MarkMessageDeletedReceiver(_at.UserName, _selectedMessage.MessageID);
+                    result = _mgr.EditMessageDeletedReceiver(_at.UserName, _selectedMessage.MessageID);
                     PopulateMessageList();
 
                 }
                 else if (dataOutbox.SelectedIndex >= 0)
                 {
                     _selectedMessage = (Message)dataOutbox.SelectedItem;
-                    result = _mgr.MarkMessageDeletedSender(_at.UserName, _selectedMessage.MessageID);
+                    result = _mgr.EditMessageDeletedSender(_at.UserName, _selectedMessage.MessageID);
                     PopulateMessageList();
                 }
 
@@ -94,7 +94,8 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                 _selectedMessage = (Message)dataInbox.SelectedItem;
                 try
                 {
-                    _mgr.MarkMessageRead(_at.UserName, _selectedMessage.MessageID);
+                    _mgr.EditMessageRead(_at.UserName, _selectedMessage.MessageID);
+
                 }
                 catch (Exception ex)
                 {

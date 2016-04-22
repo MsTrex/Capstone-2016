@@ -65,7 +65,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             bool result;
 
             // Act
-            result = _mgr.MarkMessageDeletedReceiver(username, messageID);
+            result = _mgr.EditMessageDeletedReceiver(username, messageID);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
@@ -81,7 +81,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             bool result;
 
             // Act
-            result = _mgr.MarkMessageDeletedReceiver(username, messageID);
+            result = _mgr.EditMessageDeletedReceiver(username, messageID);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
@@ -97,7 +97,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             bool result;
 
             // Act
-            result = _mgr.MarkMessageDeletedSender(username, messageID);
+            result = _mgr.EditMessageDeletedSender(username, messageID);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
@@ -112,7 +112,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             bool result;
 
             // Act
-            result = _mgr.MarkMessageDeletedSender(username, messageID);
+            result = _mgr.EditMessageDeletedSender(username, messageID);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
@@ -128,7 +128,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             bool result;
 
             // Act
-            result = _mgr.MarkMessageRead(username, messageID);
+            result = _mgr.EditMessageRead(username, messageID);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
@@ -143,7 +143,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             bool result;
 
             // Act
-            result = _mgr.MarkMessageRead(username, messageID);
+            result = _mgr.EditMessageRead(username, messageID);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
