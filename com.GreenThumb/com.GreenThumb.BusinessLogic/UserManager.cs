@@ -77,12 +77,14 @@ namespace com.GreenThumb.BusinessLogic
         ///GetUserPersonalInfo get the Personal information from user based on accessToken.UserID
         ///calling to the user accessor
         ///Date: 3/3/16
+        ///
+        /// Updated to return a single user, call RetrieveUserByUserID 4/21/16 Steve Hoover 
         ///</summary>
-        public List<User> RetrievePersonalInfo(int userID)
+        public User RetrievePersonalInfo(int userID)
         {
             try
             {
-                return UserAccessor.RetrievePersonalInfo(userID);
+                return UserAccessor.RetrieveUserByID(userID);
             }
             catch (ApplicationException)
             {
@@ -101,7 +103,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                var userList = UserAccessor.RetrieveUserList(userID);
+                var userList = UserAccessor.RetrieveUserList(group);
 
                 if (userList.Count > 0)
                 {

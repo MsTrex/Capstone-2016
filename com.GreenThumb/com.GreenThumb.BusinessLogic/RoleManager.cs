@@ -21,7 +21,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                var roleList = RoleAccessor.FetchRoleList();
+                var roleList = RoleAccessor.RetrieveRoleList();
 
                 if (roleList.Count > 0)
                 {
@@ -45,7 +45,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             try
             {
-                return RoleAccessor.FetchRoleCount();
+                return RoleAccessor.RetrieveRoleCount();
             }
             catch (Exception)
             {
@@ -98,7 +98,7 @@ namespace com.GreenThumb.BusinessLogic
                     CreatedBy = createdBy,
                     CreatedDate = createdDate
                 };
-                if (RoleAccessor.InsertRole(role) == 1)
+                if (RoleAccessor.CreateRole(role) == 1)
                 {
                     return true;
                 }
