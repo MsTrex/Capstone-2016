@@ -56,7 +56,6 @@
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs543E.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs40.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs543E.tmp\Release\</IntermediateOutputPath>
-
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -112,6 +111,7 @@
     <Compile Include="NeedType.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="Organization.cs" />
+    <Compile Include="PageDetails.cs" />
     <Compile Include="Plant.cs" />
     <Compile Include="Region.cs" />
     <Compile Include="Role.cs" />

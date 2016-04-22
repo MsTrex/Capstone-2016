@@ -96,6 +96,7 @@
     <Compile Include="NutrientManager.cs" />
     <Compile Include="OrgRequestsManager.cs" />
     <Compile Include="OrgUserManager.cs" />
+    <Compile Include="Paginate.cs" />
     <Compile Include="PlantManager.cs" />
     <Compile Include="QuestionManager.cs" />
     <Compile Include="RecipeManager.cs" />

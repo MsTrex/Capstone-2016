@@ -96,25 +96,60 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="250"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ScrollViewer x:Name="scrBlogs" Grid.Column="0" Initialized="scrBlogs_Initialized">
-            <ItemsControl x:Name="icBlogs">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="20">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <TextBlock x:Name="lblBlogTitle" Grid.Row="0" Margin="0,20,0,40" Text="{Binding BlogTitle}" FontSize="50" Foreground="#FF19320B" FontWeight="Bold" HorizontalAlignment="Center"/>
-                            <TextBlock x:Name="lblBlogData" Grid.Row="1" Text="{Binding BlogData}" TextWrapping="Wrap" FontSize="20"/>
-                            <TextBlock x:Name="lblDateCreated" Grid.Row="2" Margin="20,10,20,0" Text="{Binding DateCreated}" FontSize="15" Foreground="#FF19320B" />
-                            <TextBlock x:Name="lblCreatedBy" Grid.Row="3" Margin="20,0,20,20" Text="{Binding UserCreated(CreatedBy)}" FontSize="15" Foreground="#FF19320B" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+
+        <ScrollViewer Height="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label x:Name="lblPage" Content="Page 1" Margin="20 5 20 5" Grid.Row="0" Grid.Column="0" />
+
+                    <Button Grid.Row="1" Grid.Column="0" MinWidth="110" MaxWidth="110" x:Name="btnFirst" Margin="20 5 20 5" Content="First" Click="btnFirst_Click" HorizontalAlignment="Left" />
+
+                    <Button Grid.Row="1" Grid.Column="1" MinWidth="110" MaxWidth="110" x:Name="btnPrevious" Margin="20 5 20 5" Content="Previous" Click="btnPrevious_Click" HorizontalAlignment="Left" />
+
+                    <Button Grid.Row="1" Grid.Column="2" MinWidth="110" MaxWidth="110" x:Name="btnNext" Margin="20 5 20 5" Content="Next" Click="btnNext_Click" HorizontalAlignment="Left" />
+
+                    <Button Grid.Row="1" Grid.Column="3" MinWidth="110" MaxWidth="110" x:Name="btnLast" Margin="20 5 20 5" Content="Last" Click="btnLast_Click" HorizontalAlignment="Left" />
+                </Grid>
+
+                <ItemsControl Grid.Row="1" Grid.Column="0" x:Name="icBlogs">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="20">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock x:Name="lblBlogTitle" Grid.Row="0" Margin="0,20,0,40" Text="{Binding BlogTitle}" FontSize="50" Foreground="#FF19320B" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="lblBlogData" Grid.Row="1" Text="{Binding BlogData}" TextWrapping="Wrap" FontSize="20"/>
+                                <TextBlock x:Name="lblDateCreated" Grid.Row="2" Margin="20,10,20,0" Text="{Binding DateCreated}" FontSize="15" Foreground="#FF19320B" />
+                                <TextBlock x:Name="lblCreatedBy" Grid.Row="3" Margin="20,0,20,20" Text="{Binding UserCreated(CreatedBy)}" FontSize="15" Foreground="#FF19320B" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+
+
+            </Grid>
         </ScrollViewer>
         <ScrollViewer Grid.Column="1">
             <StackPanel>
