@@ -44,7 +44,7 @@ namespace com.GreenThumb.UnitTest
            
             //Act
 
-            bool result = userRoleMgr.ChangeUserRoleStatus(testUserID, testRoleID, testActive);
+            bool result = userRoleMgr.EditUserRoleStatus(testUserID, testRoleID, testActive);
 
             //Assert
               Assert.AreEqual(result, false);
@@ -60,7 +60,7 @@ namespace com.GreenThumb.UnitTest
   
             //Act
 
-            bool result = userRoleMgr.DeleteUserRole(@usrRole.UserID, @usrRole.RoleID);
+            bool result = userRoleMgr.RemoveUserRole(@usrRole.UserID, @usrRole.RoleID);
 
             //Assert
             Assert.AreEqual(result, true);

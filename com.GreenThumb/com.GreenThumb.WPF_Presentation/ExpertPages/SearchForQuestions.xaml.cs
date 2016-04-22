@@ -45,7 +45,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             ChangeQuestionAndResponses(question.QuestionID);
             lblNoReplies.Content = "Your question has been successfully submitted. Come back later to check replies.";
             lblContent.Text = question.Content;
-            lblQuestion.Content = userManager.RetrieveUser(question.CreatedBy).UserName + " asks...";
+            lblQuestion.Content = userManager.GetUser(question.CreatedBy).UserName + " asks...";
         }
 
         private void ValidateAccessToken()
@@ -118,7 +118,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             gridQuestion.Visibility = System.Windows.Visibility.Visible;
             Question question = questionManager.RetrieveQuestionByID(questionID);
             lblContent.Text = question.Content;
-            lblQuestion.Content = userManager.RetrieveUser(question.CreatedBy).UserName + " asks...";
+            lblQuestion.Content = userManager.GetUser(question.CreatedBy).UserName + " asks...";
             List<Response> responses = new List<Response>();
 
             try
@@ -152,7 +152,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
                 foreach (Response response in responses)
                 {
                     Label lblName = new Label();
-                    lblName.Content = userManager.RetrieveUser(response.UserID).UserName + " posted...";
+                    lblName.Content = userManager.GetUser(response.UserID).UserName + " posted...";
                     lblName.SetValue(Grid.ColumnProperty, 0);
                     lblName.SetValue(Grid.RowProperty, i);
                     lblName.Margin = new Thickness(20.0, 20.0, 20.0, 0.0);
