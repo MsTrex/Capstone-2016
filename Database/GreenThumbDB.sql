@@ -1869,6 +1869,23 @@ Begin
 end;
 go
 
+-- Displaying userRoles for a specific User
+-- By Ibrahim Abuzaid 04-16-16
+CREATE PROCEDURE [Admin].[spSelectUserRoleByUser]
+(@UserID int)
+AS
+Begin
+
+   Select [UserID]
+      ,[RoleID]
+      ,[CreatedBy]
+      ,[CreatedDate]
+      ,[Active] 
+	  from Admin.UserRoles
+	  where UserID = @UserID;
+end;
+go
+
 --created by ibrahim 3-11-16
 CREATE PROCEDURE [Admin].[spUpdateUserRoles] (
 @UserID int,
@@ -1876,7 +1893,6 @@ CREATE PROCEDURE [Admin].[spUpdateUserRoles] (
 @CreatedBy int,
 @CreatedDate smallDateTime
 )
-
 AS
 BEGIN
         UPDATE Admin.UserRoles
@@ -1886,7 +1902,6 @@ BEGIN
 						 
 			WHERE    userID = @userID AND
 			        RoleID  = @RoleID;
-				 
 	return @@ROWCOUNT;     
 END;
 go
@@ -1900,7 +1915,6 @@ go
 --Modified By : Poonam Dubey 
 --Modified Date : 16th March 2016 
 --Description : Added code to insert value into userrole table
---==========================================================--
 CREATE procedure [Admin].[spInsertUsers] (
 	@FirstName varchar(50),
 	@LastName varchar(100),
@@ -1954,12 +1968,9 @@ ELSE
 		GETDATE(),
 		1
 		);
-
 			SELECT 1 AS 'ReturnValue';
 	END;
-
 END;
-
 GO
 
 CREATE PROCEDURE Admin.spUpdateUser (
@@ -2178,7 +2189,14 @@ AS BEGIN
 END
 GO
 	
-
+CREATE PROCEDURE Admin.spSelectAllUserNames
+AS
+BEGIN
+	SELECT Username
+	FROM Admin.Users
+	WHERE Active = 1;
+END;
+go
 
 
 ------------------------------------------
@@ -4568,8 +4586,6 @@ CREATE PROCEDURE Gardens.spUpdateTasks
 END;
 GO
 
-
-
 --created by Nasr 3-4-16
 CREATE PROCEDURE Gardens.spInsertTasks 
 	(@GardenID int,
@@ -4577,8 +4593,6 @@ CREATE PROCEDURE Gardens.spInsertTasks
 	@dateAssigned smalldatetime,
 	@AssignedFrom int,
 	@userNotes varchar(250))	
-
-
 AS
 BEGIN
 INSERT INTO Gardens.Tasks
@@ -4628,6 +4642,30 @@ BEGIN
 	WHERE GT.GardenID = @GardenID AND GT.Active = 1
 END;
 go
+
+--created by chris schwebach 4-15-16
+CREATE PROCEDURE [Gardens].[spSelectTasksForGarden](
+	@GardenID int
+)
+AS
+BEGIN
+	SELECT TaskID, Description , CONVERT(VARCHAR(20),DateAssigned) 'AssignedOn',   ISNULL(CONVERT(VARCHAR(20),DateCompleted),'') 'CompletedOn', ISNULL(AUU.FirstName + ' ' + AUU.LastName,'') 'AssignedTo', AU.FirstName + ' ' + AU.LastName 'AssignedBy' , UserNotes, GT.Active  
+	FROM Gardens.Tasks GT
+	INNER JOIN Admin.Users AU 
+	ON GT.AssignedFrom = AU.UserID  
+	LEFT JOIN  Admin.Users AUU ON GT.AssignedTo = AUU.UserID  
+	WHERE GT.GardenID = @GardenID AND GT.Active = 1
+END;
+go
+
+--created by nasr mohammed 4-19-16
+CREATE PROCEDURE Gardens.spSelectTasks  	 	
+AS
+BEGIN
+	SELECT TaskID, GardenID,  Description , DateAssigned, AssignedFrom, userNotes, Active
+	FROM Gardens.Tasks	
+END;
+GO
 
 ------------------------------------------
 -----------Gardens.WorkLogs---------------
