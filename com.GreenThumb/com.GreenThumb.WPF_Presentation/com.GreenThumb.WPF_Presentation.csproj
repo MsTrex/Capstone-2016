@@ -75,6 +75,9 @@
     </Compile>
     <Compile Include="AdminPages\RegionPage.xaml.cs" />
     <Compile Include="AdminPages\UserRole.xaml.cs" />
+    <Compile Include="AdminPages\ViewUsers.xaml.cs">
+      <DependentUpon>ViewUsers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExpertPages\AddNutrientsToPlant.xaml.cs">
       <DependentUpon>AddNutrientsToPlant.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AdminPages\UserRole.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AdminPages\ViewUsers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
