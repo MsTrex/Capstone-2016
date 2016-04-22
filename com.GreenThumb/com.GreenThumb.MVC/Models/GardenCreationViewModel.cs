@@ -19,6 +19,8 @@ namespace com.GreenThumb.MVC.Models
 
         [HiddenInput(DisplayValue = false)]
         public int GroupID { get; set; }
+
+        public int RegionID { get; set; }
         
     }
 }
