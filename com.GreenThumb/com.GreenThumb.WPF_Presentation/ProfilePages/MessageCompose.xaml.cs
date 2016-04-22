@@ -26,11 +26,13 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
     {
         private AccessToken _accessToken;
         private MessageManager _mgr = new MessageManager();
-
+        private List<string> _userList;
+        private string _user;
         public MessageCompose(AccessToken accessToken)
         {
             _accessToken = accessToken;
             InitializeComponent();
+            FillUserList();
         }
 
 
@@ -44,12 +46,12 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
         /// <param name="e"></param>
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            if (!this.txtTo.Text.Equals(""))
+            if (_userList.Contains(_user))
             {
                 Message msg = new Message()
                 {
                     MessageSender = _accessToken.UserName,
-                    MessageReceiver = this.txtTo.Text,
+                    MessageReceiver = _user,
                     MessageContent = this.txtContent.Text,
                     MessageSubject = this.txtSubject.Text
                 };
@@ -69,6 +71,24 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                 }
 
             }
+            else
+            {
+                lblError.Content = "Not a valid username";
+            }
+        }
+
+        private void FillUserList()
+        {
+            try
+            {
+                _userList = _mgr.GetUserNames();
+                txtTo.ItemsSource = _userList;
+                txtTo.ToolTip = "Select a username";
+            }
+            catch (Exception)
+            {
+                txtTo.ToolTip = "No users added yet";
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -76,6 +96,27 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             this.NavigationService.Navigate(new Messages(_accessToken));
         }
 
+        private void txtTo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lblError.Content = "";
+            try
+            {
+                _user = txtTo.SelectedItem.ToString();
+            }
+            catch (Exception)
+            {
+                _user = null;
+            }
+        }
+
+        private void txtTo_LostFocus(object sender, RoutedEventArgs e)
+        {
+            lblError.Content = "";
+            if (!_userList.Contains(_user))
+            {
+                lblError.Content = "Not a valid username";
+            }
+        }
 
     }
 }

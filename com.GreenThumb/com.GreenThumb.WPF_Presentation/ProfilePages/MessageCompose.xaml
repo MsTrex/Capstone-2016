@@ -10,7 +10,8 @@
     xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit">
 
     <Grid>
-        <toolkit:AutoCompleteBox x:Name="txtTo" HorizontalAlignment="Left" Height="23" Margin="94,62,0,0" Text="" VerticalAlignment="Top" Width="120"/>
+        <toolkit:AutoCompleteBox x:Name="txtTo" HorizontalAlignment="Left" Height="23" Margin="94,62,0,0" Text="" VerticalAlignment="Top" Width="120" DataContext="{Binding Source=list}" AllowDrop="False" FilterMode="Contains" SelectionChanged="txtTo_SelectionChanged" LostFocus="txtTo_LostFocus"/>
+        <Label x:Name="lblError" Content="" Foreground="Red" Margin="232,59,-24,212" />
         <Label Content="To:" HorizontalAlignment="Left" Margin="22,62,0,0" VerticalAlignment="Top"/>
         <Label Content="Subject:" HorizontalAlignment="Left" Margin="22,115,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtSubject" HorizontalAlignment="Left" Height="23" Margin="94,115,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>

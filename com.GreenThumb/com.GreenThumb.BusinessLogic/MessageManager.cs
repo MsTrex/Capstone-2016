@@ -162,7 +162,16 @@ namespace com.GreenThumb.BusinessLogic
 
         }
 
-
-
+        public List<string> GetUserNames()
+        {
+            try
+            {
+                return MessageAccessor.RetrieveUserNames();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -77,5 +77,11 @@ namespace com.GreenThumb.BusinessLogic.FakeStuff
 
             return result;
         }
+
+
+        public List<string> GetUserNames()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

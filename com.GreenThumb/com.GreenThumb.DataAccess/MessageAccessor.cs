@@ -318,7 +318,43 @@ namespace com.GreenThumb.DataAccess
             return succeded;
         }
 
+        public static List<string> RetrieveUserNames()
+        {
+            List<string> userList = new List<string>();
 
+            var conn = DBConnection.GetDBConnection();
+            var query = @"Admin.spSelectAllUserNames";
+            var cmd = new SqlCommand(query, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        userList.Add(reader.GetString(0));
+                    }
+                }
+                else
+                {
+                    throw new ApplicationException("Data not found");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return userList;
+        }
 
         //public static List<Message> RetrieveAdminMessages()
         //{
