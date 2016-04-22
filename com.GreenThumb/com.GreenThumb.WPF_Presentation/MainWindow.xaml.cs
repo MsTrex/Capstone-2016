@@ -189,6 +189,34 @@ namespace com.GreenThumb.WPF_Presentation
             }
         }
         /// <summary>
+        /// ADDED by Trevor Glisch
+        /// Method to change the label when someone logs in or checks messages
+        /// </summary>
+        /// <param name="a"></param>
+        //public void SetNewMessageLabel(AccessToken a)
+        //{
+        //    try
+        //    {
+        //        int count = messageMgr.UnreadMessageCount(_accessToken.UserName);
+        //        string message = "";
+        //        if (count > 0)
+        //        {
+        //            message = count.ToString();
+        //        }
+        //        else
+        //        {
+        //            message = "No";
+        //        }
+
+        //        lblCurrentMessages.Header = a.FirstName + " You Have " + message + " New Messages";
+        //    }
+        //    catch (Exception)
+        //    {
+        //        lblCurrentMessages.Header = a.FirstName + " You Have No New Messages";
+        //    }
+            
+        //}
+        /// <summary>
         /// Author: Ryan Taylor
         /// Click logic for New user button
         /// Date: 2/26/16
@@ -482,5 +510,6 @@ namespace com.GreenThumb.WPF_Presentation
                 }
             }
         }
+
     }
 }

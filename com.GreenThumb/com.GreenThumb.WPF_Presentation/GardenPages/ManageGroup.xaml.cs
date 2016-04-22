@@ -102,7 +102,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
         /// </summary>
         private void btnCloseGroup_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you wish to deactivate this group?","Deactivate Group",MessageBoxButton.YesNo,MessageBoxImage.Exclamation);
+            var result = MessageBox.Show("Are you sure you wish to deactivate this group?", "Deactivate Group", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
             if (result == MessageBoxResult.Yes)
             {
                 bool success = _grpManager.EditDeactivateGroup(_group);
@@ -115,7 +115,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                     throw new ApplicationException("The group could not be deactivated");
                 }
             }
-            
+
         }
 
         /// <summary>
@@ -128,7 +128,12 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
             try
             {
                 _memberList = _grpManager.GetGroupMembers(_group.GroupID);
-                dataRequestList.ItemsSource = _memberList;
+                List<User> users = new List<User>();
+                foreach (GroupMember g in _memberList)
+                {
+                    users.Add(g.User);
+                }
+                dataRequestList.ItemsSource = users;
             }
             catch (Exception ex)
             {
@@ -148,6 +153,15 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
         {
             // change member status
             PopulateMemberList();
+        }
+
+        private void btnMessageAllMembers_Click(object sender, RoutedEventArgs e)
+        {
+            if (null == _memberList)
+            {
+                PopulateMemberList();
+            }
+            this.NavigationService.Navigate(new ProfilePages.MessageCompose(_accessToken, true, _memberList, _group));
         }
     }
 }

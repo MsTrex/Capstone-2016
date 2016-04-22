@@ -318,9 +318,9 @@ namespace com.GreenThumb.DataAccess
             return succeded;
         }
 
-        public static List<string> RetrieveUserNames()
+        public static List<User> RetrieveUserNames()
         {
-            List<string> userList = new List<string>();
+            List<User> userList = new List<User>();
 
             var conn = DBConnection.GetDBConnection();
             var query = @"Admin.spSelectAllUserNames";
@@ -336,7 +336,13 @@ namespace com.GreenThumb.DataAccess
                 {
                     while (reader.Read())
                     {
-                        userList.Add(reader.GetString(0));
+                        User currentUser = new User()
+                        {
+                            UserName = reader.GetString(0),
+                            FirstName = reader.GetString(1),
+                            LastName = reader.GetString(2)
+                        };
+                        userList.Add(currentUser);
                     }
                 }
                 else
