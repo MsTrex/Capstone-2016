@@ -234,22 +234,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CreatePlant.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="CreateUser.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="EditPlantEntry.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="EditUserEntry.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="GardenPages\CreateOrganization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -286,10 +270,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Layout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="GardenPages\CreateGarden.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -300,18 +280,6 @@
     </Page>
     <Compile Include="AdminPages\AdminHome.xaml.cs">
       <DependentUpon>AdminHome.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CreatePlant.xaml.cs">
-      <DependentUpon>CreatePlant.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CreateUser.xaml.cs">
-      <DependentUpon>CreateUser.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EditPlantEntry.xaml.cs">
-      <DependentUpon>EditPlantEntry.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EditUserEntry.xaml.cs">
-      <DependentUpon>EditUserEntry.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExpertPages\ExpertGardenTemplate.xaml.cs">
       <DependentUpon>ExpertGardenTemplate.xaml</DependentUpon>
@@ -375,9 +343,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Layout.xaml.cs">
-      <DependentUpon>Layout.xaml</DependentUpon>
     </Compile>
     <Compile Include="GardenPages\CreateGarden.xaml.cs">
       <DependentUpon>CreateGarden.xaml</DependentUpon>
