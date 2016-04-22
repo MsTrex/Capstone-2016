@@ -149,7 +149,7 @@ namespace com.GreenThumb.MVC.Controllers
                     {
                         GroupMemberRequestModel requestModel = new GroupMemberRequestModel();
                         requestModel.Request = request;
-                        requestModel.Requestor = new UserManager().RetrieveUser(request.UserID);
+                        requestModel.Requestor = new UserManager().GetUser(request.UserID);
 
                         viewModel.Requests.Add(requestModel);
                     }
@@ -227,7 +227,7 @@ namespace com.GreenThumb.MVC.Controllers
         public ActionResult Create()
         {
             var userName = User.Identity.GetUserName();
-            var model = new com.GreenThumb.BusinessLogic.UserManager().RetrieveUserByUserName(userName);
+            var model = new com.GreenThumb.BusinessLogic.UserManager().GetUserByUserName(userName);
             return View(model);
         }
 
@@ -241,7 +241,7 @@ namespace com.GreenThumb.MVC.Controllers
             if (ModelState.IsValid)
             {
                 UserManager userManager = new UserManager();
-                var user = userManager.RetrieveUserByUserName(User.Identity.GetUserName());
+                var user = userManager.GetUserByUserName(User.Identity.GetUserName());
 
                 try
                 {
@@ -317,7 +317,7 @@ namespace com.GreenThumb.MVC.Controllers
 
             if (null != userName)
             {
-                userId = new UserManager().RetrieveUserId(userName);
+                userId = new UserManager().GetUserId(userName);
             }
 
             return userId;

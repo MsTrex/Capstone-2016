@@ -81,7 +81,7 @@ namespace com.GreenThumb.BusinessLogic
             }
             return false;
         } */
-        public bool ChangeUserData(int userID, int regionID)
+        public bool EditUserData(int userID, int regionID)
         {
             //                 var usr = new User()
 
@@ -105,7 +105,7 @@ namespace com.GreenThumb.BusinessLogic
             
         }
         
-         public User DisplayUserRecord(int userID)
+         public User GetAndDisplayUserRecord(int userID)
         {
             User usr = null;
 

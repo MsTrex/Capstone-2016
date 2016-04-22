@@ -51,7 +51,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
 
     //            int userNo = int.Parse(txtUserID.Text);
 
-    //            User users = (User)myUserRegionManager.DisplayUserRecord(userNo);
+    //            User users = (User)myUserRegionManager.GetAndDisplayUserRecord(userNo);
 
     //            if (users == null)
     //            {
@@ -93,7 +93,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
     //            int userNo = int.Parse(txtUserID.Text);
     //            int regionNo = int.Parse(txtRegionID.Text);
 
-    //            bool updateStatus = myUserRegionManager.ChangeUserData(userNo, regionNo);
+    //            bool updateStatus = myUserRegionManager.EditUserData(userNo, regionNo);
     //            lblMessage.Content = "User NO: " + userNo + " RegionID: " + regionNo
     //                + "   UpdateStatus: " + updateStatus;
 
