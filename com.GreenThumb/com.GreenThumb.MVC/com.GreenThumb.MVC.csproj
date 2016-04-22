@@ -160,6 +160,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\GardenController.cs" />
     <Compile Include="Controllers\GardenTaskController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
@@ -282,6 +283,9 @@
     <Content Include="Views\PartialViews\_GardenNeedsTable.cshtml" />
     <Content Include="Views\PartialViews\_CreateNeedForm.cshtml" />
     <Content Include="Views\Garden\AddNeed.cshtml" />
+    <Content Include="Views\PartialViews\_NeedsContributionsTable.cshtml" />
+    <Content Include="Views\Donation\Index.cshtml" />
+    <Content Include="Views\Donation\SendContribution.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

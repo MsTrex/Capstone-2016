@@ -49,6 +49,7 @@
     <Compile Include="CreateOrgAccessor.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="ExpertAccessor.cs" />
+    <Compile Include="GardenNeedsAccessor.cs" />
     <Compile Include="MessageAccessor.cs" />
     <Compile Include="GardenAccessor.cs" />
     <Compile Include="GroupAccessor.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="RoleAccessor.cs" />
     <Compile Include="TimePledgedAccessor.cs" />
     <Compile Include="UserAccessor.cs" />
+    <Compile Include="UserNeedsAccessor.cs" />
     <Compile Include="UserRegionAccessor.cs" />
     <Compile Include="UserRoleAccessor.cs" />
     <Compile Include="VolunteerAccessor.cs" />

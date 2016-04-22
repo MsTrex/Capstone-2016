@@ -90,9 +90,31 @@ namespace com.GreenThumb.MVC.Controllers
 
             if (id.HasValue)
             {
-                ViewBag.GardenId = id.Value;
+                
+                GardenDetailViewModel model = new GardenDetailViewModel()
+                {
+                    GardenID = id.Value
+                };
 
-                viewResult = View();
+                int userId = RetrieveUserId();
+
+                GardenNeedsManager needsManager = new GardenNeedsManager(userId, id.Value);
+
+                model.ActiveNeeds = needsManager.RetrieveActiveNeeds();
+
+                ViewBag.GroupLeader = new GroupManager().
+                    GetLeaderStatus(
+                        userId, new GardenManager().RetrieveGardenGroupId(id.Value)
+                    );
+
+                if (ViewBag.GroupLeader)
+                {
+                    model.PendingContributions = needsManager.RetrievePendingContributions();
+                }
+
+                model.CompletedNeeds = needsManager.RetrieveCompletedNeeds();
+
+                viewResult = View(model);
             }
 
             return viewResult;
@@ -135,7 +157,86 @@ namespace com.GreenThumb.MVC.Controllers
 
             if (ModelState.IsValid)
             {
-                viewResult = RedirectToAction("GardenDetail", new { id = model.GardenId });
+                int userId = RetrieveUserId();
+
+                GardenNeedsManager needsManager = new GardenNeedsManager(userId, model.GardenId);
+
+                GardenNeed need = new GardenNeed()
+                {
+                    Title 
+                        = model.Title,
+                    Description 
+                        = model.Description,
+                };
+
+                if (needsManager.AddNeed(need))
+                {
+                    viewResult = RedirectToAction("GardenDetail", new { id = model.GardenId });
+                }
+                else
+                {
+                    viewResult = View("Error"); // CHANGE
+                }
+            }
+
+            return viewResult;
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/21/16
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult ApproveContribution(int? id)
+        {
+            ActionResult viewResult = View("Error");
+
+            if (id.HasValue)
+            {
+                viewResult = RedirectToAction("Index", "Garden");
+            }
+
+            return viewResult;
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/21/16
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult DeclineContribution(int? id)
+        {
+            ActionResult viewResult = View("Error");
+
+            if (id.HasValue)
+            {
+                viewResult = RedirectToAction("Index", "Garden");
+            }
+
+            return viewResult;
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/21/16
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult CloseNeed(int? id, int? needId)
+        {
+            ActionResult viewResult = View("Error");
+
+            if (id.HasValue && needId.HasValue)
+            {
+                if (new GardenNeedsManager(RetrieveUserId(), id.Value).RemoveNeed(needId.Value))
+                {
+                    viewResult = Redirect(Request.UrlReferrer.ToString());
+                }
             }
 
             return viewResult;

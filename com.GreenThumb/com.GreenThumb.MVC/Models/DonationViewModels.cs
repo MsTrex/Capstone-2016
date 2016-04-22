@@ -1,4 +1,5 @@
-﻿using System;
+﻿using com.GreenThumb.BusinessObjects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,17 +20,33 @@ namespace com.GreenThumb.MVC.Models
         public string Title { get; set; }
         [Required]
         public string Description { get; set; }
-        [Required]
-        [Display(Name = "View Publicly?")]
-        public bool ViewPublicly { get; set; }
     }
 
     /// <summary>
     /// 
     /// Created By: Trent Cullinan 04/21/16
     /// </summary>
-    public class SendNeedViewModel
+    public class SendContributionViewModel
     {
-        
+        [HiddenInput(DisplayValue = false)]
+        public int NeedID { get; set; }
+        [Display(Name = "Optional Message")]
+        public string Description { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// Created By: Trent Cullinan 04/21/16
+    /// </summary>
+    public class GardenDetailViewModel
+    {
+        [HiddenInput(DisplayValue = false)]
+        public int GardenID { get; set; }   
+        [Display(Name = "Current Needs")]
+        public IEnumerable<GardenNeed> ActiveNeeds { get; set; }
+        [Display(Name = "Pending Contributions")]
+        public IEnumerable<NeedContribution> PendingContributions { get; set; }
+        [Display(Name = "Completed Needs")]
+        public IEnumerable<GardenNeed> CompletedNeeds { get; set; }
     }
 }

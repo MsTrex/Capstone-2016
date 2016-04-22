@@ -51,6 +51,7 @@
     <Compile Include="FakeStuff\FakeSecurityManager.cs" />
     <Compile Include="FakeStuff\FakeUserManager.cs" />
     <Compile Include="GardenManager.cs" />
+    <Compile Include="GardenNeedsManager.cs" />
     <Compile Include="GardenTemplateManager.cs" />
     <Compile Include="GroupLeaderRequestManager.cs" />
     <Compile Include="GroupManager.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="SecurityManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserManager.cs" />
+    <Compile Include="UserNeedsManager.cs" />
     <Compile Include="UserRegionManager.cs" />
     <Compile Include="UserRoleManager.cs" />
     <Compile Include="VolunteerManager.cs" />

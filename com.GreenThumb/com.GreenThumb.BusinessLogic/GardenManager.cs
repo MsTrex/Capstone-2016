@@ -127,5 +127,24 @@ namespace com.GreenThumb.BusinessLogic
 
             return gardens;
         }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/21/16
+        /// </summary>
+        /// <param name="gardenId"></param>
+        /// <returns></returns>
+        public int RetrieveGardenGroupId(int gardenId)
+        {
+            int groupId = 0;
+
+            try
+            {
+                groupId = GardenAccessor.RetrieveGroupByGarden(gardenId).GroupID;
+            }
+            catch (Exception) { } // groupId will be zero
+
+            return groupId;
+        }
     }
 }

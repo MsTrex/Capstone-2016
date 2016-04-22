@@ -1,4 +1,5 @@
-﻿@model com.GreenThumb.MVC.Models.CreateNeedViewModel
+﻿@* Created By: Trent Cullinan 04/14/16 *@
+@model com.GreenThumb.MVC.Models.CreateNeedViewModel
 @{
     ViewBag.Title = "AddNeed";
 }
@@ -19,10 +20,6 @@
         @Html.LabelFor(m => m.Description)
         @Html.TextAreaFor(m => m.Description)
         @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
-    </div>
-    <div>
-        @Html.LabelFor(m => m.ViewPublicly)
-        @Html.CheckBoxFor(m => m.ViewPublicly)
     </div>
     <div>
         <input type="submit" value="Create Need" class="btn btn-default" />

@@ -1,15 +1,52 @@
-﻿@model com.GreenThumb.BusinessObjects.Garden
+﻿@* Created By: Trent Cullinan 04/14/16 *@
+@model com.GreenThumb.MVC.Models.GardenDetailViewModel
 
 @{
     ViewBag.Title = "GardenDetail";
+    ViewBag.GardenId = Model.GardenID;
+    const string nullRecords = "Unable to retrieve records.";
 }
 
 <h2>GardenDetail</h2>
 
 <div>
-    @Html.ActionLink("Add Need", "AddNeed", "Garden", new { id = ViewBag.GardenId }, null)
-    <p class="h3">Current Needs</p>
-    <p class="h3">Pending Needs</p>
-    <p class="h3">Completed Needs</p>
+    @if (ViewBag.GroupLeader)
+    {
+        @Html.ActionLink("Add Need", "AddNeed", "Garden", new { id = Model.GardenID }, new { @class = "btn btn-default" })
+    }
+    <br />
+    @Html.LabelFor(m => m.ActiveNeeds, new { @class = "h3" })
+    <div>
+        @if (null != Model.ActiveNeeds)
+        {
+            @Html.Partial("~/Views/PartialViews/_GardenNeedsTable.cshtml", Model.ActiveNeeds)
+        }
+        else
+        {
+            <p class="h3">@nullRecords</p>
+        }
+    </div>
+    
+    <div>
+        @* If the collection is null then do not display anything *@
+        @if (null != Model.PendingContributions)
+        {
+            @Html.LabelFor(m => m.PendingContributions, new { @class = "h3" })
+            @Html.Partial("~/Views/PartialViews/_NeedsContributionsTable.cshtml", Model.PendingContributions)
+        }
+    </div>
+    
+    @Html.LabelFor(m => m.CompletedNeeds, new { @class = "h3" })
+    <div>
+        @if (null != Model.CompletedNeeds)
+        {
+            @Html.Partial("~/Views/PartialViews/_GardenNeedsTable.cshtml", Model.CompletedNeeds)
+        }
+        else
+        {
+            <p class="h3">@nullRecords</p>
+        }
+    </div>
+    
 </div>
 
