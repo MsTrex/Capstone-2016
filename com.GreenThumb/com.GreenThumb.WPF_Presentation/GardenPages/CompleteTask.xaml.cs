@@ -52,7 +52,7 @@ namespace com.GreenThumb.WPF_Presentation.GardenPages
                     job.DateCompleted = date;
                     job.Active = false;
 
-                    if (jobManager.ChangeTask(job, oldJob) == true)
+                    if (jobManager.EditTask(job, oldJob) == true)
                     {
                         MessageBox.Show("Task completed successfully!");
                         DisplayTaskData();

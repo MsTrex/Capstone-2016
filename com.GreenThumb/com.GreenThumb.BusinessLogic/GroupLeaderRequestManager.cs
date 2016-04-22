@@ -17,6 +17,11 @@ namespace com.GreenThumb.BusinessLogic
             this._accToken = accToken;
         }
 
+        /// <summary>
+        /// created by: Nicholas King
+        /// Created: 3/4/2016
+        /// </summary>
+        /// <returns>a list of group</returns>
         public List<Group> GetUserGroups()
         {
             _userGroups = DataAccess.GroupAccessor.RetrieveUsersGroups(_accToken.UserID, Active.active);
@@ -24,6 +29,12 @@ namespace com.GreenThumb.BusinessLogic
             return _userGroups;
         }
 
+        /// <summary>
+        /// created by: Nicholas King
+        /// Created: 3/4/2016
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <returns> if it succssuful will add a group to database</returns>
         public string AddGroupLeaderRequest(string groupName)
         {
             string returned = "";

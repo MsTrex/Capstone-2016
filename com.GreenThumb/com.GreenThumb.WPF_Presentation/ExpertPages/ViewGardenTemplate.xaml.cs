@@ -45,7 +45,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             {
                 try
                 {
-                    var data = manager.LoadTemplate(selectedTemplate);
+                    var data = manager.AddLoadTemplate(selectedTemplate);
                     var stream = new MemoryStream(data);
 
                     var bitmap = new BitmapImage();
