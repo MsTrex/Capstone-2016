@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.GreenThumb.WPF_Presenta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.GreenThumb.WindowsForms_Presentation", "com.GreenThumb.WindowsForms_Presentation\com.GreenThumb.WindowsForms_Presentation.csproj", "{7CB11741-19F3-49BA-ACFC-778C0A554831}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.GreenThumb.MVC_Presentation", "com.GreenThumb.MVC_Presentation\com.GreenThumb.MVC_Presentation.csproj", "{A32DACA0-F616-4940-8A86-4E116FB4CC8D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.GreenThumb.BusinessLogicUnitTests", "com.GreenThumb.BusinessLogicUnitTests\com.GreenThumb.BusinessLogicUnitTests.csproj", "{425E3E5B-AD68-4ED8-98F7-EC43910BAD72}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.GreenThumb.MVC", "com.GreenThumb.MVC\com.GreenThumb.MVC.csproj", "{882B1D33-311B-4E36-BC2F-67BB5591DA5E}"
@@ -45,10 +43,6 @@ Global
 		{7CB11741-19F3-49BA-ACFC-778C0A554831}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CB11741-19F3-49BA-ACFC-778C0A554831}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CB11741-19F3-49BA-ACFC-778C0A554831}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A32DACA0-F616-4940-8A86-4E116FB4CC8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A32DACA0-F616-4940-8A86-4E116FB4CC8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A32DACA0-F616-4940-8A86-4E116FB4CC8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A32DACA0-F616-4940-8A86-4E116FB4CC8D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{425E3E5B-AD68-4ED8-98F7-EC43910BAD72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{425E3E5B-AD68-4ED8-98F7-EC43910BAD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{425E3E5B-AD68-4ED8-98F7-EC43910BAD72}.Release|Any CPU.ActiveCfg = Release|Any CPU

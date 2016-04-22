@@ -1,9 +1,17 @@
-﻿@using com.GreenThumb.BusinessObjects
+﻿@*Poonam Dubey*@
+@*14th April 2016*@
+@*View for garden task management*@
+
+@using com.GreenThumb.BusinessObjects
 @model com.GreenThumb.MVC.Models.GardenTaskViewModel
 
 @{
     ViewBag.Title = "Index";
+
 }
+
+
+
 
 @using (Html.BeginForm())
 {
@@ -34,31 +42,186 @@
         <div class="UserGardensTable">
             @Html.Partial("~/Views/PartialViews/TasksForGarden.cshtml")
         </div>
-        @Html.ActionLink("Save Task", "SaveTask", "GardenTask", new { gardenID = -1, description = "xxx", isActive = true }, new { @id = "saveTask" })
+        @Html.ActionLink("Save Task", "SaveTask", "GardenTask", new { gardenID = -1, description = "xxx", userNotes = "yyy" }, new { @id = "saveTask" })
     </div>
+
+    <div id="dialog-message" title="Error!" style=" display:none">
+        <span id="dialogText"></span>
+    </div>
+
 }
 <script src="~/Scripts/GardenTask.js">
 
 </script>
 <script>
+    var gardenID;
+    // var hasAccesss;
+    var userID;
     $(document).ready(function () {
+        gardenID = '@ViewBag.GardenID';
+       @*hasAccesss = '@ViewBag.HasAccess';*@
+        userID = '@ViewBag.UserID';
+        $("#createTaskDiv").hide();
+
+        //if (hasAccesss == 'False')
+        //{
+        //    $("#createTaskDiv").remove();
+        //    $("#createTask").remove();
+        //    $(".deactivate").hide();
+        //}
+
+        $("#" + userID).show();
+
+        if (gardenID != undefined && gardenID > 0) {
+            radioClick(gardenID);
+            $("#" + gardenID + "_Radio").prop('checked', true);
+        }
+
         $("#viewTask").click(function () {
-            this.href = this.href.replace(-1, getRadioSelection());
-            $("#viewTaskDiv").attr('display', 'block');
-            $("#createTaskDiv").attr('display', 'none');
+            var data = getRadioSelection();
+            if
+            (data != undefined && data > 0) {
+                this.href = this.href.replace(-1, data);
+                $("#viewTaskDiv").show();
+                $("#createTaskDiv").hide();
+            }
+
+            else {
+                $("#dialog-message").show();
+                $("#dialog-message").attr("title", "Error!");
+                $("#dialogText").text('Select a group from the grid to view tasks');
+                    $("#dialog-message").dialog({
+                        modal: true,
+                        buttons: {
+                            Ok: function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
+
+                return false;
+            }
         });
 
         $("#createTask").click(function () {
-            $("#viewTaskDiv").attr('display', 'none');
-            $("#createTaskDiv").attr('display', 'block');
+            $("#viewTaskDiv").hide();
+            $("#createTaskDiv").show();
         });
 
         $("#saveTask").click(function () {
-            debugger;
-            this.href = this.href.replace(-1, getRadioSelection());
-            this.href = this.href.replace("xxx", $("#desc").val());
-            $("#desc").val('');
+            var data = getRadioSelection();
+            if (data != undefined && data > 0) {
+                if ($("#desc").val() != '' && $("#notes").val() != '') {
+                    this.href = this.href.replace(-1, data);
+                    this.href = this.href.replace("xxx", $("#desc").val());
+                    this.href = this.href.replace("yyy", $("#notes").val());
+                    $("#desc").val('');
+                    $("#notes").val('');
+                }
+                else {
+                    $("#dialog-message").attr("title", "Error!");
+                    $("#dialog-message").show();
+                    $("#dialogText").text('Enter Description and user notes to create task');
+                    $("#dialog-message").dialog({
+                        modal: true,
+                        buttons: {
+                            Ok: function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
+
+                    return false;
+                }
+            }
+            else {
+                $("#dialog-message").show();
+                $("#dialog-message").attr("title", "Error!");
+                $("#dialogText").text('Select a group from the grid to which you want to save task');
+                $("#dialog-message").dialog({
+                    modal: true,
+                    buttons: {
+                        Ok: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+
+                return false;
+            }
         });
+
+        $(".deleteTask").click(function (e) {
+            e.preventDefault();
+            $("#dialog-message").attr("title", "Confirmation!");
+            $("#dialog-message").show();
+            $("#dialogText").text('Are you sure you want to deactivate this task?');
+            $("#dialog-message").dialog({
+                modal: true,
+                buttons: {
+                    Yes: function () {
+                        $(this).dialog("close");
+                        var data = getRadioSelection();
+                        e.currentTarget.href = e.currentTarget.href.replace(-1, data);
+                        window.location = e.currentTarget.href;
+                        return true;
+                    },
+                    No: function () {
+                        $(this).dialog("close");
+                        return false;
+                    }
+                }
+            });
+        });
+
+
+        $(".volunteerTask").click(function (e) {
+            e.preventDefault();
+            $("#dialog-message").show();
+            $("#dialog-message").attr("title", "Confirmation!");
+            $("#dialogText").text('Are you sure you want to volunteer for this task?');
+            $("#dialog-message").dialog({
+                modal: true,
+                buttons: {
+                    Yes: function () {
+                        $(this).dialog("close");
+                        var data = getRadioSelection();
+                        e.currentTarget.href = e.currentTarget.href.replace(-1, data);
+                        window.location = e.currentTarget.href;
+                        return true;
+                    },
+                    No: function () {
+                        $(this).dialog("close");
+                        return false;
+                    }
+                }
+            });
+        });
+
+
+        $(".completeTask").click(function (e) {
+            e.preventDefault();
+            $("#dialog-message").show();
+            $("#dialog-message").attr("title", "Confirmation!");
+            $("#dialogText").text('Are you sure you want to mark this task as completed?');
+            $("#dialog-message").dialog({
+                modal: true,
+                buttons: {
+                    Yes: function () {
+                        $(this).dialog("close");
+                        var data = getRadioSelection();
+                        e.currentTarget.href = e.currentTarget.href.replace(-1, data);
+                        window.location = e.currentTarget.href;
+                        return true;
+                    },
+                    No: function () {
+                        $(this).dialog("close");
+                        return false;
+                    }
+                }
+            });
+        });
+
 
     });
 </script>

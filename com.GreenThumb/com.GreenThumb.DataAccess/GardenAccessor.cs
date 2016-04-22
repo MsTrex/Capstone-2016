@@ -65,6 +65,7 @@ namespace com.GreenThumb.DataAccess
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@GroupID", garden.GroupID);
+            cmd.Parameters.AddWithValue("@GardenName", garden.GardenName);
             cmd.Parameters.AddWithValue("@UserID", garden.UserID);
             cmd.Parameters.AddWithValue("@GardenDescription", garden.GardenDescription);
             cmd.Parameters.AddWithValue("@GardenRegion", DBNull.Value);
@@ -275,6 +276,59 @@ namespace com.GreenThumb.DataAccess
             }
 
             return gardens;
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/21/16
+        /// </summary>
+        /// <param name="gardenId"></param>
+        /// <returns></returns>
+        public static Group RetrieveGroupByGarden(int gardenId)
+        {
+            Group group = null;
+
+            var conn = DBConnection.GetDBConnection();
+
+            var cmd = new SqlCommand("Gardens.SelectGroupByGardenID", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@GardenID", gardenId);
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    group = new Group()
+                    {
+                        GroupID 
+                            = reader.GetInt32(0),
+                        Name 
+                            = reader.GetString(2),
+                        GroupLeader = new GroupMember()
+                        {
+                            User = new User()
+                            {
+                                UserID = reader.GetInt32(1)
+                            }
+                        }
+                    };
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return group;
         }
     }
 }

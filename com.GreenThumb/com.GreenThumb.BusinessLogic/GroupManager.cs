@@ -15,6 +15,7 @@ namespace com.GreenThumb.BusinessLogic
 {
     public class GroupManager : com.GreenThumb.BusinessLogic.Interfaces.IGroupManager
     {
+
         public List<Group> GetGroupList(int OrganizationID)
         {
 
@@ -34,7 +35,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="userID"></param>
         /// <returns></returns>
-        public List<Group> FetchGroupsToJoin(int userID)
+        public List<Group> GetGroupsToJoin(int userID)
         {
             List<Group> joinable;
 
@@ -127,7 +128,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <returns>
         /// Boolean of result: success or failure
         /// </returns>
-        public bool ChangeGroupName(int groupID, string newGroupName, string oldGroupName)
+        public bool EditGroupName(int groupID, string newGroupName, string oldGroupName)
         {
             try
             {
@@ -166,7 +167,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <returns>
         /// Boolean of result for deactivating group
         /// </returns>
-        public bool DeactivateGroup(Group group)
+        public bool EditDeactivateGroup(Group group)
         {
             try
             {
@@ -207,7 +208,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="userId">User Id of user to retrieve groups for.</param>
         /// <returns>Collection of groups that a user belongs to.</returns>
-        public IEnumerable<Group> RetrieveUserGroups(int userId)
+        public IEnumerable<Group> GetUserGroups(int userId)
         {
             IEnumerable<Group> groups = new List<Group>(); // Empty collection to return
 
@@ -228,7 +229,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="userId">User Id of user leaving.</param>
         /// <param name="groupId">Group Id of which group.</param>
         /// <returns>Whether the group removal was successful.</returns>
-        public bool LeaveGroup(int userId, int groupId)
+        public bool EditLeaveGroup(int userId, int groupId)
         {
             bool flag = false;
 
@@ -273,7 +274,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="groupId">Identifier to be used.</param>
         /// <returns>Group that was requested by Id</returns>
-        public Group RetrieveGroup(int groupId)
+        public Group GetGroup(int groupId)
         {
             Group group = null;
 
@@ -302,7 +303,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="groupid"></param>
         /// <returns></returns>
-        public List<GroupRequest> RetrieveGroupRequests(int groupid)
+        public List<GroupRequest> GetGroupRequests(int groupid)
         {
             List<GroupRequest> requests = new List<GroupRequest>();
             if (groupid != null)
@@ -320,7 +321,7 @@ namespace com.GreenThumb.BusinessLogic
         }
 
 
-        public bool AcceptGroupRequest(GroupRequest request)
+        public bool UpateAcceptGroupRequest(GroupRequest request)
         {
             bool result = false;
 

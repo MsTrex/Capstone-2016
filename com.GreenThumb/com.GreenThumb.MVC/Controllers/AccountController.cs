@@ -175,7 +175,7 @@ namespace com.GreenThumb.MVC.Controllers
 
                 if (!CheckDbUser(model.UserName))
                 {
-                    if (new UserManager().CreateNewUser(new User() 
+                    if (new UserManager().AddNewUserPasswordChange(new User() 
                     {
                         UserName
                             = model.UserName,
@@ -276,7 +276,7 @@ namespace com.GreenThumb.MVC.Controllers
 
                     try
                     {
-                        oldUser = userManager.RetrieveUserByUserName(model.UserName);
+                        oldUser = userManager.GetUserByUserName(model.UserName);
                     }
                     catch (Exception)
                     {
@@ -421,7 +421,7 @@ namespace com.GreenThumb.MVC.Controllers
 
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                        if (!new UserManager().ChangePasssword(user.UserName, RetrievePasswordErrorValue("OldValue"), model.Password))
+                        if (!new UserManager().EditPasssword(user.UserName, RetrievePasswordErrorValue("OldValue"), model.Password))
                         {
                             ModelState.AddModelError("", "Error changing password in database.");
 
@@ -759,7 +759,7 @@ namespace com.GreenThumb.MVC.Controllers
         // Created by: Trent Cullinan 03/25/16
         private bool CheckDbUser(string userName, string password = null)
         {
-            return new UserManager().UserExists(userName, password: password);
+            return new UserManager().ConfirmUserExists(userName, password: password);
         }
 
         // Created by: Trent Cullinan 03/25/16

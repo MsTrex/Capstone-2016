@@ -16,7 +16,8 @@ namespace com.GreenThumb.DataAccess
         /// Gets all of the regions in the database
         /// </summary>
         /// <returns>All region in the database</returns>
-        public static List<Region> FetchRegions()
+        /// changed method name from FetchRegions 4/21/16 Steve Hoover
+        public static List<Region> RetrieveRegions()
         {
             List<Region> regions = new List<Region>();
 

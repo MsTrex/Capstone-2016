@@ -57,7 +57,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             try
             {
-                dgrdUsers.ItemsSource = orgUserManager.FetchOrgUsers(this.accessToken);
+                dgrdUsers.ItemsSource = orgUserManager.GetOrgUsers(this.accessToken);
                 dgrdUsers.Items.Refresh();
             }
             catch (Exception ex)
@@ -83,7 +83,7 @@ namespace com.GreenThumb.WPF_Presentation
 
                 try
                 {
-                    lblResponseMessage.Content = orgUserManager.ChangeUserLeader(this.accessToken, user) ?
+                    lblResponseMessage.Content = orgUserManager.EditUserLeader(this.accessToken, user) ?
                         "User changed!" : "Sorry, selected user could not be changed.";
 
                     BindOrganizationUsers();
@@ -104,8 +104,8 @@ namespace com.GreenThumb.WPF_Presentation
                 {
                     try
                     {
-                        lblResponseMessage.Content = orgRequestManager.ApproveRequest(
-                            this.accessToken, request, orgUserManager.RetrieveGroupMember(accessToken, request.User)) ?
+                        lblResponseMessage.Content = orgRequestManager.EditApproveRequest(
+                            this.accessToken, request, orgUserManager.GetGroupMember(accessToken, request.User)) ?
                             "Request Approved" : "Unable to approve";
 
                         BindLeaderRequests();
@@ -149,7 +149,7 @@ namespace com.GreenThumb.WPF_Presentation
                 {
                     try
                     {
-                        lblResponseMessage.Content = orgRequestManager.DeclineRequest(accessToken, request) ?
+                        lblResponseMessage.Content = orgRequestManager.EditDeclineRequest(accessToken, request) ?
                             "Request Declined" : "Unable to decline";
 
                         BindLeaderRequests();
@@ -171,7 +171,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             try
             {
-                dgrdRequests.ItemsSource = orgRequestManager.FetchOrgRequests(accessToken);
+                dgrdRequests.ItemsSource = orgRequestManager.GetOrgRequests(accessToken);
                 dgrdRequests.Items.Refresh();
             }
             catch (Exception ex)

@@ -63,7 +63,7 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
                 }
                 if (valid)
                 {
-                    blogManager.CreateBlog(blog);
+                    blogManager.AddBlog(blog);
                     MessageBox.Show("Thank you for submitting your blog, creation sucessful!");
                     if (accessToken != null)
                     {

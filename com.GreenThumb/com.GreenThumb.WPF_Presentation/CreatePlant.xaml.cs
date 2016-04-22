@@ -17,7 +17,7 @@ using com.GreenThumb.BusinessLogic;
 namespace com.GreenThumb.WPF_Presentation
 {
     /// <summary>
-    /// Interaction logic for CreatePlant.xaml
+    /// Interaction logic for AddPlant.xaml
     /// //Created by Stenner Kvindlog 
     /// //3/4/16
     /// </summary>
@@ -61,7 +61,7 @@ namespace com.GreenThumb.WPF_Presentation
                 newPlant.CreatedDate = DateTime.Now;
                 newPlant.CreatedBy = user.UserID;
 
-                myInt = myPlantManager.CreatePlant(newPlant);
+                myInt = myPlantManager.AddPlant(newPlant);
 
             }
             catch (Exception ax)

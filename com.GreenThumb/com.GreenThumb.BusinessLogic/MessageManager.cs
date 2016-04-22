@@ -82,7 +82,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="Username"></param>
         /// <param name="MessageID"></param>
         /// <returns> Returns true or false based on success of marking a messsage read</returns>
-        public bool MarkMessageRead(string Username, int MessageID)
+        public bool EditMessageRead(string Username, int MessageID)
         {
             bool result;
             try
@@ -106,7 +106,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="MessageID"></param>
         /// <returns>Returns True or false based on success of deleting message from users outbox</returns>
 
-        public bool MarkMessageDeletedSender(string Username, int MessageID)
+        public bool EditMessageDeletedSender(string Username, int MessageID)
         {
             bool result;
             try
@@ -129,7 +129,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="Username"></param>
         /// <param name="MessageID"></param>
         /// <returns>Retruns true or false based on success of deleting message from users inbox</returns>
-        public bool MarkMessageDeletedReceiver(string Username, int MessageID)
+        public bool EditMessageDeletedReceiver(string Username, int MessageID)
         {
             bool result;
             try
@@ -151,7 +151,7 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="Username"></param>
         /// <returns> Returns an count of the messages</returns>
-        public int UnreadMessageCount(string Username)
+        public int GetUnreadMessageCount(string Username)
         {
             int count;
             List<Message> Messages = GetUserMessages(Username);
@@ -162,7 +162,16 @@ namespace com.GreenThumb.BusinessLogic
 
         }
 
-
-
+        public List<User> GetUserNames()
+        {
+            try
+            {
+                return MessageAccessor.RetrieveUserNames();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

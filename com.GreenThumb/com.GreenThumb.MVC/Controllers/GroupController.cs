@@ -32,7 +32,7 @@ namespace com.GreenThumb.MVC.Controllers
 
             if (0 != userId)
             {
-                var groups = new GroupManager().RetrieveUserGroups(userId);
+                var groups = new GroupManager().GetUserGroups(userId);
                 model.UserGroupList = new List<GroupIndexViewModel.UserGroupViewModel>(groups.Count());
 
                 foreach (Group group in groups)
@@ -52,7 +52,7 @@ namespace com.GreenThumb.MVC.Controllers
                     });
                 }
 
-                var joinableGroups = new GroupManager().FetchGroupsToJoin(userId);
+                var joinableGroups = new GroupManager().GetGroupsToJoin(userId);
                 model.NonUserGroupList = new List<GroupIndexViewModel.UserGroupViewModel>(joinableGroups.Count());
 
                 foreach (Group group in joinableGroups)
@@ -95,7 +95,7 @@ namespace com.GreenThumb.MVC.Controllers
 
                 if (0 != userId)
                 {
-                    if (new GroupManager().LeaveGroup(userId, group.Value))
+                    if (new GroupManager().EditLeaveGroup(userId, group.Value))
                     {
                         return RedirectToAction("Index", "Group");
                     }
@@ -120,10 +120,10 @@ namespace com.GreenThumb.MVC.Controllers
             if (id.HasValue)
             {
                 var group
-                    = new GroupManager().RetrieveGroup(id.Value);
+                    = new GroupManager().GetGroup(id.Value);
 
                 var gardens
-                    = new GardenManager().RetrieveGroupGardens(id.Value);
+                    = new GardenManager().GetGroupGardens(id.Value);
 
                 var viewModel = new GroupDetailViewModel()
                 {
@@ -144,12 +144,12 @@ namespace com.GreenThumb.MVC.Controllers
                 if (true)//do check for if user is group leader
                 {
                     viewModel.Requests = new List<GroupMemberRequestModel>();
-                    List<GroupRequest> requests = new GroupManager().RetrieveGroupRequests(id.Value);
+                    List<GroupRequest> requests = new GroupManager().GetGroupRequests(id.Value);
                     foreach (GroupRequest request in requests)
                     {
                         GroupMemberRequestModel requestModel = new GroupMemberRequestModel();
                         requestModel.Request = request;
-                        requestModel.Requestor = new UserManager().RetrieveUser(request.UserID);
+                        requestModel.Requestor = new UserManager().GetUser(request.UserID);
 
                         viewModel.Requests.Add(requestModel);
                     }
@@ -174,7 +174,7 @@ namespace com.GreenThumb.MVC.Controllers
                 {
                     gRequest.ApprovedBy = RetrieveUserId();
                     gRequest.ApprovedDate = DateTime.Now;
-                    if (new GroupManager().AcceptGroupRequest(gRequest))
+                    if (new GroupManager().UpateAcceptGroupRequest(gRequest))
                     {
                         //accept completed
                     }
@@ -227,7 +227,7 @@ namespace com.GreenThumb.MVC.Controllers
         public ActionResult Create()
         {
             var userName = User.Identity.GetUserName();
-            var model = new com.GreenThumb.BusinessLogic.UserManager().RetrieveUserByUserName(userName);
+            var model = new com.GreenThumb.BusinessLogic.UserManager().GetUserByUserName(userName);
             return View(model);
         }
 
@@ -241,7 +241,7 @@ namespace com.GreenThumb.MVC.Controllers
             if (ModelState.IsValid)
             {
                 UserManager userManager = new UserManager();
-                var user = userManager.RetrieveUserByUserName(User.Identity.GetUserName());
+                var user = userManager.GetUserByUserName(User.Identity.GetUserName());
 
                 try
                 {
@@ -317,7 +317,7 @@ namespace com.GreenThumb.MVC.Controllers
 
             if (null != userName)
             {
-                userId = new UserManager().RetrieveUserId(userName);
+                userId = new UserManager().GetUserId(userName);
             }
 
             return userId;

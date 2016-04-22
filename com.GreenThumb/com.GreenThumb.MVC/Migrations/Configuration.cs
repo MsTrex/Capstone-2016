@@ -51,9 +51,9 @@ namespace com.GreenThumb.MVC.Migrations
 
                 int userId = 0;
 
-                if (!gt_userManager.UserExists(userName, password))
+                if (!gt_userManager.ConfirmUserExists(userName, password))
                 {
-                    if (!gt_userManager.CreateNewUser(new User()
+                    if (!gt_userManager.AddNewUserPasswordChange(new User()
                     {
                         UserName
                             = user.UserName,
@@ -71,14 +71,14 @@ namespace com.GreenThumb.MVC.Migrations
                     }
                     else {
                         UserManager uManager = new UserManager();
-                        int id = uManager.RetrieveUserId("admin");
+                        int id = uManager.GetUserId("admin");
 
                         GroupManager groupManager = new GroupManager();
                         groupManager.AddGroup(id, "ExpertContributor");
                     }
                 }
 
-                userId = gt_userManager.RetrieveUserId(userName);
+                userId = gt_userManager.GetUserId(userName);
 
                 userManager.AddClaim(user.Id, new Claim("GTUserID", userId.ToString()));
                 userManager.AddClaim(user.Id, new Claim(ClaimTypes.GivenName, user.FirstName));

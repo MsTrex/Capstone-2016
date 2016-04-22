@@ -17,7 +17,8 @@ namespace com.GreenThumb.DataAccess
         ///DB accessor to insert a recipe  
         ///Date: 3/19/16
         ///</summary>
-       public static int InputRecipe(Recipe recipe, int UserId)
+        ///changed method name from InputRecipe 4/21/16 Steve Hoover
+       public static int CreateRecipe(Recipe recipe, int UserId)
        {
            int rowCount = 0;
 
@@ -70,7 +71,8 @@ namespace com.GreenThumb.DataAccess
        /// <param name="offset">The index where the stored procedure begins searching for recipes</param>
        /// <param name="returnAmount">The amount of recipes that are returned</param>
        /// <returns>List of recipes from a stored procedure with a similar keyword and specified category</returns>
-       public static List<Recipe> FetchRecipesWithKeywordAndCategory(string keyword, string category, int offset, int returnAmount)
+       /// changed method name from FetchRecipesWithKeywordAndCategory 4/21/16 Steve Hoover
+       public static List<Recipe> RetrieveRecipesWithKeywordAndCategory(string keyword, string category, int offset, int returnAmount)
        {
            List<Recipe> recipes = new List<Recipe>();
 
@@ -155,7 +157,8 @@ namespace com.GreenThumb.DataAccess
        /// <param name="keyword">Word that is like recipe fields</param>
        /// <param name="category">The recipe's category. Null category acts like all categories.</param>
        /// <returns>The number of recipes with a similar keyword and specified category are in the database</returns>
-       public static int CountRecipes(string keyword = "", string category = null)
+       /// changed method name from CountRecipes 4/21/16 Steve Hoover
+       public static int RetrieveRecipeCount(string keyword = "", string category = null)
        {
            int count = 0;
 

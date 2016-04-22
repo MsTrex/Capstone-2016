@@ -15,6 +15,14 @@ namespace com.GreenThumb.BusinessLogic
     /// </summary>
     public class CreateOrgManager:ICreateOrgManager
     {
+        /// <summary>
+        /// Comments added by TRex 4/19/16
+        /// This method adds a new organization.
+        /// </summary>
+        /// <param name="orgLeaderID"></param>
+        /// <param name="organizationName"></param>
+        /// <param name="localPhone"></param>
+        /// <returns></returns>
         public bool AddNewOrganization(int orgLeaderID, string organizationName, string localPhone)
         {
            ///makes a new instance of an organization based on the input

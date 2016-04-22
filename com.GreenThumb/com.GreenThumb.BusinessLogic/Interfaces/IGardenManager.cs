@@ -12,6 +12,6 @@ namespace com.GreenThumb.BusinessLogic.Interfaces
     /// </summary>
     public interface IGardenManager
     {
-        bool CreateGarden(Garden garden);
+        bool AddNewGarden(Garden garden);
     }
 }

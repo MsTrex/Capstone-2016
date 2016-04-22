@@ -569,6 +569,9 @@ namespace com.GreenThumb.DataAccess
         /// Ryan Taylor
         /// Created 03/31/16
         /// </summary>
+        /// <remarks>
+        /// Trevor Glisch fixed values returned with stored procedure
+        /// </remarks>
         /// <param name="groupID"></param>
         /// <returns>Members associtated with groupID</returns>
         public static List<GroupMember> RetrieveMemberList(int groupID)
@@ -593,10 +596,10 @@ namespace com.GreenThumb.DataAccess
                             User = new User
                             {
                                 UserID = reader.GetInt32(0),
-                                FirstName = reader.GetString(1),
-                                LastName = reader.GetString(2)
-                            },
-                            Status = reader.GetString(3)
+                                UserName = reader.GetString(2),
+                                FirstName = reader.GetString(4),
+                                LastName = reader.GetString(5)
+                            }
                         };
                         memberList.Add(currentMember);
                     }

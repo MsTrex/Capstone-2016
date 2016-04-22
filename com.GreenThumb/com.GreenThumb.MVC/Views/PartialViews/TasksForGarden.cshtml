@@ -1,6 +1,40 @@
-﻿<div>
-    @Html.Display("Enter Task Description")
+﻿@*Poonam Dubey*@
+@*14th April 2016*@
+@*Partial view for create task*@
+<style>
+    .textarea {
+        height: 100px;
+        width: 500px;
+    }
+    
+</style>
+
+
+
+
+<div>
+    @Html.Label("Enter Task Description")
 </div>
 <div>
-    @Html.TextArea("GardenDescription", new { @id = "desc", required = "required" })
+    @Html.TextArea("GardenDescription", new
+{
+    @id = "desc",
+    @class = "textarea",
+    required = "required",
+    maxlength = 100,
+    style = "width: 500px; height: 85px;"
+})
+</div>
+<div>
+    @Html.Label("Enter User Notes")
+</div>
+<div>
+    @Html.TextArea("UserNotes", new
+{
+    @id = "notes",
+    @class = "textarea",
+    required = "required",
+    maxlength = 250,
+    style = "width: 500px; height: 85px;"
+})
 </div>

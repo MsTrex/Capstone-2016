@@ -46,7 +46,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
 
             AdminExpertRequestsManager myAdminExpertRequestsManager = new AdminExpertRequestsManager(CurrentUser);
 
-            myAdminExpertRequestsManager.ExpertApplication(Title, Description, userID, Time);
+            myAdminExpertRequestsManager.AddExpertApplication(Title, Description, userID, Time);
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)

@@ -345,7 +345,10 @@ namespace com.GreenThumb.DataAccess
 
             return rowCount;
         }
-
+        /*
+         * Removed by Steve Hoover - 4/21/15
+         * References to this method should be changed to RetrieveUserList
+         * 
         ///<summary>
         ///Author: Chris Schwebach
         ///FetchUserPersonalInfo gets a database connection and retrieves user personal information 
@@ -401,7 +404,7 @@ namespace com.GreenThumb.DataAccess
             return user;
         }
 
-
+        */
         /// <summary>
         /// Rhett Allen
         /// Created: 2016/02/26
@@ -460,7 +463,6 @@ namespace com.GreenThumb.DataAccess
 
             return updated;
         }
-
         /// <summary>
         /// Rhett Allen
         /// Created: 2016/02/26
@@ -538,7 +540,7 @@ namespace com.GreenThumb.DataAccess
             }
             return user;
         }
-
+        
        
         /// <summary>
         /// Author: Ibrahim Abuzaid
@@ -547,10 +549,13 @@ namespace com.GreenThumb.DataAccess
         /// 
         /// Added 3/4 By Ibarahim
         /// Updated Stored Procedure and Method Name 4/14/16 Emily
+        /// 
+        /// Updated method - SP calls for active 4/21/16 Steve Hoover
         /// </summary>
-        public static List<User> RetrieveUserList(int userID)
+        public static List<User> RetrieveUserList(Active active)
         {
             var user = new List<User>();
+            int _active = 0;
 
             var conn = DBConnection.GetDBConnection();
             var query = @"Admin.spSelectUsers";
@@ -558,25 +563,65 @@ namespace com.GreenThumb.DataAccess
 
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@UserID", userID);
+            if (active == Active.active)
+            {
+                _active = 1;
+            }
+
+            cmd.Parameters.AddWithValue("@Active", _active);
 
             try
             {
                 conn.Open();
                 var reader = cmd.ExecuteReader();
+
                 if (reader.HasRows)
                 {
-                    reader.Read();
-                    User currentUser = new User()
+                    while (reader.Read())
                     {
-                        FirstName = reader.GetString(0),
-                        LastName = reader.GetString(1),
-                        Zip = reader.GetString(2),
-                        EmailAddress = reader.GetString(3),
-                        RegionId = ((reader["RegionID"] != DBNull.Value) ? Convert.ToInt32(reader.GetInt32(4)) : 0)
+                        User currentUser = new User()
+                        {
+                            UserID = reader.GetInt32(0),
+                            FirstName = reader.GetString(1),
+                            LastName = reader.GetString(2),
+                            Zip = reader.GetString(3),
+                            EmailAddress = reader.GetString(4),
+                            UserName = reader.GetString(5),
+                            Password = reader.GetString(6),
+                            Active = reader.GetBoolean(7)
 
-                    };
-                    user.Add(currentUser);
+                        };
+
+                        if (reader.IsDBNull(3))
+                        {
+                            currentUser.Zip = null;
+                        }
+                        else
+                        {
+                            currentUser.Zip = reader.GetString(3);
+                        }
+
+                        if (reader.IsDBNull(4))
+                        {
+                            currentUser.EmailAddress = null;
+                        }
+                        else
+                        {
+                            currentUser.EmailAddress = reader.GetString(4);
+                        }
+
+
+                        if (reader.IsDBNull(8))
+                        {
+                            currentUser.RegionId = null;
+                        }
+                        else
+                        {
+                            currentUser.RegionId = reader.GetInt32(8);
+                        }
+
+                        user.Add(currentUser);
+                    }
                 }
                 else
                 {
@@ -853,6 +898,40 @@ namespace com.GreenThumb.DataAccess
             return count;
 
         }
+
+        /// <summary>
+        /// Poonam Dubey
+        /// 18th April 2016
+        /// Function to check if user is garden leader
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        //public static bool CheckIsGardenLeader(int userID)
+        //{
+        //    int count = 0;
+
+        //    var conn = DBConnection.GetDBConnection();
+        //    var cmd = new SqlCommand("Gardens.spCheckUserIsGroupLeader", conn);
+        //    cmd.CommandType = CommandType.StoredProcedure;
+
+        //    cmd.Parameters.AddWithValue("@UserID", userID);
+
+        //    try
+        //    {
+        //        conn.Open();
+        //        count = (int)cmd.ExecuteScalar();
+        //    }
+        //    catch (Exception)
+        //    {
+                
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        conn.Close();
+        //    }
+        //    return count == 1;
+        //}
 
     }
 }

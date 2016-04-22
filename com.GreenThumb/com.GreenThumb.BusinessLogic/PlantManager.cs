@@ -19,7 +19,7 @@ namespace com.GreenThumb.BusinessLogic
         //calling to the plant accessor
         ///Date: 3/4/16
         ///</summary>
-        public List<Plant> FetchPlantList(Active active)
+        public List<Plant> GetPlantList(Active active)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace com.GreenThumb.BusinessLogic
                     plant.RegionIDs = PlantAccessor.RetrievePlantRegions(plant);
                 }
                 return plants;
-                //return CreateTestPlants(false);
+                //return AddTestPlants(false);
             }
             catch (Exception ex)
             {
@@ -44,7 +44,7 @@ namespace com.GreenThumb.BusinessLogic
         //calling to the plant accessor
         ///Date: 3/4/16
         ///</summary>
-        public Plant FetchPlant(int plantId)
+        public Plant GetPlant(int plantId)
         {
             return PlantAccessor.RetrievePlant(plantId);
         }
@@ -52,15 +52,15 @@ namespace com.GreenThumb.BusinessLogic
 
         ///<summary>
         ///Author: Stenner Kvindlog         
-        ///CreatePlant creates a plant 
+        ///AddPlant creates a plant 
         //calling to the plant accessor
         ///Date: 3/4/16
         ///</summary>
-        public int CreatePlant(Plant newPlant)
+        public int AddPlant(Plant newPlant)
         {
             try
             {
-                //bool myBool = PlantAccessor.CreatePlant(newPlant);
+                //bool myBool = PlantAccessor.AddPlant(newPlant);
                 return PlantAccessor.CreatePlant(newPlant);
             }
             catch (Exception)
@@ -96,7 +96,7 @@ namespace com.GreenThumb.BusinessLogic
         ///Gets plant regions
         ///Date: 4/7/16
         ///</summary>
-        public bool?[] FetchPlantRegions(Plant plant)
+        public bool?[] GetPlantRegions(Plant plant)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace com.GreenThumb.BusinessLogic
         ///Sets plant regions 
         ///Date: 4/7/16
         ///</summary>
-        public bool CreatePlantRegions(Plant plant, bool?[] regions)
+        public bool AddPlantRegions(Plant plant, bool?[] regions)
         {
             List<int> regionIds = new List<int>();
             for (int i = 0; i < regions.Length; i++)
@@ -138,8 +138,9 @@ namespace com.GreenThumb.BusinessLogic
         ///Author: Sara Nanke         
         ///Creates some test data 
         ///Date: 3/31/16
+        ///delete before the end of projects Dat Tran 4/22/2016
         ///</summary>
-        public List<Plant> CreateTestPlants(bool IsDB = true)
+        public List<Plant> AddTestPlants(bool IsDB = true)
         {
             List<Plant> plants = new List<Plant>();
 
@@ -163,7 +164,7 @@ namespace com.GreenThumb.BusinessLogic
                 //creating test plants
                 foreach (Plant plant in plants)
                 {
-                    CreatePlant(plant);
+                    AddPlant(plant);
                 }
             }
             return plants;

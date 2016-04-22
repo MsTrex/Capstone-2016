@@ -34,7 +34,7 @@ namespace com.GreenThumb.BusinessObjects
 
         [MaxLength(100)]
         public string EmailAddress { get; set; }
-
+        [Display(Name = "User Name")]
         public string UserName { get; set; }
         public string Password { get; set; }
         public bool Active { get; set; }
@@ -59,6 +59,12 @@ namespace com.GreenThumb.BusinessObjects
             Password = password;
             Active = active;
             RegionId = regionId;
+        }
+
+
+        public override string ToString()
+        {
+            return FirstName + " " + LastName;
         }
              
 

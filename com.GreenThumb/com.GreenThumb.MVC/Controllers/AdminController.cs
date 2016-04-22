@@ -38,12 +38,12 @@ namespace com.GreenThumb.MVC.Controllers
 
             var viewModel = new GroupDetailViewModel();
             viewModel.Requests = new List<GroupMemberRequestModel>();
-            List<GroupRequest> requests = new GroupManager().RetrieveGroupRequests(groupId);
+            List<GroupRequest> requests = new GroupManager().GetGroupRequests(groupId);
             foreach (GroupRequest request in requests)
             {
                GroupMemberRequestModel requestModel = new GroupMemberRequestModel();
                requestModel.Request = request;
-               requestModel.Requestor = new UserManager().RetrieveUser(request.UserID);
+               requestModel.Requestor = new UserManager().GetUser(request.UserID);
                viewModel.Requests.Add(requestModel);
             }
              return View(viewModel);
@@ -64,7 +64,7 @@ namespace com.GreenThumb.MVC.Controllers
                 {
                     gRequest.ApprovedBy = RetrieveUserId();
                     gRequest.ApprovedDate = DateTime.Now;
-                    if (new GroupManager().AcceptGroupRequest(gRequest))
+                    if (new GroupManager().UpateAcceptGroupRequest(gRequest))
                     {
                         //accept completed
                     }
@@ -86,7 +86,7 @@ namespace com.GreenThumb.MVC.Controllers
 
             if (null != userName)
             {
-                userId = new UserManager().RetrieveUserId(userName);
+                userId = new UserManager().GetUserId(userName);
             }
 
             return userId;
