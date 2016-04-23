@@ -27,11 +27,13 @@ namespace com.GreenThumb.MVC.Controllers
         /// <returns></returns>
         public ActionResult RequestJoinExpert()
         {
-            int groupID = 1001; 
+            GroupManager grMangr = new GroupManager();
+            Group grp = grMangr.RetrieveGroupByName("ExpertContributor");       
+            int groupId = grp.GroupID;
             GroupRequest request = new GroupRequest();
             request.UserID = RetrieveUserId();
             request.RequestDate = DateTime.Now;
-            request.GroupID = (int)groupID;
+            request.GroupID = groupId;
 
             GroupManager manager = new GroupManager();
             try
