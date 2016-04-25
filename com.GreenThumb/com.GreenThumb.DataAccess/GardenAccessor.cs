@@ -68,7 +68,7 @@ namespace com.GreenThumb.DataAccess
             cmd.Parameters.AddWithValue("@GardenName", garden.GardenName);
             cmd.Parameters.AddWithValue("@UserID", garden.UserID);
             cmd.Parameters.AddWithValue("@GardenDescription", garden.GardenDescription);
-            cmd.Parameters.AddWithValue("@GardenRegion", DBNull.Value);
+            cmd.Parameters.AddWithValue("@GardenRegion", garden.GardenRegion);
             bool updated = false;
 
             try
