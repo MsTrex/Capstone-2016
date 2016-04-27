@@ -1,0 +1,45 @@
+﻿@using com.GreenThumb.MVC.Models;
+@model List<GroupMemberRequestModel>
+
+<div>
+    @if (null != Model)
+    {
+        <p><strong class="text text-primary">Expert Requests</strong></p>
+        if (0 < Model.Count())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Date Submited</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (GroupMemberRequestModel requestInfo in Model)
+                    {
+                        <tr>
+                            <td>@requestInfo.Requestor.UserName</td>
+                            <td>@requestInfo.Requestor.FirstName</td>
+                            <td>@requestInfo.Requestor.LastName</td>
+                            <td>@requestInfo.Request.RequestDate</td>
+                            <td>@Html.ActionLink("Approve", "ApproveRequestToJoin", "Admin", requestInfo.Request, null)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h4>There are no Expert Requests at this time!</h4>
+        }
+
+    }
+    else
+    {
+        <p>Unable to retrieve requests.</p>
+    }
+</div>
+
+

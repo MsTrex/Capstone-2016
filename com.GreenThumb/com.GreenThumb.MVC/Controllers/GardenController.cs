@@ -53,6 +53,8 @@ namespace com.GreenThumb.MVC.Controllers
         [HttpPost]
         public ActionResult CreateGarden(GardenCreationViewModel model)
         {
+            ActionResult result = View(model);
+
             if (ModelState.IsValid)
             {
                 UserManager userManager = new UserManager();
@@ -64,6 +66,7 @@ namespace com.GreenThumb.MVC.Controllers
                 garden.GardenDescription = model.GardenDescription;
                 garden.GardenName = model.GardenName;
                 garden.GroupID = model.GroupID;
+                garden.GardenRegion = model.RegionID.ToString();
 
 
                 GardenManager gardenManager = new GardenManager();
@@ -72,9 +75,11 @@ namespace com.GreenThumb.MVC.Controllers
                 {
                     ViewBag.StatusMessage = "Your garden was created!";
                 }
+
+                result = RedirectToAction("Details", "Group", new { id = garden.GroupID });
             }
 
-            return RedirectToAction("Index", "Garden");
+            return result;
         }
 
         /// <summary>

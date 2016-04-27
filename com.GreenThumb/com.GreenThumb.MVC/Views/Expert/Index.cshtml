@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Expert</h2>
+
+@using (Html.BeginForm())
+{ 
+    <h2>Experts post blogs about gardening techniques, plants, recipes, and nutrients. They are also encouraged to answer
+       questions that garden members may have.</h2>
+    <h2>If you would like to request to be an Expert please click below!</h2>
+    @Html.ActionLink("Request to be an Expert", "RequestJoinExpert", "Expert")
+}

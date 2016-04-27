@@ -69,6 +69,13 @@ namespace com.GreenThumb.MVC.Migrations
                     {
                         throw new InvalidOperationException("User could not be created on the previous database.");
                     }
+                    else {
+                        UserManager uManager = new UserManager();
+                        int id = uManager.GetUserId("admin");
+
+                        GroupManager groupManager = new GroupManager();
+                        groupManager.AddGroup(id, "ExpertContributor");
+                    }
                 }
 
                 userId = gt_userManager.GetUserId(userName);

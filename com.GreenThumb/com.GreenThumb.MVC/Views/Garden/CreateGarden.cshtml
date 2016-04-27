@@ -15,7 +15,7 @@
         @Html.TextBoxFor(m => m.GardenName)
         <br />
         @Html.LabelFor(m => m.GardenDescription)
-        @Html.TextBoxFor(m => m.GardenDescription)
+        @Html.TextAreaFor(m => m.GardenDescription, new { id = "rich-editor" })
         <p>Please select a region from the map below!</p>
         <p class="h4">Selected Region: </p>
         @Html.TextBoxFor(m => m.RegionID, new { value = "" })
@@ -52,18 +52,18 @@
                 return nearest;
             }
 
-              var zones = [
-                new zone("0", 0, 0, 0, 0, 0),
-                new zone("0", 0, 0, 255, 255, 255),
-                new zone("2", -50, -40, 190, 163, 191),
-                new zone("3", -40, -30, 63, 37, 64),
-                new zone("4", -30, -20, 116, 117, 251),
-                new zone("5", -20, -10, 23, 142, 69),
-                new zone("6", -10, 0, 79, 204, 66),
-                new zone("7", 0, 10, 248, 251, 97),
-                new zone("8", 10, 20, 251, 149, 82),
-                new zone("9", 20, 30, 237, 109, 52),
-                new zone("10", 30, 40, 251, 176, 176)
+            var zones = [
+              new zone("0", 0, 0, 0, 0, 0),
+              new zone("0", 0, 0, 255, 255, 255),
+              new zone("2", -50, -40, 190, 163, 191),
+              new zone("3", -40, -30, 63, 37, 64),
+              new zone("4", -30, -20, 116, 117, 251),
+              new zone("5", -20, -10, 23, 142, 69),
+              new zone("6", -10, 0, 79, 204, 66),
+              new zone("7", 0, 10, 248, 251, 97),
+              new zone("8", 10, 20, 251, 149, 82),
+              new zone("9", 20, 30, 237, 109, 52),
+              new zone("10", 30, 40, 251, 176, 176)
             ]
 
             $(document).ready(function () {
@@ -101,11 +101,43 @@
     @Html.HiddenFor(m => m.GroupID)
     <br />
     <input type="submit" value="Submit" />
-    // @Html.DisplayFor(m => m.RegionID, new { value="7"})
+
+
+
+
+    <script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            tinymce.init({
+                selector: '#rich-editor',
+                height: 150,
+                theme: 'modern',
+                plugins: [
+            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'emoticons template paste textcolor colorpicker textpattern imagetools'
+                ],
+                toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                toolbar2: 'print preview media | forecolor backcolor emoticons',
+                image_advtab: true,
+                templates: [
+                    {
+                        title: 'Test template 1',
+                        content: 'Test 1'
+                    },
+                    {
+                        title: 'Test template 2',
+                        content: 'Test 2'
+                    }
+                ]
+            });
+
+        });
+
+    </script>
 
 
 }
-
-
-
-

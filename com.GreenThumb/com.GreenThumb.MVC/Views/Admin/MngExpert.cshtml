@@ -1,0 +1,17 @@
+﻿@using com.GreenThumb.MVC.Models
+@model com.GreenThumb.MVC.Models.GroupDetailViewModel
+
+
+@{
+    ViewBag.Title = "MngExpert";
+}
+
+
+
+<h2>Manage Expert Accounts</h2>
+<div>
+    @Html.Partial("~/Views/PartialViews/_ExpertGroupTable.cshtml", Model.Requests)
+</div>
+
+
+

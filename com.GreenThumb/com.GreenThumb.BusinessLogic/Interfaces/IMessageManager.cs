@@ -13,6 +13,6 @@ namespace com.GreenThumb.BusinessLogic.Interfaces
         bool EditMessageDeletedSender(string Username, int MessageID);
         bool EditMessageRead(string Username, int MessageID);
         bool SendMessage(string MessageContent, string Subject, string SenderUsername, string ReceiverUsername);
-        List<string> GetUserNames();
+        List<com.GreenThumb.BusinessObjects.User> GetUserNames();
     }
 }

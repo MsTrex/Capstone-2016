@@ -51,6 +51,9 @@ namespace com.GreenThumb.WPF_Presentation
         }
 
         /// <summary>
+        /// Author: Chris Sheehan
+        /// Check permissions, show the appropriate tabs based on perms
+        /// Date: 3/24/16
         /// </summary>
         /// <remarks>
         /// Sara Nanke
@@ -60,7 +63,7 @@ namespace com.GreenThumb.WPF_Presentation
         private void CheckPermissions()
         {
             List<Label> visibleTabs = new List<Label>();
-            var allTabs = new Label[] { btnAdmin, btnGardens, btnExpert, btnHome, btnProfile, btnVolunteer };
+            var allTabs = new Label[] { btnAdmin, btnGardens, btnExpert, btnHome, btnProfile };
             if (_accessToken == null)
             {
                 clearSideBar();
@@ -71,31 +74,31 @@ namespace com.GreenThumb.WPF_Presentation
                 {
                     if (r.RoleID == "Admin")
                     {
-                        var adminTabs = new Label[] { btnAdmin, btnGardens, btnExpert, btnHome, btnProfile, btnVolunteer };
+                        var adminTabs = new Label[] { btnAdmin, btnGardens, btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(adminTabs);
                         break;
                     }
                     if (r.RoleID == "Expert")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile, btnVolunteer };
+                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
                     if (r.RoleID == "GroupLeader")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile, btnVolunteer };
+                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
                     if (r.RoleID == "GroupMember")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile, btnVolunteer };
+                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
                     if (r.RoleID == "User")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile, btnVolunteer };
+                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
@@ -189,6 +192,34 @@ namespace com.GreenThumb.WPF_Presentation
             }
         }
         /// <summary>
+        /// ADDED by Trevor Glisch
+        /// Method to change the label when someone logs in or checks messages
+        /// </summary>
+        /// <param name="a"></param>
+        //public void SetNewMessageLabel(AccessToken a)
+        //{
+        //    try
+        //    {
+        //        int count = messageMgr.UnreadMessageCount(_accessToken.UserName);
+        //        string message = "";
+        //        if (count > 0)
+        //        {
+        //            message = count.ToString();
+        //        }
+        //        else
+        //        {
+        //            message = "No";
+        //        }
+
+        //        lblCurrentMessages.Header = a.FirstName + " You Have " + message + " New Messages";
+        //    }
+        //    catch (Exception)
+        //    {
+        //        lblCurrentMessages.Header = a.FirstName + " You Have No New Messages";
+        //    }
+            
+        //}
+        /// <summary>
         /// Author: Ryan Taylor
         /// Click logic for New user button
         /// Date: 2/26/16
@@ -205,7 +236,11 @@ namespace com.GreenThumb.WPF_Presentation
                 CheckPermissions();
             }
         }
-
+        /// <summary>
+        /// Author: Sara Nanke
+        /// Click logic for collapse
+        /// Date: 4/22/16
+        /// </summary>
         private void collapse_Click(object sender, RoutedEventArgs e)
         {
             if (sidePanelDefinition.Width.Value > 0)
@@ -235,7 +270,7 @@ namespace com.GreenThumb.WPF_Presentation
         // Chris S - Had to refactor - using in two places
         private void SetHomeButtons()
         {
-            btnSideBar1.Content = "Blog";
+            
         }
 
         /// <summary>
@@ -280,33 +315,39 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnExpert_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.NavigationService.Navigate(new ExpertPages.ExpertHome(_accessToken));
+            mainFrame.NavigationService.Navigate(new HomePages.ViewBlog(_accessToken));
             clearSideBar();
-            btnSideBar1.Content = "Become an Expert";
-            btnSideBar2.Content = "Insert Recipe";
+            btnSideBar1.Content = "Articles";
+            btnSideBar2.Content = _accessToken != null ? "Ask a Question" : "";
             btnSideBar3.Content = "Search for Questions";
-            btnSideBar4.Content = _accessToken != null ? "Ask a Question" : "";
-            btnSideBar5.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ? "Answer Questions" : "";
-            btnSideBar6.Content = "Upload Garden Template";
-            btnSideBar7.Content = "View Garden Templates";
-            btnSideBar8.Content = "View Recipes";
-            btnSideBar9.Content = "Plants";
+            btnSideBar4.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ? "Answer Questions" : "";
+            btnSideBar5.Content = "View Recipes";
+            btnSideBar6.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ? "Add a Recipe" : "";
+            btnSideBar7.Content = "Plants";
+            btnSideBar8.Content = "Upload Garden Template";
+            btnSideBar9.Content = "View Garden Templates";
+            btnSideBar10.Content = "Become an Expert";
             clearUnusedSidebars();
         }
 
         /// <summary>
         /// Author: Emily West
-        /// Click logic for button btnVolunteer
+        /// Click logic for button btnVolunteer        /// 
         /// </summary>
-        private void btnVolunteer_Click(object sender, RoutedEventArgs e)
-        {
-            mainFrame.NavigationService.Navigate(new VolunteerPages.VolunteerHome(_accessToken));
-            clearSideBar();
-            btnSideBar1.Content = "Edit Volunteer Availability";
-            btnSideBar2.Content = "Volunteer Sign Up";
-            clearUnusedSidebars();
+        /// <remarks>
+        /// Chris sheehan   
+        /// removing volunteer tab, commenting it out at first
+        /// 
+        /// </remarks>
+        //private void btnVolunteer_Click(object sender, RoutedEventArgs e)
+        //{
+        //    mainFrame.NavigationService.Navigate(new VolunteerPages.VolunteerHome(_accessToken));
+        //    clearSideBar();
+        //    btnSideBar1.Content = "Edit Volunteer Availability";
+        //    btnSideBar2.Content = "Volunteer Sign Up";
+        //    clearUnusedSidebars();
 
-        }
+        //}
 
         /// <summary>
         /// Author: Chris Sheehan
@@ -332,7 +373,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
+            mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMenu(_accessToken));
             clearSideBar();
             SetProfileButtons();
             clearUnusedSidebars();
@@ -340,9 +381,8 @@ namespace com.GreenThumb.WPF_Presentation
         //Chris S - had to refactor - using in multiple places
         private void SetProfileButtons()
         {
-            btnSideBar1.Content = "Edit Personal Info";
-            btnSideBar2.Content = "Profile Menu";
-            btnSideBar3.Content = "Messages";
+            btnSideBar1.Content = "Profile Menu";
+            btnSideBar2.Content = "Messages";
         }
 
         public void clearSideBar()
@@ -388,7 +428,7 @@ namespace com.GreenThumb.WPF_Presentation
                     case "Messages":
                         page = new ProfilePages.Messages(_accessToken);
                         break;
-                    case "Insert Recipe":
+                    case "Add a Recipe":
                         page = new ExpertPages.RecipeInput(_accessToken);
                         break;
                     case "Volunteer Sign Up":
@@ -455,6 +495,9 @@ namespace com.GreenThumb.WPF_Presentation
                     case "Assign Task to a Member":
                         page = new GardenPages.AssignTask(_accessToken);
                         break;
+                    case "Articles":
+                        page = new HomePages.ViewBlog(_accessToken);
+                        break;
                     default: //Blog
                         page = page = new HomePages.ViewBlog(_accessToken);
                         break;
@@ -482,5 +525,6 @@ namespace com.GreenThumb.WPF_Presentation
                 }
             }
         }
+
     }
 }

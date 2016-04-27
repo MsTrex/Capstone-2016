@@ -4395,7 +4395,17 @@ BEGIN
 END;
 GO
 
-
+--created by Chris Schwebach 4-22-16
+CREATE PROCEDURE Gardens.spSelectGroupIdByGroupName (
+	@GroupName	varchar(100)
+)
+AS
+BEGIN
+	SELECT GroupID, GroupName, GroupLeaderID, Active, OrganizationID
+	FROM Gardens.Groups
+	WHERE GroupName = @GroupName;
+END;
+go
 
 ----------------Created By : Poonam Dubey-----------------------
 ----------------Created Date : 04/06/2016-----------------------
@@ -4687,28 +4697,8 @@ BEGIN
 END;
 go
 
-
---- Created By : Chris Schwebach 04/15.2016
-
 --created by chris schwebach 4-15-16
 
-CREATE PROCEDURE [Gardens].[spSelectTasksForGarden](
-	@GardenID int
-)
-AS
-BEGIN
-
-	SELECT TaskID, Description , CONVERT(VARCHAR(20),DateAssigned) 'AssignedOn',   ISNULL(CONVERT(VARCHAR(20),DateCompleted),'') 'CompletedOn', ISNULL(AUU.FirstName + ' ' + AUU.LastName,'') 'AssignedTo', AU.FirstName + ' ' + AU.LastName 'AssignedBy' , UserNotes, GT.Active , ISNULL(GT.AssignedTo, 0)  
-
-	SELECT TaskID, Description , CONVERT(VARCHAR(20),DateAssigned) 'AssignedOn',   ISNULL(CONVERT(VARCHAR(20),DateCompleted),'') 'CompletedOn', ISNULL(AUU.FirstName + ' ' + AUU.LastName,'') 'AssignedTo', AU.FirstName + ' ' + AU.LastName 'AssignedBy' , UserNotes, GT.Active  
-
-	FROM Gardens.Tasks GT
-	INNER JOIN Admin.Users AU 
-	ON GT.AssignedFrom = AU.UserID  
-	LEFT JOIN  Admin.Users AUU ON GT.AssignedTo = AUU.UserID  
-	WHERE GT.GardenID = @GardenID AND GT.Active = 1
-END;
-go
 
 
 
@@ -4777,7 +4767,23 @@ BEGIN
 END
 GO
 
->>>>>>> origin/master
+--- Created By : Chris Schwebach 04/15.2016 and Modified by Poonam dubey 04/22.2016 
+
+--created by ponam dubey 4-22-16
+CREATE PROCEDURE [Gardens].[spSelectTasksForGarden](
+	@GardenID int
+)
+As
+BEGIN
+	SELECT TaskID, Description , CONVERT(VARCHAR(20),DateAssigned) 'AssignedOn',   ISNULL(CONVERT(VARCHAR(20),DateCompleted),'') 'CompletedOn', ISNULL(AUU.FirstName + ' ' + AUU.LastName,'') 'AssignedTo', AU.FirstName + ' ' + AU.LastName 'AssignedBy' , UserNotes, GT.Active , ISNULL(GT.AssignedTo,0) 
+	FROM Gardens.Tasks GT
+	INNER JOIN Admin.Users AU 
+	ON GT.AssignedFrom = AU.UserID  
+	LEFT JOIN  Admin.Users AUU ON GT.AssignedTo = AUU.UserID  
+	WHERE GT.GardenID = @GardenID AND GT.Active = 1
+END;
+go
+
 ------------------------------------------
 -----------Gardens.WorkLogs---------------
 ------------------------------------------

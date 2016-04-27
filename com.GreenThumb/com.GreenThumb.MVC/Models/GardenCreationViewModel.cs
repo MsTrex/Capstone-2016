@@ -10,6 +10,7 @@ namespace com.GreenThumb.MVC.Models
     public class GardenCreationViewModel
     {
         [Required]
+        [AllowHtml]
         [Display(Name = "Garden Description")]
         public string GardenDescription { get; set; }
 

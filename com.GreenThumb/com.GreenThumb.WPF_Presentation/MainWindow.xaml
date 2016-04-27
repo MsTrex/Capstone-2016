@@ -142,14 +142,14 @@
             <Label Name="btnHome"      Grid.Column="1" HorizontalAlignment="Left" Content="Home"          MouseDown="btnHome_Click"></Label>
             <Label Name="btnGardens"   Grid.Column="2" HorizontalAlignment="Left" Content="Gardens"       MouseDown="btnGardens_click"></Label>
             <Label Name="btnExpert"    Grid.Column="3" HorizontalAlignment="Left" Content="Expert Advice" MouseDown="btnExpert_Click"></Label>
-            <Label Name="btnVolunteer" Grid.Column="4" HorizontalAlignment="Left" Content="Volunteering"  MouseDown="btnVolunteer_Click"></Label>
             <Label Name="btnAdmin"     Grid.Column="5" HorizontalAlignment="Left" Content="Admin"         MouseDown="btnAdmin_Click"></Label>
             <Label Name="btnProfile"   Grid.Column="6" HorizontalAlignment="Left" Content="Profile"       MouseDown="btnProfile_Click"></Label>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Name="sidePanelDefinition" Width="220" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="212*" />
+                <ColumnDefinition Width="661*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Name="sidePanel" Grid.Column="0" Background="#FFF4F4F4">
                 <StackPanel.Resources>
@@ -181,7 +181,7 @@
                 <Label Name="btnSideBar14" MouseDown="btnSideBar_MouseDown" />
                 <Label Name="btnSideBar15" MouseDown="btnSideBar_MouseDown" />
             </StackPanel>
-            <ScrollViewer Grid.Column="1">
+            <ScrollViewer Grid.Column="1" Grid.ColumnSpan="2">
                 <Frame Name="mainFrame" Margin="0,0,-0.4,0" NavigationUIVisibility="Hidden" >
 
                 </Frame>

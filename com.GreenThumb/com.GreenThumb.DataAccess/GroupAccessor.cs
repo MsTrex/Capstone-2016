@@ -79,7 +79,7 @@ namespace com.GreenThumb.DataAccess
             int count = 0;
 
             var conn = DBConnection.GetDBConnection();
-            string cmdText = "Gardens.spAcceptRequest";
+            string cmdText = "Admin.spAcceptRequest";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@GroupID", request.GroupID);
@@ -440,7 +440,7 @@ namespace com.GreenThumb.DataAccess
                         GroupRequest request = new GroupRequest();
                         request.UserID = reader.GetInt32(0);
                         request.RequestDate = reader.GetDateTime(1);
-
+                        request.GroupID = groupid;
                         requests.Add(request);
                     }
                 }
@@ -569,6 +569,9 @@ namespace com.GreenThumb.DataAccess
         /// Ryan Taylor
         /// Created 03/31/16
         /// </summary>
+        /// <remarks>
+        /// Trevor Glisch fixed values returned with stored procedure
+        /// </remarks>
         /// <param name="groupID"></param>
         /// <returns>Members associtated with groupID</returns>
         public static List<GroupMember> RetrieveMemberList(int groupID)
@@ -593,10 +596,10 @@ namespace com.GreenThumb.DataAccess
                             User = new User
                             {
                                 UserID = reader.GetInt32(0),
-                                FirstName = reader.GetString(1),
-                                LastName = reader.GetString(2)
-                            },
-                            Status = reader.GetString(3)
+                                UserName = reader.GetString(2),
+                                FirstName = reader.GetString(4),
+                                LastName = reader.GetString(5)
+                            }
                         };
                         memberList.Add(currentMember);
                     }
@@ -823,6 +826,52 @@ namespace com.GreenThumb.DataAccess
                             }
                         }
 
+                    };
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return group;
+        }
+
+        /// <summary>
+        /// Retrieve a groupId by groupName.
+        /// 
+        /// Created by: Chris Schwebach 04/22/2016
+        /// </summary>
+        /// <param name="groupId">Group identifier</param>
+        /// <returns>Group object</returns>
+        public static Group RetrieveGroupIdByGroupName(string groupName)
+        {
+            Group group = null;
+
+            var conn = DBConnection.GetDBConnection();
+
+            var cmd = new SqlCommand("Gardens.spSelectGroupIdByGroupName", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@GroupName", groupName);
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    group = new Group()
+                    {
+                        GroupID = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        GroupLeaderID = reader.GetInt32(2)
                     };
                 }
             }

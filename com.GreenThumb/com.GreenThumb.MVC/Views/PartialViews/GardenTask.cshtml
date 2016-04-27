@@ -33,7 +33,7 @@
                 @Html.DisplayName("Mark Completed")
             </th>
             <th class="deactivate">
-                @Html.DisplayName("Deactivate Task")
+                @Html.DisplayName("Remove Task")
             </th>
         </tr>
     </thead>
@@ -72,7 +72,7 @@
                     }
                 </td>
                 <td class="deactivate">
-                    @Html.ActionLink("Deactivate", "DeactivateTask", "GardenTask", new { taskID = @jobs.TaskID, gardenID = -1 }, new { @class = "deleteTask" })
+                    @Html.ActionLink("Remove", "DeactivateTask", "GardenTask", new { taskID = @jobs.TaskID, gardenID = -1 }, new { @class = "deleteTask" })
                 </td>
             </tr>
         }
