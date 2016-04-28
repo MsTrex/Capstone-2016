@@ -131,6 +131,10 @@ namespace com.GreenThumb.DataAccess
         ///submits application to database to be reviewed
         ///Date: 3/19/16
         ///</summary>
+        /// <remarks>
+        /// Updated by: Chris Sheehan
+        /// Date: 4/28/16
+        /// </remarks>
         public static bool CreateExpertApplication(String Title, String Description, int UserID, DateTime Time)
         {
             var conn = DBConnection.GetDBConnection();
@@ -141,7 +145,7 @@ namespace com.GreenThumb.DataAccess
             cmd.Parameters.AddWithValue("@UserID", UserID);
             cmd.Parameters.AddWithValue("@Title", Title);
             cmd.Parameters.AddWithValue("@Content", Description);
-            cmd.Parameters.AddWithValue("@RequestDate", Time);
+            cmd.Parameters.AddWithValue("@DateCreated", DateTime.Now);
 
             bool flag = false;
 

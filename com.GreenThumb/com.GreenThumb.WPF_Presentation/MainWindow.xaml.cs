@@ -280,33 +280,33 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnGardens_click(object sender, RoutedEventArgs e)
         {
-            mainFrame.NavigationService.Navigate(new GardenPages.GardenMain(_accessToken));
-            //btnSideBar1.Content = "Create a Garden";
-            clearSideBar();
-            btnSideBar1.Content = "DO NOT USE";
-            btnSideBar2.Content = "DO NOT USE";
-            btnSideBar3.Content = "DO NOT USE";
-            btnSideBar4.Content = "Complete A Task";
-            btnSideBar5.Content = "Create a Task";
-            btnSideBar6.Content = "Sign Up for Task";
+            //mainFrame.NavigationService.Navigate(new GardenPages.GardenMain(_accessToken));
+            ////btnSideBar1.Content = "Create a Garden";
+            //clearSideBar();
+            //btnSideBar1.Content = "DO NOT USE";
+            //btnSideBar2.Content = "DO NOT USE";
+            //btnSideBar3.Content = "DO NOT USE";
+            //btnSideBar4.Content = "Complete A Task";
+            //btnSideBar5.Content = "Create a Task";
+            //btnSideBar6.Content = "Sign Up for Task";
 
-            Role role = new Role();
-            role.RoleID = "Admin";
-            if (_accessToken.Roles.Contains(role))
-            {
-                btnSideBar7.Content = "Manage Garden Group";
-            }
-            else
-            {
-                btnSideBar7.Content = "";
-            }
-            btnSideBar7.Content = "Create Garden";
-            btnSideBar8.Content = "View Tasks By Garden";
-            btnSideBar10.Content = "View Groups";
-            btnSideBar11.Content = "Your Groups";
-            btnSideBar12.Content = "Request to be a Group Leader";
-            btnSideBar13.Content = "Aasign Task to a Member";
-            clearUnusedSidebars();
+            //Role role = new Role();
+            //role.RoleID = "Admin";
+            //if (_accessToken.Roles.Contains(role))
+            //{
+            //    btnSideBar7.Content = "Manage Garden Group";
+            //}
+            //else
+            //{
+            //    btnSideBar7.Content = "";
+            //}
+            //btnSideBar7.Content = "Create Garden";
+            //btnSideBar8.Content = "View Tasks By Garden";
+            //btnSideBar10.Content = "View Groups";
+            //btnSideBar11.Content = "Your Groups";
+            //btnSideBar12.Content = "Request to be a Group Leader";
+            //btnSideBar13.Content = "Aasign Task to a Member";
+            //clearUnusedSidebars();
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -498,6 +498,9 @@ namespace com.GreenThumb.WPF_Presentation
                     case "Articles":
                         page = new HomePages.ViewBlog(_accessToken);
                         break;
+                    case "Become an Expert":
+                        page = new ExpertPages.RequestExpert(_accessToken);
+                        break;                        
                     default: //Blog
                         page = page = new HomePages.ViewBlog(_accessToken);
                         break;
