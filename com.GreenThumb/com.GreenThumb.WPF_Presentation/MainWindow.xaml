@@ -140,7 +140,7 @@
             </Grid.Resources>
             <Label Name="btnCollapse"  Grid.Column="0" HorizontalAlignment="Left" Content="&#x276E;&#x276E;" MouseDown="collapse_Click" BorderBrush="Black" BorderThickness="2" Margin="0"></Label>
             <Label Name="btnHome"      Grid.Column="1" HorizontalAlignment="Left" Content="Home"          MouseDown="btnHome_Click"></Label>
-            <Label Name="btnGardens"   Grid.Column="2" HorizontalAlignment="Left" Content="Gardens"       MouseDown="btnGardens_click"></Label>
+            <!--<Label Name="btnGardens"   Grid.Column="2" HorizontalAlignment="Left" Content="Gardens"       MouseDown="btnGardens_click"></Label>-->
             <Label Name="btnExpert"    Grid.Column="3" HorizontalAlignment="Left" Content="Expert Advice" MouseDown="btnExpert_Click"></Label>
             <Label Name="btnAdmin"     Grid.Column="5" HorizontalAlignment="Left" Content="Admin"         MouseDown="btnAdmin_Click"></Label>
             <Label Name="btnProfile"   Grid.Column="6" HorizontalAlignment="Left" Content="Profile"       MouseDown="btnProfile_Click"></Label>
