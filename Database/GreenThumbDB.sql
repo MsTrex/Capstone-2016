@@ -1533,34 +1533,22 @@ create procedure Admin.spInsertExpertRequest(
 @UserID int, 
 @Title varchar(20),
 @Content VARCHAR(MAX),
-@DateCreated datetime, 
-@DateModified datetime,
-@ModifiedBy int,
-@Active bit,
-@Approved bit
+@DateCreated datetime
 )
 as
 begin
-insert into Admin.ExpertRequest(
+insert into Admin.ExpertRequests(
 UserID, 
 Title,
 Content,
-DateCreated,
-DateModified,
-ModifiedBy,
-Active,
-Approved
+DateCreated
 )
 values
 (
 @UserID,
 @Title,
 @Content,
-@DateCreated,
-@DateModified,
-@ModifiedBy,   
-@Active,
-@Approved
+@DateCreated
 );
 
 return @@ROWCOUNT;
