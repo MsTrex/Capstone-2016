@@ -4,5 +4,19 @@
     ViewBag.Title = "SendContribution";
 }
 
-<h2>SendContribution</h2>
+<h2>@Html.DisplayFor(m => m.NeedTitle)</h2>
+
+@using (Html.BeginForm("SendContribution", "Donation", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    @Html.HiddenFor(m => m.NeedID)
+    
+    <div class="form">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextBoxFor(m => m.Description)
+    </div>
+    
+    <input type="submit" value="Give" class="btn btn-primary" />
+}
 

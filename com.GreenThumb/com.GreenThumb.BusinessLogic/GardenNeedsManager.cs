@@ -224,7 +224,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                flag = 1 == Accessor.UpdateContribution(contributionId, contributed: true);
+                flag = 2 == Accessor.UpdateContribution(contributionId, contributed: true);
             }
             catch (Exception) { }
 
@@ -248,6 +248,44 @@ namespace com.GreenThumb.BusinessLogic
             catch (Exception) { }
 
             return flag;
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/28/16
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        public static IEnumerable<GardenNeed> RetrieveGroupNeeds(int groupId)
+        {
+            IEnumerable<GardenNeed> needs = null;
+
+            try
+            {
+                needs = UserNeedsAccessor.RetrieveGroupActiveNeeds(groupId);
+            }
+            catch (Exception) { }
+
+            return needs;
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/28/16
+        /// </summary>
+        /// <param name="gardenId"></param>
+        /// <returns></returns>
+        public static IEnumerable<GardenNeed> RetrieveGardenNeeds(int gardenId)
+        {
+            IEnumerable<GardenNeed> needs = null;
+
+            try
+            {
+                needs = GardenNeedsAccessor.RetrieveActiveGardenNeeds(gardenId);
+            }
+            catch (Exception) { }
+
+            return needs;
         }
     }
 }

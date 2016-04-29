@@ -28,9 +28,9 @@
         <TextBox x:Name="txtEmailAddress" HorizontalAlignment="Left" Height="30" Margin="112,345,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140"/>
         <Label Content="(optional)" HorizontalAlignment="Left" Margin="257,351,0,0" VerticalAlignment="Top" FontSize="10" Background="#FFF6F7FD" Foreground="#FF0B15F5"/>
         <Label Content="Email Address:" HorizontalAlignment="Left" Margin="10,349,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.474,0.654"/>
-        <Button x:Name="btnEditPersonalInfo" Content="Submit" HorizontalAlignment="Left" Margin="68,414,0,0" VerticalAlignment="Top" Width="75" Click="btnEditPersonalInfo_Click"/>
-        <Button x:Name="btnCancelEdit" Content="Cancel" HorizontalAlignment="Left" Margin="199,414,0,0" VerticalAlignment="Top" Width="75" Click="btnCancelEdit_Click"/>
-        <ComboBox HorizontalAlignment="Left" Margin="421,173,0,0" VerticalAlignment="Top" Width="69" Height="26" SelectedIndex="0">
+        <Button Style="{StaticResource button1}" x:Name="btnEditPersonalInfo" Content="Submit" HorizontalAlignment="Left" Margin="68,414,0,0" VerticalAlignment="Top" Width="75" Click="btnEditPersonalInfo_Click"/>
+        <Button Style="{StaticResource button1}" x:Name="btnCancelEdit" Content="Cancel" HorizontalAlignment="Left" Margin="199,414,0,0" VerticalAlignment="Top" Width="75" Click="btnCancelEdit_Click"/>
+        <ComboBox Style="{StaticResource comboBox1}" HorizontalAlignment="Left" Margin="421,173,0,0" VerticalAlignment="Top" Width="69" Height="26" SelectedIndex="0">
             <ComboBoxItem Content="" HorizontalAlignment="Left" Width="93" Selected="Na_Item_Selected"/>
             <ComboBoxItem Content="None" HorizontalAlignment="Left" Width="93" Selected="None_Item_Selected"/>
             <ComboBoxItem Content="1" HorizontalAlignment="Left" Width="118" Selected="one_Item_Selected"/>
@@ -43,6 +43,6 @@
             <ComboBoxItem Content="8" HorizontalAlignment="Left" Width="118" Selected="eight_Item_Selected"/>
             <ComboBoxItem Content="9" HorizontalAlignment="Left" Width="118" Selected="nine_Item_Selected"/>
         </ComboBox>
-        <Image HorizontalAlignment="Left" Margin="355,230,0,0" VerticalAlignment="Top" Source="/com.GreenThumb.WPF_Presentation;component/Images/RegionId.jpeg"/>
+        <Image HorizontalAlignment="Left" Margin="355,230,0,0" VerticalAlignment="Top" Source="/com.GreenThumb.WPF_Presentation;component/Images/usda_plant.jpg"/>
     </Grid>
 </Page>

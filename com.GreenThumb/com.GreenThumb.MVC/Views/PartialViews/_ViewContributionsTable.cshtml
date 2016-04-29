@@ -8,10 +8,10 @@
             <thead>
                 <tr>
                     <th>@Html.DisplayNameFor(m => m.Need.Title)</th>
-                    
                     <th>@Html.DisplayNameFor(m => m.Description)</th>
+                    <th>@Html.DisplayNameFor(m => m.SentBy.UserName)</th>
                     <th>@Html.DisplayNameFor(m => m.DateCreated)</th>
-                    
+                    <th>Options</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,10 +19,13 @@
                 {
                     <tr>
                         <td>@need.Need.Title</td>
-                        
                         <td>@need.Description</td>
+                        <td>@need.SentBy.UserName</td>
                         <td>@need.DateCreated</td>
-                        
+                        <td>
+                            @Html.ActionLink("Approve", "ApproveContribution", new { id = ViewBag.GardenId, contributionId = need.NeedContributionID }, null)
+                            @Html.ActionLink("Decline", "DeclineContribution", new { id = ViewBag.GardenId, contributionId = need.NeedContributionID }, null)
+                        </td>
                     </tr>
                 }
             </tbody>

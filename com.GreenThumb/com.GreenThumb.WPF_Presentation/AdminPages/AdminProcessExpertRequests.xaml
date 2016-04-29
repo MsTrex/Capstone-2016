@@ -13,37 +13,37 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TabControl x:Name="tcScreens" Grid.Row="0" SelectionChanged="tcScreens_SelectionChanged">
+        <TabControl x:Name="tcScreens" HorizontalAlignment="Left" Grid.Row="0" MaxWidth="1000" SelectionChanged="tcScreens_SelectionChanged">
             <TabItem x:Name="tiRequests" Header="Requests">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="dgExpertRequests" Grid.Column="0" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionChanged="dgExpertRequests_SelectionChanged">
+                    <DataGrid x:Name="dgExpertRequests" Grid.Column="0" AutoGenerateColumns="false" IsReadOnly="True" SelectionMode="Single" SelectionChanged="dgExpertRequests_SelectionChanged">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="DateRequested" Binding="{Binding Path=RequestDate}" />
+                            <DataGridTextColumn Header="Date Requested" Binding="{Binding Path=RequestDate}" />
                             <DataGridTextColumn Header="UserName" Binding="{Binding Path=User.UserName}" />
                             <DataGridTextColumn Header="First Name" Binding="{Binding Path=User.FirstName}" />
                             <DataGridTextColumn Header="Last Name" Binding="{Binding Path=User.LastName}" />
                             <DataGridTextColumn Header="Email" Binding="{Binding Path=User.EmailAddress}" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Grid Grid.Column="1">
+                    <Grid Grid.Column="1" HorizontalAlignment="Left"  Width="300" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Content="Application Title" />
-                        <Label Grid.Row="1" x:Name="lblRequestTitle" HorizontalAlignment="Center" />
-                        <Label Grid.Row="2" Content="Application Content" />
-                        <TextBlock x:Name="tbRequestContent" Grid.Row="3" TextAlignment="Center" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" />
+                        <Label Grid.Row="0" Content="Request Subject" FontWeight="Bold" />
+                        <Label Grid.Row="1" x:Name="lblRequestTitle" Padding="15,0,0,10" HorizontalAlignment="Left" />
+                        <Label Grid.Row="2" Content="Request Content" FontWeight="Bold"  />
+                        <TextBlock x:Name="tbRequestContent" Grid.Row="3" TextAlignment="Left" Padding="15,0,0,10" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" />
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="tiAllUsers" Header="All Users">
+            <TabItem x:Name="tiAllUsers" Header="Users W/O Expert Role">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
@@ -85,9 +85,9 @@
             </TabItem>
         </TabControl>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button x:Name="btnActionOne" Margin="5" Padding="5" Content="Approve Expert" Click="btnActionOne_Click" />
-            <Button x:Name="btnActionTwo" Margin="5" Padding="5" Content="Decline Request" Click="btnActionTwo_Click" />
-            <Label x:Name="lblResponseMessage" Margin="5" />
+            <Button Style="{StaticResource button1}" x:Name="btnActionOne" Margin="5" Padding="5" Content="Approve Expert" Click="btnActionOne_Click" />
+            <Button Style="{StaticResource button1}" x:Name="btnActionTwo" Margin="5" Padding="5" Content="Decline Request" Click="btnActionTwo_Click" />
+            <Label x:Name="lblResponseMessage" Content="" Margin="5" />
         </StackPanel>
     </Grid>
 </Page>

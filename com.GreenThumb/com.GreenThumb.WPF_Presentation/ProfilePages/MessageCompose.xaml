@@ -17,8 +17,8 @@
         <TextBox x:Name="txtSubject" HorizontalAlignment="Left" Height="23" Margin="94,115,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtContent" HorizontalAlignment="Left" Height="81" Margin="79,171,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="179"/>
         <Label Content="Content:" HorizontalAlignment="Left" Margin="19,161,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnSend" Content="Send" HorizontalAlignment="Left" Margin="65,274,0,0" VerticalAlignment="Top" Width="75" Click="btnSend_Click"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="165,274,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
+        <Button Style="{StaticResource button1}" x:Name="btnSend" Content="Send" HorizontalAlignment="Left" Margin="45,274,0,0" VerticalAlignment="Top" Width="75" Click="btnSend_Click"/>
+        <Button Style="{StaticResource button1}" x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="165,274,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
         <CheckBox x:Name="CCBox" Content="CC Me" HorizontalAlignment="Left" Margin="219,115,0,0" VerticalAlignment="Top"/>
 
 

@@ -34,7 +34,7 @@
                 <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Margin="20 5 20 5" Content="Your questions" />
-                <ComboBox x:Name="cmbMyQuestions" Grid.Row="0" Grid.Column="1" Margin="5" MinWidth="100" MaxWidth="300" DataContext="{Binding Source=list}" SelectionChanged="cmbMyQuestions_SelectionChanged" />
+                <ComboBox Style="{StaticResource comboBox1}" x:Name="cmbMyQuestions" Grid.Row="0" Grid.Column="1" Margin="5" MinWidth="100" MaxWidth="300" DataContext="{Binding Source=list}" SelectionChanged="cmbMyQuestions_SelectionChanged" />
             </Grid>
         
         <Grid Grid.Row="1" Grid.Column="0">

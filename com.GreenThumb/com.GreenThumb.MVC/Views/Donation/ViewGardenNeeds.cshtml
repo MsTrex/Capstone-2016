@@ -1,0 +1,9 @@
+﻿@using com.GreenThumb.MVC.Models;
+@model GardenNeedsDetailViewModel
+@{
+    ViewBag.Title = "ViewGardenNeeds";
+}
+
+<h2>ViewGardenNeeds</h2>
+
+@Html.Partial("~/Views/PartialViews/_NeedsAllowContribute.cshtml", Model.ActiveNeeds)

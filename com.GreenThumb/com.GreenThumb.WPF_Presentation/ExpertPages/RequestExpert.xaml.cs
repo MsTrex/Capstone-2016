@@ -34,25 +34,66 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         public RequestExpert(AccessToken ax)
         {
             InitializeComponent();
+            CurrentUser = ax;
             userID = CurrentUser.UserID;
             Time = DateTime.Now;
         }
 
+        /// <summary>
+        /// Created by: Stenner 
+        /// Date: 3/25/16
+        /// </summary>
+        /// <remarks>
+        /// Updated by: Chris Sheehan
+        /// Date: 4/28/16 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void submit_Click(object sender, RoutedEventArgs e)
         {
             // save and submit to database 
-            Title = this.title.Text;
-            Description = this.description.Text;
+            if (this.title.Text == "" || this.title.Text == null || this.description.Text == "" || this.description.Text == null)
+            {
+                MessageBox.Show("Please fill out both fields before submitting.");
+            }
+            else
+            {
+                Title = this.title.Text;
+                Description = this.description.Text;
 
-            AdminExpertRequestsManager myAdminExpertRequestsManager = new AdminExpertRequestsManager(CurrentUser);
+                AdminExpertRequestsManager myAdminExpertRequestsManager = new AdminExpertRequestsManager(CurrentUser);
 
-            myAdminExpertRequestsManager.AddExpertApplication(Title, Description, userID, Time);
+                try
+                {
+                    myAdminExpertRequestsManager.AddExpertApplication(Title, Description, userID, Time);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Record not updated.  Please fill in all fields.");
+                }
+                finally
+                {
+                    MessageBox.Show("Your request has been submitted.  Thank you.");
+                    this.NavigationService.Navigate(new HomePages.ViewBlog(CurrentUser));
+                }
+            }
+            
+            
         }
-
+        /// <summary>
+        /// Created by: Stenner
+        /// Date: 3/25/16
+        /// </summary>
+        /// <remarks>
+        /// Updated by: Chris Sheehan
+        /// Date: 4/28/16
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
             // send user back to pervious page      
-            this.NavigationService.Navigate(new ExpertPages.ExpertHome(CurrentUser));
+            this.NavigationService.Navigate(new HomePages.ViewBlog(CurrentUser));
         }
  
     }

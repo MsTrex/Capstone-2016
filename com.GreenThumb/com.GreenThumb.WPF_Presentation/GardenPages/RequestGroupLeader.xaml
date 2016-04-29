@@ -17,9 +17,9 @@
         </Grid.ColumnDefinitions>
         
         <Label x:Name="lblTitle" Content="Submit A Request To Be A Group Leader" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"  VerticalAlignment="Top" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" FontSize="18" Grid.ColumnSpan="3"/>
-        
-        <Button x:Name="btnRequestLeader" Grid.Column="3" Grid.Row="1" Content="Request to be a leader" HorizontalAlignment="Left"  VerticalAlignment="Top"  Click="btnRequestLeader_Click"/>
-        <ComboBox x:Name="cmbGroupList" Grid.Column="1" Grid.Row="1"  VerticalAlignment="Top" ItemsSource="{Binding _GroupList}"  SelectionChanged="cmbGroupList_SelectionChanged"/>
+
+        <Button Style="{StaticResource button1}" x:Name="btnRequestLeader" Grid.Column="3" Grid.Row="1" Content="Request to be a leader" HorizontalAlignment="Left"  VerticalAlignment="Top"  Click="btnRequestLeader_Click"/>
+        <ComboBox Style="{StaticResource comboBox1}" x:Name="cmbGroupList" MinWidth="100" Grid.Column="1" Grid.Row="1"  VerticalAlignment="Top" ItemsSource="{Binding _GroupList}"  SelectionChanged="cmbGroupList_SelectionChanged"/>
         
         <Label x:Name="lblMessage" Grid.Column="2" Grid.Row="2" Content="" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
         

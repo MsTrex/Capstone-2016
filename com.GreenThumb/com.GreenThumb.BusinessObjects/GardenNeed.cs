@@ -24,5 +24,6 @@ namespace com.GreenThumb.BusinessObjects
         [Display(Name = "Date Modified")]
         public DateTime DateModified { get; set; }
         public User ModifiedBy { get; set; }        // Wrap the user unique indenifier
+        public bool Completed { get; set; }
     }
 }

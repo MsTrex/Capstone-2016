@@ -151,5 +151,74 @@ namespace com.GreenThumb.BusinessLogic
 
             return flag;
         }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/28/16
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<GroupNeedSummary> RetrieveGroupsOfNeed()
+        {
+            IEnumerable<GroupNeedSummary> summary = null;
+
+            try
+            {
+                summary = UserNeedsAccessor.RetrieveGroupsOfNeed();
+            }
+            catch (Exception) { }
+
+            return summary;
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/28/16
+        /// </summary>
+        /// <param name="groupID"></param>
+        /// <returns></returns>
+        public static IEnumerable<GardenNeedSummary> RetrieveGroupGardensOfNeed(int groupID)
+        {
+            IEnumerable<GardenNeedSummary> summary = null;
+
+            try
+            {
+                summary = UserNeedsAccessor.RetrieveGroupGardensOfNeed(groupID);
+            }
+            catch (Exception) { }
+
+            return summary;
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/28/16
+        /// </summary>
+        /// <param name="needID"></param>
+        /// <returns></returns>
+        public static GardenNeed RetrieveNeed(int needID)
+        {
+            GardenNeed need = null;
+
+            try
+            {
+                need = GardenNeedsAccessor.RetrieveGardenNeed(needID);
+            }
+            catch (Exception) { }
+
+            return need;
+        }
+
+        public IEnumerable<NeedContribution> RetrieveAllContributions()
+        {
+            IEnumerable<NeedContribution> contributions = null;
+
+            try
+            {
+                contributions = new UserNeedsAccessor(this.userId).RetrieveAllUsersContributions();
+            }
+            catch (Exception) { }
+
+            return contributions;
+        }
     }
 }

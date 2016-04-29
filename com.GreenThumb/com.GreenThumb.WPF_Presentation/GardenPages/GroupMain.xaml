@@ -43,8 +43,8 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-    
-            <Button x:Name="btnAddGroup" Width="75" Content="Add Group" Padding="3" Grid.Column="1" Margin="0 10" Click="btnAddGroup_Click" HorizontalAlignment="Center"/>
+
+            <Button  Style="{StaticResource button1}" x:Name="btnAddGroup" Content="Add Group" Grid.Column="1" Click="btnAddGroup_Click" HorizontalAlignment="Center"/>
             <Label x:Name="lblSuccess" Content="" Grid.Column="2" Margin="10 10" HorizontalAlignment="Left"/>
         </Grid>
 

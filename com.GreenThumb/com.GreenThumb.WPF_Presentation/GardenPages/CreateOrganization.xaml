@@ -18,7 +18,7 @@
         </TextBox>
         <TextBox x:Name="txtLocalPhone" HorizontalAlignment="Left" Height="23" Margin="200,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="121"/>
 
-        <Button x:Name="btnAddOrganization" Content=" Add Organization " HorizontalAlignment="Left" Margin="34,205,0,0" VerticalAlignment="Top" Width="110" Click="btnAddOrganization_Click" BorderBrush="#FFDBF012" Background="#FF2397C3" Foreground="Black" FontWeight="Bold"/>
+        <Button Style="{StaticResource button1}" x:Name="btnAddOrganization" Content=" Add Organization " HorizontalAlignment="Left" Margin="34,205,0,0" VerticalAlignment="Top" Click="btnAddOrganization_Click" />
         <Label Content="Create Organization" HorizontalAlignment="Left" Height="43" Margin="34,27,0,0" VerticalAlignment="Top" Width="348"  FontWeight="Bold" FontSize="22" Foreground="Black"/>
 
         <Label Content="Local Phone: " x:Name="lblLocalPhone" HorizontalAlignment="Left" Margin="34,154,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="Black"/>

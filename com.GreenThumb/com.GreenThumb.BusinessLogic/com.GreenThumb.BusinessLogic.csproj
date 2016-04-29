@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="AddRequestManager.cs" />
     <Compile Include="AdminExpertRequestsManager.cs" />
+    <Compile Include="AnnouncementManager.cs" />
     <Compile Include="BlogManager.cs" />
     <Compile Include="CreateOrgManager.cs" />
     <Compile Include="DonationManager.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="GroupManager.cs" />
     <Compile Include="Interfaces\IAdminGardenManager.cs" />
     <Compile Include="Interfaces\IAdminOrganizerManager.cs" />
+    <Compile Include="Interfaces\IAnnouncementManager.cs" />
     <Compile Include="Interfaces\ICreateOrgManager.cs" />
     <Compile Include="Interfaces\IGardenDesigner.cs" />
     <Compile Include="Interfaces\IGardenDesignViewer.cs" />

@@ -576,14 +576,17 @@ create table Expert.Question(
 	ModifiedDate smalldatetime null
 );
 
+--updated by rhett 4-29-16
 create table Expert.QuestionResponse(
 	QuestionID int not null,
 	Date smalldatetime not null,
 	Response varchar(250) not null,
-	UserID int not null
+	UserID int not null,
+	BlogID int	null
 
-	CONSTRAINT [PK_QuestionResponse] PRIMARY KEY ( QuestionID, Date ASC )
+	CONSTRAINT [PK_QuestionResponse] PRIMARY KEY ( QuestionID, UserID ASC )
 );
+
 
 create table Expert.Recipes(
 	RecipeID int identity(1000,1) not null primary key,
@@ -1261,6 +1264,13 @@ GO
 ALTER TABLE Expert.QuestionResponse CHECK CONSTRAINT [FK_QuestionResponse_UserID];
 GO
 
+--added by rhett 4-29-16
+ALTER TABLE Expert.QuestionResponse WITH NOCHECK ADD  CONSTRAINT [FK_QuestionResponse_BlogID] FOREIGN KEY(BlogID)
+REFERENCES Expert.BlogEntry(BlogID);
+GO
+ALTER TABLE Expert.QuestionResponse CHECK CONSTRAINT [FK_QuestionResponse_BlogID];
+GO
+
 ALTER TABLE Expert.Recipes WITH NOCHECK ADD  CONSTRAINT [FK_Recipes_CreatedBy] FOREIGN KEY(CreatedBy)
 REFERENCES Admin.Users(UserID);
 GO
@@ -1533,39 +1543,86 @@ create procedure Admin.spInsertExpertRequest(
 @UserID int, 
 @Title varchar(20),
 @Content VARCHAR(MAX),
-@DateCreated datetime, 
-@DateModified datetime,
-@ModifiedBy int,
-@Active bit,
-@Approved bit
+@DateCreated datetime
 )
 as
 begin
-insert into Admin.ExpertRequest(
+insert into Admin.ExpertRequests(
 UserID, 
 Title,
 Content,
-DateCreated,
-DateModified,
-ModifiedBy,
-Active,
-Approved
+DateCreated
 )
 values
 (
 @UserID,
 @Title,
 @Content,
-@DateCreated,
-@DateModified,
-@ModifiedBy,   
-@Active,
-@Approved
+@DateCreated
 );
 
 return @@ROWCOUNT;
 end;
 go
+
+
+--created by chris sheehan 4/28/16
+create PROCEDURE Admin.spUpdateExpertRequestApproved (
+@requestID int,
+@userID int,
+@modifiedby int,
+@approved bit)
+AS
+BEGIN
+      UPDATE Admin.ExpertRequests 
+	    SET 
+		approved = @approved,
+		ModifiedBy = @modifiedby, 
+		Active = 0
+		WHERE UserID = @UserID   AND
+                      requestid = @requestid;
+		if (NOT EXISTS(select * from userroles where UserID = @userID and RoleID = 'Expert'))
+		begin
+		insert into admin.userroles(UserID, RoleID, CreatedBy, CreatedDate) 
+		values (@userID, 'Expert', @modifiedby, getdate());
+		end
+
+	return @@ROWCOUNT;  
+END;
+go
+
+create PROCEDURE Admin.spUpdateExpertRequestDecline (
+@requestID int,
+@userID int,
+@modifiedby int,
+@approved bit)
+AS
+BEGIN
+      UPDATE Admin.ExpertRequests 
+	    SET 
+		approved = @approved,
+		ModifiedBy = @modifiedby, 
+		Active = 0
+		WHERE UserID = @UserID   AND
+                      requestid = @requestid;
+	return @@ROWCOUNT;  
+END;
+go
+
+--created by Chris Sheehan 4-28-16
+create PROCEDURE Admin.spSelectExpertRequests(
+	@active bit)
+AS
+BEGIN
+select er.requestid, u.userid, u.username, u.firstname, u.lastname, 
+u.emailaddress, er.datecreated, er.title, er.content
+from admin.ExpertRequests er inner join admin.Users u
+on er.UserID = u.userid 
+where er.Active = @active
+END;
+GO
+
+--created by Chris Sheehan 4/28/16
 
 
 ------------------------------------------
@@ -1917,7 +1974,13 @@ BEGIN
 END;
 go
 
-
+create procedure Admin.spRemoveUserRole(
+	@userid int, @roleid varchar(30))
+as
+begin
+	delete from Admin.UserRoles where userid = @userid and roleid = @roleid;
+end;
+go
 
 ------------------------------------------
 -----------Admin.Users--------------------
@@ -1936,9 +1999,7 @@ CREATE procedure [Admin].[spInsertUsers] (
 	@RegionID int)
 AS
 BEGIN
-
 DECLARE @UserID INT = 0
-
 IF ((SELECT COUNT(*) FROM Admin.Users AU WHERE LOWER(AU.UserName) = LOWER(@UserName)) > 0)
 	BEGIN
 		SELECT 2 'ReturnValue'		
@@ -2039,6 +2100,27 @@ BEGIN
 	WHERE Active = @Active;
 END;
 go
+
+create procedure Admin.spSelectUsersByRole(
+	@Active bit, @roleid varchar(30))
+as
+begin
+	select u.userid, u.firstname, u.LastName, u.emailaddress, u.username
+	from admin.users u inner join userroles ur on u.userid = ur.userid
+	where ur.active = @active and u.active = @active and ur.roleid = @roleid;
+end;
+go
+
+
+create PROCEDURE Admin.spSelectUsersExcludingRole 
+AS
+BEGIN
+	SELECT u.UserID, u.FirstName, u.LastName, u.EmailAddress, u.UserName
+	FROM Admin.Users u 
+	WHERE UserID not in (select userid from UserRoles where RoleID = 'expert') and u.Active = 1;
+END;
+go
+
 
 --created by Rhett 2-25-16
 CREATE PROCEDURE Admin.spSelectUser (
@@ -2187,8 +2269,7 @@ end
 go
 
 
---Trevor Glisch 4-1-16
-
+--Updated by Trevor Glisch 4-1-16
 CREATE PROCEDURE Admin.spGetUserCount
 AS BEGIN
 	SELECT count(*)
@@ -3689,37 +3770,44 @@ go
 -----------Expert.QuestionResponse--------
 ------------------------------------------
 
+--updated by rhett 4-29-16
 create procedure Expert.spInsertQuestionResponse(
 	@QuestionID int,
 	@Date smalldatetime,
 	@Response varchar(250),
-	@UserID int)
+	@UserID int,
+	@BlogID int)
 as
 begin
 insert into Expert.QuestionResponse(
 	QuestionID,
 	Date,
 	Response,
-	UserID)
+	UserID,
+	BlogID)
 values(
 	@QuestionID,
 	@Date,
 	@Response,
-	@UserID);
+	@UserID,
+	@BlogID);
 	return @@ROWCOUNT;
 end;
 go
 
+--updated by rhett 4-29-16
 CREATE PROCEDURE Expert.spUpdateQuestionResponse (
 	@QuestionID int,
 	@Response varchar(250),
 	@UserID int,
-	@OriginalResponse varchar(250)
+	@OriginalResponse varchar(250),
+	@BlogID int
 	)
 AS
 BEGIN
      UPDATE Expert.QuestionResponse
-			 SET    Response = @Response
+			 SET    Response = @Response,
+					BlogID = @BlogID
 			WHERE @QuestionID = QuestionID
 			and @UserID = UserID
 			and @OriginalResponse = Response
@@ -3728,13 +3816,14 @@ END;
 go 
 
 /* Rhett Allen - 3/24/16 */
+--updated by rhett 4-29-16
 CREATE PROCEDURE Expert.spSelectResponseByQuestionIDAndUser (
 	@QuestionID int,
 	@UserID int
 )
 AS
 BEGIN
-	SELECT QuestionID, Date, Response, UserID
+	SELECT QuestionID, Date, Response, UserID, BlogID
 	FROM Expert.QuestionResponse
 	WHERE QuestionID = @QuestionID
 		AND UserID = @UserID
@@ -3742,12 +3831,13 @@ END;
 go
 
 /* Rhett Allen - 3/24/16 */
+--updated by rhett 4-29-16
 CREATE PROCEDURE Expert.spSelectResponsesByQuestionID (
 	@QuestionID int
 )
 AS
 BEGIN
-	SELECT QuestionID, Date, Response, UserID
+	SELECT QuestionID, Date, Response, UserID, BlogID
 	FROM Expert.QuestionResponse
 	WHERE QuestionID = @QuestionID;
 END;
@@ -3950,22 +4040,23 @@ BEGIN
 	SELECT AnnouncementID, UserName, FirstName, LastName, GroupID, Date, Announcement
 	FROM Gardens.Announcements
 	WHERE GroupID = @GroupID
+	ORDER BY Date DESC
 END;
-GO
+go
 
 -- RETRIEVE TOP(10) By Group
 -- Jim requests announcements page only display 10 most recent announcements
 CREATE PROCEDURE Gardens.spSelectAnnouncementsByGroupIDTop10 (
-	@GroupID 				INT
+	@GroupID INT
 )
 AS
 BEGIN
 	SELECT TOP(10) AnnouncementID, UserName, FirstName, LastName, GroupID, Date, Announcement
 	FROM Gardens.Announcements
 	WHERE GroupID = @GroupID
-	ORDER BY YEAR(Date) DESC, MONTH(Date) DESC, DAY(Date) DESC
+	ORDER BY Date DESC
 END;
-GO
+go
 
 -- UPDATE
 CREATE PROCEDURE Gardens.spUpdateAnnouncements (
@@ -4455,20 +4546,6 @@ BEGIN
 END;
 GO
 
---created by Nick King 3-9-16
-/*
-CREATE Procedure Gardens.spSelectUserGroups(
-	@UserID int
-)
-AS
-BEGIN
-	SELECT Gardens.Groups.GroupID, Gardens.Groups.GroupName 
-    FROM Gardens.Groups, Gardens.GroupMembers
-    WHERE Gardens.GroupMembers.userID = @userID
-    AND Gardens.Groups.GroupID = Gardens.GroupMembers.GroupID and gardens.groups.active = 1; 
-END;
-Go
-*/
 
 --Updated by Trent Cullinan 4-1-16
 CREATE PROCEDURE Gardens.spSelectUserGroups(
@@ -4697,11 +4774,6 @@ BEGIN
 END;
 go
 
---created by chris schwebach 4-15-16
-
-
-
-
 --created by nasr mohammed 4-19-16
 CREATE PROCEDURE Gardens.spSelectTasks  	 	
 AS
@@ -4727,7 +4799,6 @@ BEGIN
 END
 GO
 
-
 -- Author:		Poonam Dubey
 -- Create date: 19th April 2016
 -- Description:	Procedure to Mark a task as completed
@@ -4747,7 +4818,6 @@ BEGIN
 
 END
 GO
-
 
 -- Author:		Poonam Dubey
 -- Create date: 17th April 2016
@@ -5072,7 +5142,7 @@ exec Expert.spInsertPlantNutrients		1000			,1000
 exec Expert.spInsertQuestion			'How do I grow a grape?'	,'fruit'				,'How do I grow a grape?'	,1 				,1002			,'6/5/08'					,1000				,'4/7/07'
 	
 --* spInsertQuestionResponse     		@QuestionID int,	@Date smalldatetime,	@Response varchar(250),		@UserID int
-exec Expert.spInsertQuestionResponse	1000				,'3/18/04'				,'Start with a grape seed'	,1002
+exec Expert.spInsertQuestionResponse	1000				,'3/18/04'				,'Start with a grape seed'	,1002			,null
 
 -- Expert insert Plant Category
 exec Expert.spInsertPlantCategory 		'Fruit'						,1001			,'3/12/16'
@@ -5099,4 +5169,166 @@ exec Expert.spInsertRecipes				'Best Potato Soup'	,'soup'					,'Gather ingredent
 	
 --* spInsertTemplates            		@UserID int,	@Description varchar(max),	@DateCreated smalldatetime
 exec Expert.spInsertTemplates			1002			,'Build a box garden'		,'4/17/02'
+
+--gardens.announcements
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 1')
+go
+
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 2')
+go
+
+
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 3')
+go
+
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 4')
+go
+
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 5')
+go
+
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 6')
+go
+
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 7')
+go
+
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 8')
+go
+
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 9')
+go
+
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 10')
+go
+
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 11')
+go
+
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 12')
+go
+
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 13')
+go
+
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 14')
+go
+
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 15')
+go
+
+insert into gardens.announcements (
+username,
+firstname,
+lastname,
+groupid,
+date,
+announcement)
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 16')
+go
 

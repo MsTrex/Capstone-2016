@@ -6,153 +6,213 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using com.GreenThumb.BusinessObjects;
-using com.GreenThumb.DataAccess;
 
-
-//Dat Tran
 namespace com.GreenThumb.DataAccess
 {
-    public class AnnoucementsAccessor
+    /// <summary>
+    /// Created By: Luke Frahm 4/22/2016
+    /// Data access class that does CRUD operations on Gardens.Announcements database table.
+    /// </summary>
+    public class AnnouncementAccessor
     {
         /// <summary>
-        ///These comments were added byTRex 4/12/16 
-        ///Changes to method by TRex 4/12/16
-        ///This method allows an announcement to be updated
+        /// Created By: Luke Frahm 4/22/2016
+        /// Take a new announcement created by user and add it to the database.
         /// </summary>
-        /// <param name="AnnouncementID"></param>
-        /// <param name="DateUpdated"></param>
-        /// <param name="Announcement"></param>
-        /// <param name="UserID"></param>
-        /// <returns> rowCount </returns>
-
-        public static int UpdateAnnoucements(int AnnouncementID, DateTime DateUpdated, string Announcement, int UserID)
+        /// <param name="announcement">Announcement object with all object details.</param>
+        /// <returns>Boolean based on procedure result.</returns>
+        public static bool CreateAnnouncement(Announcements announcement)
         {
-            int rowCount = 0;
-
-            ///changes begin so that an existing stored procedure can be used.-TRex
+            int result;
+            bool succeded;
             var conn = DBConnection.GetDBConnection();
-            var query = @"Gardens.spUpdateAnnouncements";
+            var query = @"Gardens.spInsertAnnouncement";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@AnnouncementID", AnnouncementID);
-            cmd.Parameters.AddWithValue("@DateUpdated", DateUpdated);
-            cmd.Parameters.AddWithValue("@Announcement", Announcement);
-            cmd.Parameters.AddWithValue("@UserID", UserID);
-
+            cmd.Parameters.AddWithValue("UserName", announcement.UserName);
+            cmd.Parameters.AddWithValue("FirstName", announcement.FirstName);
+            cmd.Parameters.AddWithValue("LastName", announcement.LastName);
+            cmd.Parameters.AddWithValue("GroupID", announcement.GroupID);
+            cmd.Parameters.AddWithValue("Date", announcement.Date);
+            cmd.Parameters.AddWithValue("Announcement", announcement.Announcement);
 
             try
             {
                 conn.Open();
-                rowCount = (int)cmd.ExecuteNonQuery();
+                result = cmd.ExecuteNonQuery();
+                if (result == 1)
+                {
+                    succeded = true;
+                }
+                else
+                {
+                    succeded = false;
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw new ApplicationException("Announcement could not be sent.");
             }
             finally
             {
                 conn.Close();
             }
-            // end of changes-TRex
-
-            //cmd.Parameters.Add(new SqlParameter("AnnouncementID", SqlDbType.Int));
-
-            //cmd.Parameters.Add(new SqlParameter("Announcements", SqlDbType.VarChar, 250));
-
-            //cmd.Parameters["AnnouncementID"].Value = AnnouncementID;
-            //cmd.Parameters["Announcements"].Value = Announcements;
-
-            //cmd.Parameters.Add(new SqlParameter("RowCount", SqlDbType.Int));
-            //cmd.Parameters["RowCount"].Direction = ParameterDirection.ReturnValue;
-
-            //try
-            //{
-            //    conn.Open();
-            //    rowCount = (int)cmd.ExecuteNonQuery();
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
-            //finally
-            //{
-            //    conn.Close();
-            //}
-
-            return rowCount;
+            return succeded;
         }
 
         /// <summary>
-        /// Comments by TRex 4/12/16
-        /// Changes to this method by TRex 4/12/16
+        /// Created By: Luke Frahm 4/22/2016
+        /// Retrieve all announcements linked to a GroupID.
         /// </summary>
-        /// <param name="announcement"></param>
-        /// <returns></returns>
-        public static int InsertAnnouncement(Announcements announcement)
+        /// <param name="announcement">Announcement object with all object details.</param>
+        /// <returns>List of Announcements based on procedure result.</returns>
+        public static List<Announcements> RetrieveAnnouncementsByGroupID(int groupID)
         {
-            int rowCount = 0;
-
-            //changes begin so that database will update-TRex
+            var anouncements = new List<Announcements>();
             var conn = DBConnection.GetDBConnection();
-            var query = @"Expert.spInsertBlogEntry";
+            var query = @"Gardens.SelectAnnouncementsByGroupID";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@UserID", announcement.UserID);
-            cmd.Parameters.AddWithValue("@Date", announcement.Date);
-            cmd.Parameters.AddWithValue("@OrganizationID", announcement.OrganizationID);
-            cmd.Parameters.AddWithValue("@Announcement", announcement.Announcement);
+            cmd.Parameters.AddWithValue("GroupID", groupID);
 
             try
             {
                 conn.Open();
-                rowCount = (int)cmd.ExecuteNonQuery();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Announcements message = new Announcements()
+                        {
+                            AnnouncementID = reader.GetInt32(0),
+                            UserName = reader.GetString(1),
+                            FirstName = reader.GetString(2),
+                            LastName = reader.GetString(3),
+                            GroupID = reader.GetInt32(4),
+                            Date = reader.GetDateTime(5),
+                            Announcement = reader.GetString(6)
+                        };
+                        anouncements.Add(message);
+                    }
+                }
+                else
+                {
+                    throw new ApplicationException("No group announcements.");
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw new ApplicationException("Could not retreive announcements for this group.");
             }
             finally
             {
                 conn.Close();
             }
-            // End of changes-TRex
+            return anouncements;
+        }
 
-            //// get a connection
-            //var conn = DBConnection.GetDBConnection();
+        /// <summary>
+        /// Created By: Luke Frahm 4/22/2016
+        /// Retrieve TOP 10 announcements linked to a GroupID.
+        /// This is a business requirement and will be primarily used on the group homescreen.
+        /// </summary>
+        /// <param name="announcement">Announcement object with all object details.</param>
+        /// <returns>List of Announcements based on procedure result.</returns>
+        public static List<Announcements> RetrieveAnnouncementsByGroupIDTop10(int groupID)
+        {
+            var anouncements = new List<Announcements>();
+            var conn = DBConnection.GetDBConnection();
+            var query = @"Gardens.spSelectAnnouncementsByGroupIDTop10";
+            var cmd = new SqlCommand(query, conn);
 
-            ////create a sql command
-            //var cmd = new SqlCommand("spInsertAnnouncements", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("GroupID", groupID);
 
-            //// set Command Type
-            //cmd.CommandType = CommandType.StoredProcedure;
-            //cmd.Parameters.Add(new SqlParameter("AnnouncementID", SqlDbType.Int));
-            //cmd.Parameters.Add(new SqlParameter("Announcements", SqlDbType.VarChar, 250));
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Announcements message = new Announcements()
+                        {
+                            AnnouncementID = reader.GetInt32(0),
+                            UserName = reader.GetString(1),
+                            FirstName = reader.GetString(2),
+                            LastName = reader.GetString(3),
+                            GroupID = reader.GetInt32(4),
+                            Date = reader.GetDateTime(5),
+                            Announcement = reader.GetString(6)
+                        };
+                        anouncements.Add(message);
+                    }
+                }
+                else
+                {
+                    anouncements.Add(new Announcements(0, "", "", "", 0, DateTime.Now, "No new announcements!"));
+                }
+            }
+            catch (Exception)
+            {
+                throw new ApplicationException("Could not retreive announcements for this group.");
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return anouncements;
+        }
 
-            //cmd.Parameters["AnnouncementID"].Value = AnnouncementID;
-            //cmd.Parameters["Announcements"].Value = Announcements;
+        /// <summary>
+        /// Created By: Luke Frahm 4/22/2016
+        /// Updates an existing announcement with new data.
+        /// </summary>
+        /// <param name="announcement">Announcement object with all object details.</param>
+        /// <returns>Boolean based on procedure result</returns>
+        public static bool UpdateAnnouncement(Announcements announcement)
+        {
+            int result;
+            bool succeded;
+            var conn = DBConnection.GetDBConnection();
+            var query = @"Admin.spUpdateAnnouncements";
+            var cmd = new SqlCommand(query, conn);
 
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("AnnouncementID", announcement.AnnouncementID);
+            cmd.Parameters.AddWithValue("UserName", announcement.UserName);
+            cmd.Parameters.AddWithValue("FirstName", announcement.FirstName);
+            cmd.Parameters.AddWithValue("LastName", announcement.LastName);
+            cmd.Parameters.AddWithValue("GroupID", announcement.GroupID);
+            cmd.Parameters.AddWithValue("Date", announcement.Date);
+            cmd.Parameters.AddWithValue("Announcement", announcement.Announcement);
 
-            //cmd.Parameters.Add(new SqlParameter("RowCount", SqlDbType.Int));
-            //cmd.Parameters["RowCount"].Direction = ParameterDirection.ReturnValue;
-
-            //try
-            //{
-            //    conn.Open();
-            //    rowCount = (int)cmd.ExecuteNonQuery();
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
-            //finally
-            //{
-            //    conn.Close();
-            //}
-            return rowCount;
+            try
+            {
+                conn.Open();
+                result = cmd.ExecuteNonQuery();
+                if (result == 1)
+                {
+                    succeded = true;
+                }
+                else
+                {
+                    succeded = false;
+                }
+            }
+            catch (Exception)
+            {
+                throw new ApplicationException("Problem occurred while trying to update the announcement.");
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return succeded;
         }
     }
 }
