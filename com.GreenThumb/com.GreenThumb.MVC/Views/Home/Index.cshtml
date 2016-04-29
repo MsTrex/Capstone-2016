@@ -9,14 +9,18 @@
 
 <div class="row home-intro-div">
     <div class="dark-div round col-lg-4 col-md-6 col-sm-11 center-block">
+
         <ul>
-            @*@{
+            @{
                 var al10 = ViewBag.Announcements;
                 foreach (var a in al10)
                 {
                     <li> @a.Announcement </li>
                 }
-            }*@
+            }
+
+
         </ul>
+
     </div>
 </div>

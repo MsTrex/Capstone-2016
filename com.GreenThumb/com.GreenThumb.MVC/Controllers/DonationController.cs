@@ -58,7 +58,6 @@ namespace com.GreenThumb.MVC.Controllers
                     model.ActiveNeeds = GardenNeedsManager.RetrieveGroupNeeds(id.Value);
                 }
 
-
                 if (null != model.ActiveNeeds || null != model.GardenSummaries)
                 {
                     view = View(model);

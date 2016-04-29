@@ -1,0 +1,57 @@
+﻿@*
+    <summary>
+     Table of users requesting to join experts for admin approval.
+     Author: Chris Schwebach
+     Date:  4/22/2016
+     </summary>
+     <returns>Expert Group List</returns>
+*@
+
+@model IEnumerable<com.GreenThumb.BusinessObjects.GroupMember>
+
+
+<h2></h2>
+<p></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Approved Date
+            </th>
+            <th>
+                Email Address
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (com.GreenThumb.BusinessObjects.GroupMember memberInfo in Model)
+        {
+            <tr>
+                <td>
+                    @memberInfo.CreatedDate
+                </td>
+                <td>
+                    @memberInfo.User.EmailAddress
+                </td>
+                <td>
+                    @memberInfo.User.FirstName
+                </td>
+                <td>
+                    @memberInfo.User.LastName
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+

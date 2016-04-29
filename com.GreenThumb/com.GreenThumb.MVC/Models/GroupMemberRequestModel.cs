@@ -13,5 +13,6 @@ namespace com.GreenThumb.MVC.Models
     {
         public User Requestor { get; set; }
         public GroupRequest Request { get; set; }
+
     }
 }

@@ -76,31 +76,31 @@ namespace com.GreenThumb.WPF_Presentation
                 {
                     if (r.RoleID == "Admin")
                     {
-                        var adminTabs = new Label[] { btnAdmin, /*btnGardens,*/ btnExpert, btnHome, btnProfile };
+                        var adminTabs = new Label[] { btnAdmin, btnGardens, btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(adminTabs);
                         break;
                     }
                     if (r.RoleID == "Expert")
                     {
-                        var expertTabs = new Label[] { /*btnGardens,*/ btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
                     if (r.RoleID == "GroupLeader")
                     {
-                        var expertTabs = new Label[] { /*btnGardens,*/ btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
                     if (r.RoleID == "GroupMember")
                     {
-                        var expertTabs = new Label[] { /*btnGardens,*/ btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
                     if (r.RoleID == "User")
                     {
-                        var expertTabs = new Label[] { /*btnGardens,*/ btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
@@ -360,11 +360,12 @@ namespace com.GreenThumb.WPF_Presentation
         {
             mainFrame.NavigationService.Navigate(new AdminPages.AdminHome(_accessToken));
             clearSideBar();
-            btnSideBar1.Content = "";
+            btnSideBar1.Content = "User Accounts";
             btnSideBar2.Content = "Messages";
             btnSideBar3.Content = "Expert Requests";
             btnSideBar4.Content = "User Role";
             btnSideBar5.Content = "User Region";
+            btnSideBar6.Content = "";
             clearUnusedSidebars();
         }
 
@@ -441,7 +442,6 @@ namespace com.GreenThumb.WPF_Presentation
                         break;
                     case "Expert Requests":
                         page = new AdminPages.AdminProcessExpertRequests(_accessToken);
-                        //page = new AdminPages.ExpertRequests(_accessToken);
                         break;
                     case "Search for Questions":
                         page = new ExpertPages.SearchForQuestions(_accessToken);
@@ -453,7 +453,7 @@ namespace com.GreenThumb.WPF_Presentation
                         page = new ExpertPages.ExpertAdvice(_accessToken);
                         break;
                     case "User Role":
-                        //page = new AdminPages.UserRole(_accessToken);
+                        page = new AdminPages.UserRole(_accessToken);
                         return;
                     case "Answer Questions":
                         page = new ExpertPages.ExpertAdviceRespond(_accessToken);
@@ -462,8 +462,11 @@ namespace com.GreenThumb.WPF_Presentation
                         page = new GardenPages.ManageTask(_accessToken);
                         break;
                     case "User Region":
-                        //page = new Uri("AdminPages/RegionPage.xaml", UriKind.Relative);
+            //            page = new Uri("AdminPages/RegionPage.xaml", UriKind.Relative);
                         page = new AdminPages.RegionPage();
+                        return;
+                    case "User Accounts":
+                        page = new AdminPages.ProfileAdmin(_accessToken);
                         return;
                     case "Upload Garden Template":
                         page = new ExpertPages.ExpertGardenTemplate(_accessToken);

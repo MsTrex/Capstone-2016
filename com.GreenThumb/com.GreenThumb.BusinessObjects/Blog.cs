@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,13 @@ namespace com.GreenThumb.BusinessObjects
     public class Blog
     {
         public int BlogID { get; set; }
+
+        [MinLength(1), MaxLength(200)]
+        [Required(ErrorMessage = "Please enter a Artile title that is greater than 1 charcter and less than 200 characters!")]
         public string BlogTitle { get; set; } //added to database
+
+        [MinLength(1), MaxLength(8000)]
+        [Required(ErrorMessage = "Please enter Artile content has to be less than 8000 charaters!")]
         public string BlogData { get; set; }
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }

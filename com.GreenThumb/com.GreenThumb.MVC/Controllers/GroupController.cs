@@ -84,18 +84,18 @@ namespace com.GreenThumb.MVC.Controllers
         /// 
         /// Created by: Trent Cullinan 03/31/2016
         /// </summary>
-        /// <param name="group">Group Id that is being left.</param>
+        /// <param name="id">Group Id that is being left.</param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult LeaveGroup(int? group)
+        public ActionResult LeaveGroup(int? id)
         {
-            if (group.HasValue)
+            if (id.HasValue)
             {
                 int userId = RetrieveUserId();
 
                 if (0 != userId)
                 {
-                    if (new GroupManager().EditLeaveGroup(userId, group.Value))
+                    if (new GroupManager().EditLeaveGroup(userId, id.Value))
                     {
                         return RedirectToAction("Index", "Group");
                     }
@@ -103,6 +103,33 @@ namespace com.GreenThumb.MVC.Controllers
             }
 
             return View("Error");
+        }
+        [HttpGet]
+        public ActionResult CreateAnnouncement(int? id)
+        {
+            AnnouncementViewModel model = new AnnouncementViewModel();
+            model.GroupID = id.Value;
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult CreateAnnouncement([ModelBinder(typeof(AnnouncementViewModel))]AnnouncementViewModel AVM)
+        {
+            int userID = RetrieveUserId();
+            int groupID = AVM.GroupID;
+
+            try
+            {
+                new AnnouncementManager().CreateAnnouncement((int)AVM.GroupID, AVM.Content, User.Identity.GetUserName());
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+         
+            
+
+            return RedirectToAction("Details", "Group");
         }
 
         /// <summary>
