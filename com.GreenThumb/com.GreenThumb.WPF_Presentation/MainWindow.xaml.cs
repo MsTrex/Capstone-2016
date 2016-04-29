@@ -358,12 +358,12 @@ namespace com.GreenThumb.WPF_Presentation
         {
             mainFrame.NavigationService.Navigate(new AdminPages.AdminHome(_accessToken));
             clearSideBar();
-            btnSideBar1.Content = "";
+            btnSideBar1.Content = "User Accounts";
             btnSideBar2.Content = "Messages";
             btnSideBar3.Content = "Expert Requests";
             btnSideBar4.Content = "User Role";
             btnSideBar5.Content = "User Region";
-            btnSideBar6.Content = "Admin User Profile";
+            btnSideBar6.Content = "";
             clearUnusedSidebars();
         }
 
@@ -463,7 +463,7 @@ namespace com.GreenThumb.WPF_Presentation
             //            page = new Uri("AdminPages/RegionPage.xaml", UriKind.Relative);
                         page = new AdminPages.RegionPage();
                         return;
-                    case "Admin User Profile":
+                    case "User Accounts":
                         page = new AdminPages.ProfileAdmin(_accessToken);
                         return;
                     case "Upload Garden Template":
