@@ -1,0 +1,39 @@
+﻿@*Created by Ryan Taylor*@
+@model com.GreenThumb.MVC.Models.MessageViewModelCompose
+<div class="green-btn">
+    @Html.ActionLink("Inbox", "Inbox")
+</div>
+<div class="green-btn">
+    @Html.ActionLink("Outbox", "Outbox")
+</div>
+<div>
+    @using (Html.BeginForm("Compose", "Message", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row create-group">
+            @Html.LabelFor(m => m.Receiver)
+            <select class="" id="Receiver" name="Receiver">
+                @foreach (var user in Model.UserList)
+                {
+                    <option value="@user.Username">@user.FirstName @user.LastName</option>
+                }
+            </select>
+
+            @Html.ValidationMessageFor(m => m.Receiver, "", new { @class = "text-danger" })
+        </div>
+        <div class="row create-group">
+            @Html.LabelFor(m => m.Subject)
+            @Html.TextBoxFor(m => m.Subject)
+            @Html.ValidationMessageFor(m => m.Subject, "", new { @class = "text-danger" })
+        </div>
+        <div class="row create-group">
+            @Html.LabelFor(m => m.Content)
+            @Html.TextAreaFor(m => m.Content)
+            @Html.ValidationMessageFor(m => m.Content, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            <input type="submit" value="Send Message" class="green-btn text-center" />
+        </div>
+    }
+</div>
