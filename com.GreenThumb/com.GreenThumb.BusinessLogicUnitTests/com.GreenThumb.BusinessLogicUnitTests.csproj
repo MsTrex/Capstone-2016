@@ -60,9 +60,11 @@
     <Compile Include="GroupManagerUnitTest.cs" />
     <Compile Include="RecipeManagerUnitTests.cs" />
     <Compile Include="SecurityManagerUnitTests.cs" />
-    <Compile Include="UnitTest1.cs" />
-    <Compile Include="UnitTestUserRegion.cs" />
+    <Compile Include="UserNeedsManagerUnitTests.cs" />
     <Compile Include="UserManagerUnitTests.cs" />
+    <Compile Include="UserRegionManagerTests.cs" />
+    <Compile Include="UserRoleManagerTests.cs" />
+    <Compile Include="VolunteerManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\com.GreenThumb.BusinessLogic\com.GreenThumb.BusinessLogic.csproj">

@@ -48,47 +48,10 @@ namespace com.GreenThumb.BusinessLogic
             }
         }
 
-   /*     public bool AddNewUser(string firstName,
-                                   string lastName,
-                                   string zip,
-                                   string emailAddress,
-                                   string userName,
-                                   string passWord,
-            //             bool   active,
-                                   int regionID)
-        {
-            try
-            {
-                var usr = new User()
-                {
-                    FirstName = firstName,
-                    LastName = lastName,
-                    Zip = zip,
-                    EmailAddress = emailAddress,
-                    UserName = userName,
-                    Password = passWord,
-                    //       Active = active,
-                    RegionID = regionID
-                };
-                if (UserRegionAccessor.InsertUser(usr) == 1)
-                {
-                    return true;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return false;
-        } */
+  
         public bool EditUserData(int userID, int regionID)
         {
-            //                 var usr = new User()
-
-     /*       if (userID < 1000)
-            {
-                throw new ApplicationException("Invalid UserID");
-            }  */
+           
 
             try
             {
@@ -109,10 +72,7 @@ namespace com.GreenThumb.BusinessLogic
         {
             User usr = null;
 
-       /*     if (userID < 1000)
-            {
-                throw new ApplicationException("Invalid UserID");
-            }  */
+       
 
             try
             {

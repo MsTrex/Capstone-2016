@@ -42,6 +42,11 @@ namespace com.GreenThumb.BusinessLogic
             this.userId = userId;
         }
 
+        public UserNeedsManager()
+        {
+            // TODO: Complete member initialization
+        }
+
         /// <summary>
         /// 
         /// Created By: Trent Cullinan 04/14/16
