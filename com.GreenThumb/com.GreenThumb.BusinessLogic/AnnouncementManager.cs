@@ -13,7 +13,7 @@ namespace com.GreenThumb.BusinessLogic
     /// Created By: Luke Frahm 4/22/2016
     /// Announcement manager created to handle logic for announcements
     /// </summary>
-    public class AnnouncementManager : IAnnouncementManager
+    public class AnnouncementManager : com.GreenThumb.BusinessLogic.IAnnouncementManager
     {
         /// <summary>
         /// Created By: Luke Frahm 4/22/2016
@@ -21,16 +21,17 @@ namespace com.GreenThumb.BusinessLogic
         /// </summary>
         /// <param name="announcement">Announcement object with all object details.</param>
         /// <returns>Boolean based on result from data access layer.</returns>
-        public bool CreateAnnouncement(Announcements announcement)
+        public bool CreateAnnouncement(int groupID, string Content, string username)
         {
             bool success;
             try
             {
-                success = AnnouncementAccessor.CreateAnnouncement(announcement);
+                var user = UserAccessor.RetrieveUserByUsername(username);
+                success = AnnouncementAccessor.CreateAnnouncement(groupID, Content, user);
             }
             catch (Exception)
             {
-                throw;
+                success = false;
             }
             return success;
         }

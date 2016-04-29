@@ -21,21 +21,21 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="announcement">Announcement object with all object details.</param>
         /// <returns>Boolean based on procedure result.</returns>
-        public static bool CreateAnnouncement(Announcements announcement)
+        public static bool CreateAnnouncement(int groupID, string Content, User user)
         {
             int result;
             bool succeded;
             var conn = DBConnection.GetDBConnection();
-            var query = @"Gardens.spInsertAnnouncement";
+            var query = @"Gardens.spInsertAnnouncements";
             var cmd = new SqlCommand(query, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("UserName", announcement.UserName);
-            cmd.Parameters.AddWithValue("FirstName", announcement.FirstName);
-            cmd.Parameters.AddWithValue("LastName", announcement.LastName);
-            cmd.Parameters.AddWithValue("GroupID", announcement.GroupID);
-            cmd.Parameters.AddWithValue("Date", announcement.Date);
-            cmd.Parameters.AddWithValue("Announcement", announcement.Announcement);
+            cmd.Parameters.AddWithValue("UserName", user.UserName);
+            cmd.Parameters.AddWithValue("FirstName", user.FirstName);
+            cmd.Parameters.AddWithValue("LastName", user.LastName);
+            cmd.Parameters.AddWithValue("GroupID", groupID);
+            cmd.Parameters.AddWithValue("Date", DateTime.Now);
+            cmd.Parameters.AddWithValue("Announcement", Content);
 
             try
             {

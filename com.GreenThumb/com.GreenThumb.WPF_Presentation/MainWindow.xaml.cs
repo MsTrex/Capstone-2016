@@ -25,6 +25,7 @@ namespace com.GreenThumb.WPF_Presentation
         private AccessToken _accessToken = null;
         Login _login;
         RoleManager roleManager = new RoleManager();
+        MessageManager messageMgr = new MessageManager();
         NewUserCreation _newUser;
 
         public MainWindow()
@@ -64,6 +65,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             List<Label> visibleTabs = new List<Label>();
             var allTabs = new Label[] { btnAdmin, btnGardens, btnExpert, btnHome, btnProfile };
+            btnGardens.Visibility = Visibility.Collapsed;
             if (_accessToken == null)
             {
                 clearSideBar();
@@ -111,7 +113,7 @@ namespace com.GreenThumb.WPF_Presentation
             }
             foreach (Label tab in allTabs)
             {
-                tab.Visibility = Visibility.Hidden;
+                tab.Visibility = Visibility.Collapsed;
             }
             foreach (Label tab in visibleTabs)
             {
@@ -196,29 +198,29 @@ namespace com.GreenThumb.WPF_Presentation
         /// Method to change the label when someone logs in or checks messages
         /// </summary>
         /// <param name="a"></param>
-        //public void SetNewMessageLabel(AccessToken a)
-        //{
-        //    try
-        //    {
-        //        int count = messageMgr.UnreadMessageCount(_accessToken.UserName);
-        //        string message = "";
-        //        if (count > 0)
-        //        {
-        //            message = count.ToString();
-        //        }
-        //        else
-        //        {
-        //            message = "No";
-        //        }
+        public void SetNewMessageLabel(AccessToken a)
+        {
+            try
+            {
+                int count = messageMgr.GetUnreadMessageCount(_accessToken.UserName);
+                string message = "";
+                if (count > 0)
+                {
+                    message = count.ToString();
+                }
+                else
+                {
+                    message = "No";
+                }
 
-        //        lblCurrentMessages.Header = a.FirstName + " You Have " + message + " New Messages";
-        //    }
-        //    catch (Exception)
-        //    {
-        //        lblCurrentMessages.Header = a.FirstName + " You Have No New Messages";
-        //    }
-            
-        //}
+                lblCurrentMessages.Content = a.FirstName + " You Have " + message + " New Messages";
+            }
+            catch (Exception)
+            {
+                lblCurrentMessages.Content = a.FirstName + " You Have No New Messages";
+            }
+
+        }
         /// <summary>
         /// Author: Ryan Taylor
         /// Click logic for New user button
@@ -358,12 +360,12 @@ namespace com.GreenThumb.WPF_Presentation
         {
             mainFrame.NavigationService.Navigate(new AdminPages.AdminHome(_accessToken));
             clearSideBar();
-            btnSideBar1.Content = "";
+            btnSideBar1.Content = "User Accounts";
             btnSideBar2.Content = "Messages";
             btnSideBar3.Content = "Expert Requests";
             btnSideBar4.Content = "User Role";
             btnSideBar5.Content = "User Region";
-            btnSideBar6.Content = "Admin User Profile";
+            btnSideBar6.Content = "";
             clearUnusedSidebars();
         }
 
@@ -374,7 +376,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.NavigationService.Navigate(new AdminPages.ProfileMain(_accessToken));
+            mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
             clearSideBar();
             SetProfileButtons();
             clearUnusedSidebars();
@@ -421,13 +423,13 @@ namespace com.GreenThumb.WPF_Presentation
                 switch (content)
                 {
                     case "Edit Personal Info":
-                        page = new AdminPages.EditPersonalInfo(_accessToken);
+                        page = new ProfilePages.EditPersonalInfo(_accessToken);
                         break;
                     case "Edit Volunteer Availability":
                         page = new VolunteerPages.EditVolunteerAvailability(_accessToken);
                         break;
                     case "Messages":
-                        page = new AdminPages.Messages(_accessToken);
+                        page = new ProfilePages.Messages(_accessToken);
                         break;
                     case "Add a Recipe":
                         page = new ExpertPages.RecipeInput(_accessToken);
@@ -436,7 +438,7 @@ namespace com.GreenThumb.WPF_Presentation
                         page = new VolunteerPages.VolunteerSignUp(_accessToken);
                         break;
                     case "Profile Main":
-                        page = new AdminPages.ProfileMain(_accessToken);
+                        page = new ProfilePages.ProfileMain(_accessToken);
                         break;
                     case "Expert Requests":
                         page = new AdminPages.AdminProcessExpertRequests(_accessToken);
@@ -445,7 +447,7 @@ namespace com.GreenThumb.WPF_Presentation
                         page = new ExpertPages.SearchForQuestions(_accessToken);
                         break;
                     case "Complete A Task":
-                        page = new AdminPages.Messages(_accessToken);
+                        page = new ProfilePages.Messages(_accessToken);
                         break;
                     case "Ask a Question":
                         page = new ExpertPages.ExpertAdvice(_accessToken);
@@ -463,7 +465,7 @@ namespace com.GreenThumb.WPF_Presentation
             //            page = new Uri("AdminPages/RegionPage.xaml", UriKind.Relative);
                         page = new AdminPages.RegionPage();
                         return;
-                    case "Admin User Profile":
+                    case "User Accounts":
                         page = new AdminPages.ProfileAdmin(_accessToken);
                         return;
                     case "Upload Garden Template":
@@ -533,5 +535,9 @@ namespace com.GreenThumb.WPF_Presentation
             }
         }
 
+        private void lblCurrentMessages_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new ProfilePages.Messages(_accessToken));
+        }
     }
 }

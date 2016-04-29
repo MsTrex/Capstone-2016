@@ -66,7 +66,7 @@
         </Grid>
 
         <Grid x:Name="frmMap" HorizontalAlignment="Left" Height="222" Margin="461,73,0,0" VerticalAlignment="Top" Width="348" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
-        <Image x:Name="grdMap" Source="c:/usda_plant.jpg" HorizontalAlignment="Left" Height="256" Margin="527,73,-119,0" VerticalAlignment="Top" Width="485" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
+        <Image x:Name="grdMap" Source="Images/usda_plant.jpg" HorizontalAlignment="Left" Height="256" Margin="527,73,-119,0" VerticalAlignment="Top" Width="485" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
         <Grid x:Name="frmUser" HorizontalAlignment="Left" Height="56" Margin="13,10,0,0" VerticalAlignment="Top" Width="809" Grid.ColumnSpan="2">
             <Label x:Name="lblFirstName" HorizontalAlignment="Left" Margin="10,28,0,0" VerticalAlignment="Top" Width="118"/>
             <Label x:Name="lblLastName" Content="Label" HorizontalAlignment="Left" Margin="142,28,0,0" VerticalAlignment="Top" Width="130"/>

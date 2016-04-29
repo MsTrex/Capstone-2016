@@ -1,5 +1,6 @@
 ﻿using com.GreenThumb.BusinessLogic;
 using com.GreenThumb.BusinessObjects;
+using com.GreenThumb.MVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,36 @@ namespace com.GreenThumb.MVC.Controllers
     [Authorize]
     public class ExpertController : Controller
     {
+
+        /// <summary>
+        /// Gets Articles
+        /// Date: 4/29/16
+        /// Author: Chris Schwebach
+        /// </summary>
+        /// <param name=" UserID"></param>
+        /// <returns>Article List</returns>
         public ActionResult Index()
         {
-            return View();
+            
+            var articles = new BlogManager().GetBlogs();
+            List<ArticlesViewModel> blogs = new List<ArticlesViewModel>();
+            foreach(Blog blog in articles)
+            {
+                ArticlesViewModel model = new ArticlesViewModel();
+                int userId = blog.CreatedBy;
+                var userInfo = new com.GreenThumb.BusinessLogic.UserManager().GetPersonalInfo(userId);
+                model.FirstName = userInfo.FirstName;
+                model.LastName = userInfo.LastName;
+                model.blog = blog;
+                blogs.Add(model);
+            }
+            return View(blogs);
         }
 
 
         /// <summary>
         /// Submits a Request to become an expert
-        /// Date: 4/20/16
+        /// Date: 4/24/16
         /// Author: Chris Schwebach
         /// </summary>
         /// <param name="groupID, UserID"></param>
@@ -59,6 +81,38 @@ namespace com.GreenThumb.MVC.Controllers
         public ActionResult AlreadyExpert()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Articles()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Submits a Blog from an expert
+        /// Date: 4/28/16
+        /// Author: Chris Schwebach
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Articles([Bind(Include = "BlogTitle, BlogData")]string blogTitle, string blogData)
+        {
+                BlogManager blogManager = new BlogManager();
+                int UserID = RetrieveUserId();
+ 
+                    Blog blog = new Blog()
+                    {
+                        BlogTitle = blogTitle,
+                        BlogData = blogData,
+                        CreatedBy = UserID,
+                        DateCreated = DateTime.Now,
+                        Active = true
+                    };
+                    blogManager.AddBlog(blog);
+                    return RedirectToAction("Index", "Expert");
         }
 
         private int RetrieveUserId()

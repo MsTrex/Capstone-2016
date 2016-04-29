@@ -634,7 +634,7 @@ namespace com.GreenThumb.DataAccess
 
             var conn = DBConnection.GetDBConnection();
 
-            var cmd = new SqlCommand("Gardens.spUpdateGroupMember", conn);
+            var cmd = new SqlCommand("Gardens.spUpdateGroupMemberInactive", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@UserID",

@@ -435,6 +435,15 @@ create table Expert.BlogEntry(
 	active bit not null default 1
 );
 
+create table Expert.Blueprints(
+	BlueprintID int identity(1000,1) not null,
+	Title varchar (20) not null,
+	Description varchar(200) not null,
+	DateCreated smalldatetime not null,
+	CreatedBy int null,
+	FilePath varchar(150) not null
+);
+
 create table Expert.Content(
 	ContentID int identity(1000,1) not null primary key,
 	UserID int not null,
@@ -462,6 +471,10 @@ create table Expert.Expertise(
 
 	CONSTRAINT [PK_Expertise] PRIMARY KEY ( GardenTypeID, ExpertID ASC )
 );
+
+
+
+
 
 create table Expert.GardenNotifications(
 	GardenID int not null,
@@ -576,14 +589,17 @@ create table Expert.Question(
 	ModifiedDate smalldatetime null
 );
 
+--updated by rhett 4-29-16
 create table Expert.QuestionResponse(
 	QuestionID int not null,
 	Date smalldatetime not null,
 	Response varchar(250) not null,
-	UserID int not null
+	UserID int not null,
+	BlogID int	null
 
-	CONSTRAINT [PK_QuestionResponse] PRIMARY KEY ( QuestionID, Date ASC )
+	CONSTRAINT [PK_QuestionResponse] PRIMARY KEY ( QuestionID, UserID ASC )
 );
+
 
 create table Expert.Recipes(
 	RecipeID int identity(1000,1) not null primary key,
@@ -609,6 +625,15 @@ create table Expert.Templates(
 	Description varchar(max) not null,
 	DateCreated smalldatetime not null,
 	Active bit not null default 1
+);
+
+create table Expert.Template(
+	TemplateID int identity(1000,1) not null,
+	Title varchar (20) not null,
+	Description varchar(200) not null,
+	DateCreated smalldatetime not null,
+	CreatedBy int null,
+	FilePath varchar(150) not null
 );
 
 
@@ -1069,6 +1094,12 @@ GO
 ALTER TABLE Expert.BlogEntry CHECK CONSTRAINT [FK_BlogEntry_ModifiedBy];
 GO
 
+ALTER TABLE Expert.Blueprints WITH NOCHECK ADD  CONSTRAINT [FK_Blueprints_CreatedBy] FOREIGN KEY(CreatedBy)
+REFERENCES Admin.Users(UserID);
+GO
+ALTER TABLE Expert.Blueprints CHECK CONSTRAINT [FK_Blueprints_CreatedBy];
+GO
+
 ALTER TABLE Expert.Content WITH NOCHECK ADD  CONSTRAINT [FK_Content_CreatedBy] FOREIGN KEY(CreatedBy)
 REFERENCES Admin.Users(UserID);
 GO
@@ -1261,6 +1292,13 @@ GO
 ALTER TABLE Expert.QuestionResponse CHECK CONSTRAINT [FK_QuestionResponse_UserID];
 GO
 
+--added by rhett 4-29-16
+ALTER TABLE Expert.QuestionResponse WITH NOCHECK ADD  CONSTRAINT [FK_QuestionResponse_BlogID] FOREIGN KEY(BlogID)
+REFERENCES Expert.BlogEntry(BlogID);
+GO
+ALTER TABLE Expert.QuestionResponse CHECK CONSTRAINT [FK_QuestionResponse_BlogID];
+GO
+
 ALTER TABLE Expert.Recipes WITH NOCHECK ADD  CONSTRAINT [FK_Recipes_CreatedBy] FOREIGN KEY(CreatedBy)
 REFERENCES Admin.Users(UserID);
 GO
@@ -1295,6 +1333,12 @@ ALTER TABLE Expert.PlantRegions WITH NOCHECK ADD  CONSTRAINT [FK_PlantRegions_Re
 REFERENCES Admin.Regions(RegionID);
 GO
 ALTER TABLE Expert.PlantRegions CHECK CONSTRAINT [FK_PlantRegions_Regions];
+GO
+
+ALTER TABLE Expert.Template WITH NOCHECK ADD  CONSTRAINT [FK_Template_CreatedBy] FOREIGN KEY(CreatedBy)
+REFERENCES Admin.Users(UserID);
+GO
+ALTER TABLE Expert.Template CHECK CONSTRAINT [FK_Template_CreatedBy];
 GO
 
 ALTER TABLE Expert.Templates WITH NOCHECK ADD  CONSTRAINT [FK_Templates_UserID] FOREIGN KEY(UserID)
@@ -3113,6 +3157,49 @@ END;
 go
 
 ------------------------------------------
+-----------Expert.Blueprints--------------
+------------------------------------------
+
+CREATE PROCEDURE Expert.spInsertExpertBluePrints(
+@Title VARCHAR(20),
+@Description varchar(200),
+@DateCreated SMALLDATETIME,
+@CreatedBy INT,
+@FilePath VARCHAR(150)
+)
+AS
+BEGIN
+INSERT INTO Expert.Template
+(Title, Description, DateCreated, CreatedBy , FilePath )
+VALUES
+(@Title, @Description, @DateCreated, @CreatedBy, @FilePath );
+return @@ROWCOUNT;
+END;
+GO
+
+CREATE PROCEDURE Expert.spSelectAllBlueprints
+AS
+BEGIN
+SELECT Title, Description , DateCreated, CreatedBy ,FilePath 
+FROM Expert.Blueprints
+END;
+GO
+
+
+CREATE PROCEDURE Expert.spSelectBlueprintByID (
+@BlueprintID int
+)
+AS
+BEGIN
+SELECT Title,
+ Description , DateCreated, CreatedBy ,FilePath 
+FROM Expert.Blueprints
+WHERE BlueprintID
+= @BlueprintID ;
+END;
+go
+
+------------------------------------------
 -----------Expert.Content-----------------
 ------------------------------------------
 
@@ -3760,37 +3847,44 @@ go
 -----------Expert.QuestionResponse--------
 ------------------------------------------
 
+--updated by rhett 4-29-16
 create procedure Expert.spInsertQuestionResponse(
 	@QuestionID int,
 	@Date smalldatetime,
 	@Response varchar(250),
-	@UserID int)
+	@UserID int,
+	@BlogID int)
 as
 begin
 insert into Expert.QuestionResponse(
 	QuestionID,
 	Date,
 	Response,
-	UserID)
+	UserID,
+	BlogID)
 values(
 	@QuestionID,
 	@Date,
 	@Response,
-	@UserID);
+	@UserID,
+	@BlogID);
 	return @@ROWCOUNT;
 end;
 go
 
+--updated by rhett 4-29-16
 CREATE PROCEDURE Expert.spUpdateQuestionResponse (
 	@QuestionID int,
 	@Response varchar(250),
 	@UserID int,
-	@OriginalResponse varchar(250)
+	@OriginalResponse varchar(250),
+	@BlogID int
 	)
 AS
 BEGIN
      UPDATE Expert.QuestionResponse
-			 SET    Response = @Response
+			 SET    Response = @Response,
+					BlogID = @BlogID
 			WHERE @QuestionID = QuestionID
 			and @UserID = UserID
 			and @OriginalResponse = Response
@@ -3799,13 +3893,14 @@ END;
 go 
 
 /* Rhett Allen - 3/24/16 */
+--updated by rhett 4-29-16
 CREATE PROCEDURE Expert.spSelectResponseByQuestionIDAndUser (
 	@QuestionID int,
 	@UserID int
 )
 AS
 BEGIN
-	SELECT QuestionID, Date, Response, UserID
+	SELECT QuestionID, Date, Response, UserID, BlogID
 	FROM Expert.QuestionResponse
 	WHERE QuestionID = @QuestionID
 		AND UserID = @UserID
@@ -3813,12 +3908,13 @@ END;
 go
 
 /* Rhett Allen - 3/24/16 */
+--updated by rhett 4-29-16
 CREATE PROCEDURE Expert.spSelectResponsesByQuestionID (
 	@QuestionID int
 )
 AS
 BEGIN
-	SELECT QuestionID, Date, Response, UserID
+	SELECT QuestionID, Date, Response, UserID, BlogID
 	FROM Expert.QuestionResponse
 	WHERE QuestionID = @QuestionID;
 END;
@@ -3989,6 +4085,48 @@ values(
 	@DateCreated);
 	return @@ROWCOUNT;
 end;
+go
+
+------------------------------------------
+-----------Expert.Template----------------
+------------------------------------------
+
+CREATE PROCEDURE Expert.spInsertExpertTemplate(
+@Title VARCHAR(20),
+@Description varchar(200),
+@DateCreated SMALLDATETIME,
+@CreatedBy INT,
+@FilePath VARCHAR(150)
+)
+AS
+BEGIN
+INSERT INTO Expert.Template
+(Title, Description, DateCreated, CreatedBy , FilePath )
+VALUES
+(@Title, @Description, @DateCreated, @CreatedBy, @FilePath );
+return @@ROWCOUNT;
+END;
+GO
+
+CREATE PROCEDURE Expert.spSelectAllTemplates
+AS
+BEGIN
+SELECT Title, Description , DateCreated, CreatedBy ,FilePath 
+FROM Expert.Template
+END;
+GO
+
+CREATE PROCEDURE Expert.spSelectTemplateByID (
+@TemplateID int
+)
+AS
+BEGIN
+SELECT Title,
+ Description , DateCreated, CreatedBy ,FilePath 
+FROM Expert.Template
+WHERE TemplateID
+= @TemplateID ;
+END;
 go
 
 ------------------------------------------
@@ -5123,7 +5261,7 @@ exec Expert.spInsertPlantNutrients		1000			,1000
 exec Expert.spInsertQuestion			'How do I grow a grape?'	,'fruit'				,'How do I grow a grape?'	,1 				,1002			,'6/5/08'					,1000				,'4/7/07'
 	
 --* spInsertQuestionResponse     		@QuestionID int,	@Date smalldatetime,	@Response varchar(250),		@UserID int
-exec Expert.spInsertQuestionResponse	1000				,'3/18/04'				,'Start with a grape seed'	,1002
+exec Expert.spInsertQuestionResponse	1000				,'3/18/04'				,'Start with a grape seed'	,1002			,null
 
 -- Expert insert Plant Category
 exec Expert.spInsertPlantCategory 		'Fruit'						,1001			,'3/12/16'
