@@ -436,7 +436,7 @@ namespace com.GreenThumb.WPF_Presentation
                         page = new VolunteerPages.VolunteerSignUp(_accessToken);
                         break;
                     case "Profile Main":
-                        page = new AdminPages.ProfileMain(_accessToken);
+                        page = new ProfilePages.ProfileMain(_accessToken);
                         break;
                     case "Expert Requests":
                         page = new AdminPages.AdminProcessExpertRequests(_accessToken);
