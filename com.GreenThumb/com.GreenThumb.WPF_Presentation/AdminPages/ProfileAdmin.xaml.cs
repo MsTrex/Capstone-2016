@@ -30,7 +30,9 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
         
         public ProfileAdmin(AccessToken _accessToken)
         {
-            this._accessToken = _accessToken;
+            if(null != _accessToken){
+                this._accessToken = _accessToken;
+            }
             InitializeComponent();
             populateUser();
             //frmEdit.Visibility = Visibility.Hidden;
