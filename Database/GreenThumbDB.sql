@@ -576,14 +576,17 @@ create table Expert.Question(
 	ModifiedDate smalldatetime null
 );
 
+--updated by rhett 4-29-16
 create table Expert.QuestionResponse(
 	QuestionID int not null,
 	Date smalldatetime not null,
 	Response varchar(250) not null,
-	UserID int not null
+	UserID int not null,
+	BlogID int	null
 
-	CONSTRAINT [PK_QuestionResponse] PRIMARY KEY ( QuestionID, Date ASC )
+	CONSTRAINT [PK_QuestionResponse] PRIMARY KEY ( QuestionID, UserID ASC )
 );
+
 
 create table Expert.Recipes(
 	RecipeID int identity(1000,1) not null primary key,
@@ -1259,6 +1262,13 @@ ALTER TABLE Expert.QuestionResponse WITH NOCHECK ADD  CONSTRAINT [FK_QuestionRes
 REFERENCES Admin.Users(UserID);
 GO
 ALTER TABLE Expert.QuestionResponse CHECK CONSTRAINT [FK_QuestionResponse_UserID];
+GO
+
+--added by rhett 4-29-16
+ALTER TABLE Expert.QuestionResponse WITH NOCHECK ADD  CONSTRAINT [FK_QuestionResponse_BlogID] FOREIGN KEY(BlogID)
+REFERENCES Expert.BlogEntry(BlogID);
+GO
+ALTER TABLE Expert.QuestionResponse CHECK CONSTRAINT [FK_QuestionResponse_BlogID];
 GO
 
 ALTER TABLE Expert.Recipes WITH NOCHECK ADD  CONSTRAINT [FK_Recipes_CreatedBy] FOREIGN KEY(CreatedBy)
@@ -3760,37 +3770,44 @@ go
 -----------Expert.QuestionResponse--------
 ------------------------------------------
 
+--updated by rhett 4-29-16
 create procedure Expert.spInsertQuestionResponse(
 	@QuestionID int,
 	@Date smalldatetime,
 	@Response varchar(250),
-	@UserID int)
+	@UserID int,
+	@BlogID int)
 as
 begin
 insert into Expert.QuestionResponse(
 	QuestionID,
 	Date,
 	Response,
-	UserID)
+	UserID,
+	BlogID)
 values(
 	@QuestionID,
 	@Date,
 	@Response,
-	@UserID);
+	@UserID,
+	@BlogID);
 	return @@ROWCOUNT;
 end;
 go
 
+--updated by rhett 4-29-16
 CREATE PROCEDURE Expert.spUpdateQuestionResponse (
 	@QuestionID int,
 	@Response varchar(250),
 	@UserID int,
-	@OriginalResponse varchar(250)
+	@OriginalResponse varchar(250),
+	@BlogID int
 	)
 AS
 BEGIN
      UPDATE Expert.QuestionResponse
-			 SET    Response = @Response
+			 SET    Response = @Response,
+					BlogID = @BlogID
 			WHERE @QuestionID = QuestionID
 			and @UserID = UserID
 			and @OriginalResponse = Response
@@ -3799,13 +3816,14 @@ END;
 go 
 
 /* Rhett Allen - 3/24/16 */
+--updated by rhett 4-29-16
 CREATE PROCEDURE Expert.spSelectResponseByQuestionIDAndUser (
 	@QuestionID int,
 	@UserID int
 )
 AS
 BEGIN
-	SELECT QuestionID, Date, Response, UserID
+	SELECT QuestionID, Date, Response, UserID, BlogID
 	FROM Expert.QuestionResponse
 	WHERE QuestionID = @QuestionID
 		AND UserID = @UserID
@@ -3813,12 +3831,13 @@ END;
 go
 
 /* Rhett Allen - 3/24/16 */
+--updated by rhett 4-29-16
 CREATE PROCEDURE Expert.spSelectResponsesByQuestionID (
 	@QuestionID int
 )
 AS
 BEGIN
-	SELECT QuestionID, Date, Response, UserID
+	SELECT QuestionID, Date, Response, UserID, BlogID
 	FROM Expert.QuestionResponse
 	WHERE QuestionID = @QuestionID;
 END;
@@ -5123,7 +5142,7 @@ exec Expert.spInsertPlantNutrients		1000			,1000
 exec Expert.spInsertQuestion			'How do I grow a grape?'	,'fruit'				,'How do I grow a grape?'	,1 				,1002			,'6/5/08'					,1000				,'4/7/07'
 	
 --* spInsertQuestionResponse     		@QuestionID int,	@Date smalldatetime,	@Response varchar(250),		@UserID int
-exec Expert.spInsertQuestionResponse	1000				,'3/18/04'				,'Start with a grape seed'	,1002
+exec Expert.spInsertQuestionResponse	1000				,'3/18/04'				,'Start with a grape seed'	,1002			,null
 
 -- Expert insert Plant Category
 exec Expert.spInsertPlantCategory 		'Fruit'						,1001			,'3/12/16'
