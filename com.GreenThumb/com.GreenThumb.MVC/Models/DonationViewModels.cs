@@ -30,6 +30,8 @@ namespace com.GreenThumb.MVC.Models
     {
         [HiddenInput(DisplayValue = false)]
         public int NeedID { get; set; }
+        [Display(Name = "Need")]
+        public string NeedTitle { get; set; }
         [Display(Name = "Optional Message")]
         public string Description { get; set; }
     }
@@ -48,5 +50,35 @@ namespace com.GreenThumb.MVC.Models
         public IEnumerable<NeedContribution> PendingContributions { get; set; }
         [Display(Name = "Completed Needs")]
         public IEnumerable<GardenNeed> CompletedNeeds { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// Created By: Trent Cullinan 04/28/16
+    /// </summary>
+    public class GroupNeedsDetailViewModel
+    {
+        public IEnumerable<GardenNeedSummary> GardenSummaries { get; set; }
+        public IEnumerable<GardenNeed> ActiveNeeds { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// Created By: Trent Cullinan 04/28/16
+    /// </summary>
+    public class GardenNeedsDetailViewModel
+    {
+        public IEnumerable<GardenNeed> ActiveNeeds { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// Created By: Trent Cullinan 04/28/16
+    /// </summary>
+    public class ContributionsDetailViewModel
+    {
+        public IEnumerable<NeedContribution> PendingContributions { get; set; }
+        public IEnumerable<NeedContribution> ApprovedContributions { get; set; }
+        public IEnumerable<NeedContribution> DeclinedContributions { get; set; }
     }
 }

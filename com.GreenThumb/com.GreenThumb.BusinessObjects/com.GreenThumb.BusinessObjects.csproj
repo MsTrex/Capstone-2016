@@ -62,6 +62,7 @@
     <Compile Include="Group.cs" />
     <Compile Include="GroupLeaderRequest.cs" />
     <Compile Include="GroupMember.cs" />
+    <Compile Include="NeedsSummaries.cs" />
     <Compile Include="GroupRequest.cs" />
     <Compile Include="HashMethods.cs" />
     <Compile Include="IAdminAccount.cs" />

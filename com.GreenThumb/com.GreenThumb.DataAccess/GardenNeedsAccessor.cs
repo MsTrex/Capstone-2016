@@ -183,10 +183,22 @@ namespace com.GreenThumb.DataAccess
                     {
                         NeedContributionID
                             = reader.GetInt32(0),
-                        Need
-                            = new GardenNeed() { GardenNeedId = reader.GetInt32(1) },
+                        Need 
+                            = new GardenNeed()
+                            {
+                                GardenNeedId 
+                                    = reader.GetInt32(1),
+                                Title
+                                    = reader.GetString(9)
+                            },
                         SentBy
-                            = new User() { UserID = reader.GetInt32(2) },
+                            = new User()
+                            {
+                                UserID 
+                                    = reader.GetInt32(2),
+                                UserName
+                                    = reader.GetString(10)
+                            },
                         Description
                             = reader.GetString(3),
                         DateCreated
@@ -451,6 +463,112 @@ namespace com.GreenThumb.DataAccess
             }
 
             return rowsAffected;
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Trent Cullinan 04/28/16
+        /// </summary>
+        /// <param name="gardenId"></param>
+        /// <returns></returns>
+        public static IEnumerable<GardenNeed> RetrieveActiveGardenNeeds(int gardenId)
+        {
+            List<GardenNeed> needs = new List<GardenNeed>();
+
+            var conn = DBConnection.GetDBConnection();
+
+            var cmd = new SqlCommand("Needs.spSelectGardenNeeds", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@GardenID",
+                gardenId);
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    needs.Add(new GardenNeed()
+                    {
+                        GardenNeedId
+                            = reader.GetInt32(0),
+                        Title
+                            = reader.GetString(1),
+                        Description
+                            = reader.GetString(2),
+                        DateCreated
+                            = reader.GetDateTime(4),
+                        CreatedBy = new User()
+                        {
+                            UserID
+                                = reader.GetInt32(5)
+                        }
+                    });
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return needs;
+        }
+
+        public static GardenNeed RetrieveGardenNeed(int needID)
+        {
+            GardenNeed need = null;
+
+            var conn = DBConnection.GetDBConnection();
+
+            var cmd = new SqlCommand("Needs.spSelectNeed", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@NeedID", 
+                needID);
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    need = new GardenNeed()
+                    {
+                        GardenNeedId 
+                            = needID,
+                        Title 
+                            = reader.GetString(1),
+                        Description 
+                            = reader.GetString(2),
+                        DateCreated 
+                            = reader.GetDateTime(6),
+                        CreatedBy = new User()
+                        {
+                            UserID 
+                                = reader.GetInt32(7)
+                        }
+                    };
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return need;
         }
 
     }

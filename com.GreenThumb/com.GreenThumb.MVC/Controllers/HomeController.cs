@@ -30,6 +30,7 @@ namespace com.GreenThumb.MVC.Controllers
                 al.Add(new Announcements(0, "", "", "", 0, DateTime.Now, "No new announcements!"));
             }
             ViewBag.Announcements = al;
+			
             return View();
         }
 

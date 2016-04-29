@@ -1,5 +1,7 @@
 ﻿@* Created By: Trent Cullinan 04/14/16 *@
-@model com.GreenThumb.MVC.Models.GardenDetailViewModel
+@using com.GreenThumb.MVC.Models;
+@using com.GreenThumb.BusinessObjects;
+@model GardenDetailViewModel
 
 @{
     ViewBag.Title = "GardenDetail";
@@ -40,12 +42,40 @@
     <div>
         @if (null != Model.CompletedNeeds)
         {
-            @Html.Partial("~/Views/PartialViews/_GardenNeedsTable.cshtml", Model.CompletedNeeds)
+            if (0 < Model.CompletedNeeds.Count())
+            {
+                <table class="table table">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(m => m.CompletedNeeds.FirstOrDefault().Title)</th>
+                            <th>@Html.DisplayNameFor(m => m.CompletedNeeds.FirstOrDefault().Description)</th>
+                            <th>@Html.DisplayNameFor(m => m.CompletedNeeds.FirstOrDefault().DateCreated)</th>
+                            <th>@Html.DisplayNameFor(m => m.CompletedNeeds.FirstOrDefault().CreatedBy.UserName)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (GardenNeed gardenNeed in Model.CompletedNeeds)
+                        {
+                            <tr>
+                                <td>@gardenNeed.Title</td>
+                                <td>@gardenNeed.Description</td>
+                                <td>@gardenNeed.DateCreated.ToShortDateString()</td>
+                                <td>@gardenNeed.CreatedBy.UserName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="h4">No needs found.</p>
+            }
         }
         else
         {
             <p class="h3">@nullRecords</p>
         }
+
     </div>
     
 </div>

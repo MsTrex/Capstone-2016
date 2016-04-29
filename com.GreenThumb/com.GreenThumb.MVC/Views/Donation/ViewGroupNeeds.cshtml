@@ -1,0 +1,48 @@
+﻿@* Created By: Trent Cullinan 04/28/16 *@
+@using com.GreenThumb.MVC.Models;
+@using com.GreenThumb.BusinessObjects;
+@model GroupNeedsDetailViewModel
+@{
+    ViewBag.Title = "ViewGroupNeeds";
+}
+
+<h2>ViewGroupNeeds</h2>
+
+@if (0 < Model.GardenSummaries.Count() && 0 < Model.ActiveNeeds.Count())
+{
+    <p class="h3">Gardens in group that need help</p>
+    <table class="table table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => m.GardenSummaries.FirstOrDefault().GardenName)</th>
+                <th>@Html.DisplayNameFor(m => m.GardenSummaries.FirstOrDefault().Description)</th>
+                <td>@Html.DisplayNameFor(m => m.GardenSummaries.FirstOrDefault().RegionID)</td>
+                <td>@Html.DisplayNameFor(m => m.GardenSummaries.FirstOrDefault().ActiveNeeds)</td>
+                <td>@Html.DisplayNameFor(m => m.GardenSummaries.FirstOrDefault().CompletedNeeds)</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(GardenNeedSummary summary in Model.GardenSummaries)
+            {
+                <tr>
+                    <td>@Html.ActionLink(summary.GardenName, "ViewGardenNeeds", "Donation", new { id = summary.GardenID }, null)</td>
+                    <td>@summary.Description</td>
+                    <td>@summary.RegionID</td>
+                    <td>@summary.ActiveNeeds</td>
+                    <td>@summary.CompletedNeeds</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p class="h3">Active Needs for group</p>
+    @Html.Partial("~/Views/PartialViews/_NeedsAllowContribute.cshtml", Model.ActiveNeeds)
+}
+else
+{
+    <div>
+        <p class="h3">No gardens with needs found</p>
+    </div>
+}
+
+
+

@@ -290,7 +290,7 @@ namespace com.GreenThumb.DataAccess
 
             var conn = DBConnection.GetDBConnection();
 
-            var cmd = new SqlCommand("Gardens.SelectGroupByGardenID", conn);
+            var cmd = new SqlCommand("Gardens.spSelectGroupByGardenID", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@GardenID", gardenId);

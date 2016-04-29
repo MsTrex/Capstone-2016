@@ -194,13 +194,25 @@ namespace com.GreenThumb.MVC.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult ApproveContribution(int? id)
+        [Authorize]
+        public ActionResult ApproveContribution(int? id, int? contributionId)
         {
             ActionResult viewResult = View("Error");
 
-            if (id.HasValue)
+            int userId = RetrieveUserId();
+
+            if (id.HasValue && contributionId.HasValue)
             {
-                viewResult = RedirectToAction("Index", "Garden");
+                if (new GroupManager().
+                    GetLeaderStatus(
+                        userId, new GardenManager().RetrieveGardenGroupId(id.Value)
+                    ))
+                {
+                    if (new GardenNeedsManager(userId, id.Value).ApproveContribution(contributionId.Value))
+                    {
+                        viewResult = RedirectToAction("Index", "Garden");
+                    }
+                }
             }
 
             return viewResult;
@@ -213,13 +225,26 @@ namespace com.GreenThumb.MVC.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult DeclineContribution(int? id)
+        [Authorize]
+        public ActionResult DeclineContribution(int? id, int? contributionId)
         {
             ActionResult viewResult = View("Error");
 
-            if (id.HasValue)
+            int userId = RetrieveUserId();
+
+            if (id.HasValue && contributionId.HasValue)
             {
-                viewResult = RedirectToAction("Index", "Garden");
+                if (new GroupManager().
+                    GetLeaderStatus(
+                        userId, new GardenManager().RetrieveGardenGroupId(id.Value)
+                    ))
+                {
+                    if (new GardenNeedsManager(userId, id.Value).DeclineContribution(contributionId.Value))
+                    {
+                        viewResult = RedirectToAction("Index", "Garden");
+                    }
+                }
+                
             }
 
             return viewResult;
