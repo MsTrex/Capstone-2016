@@ -374,7 +374,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.NavigationService.Navigate(new AdminPages.ProfileMain(_accessToken));
+            mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
             clearSideBar();
             SetProfileButtons();
             clearUnusedSidebars();
@@ -421,13 +421,13 @@ namespace com.GreenThumb.WPF_Presentation
                 switch (content)
                 {
                     case "Edit Personal Info":
-                        page = new AdminPages.EditPersonalInfo(_accessToken);
+                        page = new ProfilePages.EditPersonalInfo(_accessToken);
                         break;
                     case "Edit Volunteer Availability":
                         page = new VolunteerPages.EditVolunteerAvailability(_accessToken);
                         break;
                     case "Messages":
-                        page = new AdminPages.Messages(_accessToken);
+                        page = new ProfilePages.Messages(_accessToken);
                         break;
                     case "Add a Recipe":
                         page = new ExpertPages.RecipeInput(_accessToken);
@@ -445,7 +445,7 @@ namespace com.GreenThumb.WPF_Presentation
                         page = new ExpertPages.SearchForQuestions(_accessToken);
                         break;
                     case "Complete A Task":
-                        page = new AdminPages.Messages(_accessToken);
+                        page = new ProfilePages.Messages(_accessToken);
                         break;
                     case "Ask a Question":
                         page = new ExpertPages.ExpertAdvice(_accessToken);

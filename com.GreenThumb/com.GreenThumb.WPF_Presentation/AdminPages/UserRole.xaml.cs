@@ -19,7 +19,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
     /// <summary>
     /// Interaction logic for UserRole.xaml
     /// </summary>
-    public partial class UserRole : UserControl
+    public partial class UserRole : Page
     {
         /// <summary>
         /// Author: Ibrahim Abuzaid
