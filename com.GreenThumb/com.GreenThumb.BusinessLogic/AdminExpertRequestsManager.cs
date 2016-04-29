@@ -23,7 +23,7 @@ namespace com.GreenThumb.BusinessLogic
             = null;
         private AdminExpertRequestsAccessor adminExpertRequestsAccessor
             = null;
-        private IList<ExpertRequest> _requests
+        private List<ExpertRequest> _requests
             = null;
         private IList<User> _users
             = null;
@@ -31,7 +31,7 @@ namespace com.GreenThumb.BusinessLogic
             = null;
 
         // Created By: Trent Cullinan 03/15/2016
-        private IList<ExpertRequest> requests
+        private List<ExpertRequest> requests
         {
             get
             {
@@ -40,9 +40,9 @@ namespace com.GreenThumb.BusinessLogic
                     this._requests = this._requests ??
                         adminExpertRequestsAccessor.RetrieveExpertRequests(accessToken).ToList();
                 }
-                catch (SqlException)
+                catch (SqlException ex)
                 {
-                    throw new Exception("Error with database, try again later.");
+                    throw new Exception(ex.Message);
                 }
 
                 return this._requests;
@@ -61,9 +61,9 @@ namespace com.GreenThumb.BusinessLogic
                     this._users = this._users ??
                         adminExpertRequestsAccessor.RetrieveAllUsers(accessToken).ToList();
                 }
-                catch (SqlException)
+                catch (SqlException ex)
                 {
-                    throw new Exception("Error with database, try again later.");
+                    throw new Exception(ex.Message);
                 }
 
                 return this._users;
@@ -82,9 +82,9 @@ namespace com.GreenThumb.BusinessLogic
                     this._experts = this._experts ??
                         adminExpertRequestsAccessor.RetrieveAllExperts(accessToken).ToList();
                 }
-                catch (SqlException)
+                catch (SqlException ex)
                 {
-                    throw new Exception("Error with database, try again later.");
+                    throw new Exception(ex.Message);
                 }
 
                 return this._experts;
@@ -126,27 +126,26 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="accessToken">To confirm access as administrator.</param>
         /// <param name="refresh">Retrieve fresh data from database.</param>
         /// <returns>Collection of ExpertRequests that need reviewed and processed.</returns>
-        public IEnumerable<ExpertRequest> GetExpertRequests(AccessToken accessToken, bool refresh = false)
+        public List<ExpertRequest> GetExpertRequests(AccessToken accessToken)
         {
-            if (GetAdminRoleStatus(accessToken))
-            {
-                if (refresh)
-                {
+            //if (GetAdminRoleStatus(accessToken))
+            //{
+                
                     try
                     {
                         this.requests
                             = adminExpertRequestsAccessor.RetrieveExpertRequests(accessToken).ToList();
                     }
-                    catch (SqlException)
+                    catch (SqlException ex)
                     {
-                        throw new Exception("Error with database, try again later.");
+                        throw new Exception(ex.Message);
                     }
-                }
-            }
-            else
-            {
-                throw new Exception("User must be an admin to use this feature.");
-            }
+               
+            //}
+            //else
+            //{
+            //    throw new Exception("User must be an admin to use this feature.");
+            //}
 
             return this.requests;
         }
@@ -170,9 +169,9 @@ namespace com.GreenThumb.BusinessLogic
                         this.users
                             = adminExpertRequestsAccessor.RetrieveAllUsers(accessToken).ToList();
                     }
-                    catch (SqlException)
+                    catch (SqlException ex)
                     {
-                        throw new Exception("Error with database, try again later.");
+                        throw new Exception(ex.Message);
                     }
                 }
             }
@@ -203,9 +202,9 @@ namespace com.GreenThumb.BusinessLogic
                         this.experts
                             = adminExpertRequestsAccessor.RetrieveAllExperts(accessToken).ToList();
                     }
-                    catch (SqlException)
+                    catch (SqlException ex)
                     {
-                        throw new Exception("Error with database, try again later.");
+                        throw new Exception(ex.Message);
                     }
                 }
             }
@@ -255,19 +254,19 @@ namespace com.GreenThumb.BusinessLogic
         {
             bool flag = false;
 
-            if (GetAdminRoleStatus(accessToken))
-            {
+            
                 try
                 {
                     flag = 2 == adminExpertRequestsAccessor.UpdateExpertRequestApprove(request); // 2 records should be affected.
 
                     if (flag) { RemoveRequest(request); }
                 }
-                catch (SqlException)
+                catch (SqlException ex)
                 {
-                    throw new Exception("Error with database, try again later.");
-                }
+                    //throw new Exception("Error with database, try again later.");
+                    throw new Exception(ex.Message);
             }
+            
 
             return flag;
         }
@@ -292,9 +291,9 @@ namespace com.GreenThumb.BusinessLogic
 
                     if (flag) { RemoveRequest(request); }
                 }
-                catch (SqlException)
+                catch (SqlException ex)
                 {
-                    throw new Exception("Error with database, try again later.");
+                    throw new Exception(ex.Message);
                 }
             }
 
@@ -330,9 +329,9 @@ namespace com.GreenThumb.BusinessLogic
                             this.users.Remove(refUser);
                         }
                     }
-                    catch (SqlException)
+                    catch (SqlException ex)
                     {
-                        throw new Exception("Error with database, try again later.");
+                        throw new Exception(ex.Message);
                     }
                 }
             }
@@ -369,9 +368,9 @@ namespace com.GreenThumb.BusinessLogic
                             this.experts.Remove(refUser);
                         }
                     }
-                    catch (SqlException)
+                    catch (SqlException ex)
                     {
-                        throw new Exception("Error with database, try again later.");
+                        throw new Exception(ex.Message);
                     }
                 }
             }

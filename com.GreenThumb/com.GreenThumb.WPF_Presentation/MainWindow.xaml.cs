@@ -63,7 +63,8 @@ namespace com.GreenThumb.WPF_Presentation
         private void CheckPermissions()
         {
             List<Label> visibleTabs = new List<Label>();
-            var allTabs = new Label[] { btnAdmin, btnGardens, btnExpert, btnHome, btnProfile };
+            var allTabs = new Label[] { btnAdmin, /*btnGardens,*/ btnExpert, btnHome, btnProfile };
+            btnGardens.Visibility = Visibility.Collapsed;
             if (_accessToken == null)
             {
                 clearSideBar();
@@ -74,32 +75,37 @@ namespace com.GreenThumb.WPF_Presentation
                 {
                     if (r.RoleID == "Admin")
                     {
-                        var adminTabs = new Label[] { btnAdmin, btnGardens, btnExpert, btnHome, btnProfile };
+                        var adminTabs = new Label[] { btnAdmin, /*btnGardens,*/ btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(adminTabs);
+                        btnGardens.Visibility = Visibility.Collapsed;
                         break;
                     }
                     if (r.RoleID == "Expert")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { /*btnGardens,*/ btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
+                        btnGardens.Visibility = Visibility.Collapsed;
                         break;
                     }
                     if (r.RoleID == "GroupLeader")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { /*btnGardens,*/ btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
+                        btnGardens.Visibility = Visibility.Collapsed;
                         break;
                     }
                     if (r.RoleID == "GroupMember")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { /*btnGardens,*/ btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
+                        btnGardens.Visibility = Visibility.Collapsed;
                         break;
                     }
                     if (r.RoleID == "User")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { /*btnGardens,*/ btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
+                        btnGardens.Visibility = Visibility.Collapsed;
                         break;
                     }
                 }
@@ -439,6 +445,7 @@ namespace com.GreenThumb.WPF_Presentation
                         break;
                     case "Expert Requests":
                         page = new AdminPages.AdminProcessExpertRequests(_accessToken);
+                        //page = new AdminPages.ExpertRequests(_accessToken);
                         break;
                     case "Search for Questions":
                         page = new ExpertPages.SearchForQuestions(_accessToken);

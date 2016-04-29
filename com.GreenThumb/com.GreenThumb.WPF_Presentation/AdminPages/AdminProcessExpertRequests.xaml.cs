@@ -38,23 +38,26 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
         /// <param name="accessToken"></param>
         public AdminProcessExpertRequests(AccessToken accessToken)
         {
-            if (CheckAdminRoleStatus(accessToken))
-            {
+            //if (CheckAdminRoleStatus(accessToken))
+            //{
                 InitializeComponent();
 
-                try
-                {
-                    adminExpertRequestsManager
-                        = new AdminExpertRequestsManager(accessToken);
-                }
-                catch (Exception ex)
-                {
-                    lblResponseMessage.Content = ErrorMessage(ex.Message);
-                }
-
-                this.accessToken = accessToken;
+            try
+            {
+                adminExpertRequestsManager
+                    = new AdminExpertRequestsManager(accessToken);
+                lblResponseMessage.Content = ErrorMessage("ehhhhh");
             }
+            catch (Exception ex)
+            {
+                lblResponseMessage.Content = ErrorMessage(ex.Message);
+            }
+
+            this.accessToken = accessToken;
+            BindExpertRequests();
+            lblResponseMessage.Content = ErrorMessage("What'sup");
         }
+    //}
 
         // Created By: Trent Cullinan 03/15/2016
         private void btnActionOne_Click(object sender, RoutedEventArgs e)
@@ -67,19 +70,16 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
                 {
                     try
                     {
-                        if (adminExpertRequestsManager.AddRequestApproved(
-                            this.accessToken, request))
-                        {
+                        adminExpertRequestsManager.AddRequestApproved(
+                            this.accessToken, request);
+                        
                             BindExpertRequests();
 
                             lblResponseMessage.Content = "Request approved.";
 
                             ClearRequestContent();
-                        }
-                        else
-                        {
-                            lblResponseMessage.Content = ErrorMessage("Request failed to approve.");
-                        }
+                        
+                        
                     }
                     catch (Exception ex)
                     {
@@ -99,17 +99,13 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
                 {
                     try
                     {
-                        if (adminExpertRequestsManager.EditUserPromoted(
-                            this.accessToken, user))
-                        {
+                        adminExpertRequestsManager.EditUserPromoted(
+                            this.accessToken, user);
+                        
                             BindCurrentUsers();
 
                             lblResponseMessage.Content = "User promoted.";
-                        }
-                        else
-                        {
-                            lblResponseMessage.Content = ErrorMessage("Failed to promote user.");
-                        }
+                        
                     }
                     catch (Exception ex)
                     {
@@ -190,7 +186,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
             }
         }
 
-        // Created By: Trent Cullinan 03/15/2016
+        //Created By: Trent Cullinan 03/15/2016
         private void btnSearchUsers_Click(object sender, RoutedEventArgs e)
         {
             dgAllUsers.ItemsSource
@@ -199,7 +195,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
             txtSearchUsers.Clear();
         }
 
-        // Created By: Trent Cullinan 03/15/2016
+       //reated By: Trent Cullinan 03/15/2016
         private void btnSearchExperts_Click(object sender, RoutedEventArgs e)
         {
             dgCurrentExperts.ItemsSource
@@ -208,7 +204,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
             txtSearchExperts.Clear();
         }
 
-        // Created By: Trent Cullinan 03/15/2016
+        //Created By: Trent Cullinan 03/15/2016
         private void tcScreens_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (tiRequests.IsSelected)
@@ -241,7 +237,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
             ClearRequestContent();
         }
 
-        // Created By: Trent Cullinan 03/15/2016
+        //Created By: Trent Cullinan 03/15/2016
         private void dgExpertRequests_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             e.Handled = true;
@@ -257,7 +253,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
             }
         }
 
-        // Created By: Trent Cullinan 03/15/2016
+        //Created By: Trent Cullinan 03/15/2016
         private void dgAllUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             e.Handled = true;
@@ -265,7 +261,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
             lblResponseMessage.Content = string.Empty;
         }
 
-        // Created By: Trent Cullinan 03/15/2016
+        //Created By: Trent Cullinan 03/15/2016
         private void dgCurrentExperts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             e.Handled = true;
@@ -274,12 +270,12 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
         }
 
         // Created By: Trent Cullinan 03/15/2016
-        private void BindExpertRequests(bool refresh = false)
+        private void BindExpertRequests(bool refresh = true)
         {
             try
             {
                 dgExpertRequests.ItemsSource
-                    = adminExpertRequestsManager.GetExpertRequests(this.accessToken, refresh);
+                    = adminExpertRequestsManager.GetExpertRequests(this.accessToken);
                 dgExpertRequests.Items.Refresh();
             }
             catch (Exception ex)

@@ -45,12 +45,12 @@ namespace com.GreenThumb.DataAccess
         /// </summary>
         /// <param name="accessToken">To confirm access as administrator.</param>
         /// <returns>Collection of ExpertRequests that need processing.</returns>
-        public IEnumerable<ExpertRequest> RetrieveExpertRequests(AccessToken accessToken)
+        public List<ExpertRequest> RetrieveExpertRequests(AccessToken accessToken)
         {
-            IList<ExpertRequest> requests = null;
+            List<ExpertRequest> requests = null;
 
-            if (RetrieveAdminRoleStatus(accessToken))
-            {
+            //if (RetrieveAdminRoleStatus(accessToken))
+            //{
                 requests = new List<ExpertRequest>();
 
                 var conn = DBConnection.GetDBConnection();
@@ -103,11 +103,11 @@ namespace com.GreenThumb.DataAccess
                 {
                     conn.Close();
                 }
-            }
-            else
-            {
-                throw new Exception("User must be an admin to access this method.");
-            }
+            //}
+            //else
+            //{
+            //    throw new Exception("User must be an admin to access this method.");
+            //}
 
             return requests;
         }
@@ -123,17 +123,13 @@ namespace com.GreenThumb.DataAccess
         {
             IList<User> users = null;
 
-            if (RetrieveAdminRoleStatus(accessToken))
-            {
+            
                 users = new List<User>();
 
                 var conn = DBConnection.GetDBConnection();
 
                 var cmd = new SqlCommand("Admin.spSelectUsersExcludingRole", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("@RoleID", ROLE);
-                cmd.Parameters.AddWithValue("@Active", true);
 
                 try
                 {
@@ -152,9 +148,9 @@ namespace com.GreenThumb.DataAccess
                             LastName
                                 = reader.GetString(2),
                             EmailAddress
-                                = reader.GetString(4),
+                                = reader.GetString(3),
                             UserName
-                                = reader.GetString(5)
+                                = reader.GetString(4)
                         });
                     }
                 }
@@ -166,11 +162,7 @@ namespace com.GreenThumb.DataAccess
                 {
                     conn.Close();
                 }
-            }
-            else
-            {
-                throw new Exception("User must be an admin to access this method.");
-            }
+            
 
             return users;
         }
@@ -254,10 +246,19 @@ namespace com.GreenThumb.DataAccess
 
             var conn = DBConnection.GetDBConnection();
 
-            var cmd = new SqlCommand("Admin.spUpdateExpertRequest", conn);
+            var cmd = new SqlCommand("Admin.spUpdateExpertRequestApproved", conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@requestID",
+                request.RequestID);
+            cmd.Parameters.AddWithValue("@userID",
+                request.User.UserID);
+            cmd.Parameters.AddWithValue("@modifiedby",
+                accessToken.UserID);
+            //request.User.UserID);
+            cmd.Parameters.AddWithValue("@approved",
+                1);
 
-            CreateRequestParams(cmd, request, approved: true);
+            //CreateRequestParams(cmd, request, approved: true);
 
             try
             {
@@ -292,10 +293,19 @@ namespace com.GreenThumb.DataAccess
 
             var conn = DBConnection.GetDBConnection();
 
-            var cmd = new SqlCommand("Admin.spUpdateExpertRequest", conn);
+            var cmd = new SqlCommand("Admin.spUpdateExpertRequestDecline", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            CreateRequestParams(cmd, request);
+            cmd.Parameters.AddWithValue("@requestID",
+                request.RequestID);
+            cmd.Parameters.AddWithValue("@userID",
+                request.User.UserID);
+            cmd.Parameters.AddWithValue("@modifiedby",
+                accessToken.UserID);
+            //request.User.UserID);
+            cmd.Parameters.AddWithValue("@approved",
+                0);
+
 
             try
             {
@@ -330,7 +340,7 @@ namespace com.GreenThumb.DataAccess
 
             var conn = DBConnection.GetDBConnection();
 
-            var cmd = new SqlCommand("Admin.spUpdateUsersUserRole", conn);
+            var cmd = new SqlCommand("Admin.spInsertUserRoles", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             CreateExpertChangeParams(cmd, user);
@@ -369,7 +379,7 @@ namespace com.GreenThumb.DataAccess
 
             var conn = DBConnection.GetDBConnection();
 
-            var cmd = new SqlCommand("Admin.spUpdateUsersUserRole", conn);
+            var cmd = new SqlCommand("Admin.spRemoveUserRole", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             CreateExpertChangeParams(cmd, user, active: false);
@@ -413,17 +423,7 @@ namespace com.GreenThumb.DataAccess
         /// <param name="cmd"></param>
         /// <param name="request"></param>
         /// <param name="approved"></param>
-        private void CreateRequestParams(SqlCommand cmd, ExpertRequest request, bool approved = false)
-        {
-            cmd.Parameters.AddWithValue("@RequestID",
-                request.RequestID);
-            cmd.Parameters.AddWithValue("@UserID",
-                request.User.UserID);
-            cmd.Parameters.AddWithValue("@ModifedBy",
-                accessToken.UserID);
-            cmd.Parameters.AddWithValue("@Approved",
-                approved);
-        }
+
 
         // Created By: Trent Cullinan 03/15/2016
 
@@ -440,10 +440,6 @@ namespace com.GreenThumb.DataAccess
                 user.UserID);
             cmd.Parameters.AddWithValue("@RoleID",
                 ROLE);
-            cmd.Parameters.AddWithValue("@CreatedBy",
-                accessToken.UserID);
-            cmd.Parameters.AddWithValue("@Active",
-                active);
         }
     }
 }
