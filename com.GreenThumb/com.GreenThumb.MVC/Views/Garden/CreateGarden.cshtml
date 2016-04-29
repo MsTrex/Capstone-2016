@@ -14,8 +14,14 @@
         @Html.LabelFor(m => m.GardenName)
         @Html.TextBoxFor(m => m.GardenName)
         <br />
-        @Html.LabelFor(m => m.GardenDescription)
-        @Html.TextAreaFor(m => m.GardenDescription, new { id = "rich-editor" })
+        <br/>
+        <p>Click garden description!</p>
+        @Html.LabelFor(m => m.GardenDescription, new { id = "gardenDescription" })
+       <div id="textEditor">
+            @Html.TextAreaFor(m => m.GardenDescription, new { id = "rich-editor" })
+        </div>
+        <br />
+        <br />
         <p>Please select a region from the map below!</p>
         <p class="h4">Selected Region: </p>
         @Html.TextBoxFor(m => m.RegionID, new { value = "" })
@@ -134,10 +140,24 @@
                     }
                 ]
             });
-
+            $('#textEditor').hide();
+            $('#gardenDescription').click(function (e) {
+               if ($('#textEditor').is(':visible')) {
+                    $('#textEditor').slideUp();
+                } else {
+                    $('#textEditor').slideDown();
+                }
+            });
         });
 
     </script>
+    <style type="text/css">
+        #gardenDescription:hover {
+            color: white;
+            cursor:pointer;
+            
+        }
+    </style>
 
 
 }
