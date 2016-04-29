@@ -58,7 +58,11 @@
     <Compile Include="MessageManagerUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GroupManagerUnitTest.cs" />
+    <Compile Include="QuestionManagerUnitTests.cs" />
     <Compile Include="RecipeManagerUnitTests.cs" />
+    <Compile Include="RegionManagerUnitTests.cs" />
+    <Compile Include="ResponseManagerUnitTests.cs" />
+    <Compile Include="RoleManagerUnitTests.cs" />
     <Compile Include="SecurityManagerUnitTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="UnitTestUserRegion.cs" />
