@@ -45,6 +45,7 @@
     <IntermediateOutputPath>C:\Users\nh229u10\AppData\Local\Temp\vsCF7E.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs4FCD.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u27\AppData\Local\Temp\vsE513.tmp\Release\</IntermediateOutputPath>
+	
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -96,6 +97,7 @@
     <Compile Include="PageDetails.cs" />
     <Compile Include="Plant.cs" />
     <Compile Include="Region.cs" />
+    <Compile Include="ResponseView.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Seed.cs" />
     <Compile Include="SeedDonated.cs" />

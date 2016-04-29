@@ -18,15 +18,17 @@ namespace com.GreenThumb.BusinessObjects
         public DateTime Date { get; set; }
         public string UserResponse { get; set; }
         public int UserID { get; set; }
+        public int? BlogID { get; set; }
 
         public Response() { }
 
-        public Response(int questionID, DateTime date, string response, int userID)
+        public Response(int questionID, DateTime date, string response, int userID, int? blogID)
         {
             QuestionID = questionID;
             Date = date;
             UserResponse = response;
             UserID = userID;
+            BlogID = blogID;
         }
     }
 }

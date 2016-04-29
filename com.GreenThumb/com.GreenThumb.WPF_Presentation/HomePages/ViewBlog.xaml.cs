@@ -66,6 +66,28 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
             }
         }
 
+        public ViewBlog(AccessToken accessToken, int blogID)
+        {
+            this.accessToken = accessToken;
+            InitializeComponent();
+
+            pageDetails = InitializePageDetails();
+            fullList = blogManager.GetBlogs();
+
+            blogs = new List<Blog>();
+            blogs.Add(blogManager.GetBlogById(blogID));
+
+            icBlogs.ItemsSource = blogs;
+            foreach (Role role in accessToken.Roles)
+            {
+                roles.Add(role.RoleID);
+            }
+            if (roles.Contains("Admin"))
+            {
+                btnCreateBlog.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
         public string UserCreated(int userId)
         {
             string userCreated = "";

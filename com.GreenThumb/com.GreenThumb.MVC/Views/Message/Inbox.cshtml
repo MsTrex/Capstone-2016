@@ -1,0 +1,67 @@
+﻿@model IEnumerable<com.GreenThumb.MVC.Models.MessageViewModelInbox>
+<div class="green-btn">
+    @Html.ActionLink("Create A New Message", "Compose")
+</div>
+<div class="green-btn">
+    @Html.ActionLink("Outbox", "Outbox")
+</div>
+
+@using (Html.BeginForm("Inbox", "Message", FormMethod.Post))
+{
+    if (Model != null)
+    {
+
+        <div class="messagebox">
+            <div class="messagebox-header">
+                <span class="user">From</span>
+                <span class="message-subject">Subject</span>
+                <span class="message-date">Date</span>
+                <span class="message-delete">Delete?</span>
+            </div>
+
+            <div class="messages">
+
+
+                @foreach (var message in Model)
+                {
+                    if (message.Unread)
+                    {
+                        <div class="message-unread">
+                            @Html.HiddenFor(m => message.MessageID)
+                            <span class="user">@message.Sender</span>
+                            <span class="message-subject">@message.Subject</span>
+                            <span class="message-date">@message.Date.ToString()</span>
+                            <span class="message-delete">@Html.CheckBoxFor(m => message.Delete)</span>
+                            <div class="message-content">
+                                @message.Content
+                            </div>
+                        </div>
+                        <br />
+                    }
+                    else
+                    {
+                        <div class="message-read">
+                            @Html.HiddenFor(m => message.MessageID)
+                            <span class="user">@message.Sender</span>
+                            <span class="message-subject">@message.Subject</span>
+                            <span class="message-date">@message.Date.ToString()</span>
+                            <span class="message-delete">@Html.CheckBoxFor(m => message.Delete)</span>
+                            <div class="message-content">
+                                @message.Content
+                            </div>
+                        </div>
+                        <br />
+                    }
+                }
+
+            </div>
+        </div>
+        <div>
+            <input type="submit" value="Delete" class="green-btn" />
+        </div>
+    }
+    else
+    {
+        <p>Your inbox is empty!</p>
+    }
+}

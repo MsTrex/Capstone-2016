@@ -34,7 +34,7 @@
                         <RowDefinition Height="40"></RowDefinition>
                         <RowDefinition Height="120"></RowDefinition>
                         <RowDefinition Height="240"></RowDefinition>
-                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="80"></RowDefinition>
                         <RowDefinition Height="70"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -94,16 +94,26 @@
                     <Button Style="{StaticResource button1}" Margin="20"  HorizontalAlignment="Left" VerticalAlignment="Top"  Name="btnUpload" Grid.Row="5" Grid.Column="1" Click="btnUpLoad_Click">Add Picture</Button>
                     <Label Name="lblRegions" Grid.Row="6" Grid.Column="0" Content="Regions:"/>
                     <Grid Grid.Row="6" Grid.Column="2" VerticalAlignment="Center">
-                        <CheckBox Name="region1"  Content="1" Grid.Row="6" Grid.Column="1" FontSize="20" Click="region_Checked"></CheckBox>
-                        <CheckBox Name="region2"  Content="2" Margin="50, 0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
-                        <CheckBox Name="region3"  Content="3" Margin="100,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
-                        <CheckBox Name="region4"  Content="4" Margin="150,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
-                        <CheckBox Name="region5"  Content="5" Margin="200,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
-                        <CheckBox Name="region6"  Content="6" Margin="250,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
-                        <CheckBox Name="region7"  Content="7" Margin="300,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
-                        <CheckBox Name="region8"  Content="8" Margin="350,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
-                        <CheckBox Name="region9"  Content="9" Margin="400,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
-                        <CheckBox Name="region10" Content="10" Margin="450,0,0,0" FontSize="20" Click="region_Checked"></CheckBox>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <CheckBox Name="region1"  Content="1" FontSize="20" Click="region_Checked"></CheckBox>
+                                <CheckBox Name="region2"  Content="2" Margin="50, 0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
+                                <CheckBox Name="region3"  Content="3" Margin="100,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
+                                <CheckBox Name="region4"  Content="4" Margin="150,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
+                                <CheckBox Name="region5"  Content="5" Margin="200,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
+                                <CheckBox Name="region6"  Content="6" Margin="250,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
+                            </Grid>
+                            <Grid Grid.Row="1" Margin="5">
+                            <CheckBox Name="region7"  Content="7" Margin="0,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
+                            <CheckBox Name="region8"  Content="8" Margin="50,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
+                            <CheckBox Name="region9"  Content="9" Margin="100,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
+                            <CheckBox Name="region10" Content="10" Margin="150,0,0,0" FontSize="20" Click="region_Checked"></CheckBox>
+                            </Grid>
+                        </Grid>
                     </Grid>
                     <Button Style="{StaticResource button1}" Content="Cancel" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" Name="cancel" Click="cancel_Click"/>
                     <Button Style="{StaticResource button1}" Content="Save" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" Margin="100,0,0,0" Name="save" Click="save_Click" IsEnabled="False"/>

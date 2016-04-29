@@ -1,7 +1,7 @@
 ﻿<Window x:Class="com.GreenThumb.WPF_Presentation.MainWindow" WindowStartupLocation="CenterScreen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-        Title="GreenThumb Gardens" WindowState="Maximized" Width="1101.134" >
+        Title="GreenThumb Gardens" Icon="Images/leaf.png" WindowState="Maximized" Width="1101.134" >
     <Grid Name="LayoutRoot" Background="White" >
         <Grid.Resources>
             <!-- Button -->
@@ -64,7 +64,7 @@
         </Grid.Resources>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="0"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -140,10 +140,11 @@
             </Grid.Resources>
             <Label Name="btnCollapse"  Grid.Column="0" HorizontalAlignment="Left" Content="&#x276E;&#x276E;" MouseDown="collapse_Click" BorderBrush="Black" BorderThickness="2" Margin="0"></Label>
             <Label Name="btnHome"      Grid.Column="1" HorizontalAlignment="Left" Content="Home"          MouseDown="btnHome_Click"></Label>
-            <Label Name="btnGardens"   Grid.Column="2" HorizontalAlignment="Left" Content="Gardens"       MouseDown="btnGardens_click"></Label>
-            <Label Name="btnExpert"    Grid.Column="3" HorizontalAlignment="Left" Content="Expert Advice" MouseDown="btnExpert_Click"></Label>
-            <Label Name="btnAdmin"     Grid.Column="5" HorizontalAlignment="Left" Content="Admin"         MouseDown="btnAdmin_Click"></Label>
-            <Label Name="btnProfile"   Grid.Column="6" HorizontalAlignment="Left" Content="Profile"       MouseDown="btnProfile_Click"></Label>
+            <Label Name="btnExpert"    Grid.Column="2" HorizontalAlignment="Left" Content="Expert Advice" MouseDown="btnExpert_Click"></Label>
+            <Label Name="btnAdmin"     Grid.Column="3" HorizontalAlignment="Left" Content="Admin"         MouseDown="btnAdmin_Click"></Label>
+            <Label Name="btnProfile"   Grid.Column="4" HorizontalAlignment="Left" Content="Profile"       MouseDown="btnProfile_Click"></Label> 
+            <Label Name="btnGardens" Visibility="Collapsed"   Grid.Column="5" HorizontalAlignment="Left" Content="Gardens"       MouseDown="btnGardens_click"></Label>
+
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
@@ -182,12 +183,11 @@
                 <Label Name="btnSideBar15" MouseDown="btnSideBar_MouseDown" />
             </StackPanel>
             <ScrollViewer Grid.Column="1" Grid.ColumnSpan="2">
-                <Frame Name="mainFrame" Margin="0,0,-0.4,0" NavigationUIVisibility="Hidden" >
-
-                </Frame>
+                <Frame Name="mainFrame" Margin="0" NavigationUIVisibility="Hidden" Style="{StaticResource frame1}"></Frame>
             </ScrollViewer>
         </Grid>
         <DockPanel Grid.Row="4" Background="#FFB9EE79">
+            <Label x:Name="lblCurrentMessages" MouseDown="lblCurrentMessages_MouseDown"></Label>
             <Label Margin="5,0" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Black">&#169; 2016 Kirkwood Software Development Capstone</Label>
         </DockPanel>
     </Grid>

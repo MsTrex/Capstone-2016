@@ -25,6 +25,7 @@ namespace com.GreenThumb.WPF_Presentation
         private AccessToken _accessToken = null;
         Login _login;
         RoleManager roleManager = new RoleManager();
+        MessageManager messageMgr = new MessageManager();
         NewUserCreation _newUser;
 
         public MainWindow()
@@ -64,6 +65,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             List<Label> visibleTabs = new List<Label>();
             var allTabs = new Label[] { btnAdmin, btnGardens, btnExpert, btnHome, btnProfile };
+            btnGardens.Visibility = Visibility.Collapsed;
             if (_accessToken == null)
             {
                 clearSideBar();
@@ -111,7 +113,7 @@ namespace com.GreenThumb.WPF_Presentation
             }
             foreach (Label tab in allTabs)
             {
-                tab.Visibility = Visibility.Hidden;
+                tab.Visibility = Visibility.Collapsed;
             }
             foreach (Label tab in visibleTabs)
             {
@@ -196,29 +198,29 @@ namespace com.GreenThumb.WPF_Presentation
         /// Method to change the label when someone logs in or checks messages
         /// </summary>
         /// <param name="a"></param>
-        //public void SetNewMessageLabel(AccessToken a)
-        //{
-        //    try
-        //    {
-        //        int count = messageMgr.UnreadMessageCount(_accessToken.UserName);
-        //        string message = "";
-        //        if (count > 0)
-        //        {
-        //            message = count.ToString();
-        //        }
-        //        else
-        //        {
-        //            message = "No";
-        //        }
+        public void SetNewMessageLabel(AccessToken a)
+        {
+            try
+            {
+                int count = messageMgr.GetUnreadMessageCount(_accessToken.UserName);
+                string message = "";
+                if (count > 0)
+                {
+                    message = count.ToString();
+                }
+                else
+                {
+                    message = "No";
+                }
 
-        //        lblCurrentMessages.Header = a.FirstName + " You Have " + message + " New Messages";
-        //    }
-        //    catch (Exception)
-        //    {
-        //        lblCurrentMessages.Header = a.FirstName + " You Have No New Messages";
-        //    }
-            
-        //}
+                lblCurrentMessages.Content = a.FirstName + " You Have " + message + " New Messages";
+            }
+            catch (Exception)
+            {
+                lblCurrentMessages.Content = a.FirstName + " You Have No New Messages";
+            }
+
+        }
         /// <summary>
         /// Author: Ryan Taylor
         /// Click logic for New user button
@@ -533,5 +535,9 @@ namespace com.GreenThumb.WPF_Presentation
             }
         }
 
+        private void lblCurrentMessages_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            mainFrame.NavigationService.Navigate(new ProfilePages.Messages(_accessToken));
+        }
     }
 }

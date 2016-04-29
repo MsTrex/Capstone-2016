@@ -33,6 +33,15 @@ namespace com.GreenThumb.DataAccess
             cmd.Parameters.AddWithValue("@Response", response.UserResponse);
             cmd.Parameters.AddWithValue("@UserID", response.UserID);
 
+            if (response.BlogID == null)
+            {
+                cmd.Parameters.AddWithValue("@BlogID", DBNull.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@BlogID", response.BlogID);
+            }
+
             try
             {
                 conn.Open();
@@ -86,6 +95,15 @@ namespace com.GreenThumb.DataAccess
                             UserID = reader.GetInt32(3)
                         };
 
+                        if (reader.IsDBNull(4))
+                        {
+                            response.BlogID = null;
+                        }
+                        else
+                        {
+                            response.BlogID = reader.GetInt32(4);
+                        }
+
                         responses.Add(response);
                     }
                 }
@@ -138,6 +156,15 @@ namespace com.GreenThumb.DataAccess
                         UserResponse = reader.GetString(2),
                         UserID = reader.GetInt32(3)
                     };
+
+                    if (reader.IsDBNull(4))
+                    {
+                        response.BlogID = null;
+                    }
+                    else
+                    {
+                        response.BlogID = reader.GetInt32(4);
+                    }
                 }
             }
             catch (Exception)
@@ -173,6 +200,14 @@ namespace com.GreenThumb.DataAccess
             cmd.Parameters.AddWithValue("@UserID", newResponse.UserID);
             cmd.Parameters.AddWithValue("@Response", newResponse.UserResponse);
             cmd.Parameters.AddWithValue("@OriginalResponse", oldResponse.UserResponse);
+            if (newResponse.BlogID == null)
+            {
+                cmd.Parameters.AddWithValue("@BlogID", DBNull.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@BlogID", newResponse.BlogID);
+            }
 
             try
             {

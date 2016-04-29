@@ -7,8 +7,8 @@
 }
 
 <div>
-    <h2>@Model.GroupName @Html.ActionLink("Leave Group", "LeaveGroup", "Group", new { @id = Model.GroupID }, new { @class = "btn btn-default" })</h2>
-
+    @Model.GroupName @Html.ActionLink("Leave Group", "LeaveGroup", "Group", new { @id = Model.GroupID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Create Announcment", "CreateAnnouncement", "Group", new { @id = Model.GroupID }, new { @class = "btn btn-default" })
     <div>
         @Html.Partial("~/Views/PartialViews/GroupLeaderDetail.cshtml", Model.GroupLeader)
     </div>
