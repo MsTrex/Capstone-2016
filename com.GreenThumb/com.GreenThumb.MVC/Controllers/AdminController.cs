@@ -46,6 +46,8 @@ namespace com.GreenThumb.MVC.Controllers
                requestModel.Requestor = new UserManager().GetUser(request.UserID);
                viewModel.Requests.Add(requestModel);
             }
+
+
              return View(viewModel);
        }
 
@@ -76,6 +78,22 @@ namespace com.GreenThumb.MVC.Controllers
                 }
             }
             return RedirectToAction("MngExpert", "Admin");
+        }
+
+        public ActionResult Experts()
+        {
+            try
+            {
+                GroupManager grMangr = new GroupManager();
+                Group grp = grMangr.RetrieveGroupByName("ExpertContributor");
+                int groupId = grp.GroupID;
+                var model = new GroupManager().GetGroupMembers(groupId);
+                return View(model);
+            }
+            catch {
+                return View();
+            }
+
         }
 
         private int RetrieveUserId()

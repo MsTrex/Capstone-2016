@@ -1,0 +1,47 @@
+﻿@*
+    <summary>
+     Lets expert create a article(blog) .
+     Author: Chris Schwebach
+     Date:  4/28/2016
+     </summary>
+     <returns></returns>
+*@
+
+@model com.GreenThumb.BusinessObjects.Blog
+
+<script src="~/Scripts/jquery-2.2.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+@using (Html.BeginForm("Articles", "Expert", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="createArticleForm">
+        <h2>Create a Article</h2>
+        <label for="BlogTitle">Article Title: </label>
+        @Html.EditorFor(model => model.BlogTitle, new { })
+        @Html.ValidationMessageFor(model => model.BlogTitle, "", new { @class = "text-danger" })
+        <br />
+        <br />
+        <label for="BlogData">Article Content: </label>
+        <br />
+        @Html.TextArea("BlogData", new
+        {
+            @id = "BlogData",
+            @class = "textarea",
+            required = "required",
+            maxlength = 8000,
+            style = "width: 1500px; height: 400px;"
+        })
+        @Html.ValidationMessageFor(model => model.BlogData, "", new { @class = "text-danger" })
+        <br />
+        <br />
+        <input type="submit" name="submitArticle" value="Submit" />
+        <br />
+    </div>
+    
+    
+}
+

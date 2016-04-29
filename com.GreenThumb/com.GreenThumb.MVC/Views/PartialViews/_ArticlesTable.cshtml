@@ -1,0 +1,45 @@
+﻿@*
+    <summary>
+     Partial View table of expert articles.
+     Author: Chris Schwebach
+     Date:  4/28/2016
+     </summary>
+     <returns>ArticleList by article</returns>
+*@
+
+@using com.GreenThumb.MVC.Models
+@model IEnumerable<ArticlesViewModel>
+
+<h1>Articles</h1>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Article Title
+            </th>
+            <th>
+                Article Content
+            </th>
+            <th>
+                Authors Name
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ArticlesViewModel blogInfo in Model)
+        {
+            <tr>
+                <td>
+                    @blogInfo.blog.BlogTitle
+                </td>
+                <td>
+                    @blogInfo.blog.BlogData
+                </td>
+                <td>
+                    @blogInfo.FirstName @blogInfo.LastName
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
