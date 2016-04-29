@@ -104,6 +104,33 @@ namespace com.GreenThumb.MVC.Controllers
 
             return View("Error");
         }
+        [HttpGet]
+        public ActionResult CreateAnnouncement(int? id)
+        {
+            AnnouncementViewModel model = new AnnouncementViewModel();
+            model.GroupID = id.Value;
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult CreateAnnouncement([ModelBinder(typeof(AnnouncementViewModel))]AnnouncementViewModel AVM)
+        {
+            int userID = RetrieveUserId();
+            int groupID = AVM.GroupID;
+
+            try
+            {
+                new AnnouncementManager().CreateAnnouncement((int)AVM.GroupID, AVM.Content, User.Identity.GetUserName());
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+         
+            
+
+            return RedirectToAction("Details", "Group");
+        }
 
         /// <summary>
         /// Logged in user will view group details

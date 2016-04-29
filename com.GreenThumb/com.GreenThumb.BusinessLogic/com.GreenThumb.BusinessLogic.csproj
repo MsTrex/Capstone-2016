@@ -56,9 +56,9 @@
     <Compile Include="GardenTemplateManager.cs" />
     <Compile Include="GroupLeaderRequestManager.cs" />
     <Compile Include="GroupManager.cs" />
+    <Compile Include="Interfaces\IAnnouncementManager.cs" />
     <Compile Include="Interfaces\IAdminGardenManager.cs" />
     <Compile Include="Interfaces\IAdminOrganizerManager.cs" />
-    <Compile Include="Interfaces\IAnnouncementManager.cs" />
     <Compile Include="Interfaces\ICreateOrgManager.cs" />
     <Compile Include="Interfaces\IGardenDesigner.cs" />
     <Compile Include="Interfaces\IGardenDesignViewer.cs" />

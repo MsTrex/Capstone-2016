@@ -1,8 +1,5 @@
-﻿using com.GreenThumb.BusinessObjects;
-using System;
-using System.Collections.Generic;
-
-namespace com.GreenThumb.BusinessLogic.Interfaces
+﻿using System;
+namespace com.GreenThumb.BusinessLogic
 {
     /// <summary>
     /// Created By: Luke Frahm 4/22/2016
@@ -10,9 +7,9 @@ namespace com.GreenThumb.BusinessLogic.Interfaces
     /// </summary>
     public interface IAnnouncementManager
     {
-        bool CreateAnnouncement(Announcements announcement);
-        List<Announcements> GetAnnouncementsByGroupID(int groupID);
-        List<Announcements> GetAnnouncementsByGroupIDTop10(int userID);
-        bool UpdateAnnouncement(Announcements announcement);
+        bool CreateAnnouncement(int groupID, string Content, string username);
+        System.Collections.Generic.List<com.GreenThumb.BusinessObjects.Announcements> GetAnnouncementsByGroupID(int groupID);
+        System.Collections.Generic.List<com.GreenThumb.BusinessObjects.Announcements> GetAnnouncementsByGroupIDTop10(int userID);
+        bool UpdateAnnouncement(com.GreenThumb.BusinessObjects.Announcements announcement);
     }
 }

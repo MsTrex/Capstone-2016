@@ -112,7 +112,7 @@ namespace com.GreenThumb.MVC.Controllers
                         Active = true
                     };
                     blogManager.AddBlog(blog);
-                    return View();
+                    return RedirectToAction("Index", "Expert");
         }
 
         private int RetrieveUserId()

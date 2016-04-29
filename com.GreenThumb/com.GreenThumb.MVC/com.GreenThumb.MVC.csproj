@@ -178,7 +178,11 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+
+    <Compile Include="Models\AnnouncementViewModel.cs" />
+
     <Compile Include="Models\ArticlesViewModel.cs" />
+
     <Compile Include="Models\DonationViewModels.cs" />
     <Compile Include="Models\GardenCreationViewModel.cs" />
     <Compile Include="Models\GardenTaskViewModel.cs" />
@@ -481,6 +485,7 @@
     <Content Include="Views\Donation\ViewGardenNeeds.cshtml" />
     <Content Include="Views\Donation\ViewContributions.cshtml" />
     <Content Include="Views\PartialViews\_ViewContributionsTable.cshtml" />
+    <Content Include="Views\Group\CreateAnnouncement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

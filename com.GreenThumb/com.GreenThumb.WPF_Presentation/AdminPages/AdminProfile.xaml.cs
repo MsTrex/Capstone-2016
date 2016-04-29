@@ -1,6 +1,4 @@
-﻿using com.GreenThumb.BusinessLogic;
-using com.GreenThumb.BusinessObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,31 +10,33 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using com.GreenThumb.BusinessLogic;
+using com.GreenThumb.BusinessObjects;
 
 namespace com.GreenThumb.WPF_Presentation.AdminPages
 {
     /// <summary>
-    /// Interaction logic for ProfileMenu.xaml
-    /// Added by Ibrahim Abuzaid 04-15-2016
+    /// Interaction logic for AdminProfile.xaml
     /// </summary>
-    public partial class ProfileAdmin : Page
+    public partial class AdminProfile : Page
     {
         UserManager usrMgr = new UserManager();
         UserRoleManager usrRoleMgr = new UserRoleManager();
         GroupManager grpMgr = new GroupManager();
 
         private AccessToken _accessToken;
-        
-        public ProfileAdmin(AccessToken _accessToken)
+
+        public AdminProfile(AccessToken _accessToken)
         {
             this._accessToken = _accessToken;
             InitializeComponent();
             populateUser();
-            //frmEdit.Visibility = Visibility.Hidden;
-            //frmPassword.Visibility = Visibility.Hidden;
-            //frmRole.Visibility = Visibility.Hidden;
-            //grdGarden.Visibility = Visibility.Hidden;
+            frmEdit.Visibility = Visibility.Hidden;
+            frmPassword.Visibility = Visibility.Hidden;
+            frmRole.Visibility = Visibility.Hidden;
+            grdGarden.Visibility = Visibility.Hidden;
         }
         private void populateUser()
         {
@@ -271,8 +271,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
 
         private void txtUserIn_TextChanged(object sender, TextChangedEventArgs e)
         {
-            txtUserIn.Text = txtUserIn.Text.Trim();
+
         }
-        
     }
 }
