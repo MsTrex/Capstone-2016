@@ -43,7 +43,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
         {
             try
             {
-                var users = usrMgr.RetrievePersonalInfo(_accessToken.UserID);
+                var users = usrMgr.GetPersonalInfo(_accessToken.UserID);
                 User user = new User();
              //   grdUser.ItemsSource = users;
                 lblFirstName.Content = user.FirstName;
@@ -86,7 +86,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
 
         private void btnChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            var users = usrMgr.RetrievePersonalInfo(_accessToken.UserID);
+            var users = usrMgr.GetPersonalInfo(_accessToken.UserID);
             User user = new User();
             frmEdit.Visibility = Visibility.Hidden;
             frmRole.Visibility = Visibility.Hidden;
@@ -115,7 +115,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             
             try
             {
-                var res = usrMgr.ChangePasssword(txtUserName.Text, txtOldPassword.Password, txtNewPassword1.Password);
+                var res = usrMgr.EditPasssword(txtUserName.Text, txtOldPassword.Password, txtNewPassword1.Password);
                 lblMessage.Content = txtUserName.Text + "  " + txtOldPassword.Password + "   " + txtNewPassword1.Password;
                 if (res == true)
                 {
@@ -198,7 +198,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             
             try
             {                  
-                        var res = usrMgr.UpdateUserPersonalInfo(user.UserID, user.FirstName, user.LastName,
+                        var res = usrMgr.EditUserPersonalInfo(user.UserID, user.FirstName, user.LastName,
                                  user.Zip, user.EmailAddress, user.RegionId);
                         if (res == true)
                         {
