@@ -73,6 +73,9 @@
     <Compile Include="AdminPages\AdminProcessExpertRequests.xaml.cs">
       <DependentUpon>AdminProcessExpertRequests.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdminPages\ExpertRequests.xaml.cs">
+      <DependentUpon>ExpertRequests.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminPages\RegionPage.xaml.cs" />
     <Compile Include="AdminPages\UserRole.xaml.cs" />
     <Compile Include="AdminPages\ViewUsers.xaml.cs">
@@ -154,6 +157,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdminPages\AdminHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminPages\ExpertRequests.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,14 +14,23 @@ namespace com.GreenThumb.MVC.Controllers
         // created by Luke Frahm
         public ActionResult Index()
         {
-            //var am = new AnnouncementManager();
-            //var al = new List<Announcements>();
-            //int userID = RetrieveUserId();
-            //if (userID != 0)
-            //{
-            //    al = am.GetAnnouncementsByGroupIDTop10(userID);
-            //}
-            //ViewBag.Announcements = al;
+            var am = new AnnouncementManager();
+            var al = new List<Announcements>();
+            int userID = RetrieveUserId();
+            if (userID != 0)
+            {
+                al = am.GetAnnouncementsByGroupIDTop10(userID);
+            }
+            if (al.Count == 0)
+            {
+                al.Add(new Announcements(0, "", "", "", 0, DateTime.Now, ""));
+            }
+            if (userID != 0 && al.Count == 0)
+            {
+                al.Add(new Announcements(0, "", "", "", 0, DateTime.Now, "No new announcements!"));
+            }
+            ViewBag.Announcements = al;
+			
             return View();
         }
 

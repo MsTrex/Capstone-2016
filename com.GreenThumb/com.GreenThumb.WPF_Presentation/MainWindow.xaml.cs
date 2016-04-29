@@ -63,7 +63,8 @@ namespace com.GreenThumb.WPF_Presentation
         private void CheckPermissions()
         {
             List<Label> visibleTabs = new List<Label>();
-            var allTabs = new Label[] { btnAdmin, btnGardens, btnExpert, btnHome, btnProfile };
+            var allTabs = new Label[] { btnAdmin, /*btnGardens,*/ btnExpert, btnHome, btnProfile };
+            btnGardens.Visibility = Visibility.Collapsed;
             if (_accessToken == null)
             {
                 clearSideBar();
@@ -74,32 +75,37 @@ namespace com.GreenThumb.WPF_Presentation
                 {
                     if (r.RoleID == "Admin")
                     {
-                        var adminTabs = new Label[] { btnAdmin, btnGardens, btnExpert, btnHome, btnProfile };
+                        var adminTabs = new Label[] { btnAdmin, /*btnGardens,*/ btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(adminTabs);
+                        btnGardens.Visibility = Visibility.Collapsed;
                         break;
                     }
                     if (r.RoleID == "Expert")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { /*btnGardens,*/ btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
+                        btnGardens.Visibility = Visibility.Collapsed;
                         break;
                     }
                     if (r.RoleID == "GroupLeader")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { /*btnGardens,*/ btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
+                        btnGardens.Visibility = Visibility.Collapsed;
                         break;
                     }
                     if (r.RoleID == "GroupMember")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { /*btnGardens,*/ btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
+                        btnGardens.Visibility = Visibility.Collapsed;
                         break;
                     }
                     if (r.RoleID == "User")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { /*btnGardens,*/ btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
+                        btnGardens.Visibility = Visibility.Collapsed;
                         break;
                     }
                 }
@@ -280,33 +286,33 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnGardens_click(object sender, RoutedEventArgs e)
         {
-            mainFrame.NavigationService.Navigate(new GardenPages.GardenMain(_accessToken));
-            //btnSideBar1.Content = "Create a Garden";
-            clearSideBar();
-            btnSideBar1.Content = "DO NOT USE";
-            btnSideBar2.Content = "DO NOT USE";
-            btnSideBar3.Content = "DO NOT USE";
-            btnSideBar4.Content = "Complete A Task";
-            btnSideBar5.Content = "Create a Task";
-            btnSideBar6.Content = "Sign Up for Task";
+            //mainFrame.NavigationService.Navigate(new GardenPages.GardenMain(_accessToken));
+            ////btnSideBar1.Content = "Create a Garden";
+            //clearSideBar();
+            //btnSideBar1.Content = "DO NOT USE";
+            //btnSideBar2.Content = "DO NOT USE";
+            //btnSideBar3.Content = "DO NOT USE";
+            //btnSideBar4.Content = "Complete A Task";
+            //btnSideBar5.Content = "Create a Task";
+            //btnSideBar6.Content = "Sign Up for Task";
 
-            Role role = new Role();
-            role.RoleID = "Admin";
-            if (_accessToken.Roles.Contains(role))
-            {
-                btnSideBar7.Content = "Manage Garden Group";
-            }
-            else
-            {
-                btnSideBar7.Content = "";
-            }
-            btnSideBar7.Content = "Create Garden";
-            btnSideBar8.Content = "View Tasks By Garden";
-            btnSideBar10.Content = "View Groups";
-            btnSideBar11.Content = "Your Groups";
-            btnSideBar12.Content = "Request to be a Group Leader";
-            btnSideBar13.Content = "Aasign Task to a Member";
-            clearUnusedSidebars();
+            //Role role = new Role();
+            //role.RoleID = "Admin";
+            //if (_accessToken.Roles.Contains(role))
+            //{
+            //    btnSideBar7.Content = "Manage Garden Group";
+            //}
+            //else
+            //{
+            //    btnSideBar7.Content = "";
+            //}
+            //btnSideBar7.Content = "Create Garden";
+            //btnSideBar8.Content = "View Tasks By Garden";
+            //btnSideBar10.Content = "View Groups";
+            //btnSideBar11.Content = "Your Groups";
+            //btnSideBar12.Content = "Request to be a Group Leader";
+            //btnSideBar13.Content = "Aasign Task to a Member";
+            //clearUnusedSidebars();
         }
         /// <summary>
         /// Author: Chris Sheehan
@@ -373,7 +379,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMenu(_accessToken));
+            mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
             clearSideBar();
             SetProfileButtons();
             clearUnusedSidebars();
@@ -434,11 +440,12 @@ namespace com.GreenThumb.WPF_Presentation
                     case "Volunteer Sign Up":
                         page = new VolunteerPages.VolunteerSignUp(_accessToken);
                         break;
-                    case "Profile Menu":
-                        page = new ProfilePages.ProfileMenu(_accessToken);
+                    case "Profile Main":
+                        page = new ProfilePages.ProfileMain(_accessToken);
                         break;
                     case "Expert Requests":
                         page = new AdminPages.AdminProcessExpertRequests(_accessToken);
+                        //page = new AdminPages.ExpertRequests(_accessToken);
                         break;
                     case "Search for Questions":
                         page = new ExpertPages.SearchForQuestions(_accessToken);
@@ -498,6 +505,9 @@ namespace com.GreenThumb.WPF_Presentation
                     case "Articles":
                         page = new HomePages.ViewBlog(_accessToken);
                         break;
+                    case "Become an Expert":
+                        page = new ExpertPages.RequestExpert(_accessToken);
+                        break;                        
                     default: //Blog
                         page = page = new HomePages.ViewBlog(_accessToken);
                         break;

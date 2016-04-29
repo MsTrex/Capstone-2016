@@ -154,7 +154,7 @@ namespace com.GreenThumb.DataAccess
                 }
                 else
                 {
-                    throw new ApplicationException("No group announcements.");
+                    anouncements.Add(new Announcements(0, "", "", "", 0, DateTime.Now, "No new announcements!"));
                 }
             }
             catch (Exception)
