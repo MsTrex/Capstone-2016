@@ -94,9 +94,10 @@ namespace com.GreenThumb.BusinessLogic
 
             // sort announcements by date: most recent at top
             allAnnouncments.Sort((x,y) => x.Date.CompareTo(y.Date));
+            allAnnouncments.Reverse();
 
             announcements.Clear();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 10 && i < allAnnouncments.Count; i++)
             {
                 announcements.Add(allAnnouncments.ElementAt(i));
             }

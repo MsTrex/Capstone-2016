@@ -379,7 +379,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMenu(_accessToken));
+            mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
             clearSideBar();
             SetProfileButtons();
             clearUnusedSidebars();
@@ -440,8 +440,8 @@ namespace com.GreenThumb.WPF_Presentation
                     case "Volunteer Sign Up":
                         page = new VolunteerPages.VolunteerSignUp(_accessToken);
                         break;
-                    case "Profile Menu":
-                        page = new ProfilePages.ProfileMenu(_accessToken);
+                    case "Profile Main":
+                        page = new ProfilePages.ProfileMain(_accessToken);
                         break;
                     case "Expert Requests":
                         page = new AdminPages.AdminProcessExpertRequests(_accessToken);
