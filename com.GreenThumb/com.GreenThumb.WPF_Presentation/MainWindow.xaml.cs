@@ -358,12 +358,12 @@ namespace com.GreenThumb.WPF_Presentation
         {
             mainFrame.NavigationService.Navigate(new AdminPages.AdminHome(_accessToken));
             clearSideBar();
-            btnSideBar1.Content = "";
+            btnSideBar1.Content = "User Accounts";
             btnSideBar2.Content = "Messages";
             btnSideBar3.Content = "Expert Requests";
             btnSideBar4.Content = "User Role";
             btnSideBar5.Content = "User Region";
-            btnSideBar6.Content = "Admin User Profile";
+            btnSideBar6.Content = "";
             clearUnusedSidebars();
         }
 
@@ -374,7 +374,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// </summary>
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.NavigationService.Navigate(new AdminPages.ProfileMain(_accessToken));
+            mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
             clearSideBar();
             SetProfileButtons();
             clearUnusedSidebars();
@@ -421,13 +421,13 @@ namespace com.GreenThumb.WPF_Presentation
                 switch (content)
                 {
                     case "Edit Personal Info":
-                        page = new AdminPages.EditPersonalInfo(_accessToken);
+                        page = new ProfilePages.EditPersonalInfo(_accessToken);
                         break;
                     case "Edit Volunteer Availability":
                         page = new VolunteerPages.EditVolunteerAvailability(_accessToken);
                         break;
                     case "Messages":
-                        page = new AdminPages.Messages(_accessToken);
+                        page = new ProfilePages.Messages(_accessToken);
                         break;
                     case "Add a Recipe":
                         page = new ExpertPages.RecipeInput(_accessToken);
@@ -436,7 +436,7 @@ namespace com.GreenThumb.WPF_Presentation
                         page = new VolunteerPages.VolunteerSignUp(_accessToken);
                         break;
                     case "Profile Main":
-                        page = new AdminPages.ProfileMain(_accessToken);
+                        page = new ProfilePages.ProfileMain(_accessToken);
                         break;
                     case "Expert Requests":
                         page = new AdminPages.AdminProcessExpertRequests(_accessToken);
@@ -445,7 +445,7 @@ namespace com.GreenThumb.WPF_Presentation
                         page = new ExpertPages.SearchForQuestions(_accessToken);
                         break;
                     case "Complete A Task":
-                        page = new AdminPages.Messages(_accessToken);
+                        page = new ProfilePages.Messages(_accessToken);
                         break;
                     case "Ask a Question":
                         page = new ExpertPages.ExpertAdvice(_accessToken);
@@ -463,7 +463,7 @@ namespace com.GreenThumb.WPF_Presentation
             //            page = new Uri("AdminPages/RegionPage.xaml", UriKind.Relative);
                         page = new AdminPages.RegionPage();
                         return;
-                    case "Admin User Profile":
+                    case "User Accounts":
                         page = new AdminPages.ProfileAdmin(_accessToken);
                         return;
                     case "Upload Garden Template":
