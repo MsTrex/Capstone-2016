@@ -5,8 +5,32 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
       d:DesignHeight="300"
-	Title="ExpertAdviceRespond" Width="{Binding Source={x:Static SystemParameters.ScrollWidth}, Path=Width}">
+	Title="ExpertAdviceRespond" Width="{Binding Source={x:Static SystemParameters.ScrollWidth}, Path=Width}"
+      xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit">
 
+    <Page.Resources>
+        <Style x:Key="Link" TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="Blue"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock TextDecorations="Underline" 
+                    Text="{TemplateBinding Content}"
+                    Background="{TemplateBinding Background}"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Foreground" Value="Red"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Grid x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -16,7 +40,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Width="300">
+        <Grid Grid.Row="0" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -33,9 +57,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Margin="5" Content="Search by region" />
-            <ComboBox Style="{StaticResource comboBox1}" x:Name="cmbRegions" Grid.Row="0" Grid.Column="1" Margin="5" MinWidth="100" MaxWidth="100" DataContext="{Binding Source=list}" />
-            <Button  Style="{StaticResource button1}" x:Name="btnSearchRegion" Grid.Row="0" Grid.Column="2" Margin="5" MinWidth="50" Content="Search" Click="btnSearchRegion_Click" />
-            
+            <ComboBox x:Name="cmbRegions" Style="{StaticResource comboBox1}" Grid.Row="0" Grid.Column="1" Margin="5" MinWidth="100" MaxWidth="100" DataContext="{Binding Source=list}" />
+            <Button x:Name="btnSearchRegion" Style="{StaticResource button1}" Grid.Row="0" Grid.Column="2" Margin="5" Content="Search" Click="btnSearchRegion_Click" />
+
             <Label Grid.Row="1" Grid.Column="0" Margin="5" Content="Search keyword" />
             <TextBox x:Name="txtKeywords" Grid.Row="1" Grid.Column="1" Margin="5" MinWidth="100" MaxWidth="100" KeyUp="txtKeywords_KeyUp" />
         </Grid>
@@ -56,16 +80,32 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
+                <!--<ColumnDefinition Width="Auto" />-->
             </Grid.ColumnDefinitions>
             <Label x:Name="lblQuestion" Grid.Row="0" Grid.Column="0" Margin="20 5 20 5" Content="Question:" />
             <Label x:Name="lblContent" Grid.Row="1" Grid.Column="0" Margin="20 5 20 5" Height="90" Content="" Background="White" BorderBrush="Black" BorderThickness="1" />
-            <Label x:Name="lblReply" Grid.Row="2" Grid.Column="0" Margin="20 5 20 5" Content="Your reply:" />
-            <TextBox x:Name="txtResponse" IsEnabled="False" Grid.Row="3" Grid.Column="0" Margin="20 5 20 5" Height="90" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" TextWrapping="Wrap" KeyUp="txtResponse_KeyUp" />
-            <Button x:Name="btnResponse" IsEnabled="False" Grid.Row="4" Grid.Column="0" MaxWidth="50" Margin="20 5 20 5" Content="Send" Click="btnResponse_Click" />
+
+            <!-- inserting a link into the text response -->
+
+            <Label x:Name="lblLink" Grid.Row="2" Grid.Column="0" Margin="20 5 20 5" Content="Article Name:" VerticalAlignment="Center" />
+            <toolkit:AutoCompleteBox x:Name="autoBlogs" Grid.Row="2" Grid.Column="0" Visibility="Visible" Margin="120 20 0 20" Width="300" DataContext="{Binding Source=list}"   AllowDrop="True" FilterMode="Contains" SelectionChanged="autoBlogs_SelectionChanged" HorizontalAlignment="Left" />
+            <Button x:Name="btnLinkArticle" Style="{StaticResource button1}" Grid.Row="2" Grid.Column="0" Content="Link Article" Margin="460 20 0 20" HorizontalAlignment="Left" Click="btnLinkArticle_Click" />
+
+            <!-- end insert for link -->
+
+            <Label x:Name="lblReply" Grid.Row="3" Grid.Column="0" Margin="20 5 20 5" Content="Your reply:" Visibility="Visible"/>
+
+            <Button Grid.Row="4" x:Name="btnArticle" Grid.Column="0" Content="" Style="{StaticResource Link}" Click="btnArticle_Click" />
+
+            <TextBox x:Name="txtResponse" IsEnabled="False" Grid.Row="5" Grid.Column="0" Margin="20 5 20 5" Height="90" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" TextWrapping="Wrap" KeyUp="txtResponse_KeyUp" />
+
+            <Button x:Name="btnResponse" Style="{StaticResource button1}" IsEnabled="False" Grid.Row="6" Grid.Column="0" Margin="20 5 20 5" Content="Send" Click="btnResponse_Click" />
+
         </Grid>
     </Grid>
 </Page>

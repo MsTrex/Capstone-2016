@@ -25,14 +25,29 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         AccessToken _accessToken = new AccessToken();
         QuestionManager questionManager = new QuestionManager();
         ResponseManager responseManager = new ResponseManager();
+        BlogManager blogManager = new BlogManager();
         UserManager userManager = new UserManager();
         bool hasChangedQuestion = false;
+        List<Question> questions = new List<Question>();
+
+        // page variables
+        PageDetails pageDetails = new PageDetails();
+        Paginate<Question> paginate = new Paginate<Question>();
+        List<Question> fullList = new List<Question>();
+
         public SearchForQuestions(AccessToken accessToken)
         {
             InitializeComponent();
 
             _accessToken = accessToken;
             ValidateAccessToken();
+
+            pageDetails = InitializePageDetails();
+            fullList = questionManager.GetQuestions();
+
+            questions = paginate.GetList(pageDetails, questionManager.GetQuestions());
+
+            gridQuestions.ItemsSource = questions;
         }
 
         public SearchForQuestions(AccessToken accessToken, Question question)
@@ -46,6 +61,14 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             lblNoReplies.Content = "Your question has been successfully submitted. Come back later to check replies.";
             lblContent.Text = question.Content;
             lblQuestion.Content = userManager.GetUser(question.CreatedBy).UserName + " asks...";
+            lblQuestionDate.Content = question.CreatedDate.ToString(("MMMM dd, yyyy MM:hh tt"));
+
+            pageDetails = InitializePageDetails();
+            fullList = questionManager.GetQuestions();
+
+            questions = paginate.GetList(pageDetails, fullList);
+
+            gridQuestions.ItemsSource = questions;
         }
 
         private void ValidateAccessToken()
@@ -76,11 +99,16 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         {
             try
             {
-                gridQuestions.ItemsSource = questionManager.GetQuestionsWithKeyword(txtKeywords.Text);
+                fullList = questionManager.GetQuestionsWithKeyword(txtKeywords.Text);
+                pageDetails.CurrentPage = 1;
+                pageDetails.Count = fullList.Count;
+                questions = paginate.GetList(pageDetails, fullList);
+
+                gridQuestions.ItemsSource = questions;
             }
             catch (Exception)
             {
-                
+
             }
 
             ChangeGridVisibility();
@@ -93,7 +121,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
                 Question question = (Question)gridQuestions.SelectedItem;
                 ChangeQuestionAndResponses(question.QuestionID);
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }
@@ -103,29 +131,30 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
         {
             if (gridQuestions.Items.Count > 0)
             {
-                gridQuestions.Visibility = System.Windows.Visibility.Visible;
+                //gridQuestions.Visibility = System.Windows.Visibility.Visible;
                 lblNoMatch.Visibility = System.Windows.Visibility.Collapsed;
             }
             else
             {
-                gridQuestions.Visibility = System.Windows.Visibility.Collapsed;
+                //gridQuestions.Visibility = System.Windows.Visibility.Collapsed;
                 lblNoMatch.Visibility = System.Windows.Visibility.Visible;
             }
         }
 
         private void ChangeQuestionAndResponses(int questionID)
         {
-            gridQuestion.Visibility = System.Windows.Visibility.Visible;
+            //gridQuestion.Visibility = System.Windows.Visibility.Visible;
             Question question = questionManager.GetQuestionByID(questionID);
             lblContent.Text = question.Content;
             lblQuestion.Content = userManager.GetUser(question.CreatedBy).UserName + " asks...";
+            lblQuestionDate.Content = question.CreatedDate.ToString(("MMMM dd, yyyy MM:hh tt"));
             List<Response> responses = new List<Response>();
 
             try
             {
                 responses = responseManager.GetResponsesByQuestionID(questionID);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 lblNoReplies.Visibility = System.Windows.Visibility.Visible;
             }
@@ -133,62 +162,42 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
 
             if (responses.Count > 0)
             {
-                gridResponses.Visibility = System.Windows.Visibility.Visible;
-                gridNoResponses.Visibility = System.Windows.Visibility.Collapsed;
+                icResponses.Items.Clear();
 
-                List<UIElement> elements = new List<UIElement>();
-
-                foreach(UIElement e in gridResponses.Children)
+                foreach (Response r in responses)
                 {
-                    elements.Add(e);
-                }
+                    User user = userManager.GetUser(r.UserID);
 
-                foreach (UIElement e in elements)
-                {
-                    gridResponses.Children.Remove(e);
-                }
-
-                int i = 0;
-                foreach (Response response in responses)
-                {
-                    Label lblName = new Label();
-                    lblName.Content = userManager.GetUser(response.UserID).UserName + " posted...";
-                    lblName.SetValue(Grid.ColumnProperty, 0);
-                    lblName.SetValue(Grid.RowProperty, i);
-                    lblName.Margin = new Thickness(20.0, 20.0, 20.0, 0.0);
-
-                    TextBlock lblResponse = new TextBlock();
-                    lblResponse.Text = response.UserResponse;
-                    lblResponse.TextWrapping = TextWrapping.Wrap;
-
-                    Border border = new Border();
-                    border.BorderThickness = new Thickness(1.0);
-                    border.BorderBrush = System.Windows.Media.Brushes.Black;
-                    border.MaxHeight = 90;
-                    border.Margin = new Thickness(20.0, 0.0, 20.0, 0.0);
-                    border.SetValue(Grid.ColumnProperty, 0);
-                    i++;
-                    border.SetValue(Grid.RowProperty, i);
-                    border.Background = System.Windows.Media.Brushes.White;
-                    border.Padding = new Thickness(5.0);
-
-                    border.Child = lblResponse;
-
-                    gridResponses.RowDefinitions.Add(new RowDefinition());
-                    gridResponses.RowDefinitions.Add(new RowDefinition());
-                    gridResponses.Children.Add(lblName);
-                    gridResponses.Children.Add(border);
-                    i++;
+                    if (r.BlogID != null)
+                    {
+                        icResponses.Items.Add(new ResponseView
+                        {
+                            Name = user.UserName,
+                            UserResponse = r.UserResponse,
+                            Date = r.Date,
+                            ArticleName = blogManager.GetBlogById((int)r.BlogID).BlogTitle,
+                            BlogID = r.BlogID
+                        });
+                    }
+                    else
+                    {
+                        icResponses.Items.Add(new ResponseView
+                        {
+                            Name = user.UserName,
+                            UserResponse = r.UserResponse,
+                            Date = r.Date
+                        });
+                    }
                 }
             }
             else
             {
-                gridResponses.Visibility = System.Windows.Visibility.Collapsed;
-                gridNoResponses.Visibility = System.Windows.Visibility.Visible;
-                if(hasChangedQuestion)
+                if (hasChangedQuestion)
                 {
                     lblNoReplies.Content = "There are no replies for this question";
                 }
+
+                icResponses.Items.Clear();
             }
 
             hasChangedQuestion = true;
@@ -199,7 +208,69 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             txtKeywords.Text = "";
             Question question = (Question)cmbMyQuestions.SelectedItem;
             ChangeQuestionAndResponses(question.QuestionID);
-            gridQuestions.Visibility = System.Windows.Visibility.Collapsed;
+            //gridQuestions.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        /* Rhett Allen - adding pages */
+        private void btnPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            if (pageDetails.CurrentPage > 1)
+            {
+                pageDetails.CurrentPage--;
+            }
+
+            SelectQuestions();
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (pageDetails.CurrentPage < pageDetails.MaxPages)
+            {
+                pageDetails.CurrentPage++;
+            }
+
+            SelectQuestions();
+        }
+
+        private void btnFirst_Click(object sender, RoutedEventArgs e)
+        {
+            pageDetails.CurrentPage = 1;
+            SelectQuestions();
+        }
+
+        private void btnLast_Click(object sender, RoutedEventArgs e)
+        {
+            pageDetails.CurrentPage = pageDetails.MaxPages;
+            SelectQuestions();
+        }
+
+        private void SelectQuestions()
+        {
+            try
+            {
+                gridQuestions.ItemsSource = paginate.GetList(pageDetails, fullList);
+                lblPage.Content = "Page " + pageDetails.CurrentPage;
+            }
+            catch (Exception)
+            {
+                gridQuestions.ItemsSource = new List<Question>();
+            }
+        }
+
+        private PageDetails InitializePageDetails()
+        {
+            PageDetails p = new PageDetails();
+            p.Count = questionManager.GetQuestions().Count;
+            p.CurrentPage = 1;
+            p.PerPage = 5;
+
+            return p;
+        }
+
+        private void btnArticle_Click(object sender, RoutedEventArgs e)
+        {
+            ResponseView article = ((Button)sender).Tag as ResponseView;
+            this.NavigationService.Navigate(new HomePages.ViewBlog(_accessToken, (int)article.BlogID));
         }
     }
 }

@@ -42,6 +42,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
         ///Test for RecipeManager AddNewRecipe class has invalid title input
         /// throws exception
         ///Date: 3/3/16
+        /// Updated by Steve Hoover 4/29/16
         ///</summary>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException))]
@@ -55,6 +56,9 @@ namespace com.GreenThumb.BusinessLogicUnitTests
 
             //act
             bool result = recipeManager.AddNewRecipe(title, category, directions, userId);
+
+            // assert
+            Assert.AreEqual(false, result);
         }
 
         ///<summary>
@@ -62,6 +66,8 @@ namespace com.GreenThumb.BusinessLogicUnitTests
         ///Test for RecipeManager AddNewRecipe class has invalid category input
         /// throws exception
         ///Date: 3/3/16
+        ///
+        /// Updated by Steve Hoover 4/29/16
         ///</summary>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException))]
@@ -75,6 +81,9 @@ namespace com.GreenThumb.BusinessLogicUnitTests
 
             //act
             bool result = recipeManager.AddNewRecipe(title, category, directions, userId);
+
+            // assert
+            Assert.AreEqual(false, result);
         }
 
         ///<summary>
@@ -82,6 +91,8 @@ namespace com.GreenThumb.BusinessLogicUnitTests
         ///Test for RecipeManager AddNewRecipe class has invalid directions/ingrediants input
         /// throws exception
         ///Date: 3/3/16
+        ///
+        /// Updated by Steve Hoover 4/29/16
         ///</summary>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException))]
@@ -95,6 +106,9 @@ namespace com.GreenThumb.BusinessLogicUnitTests
 
             //act
             bool result = recipeManager.AddNewRecipe(title, category, directions, userId);
+
+            //assert
+            Assert.AreEqual(false, result);
         }
     }
 }

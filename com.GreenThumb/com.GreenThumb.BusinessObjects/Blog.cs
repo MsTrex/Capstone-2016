@@ -41,6 +41,11 @@ namespace com.GreenThumb.BusinessObjects
             this.Active = Active;
         }
 
+        public override string ToString()
+        {
+            return BlogTitle;
+        }
+
     }
 }
 
