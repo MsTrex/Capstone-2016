@@ -34,7 +34,7 @@
         @if (null != Model.PendingContributions)
         {
             @Html.LabelFor(m => m.PendingContributions, new { @class = "h3" })
-            @Html.Partial("~/Views/PartialViews/_NeedsContributionsTable.cshtml", Model.PendingContributions)
+            @Html.Partial("~/Views/PartialViews/_ViewContributionsTable.cshtml", Model.PendingContributions)
         }
     </div>
     
