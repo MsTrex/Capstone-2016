@@ -10,13 +10,13 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="81*"/>
-            <RowDefinition Height="91*"/>
+            <RowDefinition Height="243"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button x:Name="btnEdit" Content="Edit Profile" HorizontalAlignment="Left" Margin="13,98,0,0" VerticalAlignment="Top" Width="139" Height="34" FontSize="14" FontWeight="Bold" Click="btnEdit_Click" Grid.ColumnSpan="2"/>
-        <Button x:Name="btnChangePassword" Content="Change Password" HorizontalAlignment="Left" Margin="13,153,0,0" VerticalAlignment="Top" Width="139" Height="34" FontSize="14" FontWeight="Bold" Click="btnChangePassword_Click" Grid.ColumnSpan="2"/>
-        <Button x:Name="btnUserRoles" Content="User Roles" HorizontalAlignment="Left" Margin="13,209,0,0" VerticalAlignment="Top" Width="139" Height="34" FontSize="14" FontWeight="Bold" Click="btnUserRoles_Click" Grid.ColumnSpan="2"/>
-        <Button x:Name="btnGarden" Content="Garden Affiliation" HorizontalAlignment="Left" Margin="13,18,0,0" VerticalAlignment="Top" Width="139" Height="34" FontSize="14" FontWeight="Bold" Click="btnGarden_Click" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Button Style="{StaticResource button1}" x:Name="btnEdit" Content="Edit Profile" HorizontalAlignment="Left" Margin="13,98,0,0" VerticalAlignment="Top" Width="139" Height="34" FontSize="14" FontWeight="Bold" Click="btnEdit_Click" Grid.ColumnSpan="2"/>
+        <Button Style="{StaticResource button1}" x:Name="btnChangePassword" Content="Change Password" HorizontalAlignment="Left" Margin="13,153,0,0" VerticalAlignment="Top" Width="139" Height="34" FontSize="14" FontWeight="Bold" Click="btnChangePassword_Click" Grid.ColumnSpan="2"/>
+        <Button Style="{StaticResource button1}" x:Name="btnUserRoles" Content="User Roles" HorizontalAlignment="Left" Margin="13,209,0,0" VerticalAlignment="Top" Width="139" Height="34" FontSize="14" FontWeight="Bold" Click="btnUserRoles_Click" Grid.ColumnSpan="2"/>
+        <Button Style="{StaticResource button1}" x:Name="btnGarden" Content="Garden Affiliation" HorizontalAlignment="Left" Margin="13,18,0,0" VerticalAlignment="Top" Width="139" Height="34" FontSize="14" FontWeight="Bold" Click="btnGarden_Click" Grid.Row="1" Grid.ColumnSpan="2"/>
         <Label x:Name="lblMessage" HorizontalAlignment="Left" Margin="2,61,0,0" VerticalAlignment="Top" Width="163" Height="25" Grid.Row="1" Grid.ColumnSpan="2"/>
         <Grid x:Name="frmEdit" HorizontalAlignment="Left" Height="197" Margin="168,98,0,0" VerticalAlignment="Top" Width="277" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <TextBox x:Name="txtFirstName" BorderThickness="1" HorizontalAlignment="Left" Height="23" Margin="106,12,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="161"/>
@@ -56,8 +56,8 @@
             <Label Content="Old Password: " HorizontalAlignment="Left" Margin="20,12,0,0" VerticalAlignment="Top" Width="98"/>
             <Label Content="New Password: " HorizontalAlignment="Left" Margin="20,42,0,0" VerticalAlignment="Top" Width="98"/>
             <Label Content="New Password: " HorizontalAlignment="Left" Margin="20,97,0,0" VerticalAlignment="Top" Width="98"/>
-            <Button x:Name="btnPasswordSave" Content="SAVE" HorizontalAlignment="Left" Margin="20,202,0,-37" VerticalAlignment="Top" Width="116" Height="32" FontSize="14" FontWeight="Bold" Click="btnPasswordSave_Click"/>
-            <Button x:Name="btnPasswordBack" Content="BACK" HorizontalAlignment="Left" Margin="147,202,0,-37" VerticalAlignment="Top" Width="116" Height="32" FontSize="14" FontWeight="Bold" Click="DataGrid_SelectionChanged"/>
+            <Button Style="{StaticResource button1}" x:Name="btnPasswordSave" Content="SAVE" HorizontalAlignment="Left" Margin="20,202,0,-37" VerticalAlignment="Top" Width="116" Height="32" FontSize="14" FontWeight="Bold" Click="btnPasswordSave_Click"/>
+            <Button Style="{StaticResource button1}" x:Name="btnPasswordBack" Content="BACK" HorizontalAlignment="Left" Margin="147,202,0,-37" VerticalAlignment="Top" Width="116" Height="32" FontSize="14" FontWeight="Bold" Click="DataGrid_SelectionChanged"/>
         </Grid>
 
         <Grid x:Name="frmRole" HorizontalAlignment="Left" Height="200" Margin="168,108,0,0" VerticalAlignment="Top" Width="350" Grid.RowSpan="2" Grid.ColumnSpan="2">
@@ -65,7 +65,7 @@
         </Grid>
 
         <Grid x:Name="frmMap" HorizontalAlignment="Left" Height="222" Margin="461,73,0,0" VerticalAlignment="Top" Width="348" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-        <Image x:Name="grdMap" Source="c:/usda_plant.jpg" HorizontalAlignment="Left" Height="256" Margin="527,73,-119,0" VerticalAlignment="Top" Width="485" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+        <Image x:Name="grdMap" Source="images/usda_plant.jpg" HorizontalAlignment="Left" Height="256" Margin="527,73,-119,0" VerticalAlignment="Top" Width="485" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
         <Grid x:Name="frmUser" HorizontalAlignment="Left" Height="56" Margin="13,10,0,0" VerticalAlignment="Top" Width="809" Grid.ColumnSpan="2">
             <Label x:Name="lblFirstName" HorizontalAlignment="Left" Margin="10,28,0,0" VerticalAlignment="Top" Width="118"/>
             <Label x:Name="lblLastName" Content="Label" HorizontalAlignment="Left" Margin="142,28,0,0" VerticalAlignment="Top" Width="130"/>

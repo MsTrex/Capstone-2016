@@ -13,7 +13,7 @@
                 <GradientStop Color="#FFD1F7BB" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <ScrollViewer Margin="-10,53,10,-53">
+        <Grid Margin="-10,53,10,-53">
             <Grid>
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0.25,1" StartPoint="0.25,0">
@@ -68,14 +68,14 @@
 
                     <TextBox HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1" Margin="5" Text="" x:Name="name" KeyUp="Grid_KeyUp"/>
                     <TextBox HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" Margin="5" Text="" x:Name="type" KeyUp="Grid_KeyUp"/>
-                    <ComboBox Grid.Row="2" Grid.Column="1" Margin="5" x:Name="category">
+                    <ComboBox  Style="{StaticResource comboBox1}" Grid.Row="2" Grid.Column="1" Margin="5" x:Name="category">
                         <ComboBoxItem>Fruit</ComboBoxItem>
                         <ComboBoxItem>Vegetable</ComboBoxItem>
                         <ComboBoxItem>Herb</ComboBoxItem>
                         <ComboBoxItem>Flower</ComboBoxItem>
                     </ComboBox>
                     <!--<TextBox HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" Margin="5" TextWrapping="Wrap" Text="" Width="120" x:Name="season"/>-->
-                    <ComboBox Grid.Row="3" Grid.Column="1" Margin="5" x:Name="season">
+                    <ComboBox Style="{StaticResource comboBox1}" Grid.Row="3" Grid.Column="1" Margin="5" x:Name="season">
                         <ComboBoxItem>Spring</ComboBoxItem>
                         <ComboBoxItem>Summer</ComboBoxItem>
                         <ComboBoxItem>Fall</ComboBoxItem>
@@ -91,7 +91,7 @@
                             </VisualBrush>
                         </Grid.Background>
                     </Grid>
-                    <Button Margin="5" Width="200" Height="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" Name="btnUpload" Grid.Row="5" Grid.Column="1" Click="btnUpLoad_Click">Add Picture</Button>
+                    <Button Style="{StaticResource button1}" Margin="20"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Name="btnUpload" Grid.Row="5" Grid.Column="1" Click="btnUpLoad_Click">Add Picture</Button>
                     <Label Name="lblRegions" Grid.Row="6" Grid.Column="0" Content="Regions:"/>
                     <Grid Grid.Row="6" Grid.Column="2" VerticalAlignment="Center">
                         <CheckBox Name="region1"  Content="1" Grid.Row="6" Grid.Column="1" FontSize="20" Click="region_Checked"></CheckBox>
@@ -105,10 +105,10 @@
                         <CheckBox Name="region9"  Content="9" Margin="400,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
                         <CheckBox Name="region10" Content="10" Margin="450,0,0,0" FontSize="20" Click="region_Checked"></CheckBox>
                     </Grid>
-                    <Button Content="Cancel" Grid.Row="7" Grid.Column="0" Name="cancel" Click="cancel_Click"/>
-                    <Button Content="Save" Grid.Row="7" Grid.Column="1" Name="save" Click="save_Click" IsEnabled="False"/>
+                    <Button Style="{StaticResource button1}" Content="Cancel" Grid.Row="7" Grid.Column="0" Name="cancel" Click="cancel_Click"/>
+                    <Button Style="{StaticResource button1}" Content="Save" Grid.Row="7" Grid.Column="1" Name="save" Click="save_Click" IsEnabled="False"/>
                 </Grid>
             </Grid>
-        </ScrollViewer>
+        </Grid>
     </Grid>
 </Page>

@@ -45,13 +45,13 @@
 
                     <Label x:Name="lblPage" Content="Page 1" Margin="20 5 20 5" Grid.Row="0" Grid.Column="0" />
 
-                    <Button Grid.Row="1" Grid.Column="0" MinWidth="110" MaxWidth="110" x:Name="btnFirst" Margin="20 5 20 5" Content="First" Click="btnFirst_Click" HorizontalAlignment="Left" />
+                    <Button Style="{StaticResource button1}" Grid.Row="1" Grid.Column="0" MinWidth="110" MaxWidth="110" x:Name="btnFirst" Margin="20 5 20 5" Content="First" Click="btnFirst_Click" HorizontalAlignment="Left" />
 
-                    <Button Grid.Row="1" Grid.Column="1" MinWidth="110" MaxWidth="110" x:Name="btnPrevious" Margin="20 5 20 5" Content="Previous" Click="btnPrevious_Click" HorizontalAlignment="Left" />
+                    <Button Style="{StaticResource button1}" Grid.Row="1" Grid.Column="1" MinWidth="110" MaxWidth="110" x:Name="btnPrevious" Margin="20 5 20 5" Content="Previous" Click="btnPrevious_Click" HorizontalAlignment="Left" />
 
-                    <Button Grid.Row="1" Grid.Column="2" MinWidth="110" MaxWidth="110" x:Name="btnNext" Margin="20 5 20 5" Content="Next" Click="btnNext_Click" HorizontalAlignment="Left" />
+                    <Button Style="{StaticResource button1}" Grid.Row="1" Grid.Column="2" MinWidth="110" MaxWidth="110" x:Name="btnNext" Margin="20 5 20 5" Content="Next" Click="btnNext_Click" HorizontalAlignment="Left" />
 
-                    <Button Grid.Row="1" Grid.Column="3" MinWidth="110" MaxWidth="110" x:Name="btnLast" Margin="20 5 20 5" Content="Last" Click="btnLast_Click" HorizontalAlignment="Left" />
+                    <Button Style="{StaticResource button1}" Grid.Row="1" Grid.Column="3" MinWidth="110" MaxWidth="110" x:Name="btnLast" Margin="20 5 20 5" Content="Last" Click="btnLast_Click" HorizontalAlignment="Left" />
                 </Grid>
 
                 <ItemsControl Grid.Row="1" Grid.Column="0" x:Name="icTemplates">

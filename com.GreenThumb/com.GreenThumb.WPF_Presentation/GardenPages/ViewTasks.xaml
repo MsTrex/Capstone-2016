@@ -9,8 +9,8 @@
 
     <Grid Margin="0,0,-784,28">
         <DataGrid x:Name="grdTasks" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="172" Width="808" SelectionMode="Single" />
-        <Button Content="Select Task" HorizontalAlignment="Left" Margin="658,187,0,0" VerticalAlignment="Top" Width="160" Click="SelectGroupTask_Click" Height="30"/>
-        <Button Content="Show All Tasks for Group" HorizontalAlignment="Left" Margin="340,187,0,0" VerticalAlignment="Top" Width="160" Click="ShowGroupTasks_Click" Height="30"/>
-        <ComboBox x:Name="cbGardenId" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="190" Height="30" SelectionChanged="ComboBox_SelectionChanged_1"/>
+        <Button Style="{StaticResource button1}" Content="Select Task" HorizontalAlignment="Left" Margin="658,187,0,0" VerticalAlignment="Top" Width="160" Click="SelectGroupTask_Click" Height="30"/>
+        <Button Style="{StaticResource button1}" Content="Show All Tasks for Group" HorizontalAlignment="Left" Margin="340,187,0,0" VerticalAlignment="Top" Width="160" Click="ShowGroupTasks_Click" Height="30"/>
+        <ComboBox Style="{StaticResource comboBox1}" x:Name="cbGardenId" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="190" Height="30" SelectionChanged="ComboBox_SelectionChanged_1"/>
     </Grid>
 </Page>

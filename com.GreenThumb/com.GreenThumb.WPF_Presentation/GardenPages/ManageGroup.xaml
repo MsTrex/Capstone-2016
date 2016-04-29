@@ -25,10 +25,10 @@
         </Grid.ColumnDefinitions>
         <Label x:Name="lblGroupName" Content="Group Name:" Margin="10 10 0 0" Grid.Row="0" Grid.Column="0" />
         <TextBox Height="25" x:Name="txtGroupName" Grid.Row="0" Grid.Column="1" Width="150" IsEnabled="False" Margin="10 10 0 0"/>
-        <Button x:Name="btnGroupNameChange" VerticalAlignment="Center" Grid.Row="0" Width="75" Padding="3" Grid.Column="2" Grid.ColumnSpan="2" Content="Change" Click="btnGroupNameChange_Click" HorizontalAlignment="Left" Margin="10 10 0 0" />
-        <Button x:Name="btnGroupNameApply" VerticalAlignment="Center" Grid.Row="0" Width="75" Padding="3" Grid.Column="2" Content="Apply" Visibility="Hidden" Click="btnGroupNameApply_Click" HorizontalAlignment="Left" Margin="10 10 0 0" />
-        <Button x:Name="btnGroupNameCancel" VerticalAlignment="Center" Margin="10 10 0 0" Grid.Row="0" Width="75" Padding="3" Grid.Column="3" Content="Cancel" Visibility="Hidden" Click="btnGroupNameCancel_Click" HorizontalAlignment="Left" />
-        <Button x:Name="btnCloseGroup" VerticalAlignment="Center" Grid.Row="1" Width="85" Padding="3" Grid.ColumnSpan="4" Content="Close Group" HorizontalAlignment="Center" Margin="0 10 0 20" Click="btnCloseGroup_Click" />
+        <Button Style="{StaticResource button1}" x:Name="btnGroupNameChange" VerticalAlignment="Center" Grid.Row="0" Padding="3" Grid.Column="2" Grid.ColumnSpan="2" Content="Change" Click="btnGroupNameChange_Click" HorizontalAlignment="Left" Margin="10 10 0 0" />
+        <Button Style="{StaticResource button1}" x:Name="btnGroupNameApply" VerticalAlignment="Center" Grid.Row="0" Padding="3" Grid.Column="2" Content="Apply" Visibility="Hidden" Click="btnGroupNameApply_Click" HorizontalAlignment="Left" Margin="10 10 0 0" />
+        <Button Style="{StaticResource button1}" x:Name="btnGroupNameCancel" VerticalAlignment="Center" Margin="10 10 0 0" Grid.Row="0" Padding="3" Grid.Column="3" Content="Cancel" Visibility="Hidden" Click="btnGroupNameCancel_Click" HorizontalAlignment="Left" />
+        <Button Style="{StaticResource button1}" x:Name="btnCloseGroup" VerticalAlignment="Center" Grid.Row="1" Padding="3" Grid.ColumnSpan="4" Content="Close Group" HorizontalAlignment="Center" Margin="0 10 0 20" Click="btnCloseGroup_Click" />
         <DataGrid x:Name="dataRequestList" Grid.Row="2" Grid.ColumnSpan="4" Width="410" Height="100" HorizontalAlignment="Center" Margin="10 0 0 0" SelectionMode="Single" Cursor="Hand" IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="*"/>
@@ -43,11 +43,11 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnMemberStatusDetails" Width="75" VerticalAlignment="Center" Padding="3" Grid.Column="0"  Content="Details" HorizontalAlignment="Center" Margin="10 10" />
-            <Button x:Name="btnMemberStatusApprove" Width="75" VerticalAlignment="Center" Padding="3" Grid.Column="1" Content="Approve" HorizontalAlignment="Center" Margin="10 10"/>
-            <Button x:Name="btnMemberStatusDeny" Width="75" VerticalAlignment="Center" Padding="3" Grid.Column="2" Content="Deny" HorizontalAlignment="Center" Margin="10 10" />
-            <Button x:Name="btnMessageAllMembers" Width="75" VerticalAlignment="Center" Padding="3" Grid.Column="3" Content="Message All" HorizontalAlignment="Center" Margin="10 10" Click="btnMessageAllMembers_Click"/>
+            <Button Style="{StaticResource button1}" x:Name="btnMemberStatusDetails" VerticalAlignment="Center" Padding="3" Grid.Column="0"  Content="Details" HorizontalAlignment="Center" Margin="10 10" />
+            <Button Style="{StaticResource button1}" x:Name="btnMemberStatusApprove" VerticalAlignment="Center" Padding="3" Grid.Column="1" Content="Approve" HorizontalAlignment="Center" Margin="10 10"/>
+            <Button Style="{StaticResource button1}" x:Name="btnMemberStatusDeny"  VerticalAlignment="Center" Padding="3" Grid.Column="2" Content="Deny" HorizontalAlignment="Center" Margin="10 10" />
+            <Button Style="{StaticResource button1}" x:Name="btnMessageAllMembers"  VerticalAlignment="Center" Padding="3" Grid.Column="3" Content="Message All" HorizontalAlignment="Center" Margin="10 10" Click="btnMessageAllMembers_Click"/>
         </Grid>
-        <Button x:Name="btnInviteNewGroupMember" Width="175" VerticalAlignment="Center" Padding="3" Grid.Row="4" Grid.ColumnSpan="4" Content="Invite New Group Member" HorizontalAlignment="Center"  />
+        <Button Style="{StaticResource button1}" x:Name="btnInviteNewGroupMember" VerticalAlignment="Center" Padding="3" Grid.Row="4" Grid.ColumnSpan="4" Content="Invite New Group Member" HorizontalAlignment="Center"  />
     </Grid>
 </Page>

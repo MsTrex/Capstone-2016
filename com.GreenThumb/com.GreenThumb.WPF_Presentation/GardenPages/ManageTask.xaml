@@ -15,7 +15,7 @@
 
     <Grid Margin="-2,0,10,2">
 
-        <ComboBox x:Name="cmbGardenName" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="25"  Width="201" Margin="30,60,0,213"
+        <ComboBox Style="{StaticResource comboBox1}" x:Name="cmbGardenName" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="25"  Width="201" Margin="30,60,0,213"
                             ItemsSource="{Binding Path=Garden}"
                             DisplayMemberPath="GardenName"
                             SelectedValuePath="GardenID"
@@ -29,8 +29,8 @@
         <TextBox x:Name="txtuserNotes" HorizontalAlignment="Left" Height="66" Margin="357,117,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="231"/>
         <Label Content="User Notes" HorizontalAlignment="Left" Margin="251,131,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.505,-0.055" Width="123" Height="28"/>
 
-        <Button x:Name="btnAddTask" Content="Add Task" HorizontalAlignment="Left" Margin="294,193,0,0" VerticalAlignment="Top" Width="160" Click="btnAddTask_Click" Height="30"/>
+        <Button Style="{StaticResource button1}" x:Name="btnAddTask" Content="Add Task" HorizontalAlignment="Left" Margin="294,193,0,0" VerticalAlignment="Top" Width="160" Click="btnAddTask_Click" Height="30"/>
         <DataGrid x:Name="grdTasks" HorizontalAlignment="Left" Margin="598,27,0,0" VerticalAlignment="Top" Height="172" Width="569" SelectionChanged="grdTasks_SelectionChanged" SelectionMode="Single" Visibility="Hidden" />
-        <Button Content="Show Tasks" HorizontalAlignment="Left" Margin="767,221,0,0" VerticalAlignment="Top" Width="160" Click="ShowTasks_Click" Height="30"/>
+        <Button Style="{StaticResource button1}" Content="Show Tasks" HorizontalAlignment="Left" Margin="767,221,0,0" VerticalAlignment="Top" Width="160" Click="ShowTasks_Click" Height="30"/>
     </Grid>
 </Page>

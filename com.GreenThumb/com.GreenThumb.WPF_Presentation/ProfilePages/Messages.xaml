@@ -20,9 +20,9 @@
                 <DataGridTextColumn Header="Subject" Binding="{Binding MessageSubject}" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Get Messages" x:Name="btn_GetMessages"  HorizontalAlignment="Left" Margin="10,228,0,0" VerticalAlignment="Top" Width="97" Click="btn_GetMessages_Click" Visibility="Hidden"/>
-        <Button Content="Delete Message" x:Name="btn_DeleteMessages" HorizontalAlignment="Left" Margin="263,228,0,0" VerticalAlignment="Top" Width="93" Click="btn_DeleteMessages_Click"/>
-        <Button Content="Compose" x:Name="btn_ComposeMessage" HorizontalAlignment="Left" Margin="263,39,0,0" VerticalAlignment="Top" Width="75" Click="btn_ComposeMessage_Click"/>
+        <Button Style="{StaticResource button1}" Content="Get Messages" x:Name="btn_GetMessages"  HorizontalAlignment="Left" Margin="10,228,0,0" VerticalAlignment="Top" Width="97" Click="btn_GetMessages_Click" Visibility="Hidden"/>
+        <Button Style="{StaticResource button1}" Content="Delete Message" x:Name="btn_DeleteMessages" HorizontalAlignment="Left" Margin="223,228,0,0" VerticalAlignment="Top" Click="btn_DeleteMessages_Click"/>
+        <Button Style="{StaticResource button1}" Content="Compose" x:Name="btn_ComposeMessage" HorizontalAlignment="Left" Margin="263,39,0,0" VerticalAlignment="Top" Click="btn_ComposeMessage_Click"/>
         <TextBlock x:Name="txtMessage" Background="White" HorizontalAlignment="Left" Margin="10,283,0,0" TextWrapping="Wrap" Text="Select A Message" VerticalAlignment="Top" Height="57" Width="558"/>
         <Label Content="Inbox" HorizontalAlignment="Left" Margin="80,82,0,0" VerticalAlignment="Top"/>
         <Label Content="Outbox" HorizontalAlignment="Left" Margin="416,78,0,0" VerticalAlignment="Top"/>

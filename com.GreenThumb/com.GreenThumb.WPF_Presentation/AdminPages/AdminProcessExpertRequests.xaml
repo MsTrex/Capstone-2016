@@ -85,8 +85,8 @@
             </TabItem>
         </TabControl>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button x:Name="btnActionOne" Margin="5" Padding="5" Content="Approve Expert" Click="btnActionOne_Click" />
-            <Button x:Name="btnActionTwo" Margin="5" Padding="5" Content="Decline Request" Click="btnActionTwo_Click" />
+            <Button Style="{StaticResource button1}" x:Name="btnActionOne" Margin="5" Padding="5" Content="Approve Expert" Click="btnActionOne_Click" />
+            <Button Style="{StaticResource button1}" x:Name="btnActionTwo" Margin="5" Padding="5" Content="Decline Request" Click="btnActionTwo_Click" />
             <Label x:Name="lblResponseMessage" Margin="5" />
         </StackPanel>
     </Grid>

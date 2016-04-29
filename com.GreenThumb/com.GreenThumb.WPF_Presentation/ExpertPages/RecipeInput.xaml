@@ -11,7 +11,7 @@
         <Label Content="Title:" HorizontalAlignment="Left" Margin="30,70,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="30" Margin="30,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="398"/>
         <Label Content="Choose a Category:" HorizontalAlignment="Left" Margin="473,70,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbCategory" HorizontalAlignment="Left" Height="30" Margin="473,101,0,0" VerticalAlignment="Top" Width="205" >
+        <ComboBox Style="{StaticResource comboBox1}" x:Name="cbCategory" HorizontalAlignment="Left" Height="30" Margin="473,101,0,0" VerticalAlignment="Top" Width="205" >
             <ComboBoxItem Content="Baked" HorizontalAlignment="Left" Width="118" Selected="selectBaked"/>
             <ComboBoxItem Content="Beverage" HorizontalAlignment="Left" Width="118" Selected="selectBeverage"/>
             <ComboBoxItem Content="Canning" HorizontalAlignment="Left" Width="118" Selected="selectCanning"/>
@@ -24,8 +24,8 @@
         </ComboBox>
         <Label Content="Directions and Ingrediants :" HorizontalAlignment="Left" Margin="30,148,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtDirections" HorizontalAlignment="Left" Height="368" Margin="30,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="398" AcceptsReturn="True" AcceptsTab="True"/>
-        <Button Content="Submit" HorizontalAlignment="Left" Margin="511,432,0,0" VerticalAlignment="Top" Width="75" Click="SubmitButton_Click"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="694,432,0,0" VerticalAlignment="Top" Width="75" Click="CancelButton_Click"/>
+        <Button  Style="{StaticResource button1}" Content="Submit" HorizontalAlignment="Left" Margin="511,432,0,0" VerticalAlignment="Top" Width="75" Click="SubmitButton_Click"/>
+        <Button  Style="{StaticResource button1}" Content="Cancel" HorizontalAlignment="Left" Margin="694,432,0,0" VerticalAlignment="Top" Width="75" Click="CancelButton_Click"/>
         <Image x:Name="picBox" HorizontalAlignment="Left" Margin="473,179,0,0" VerticalAlignment="Top" Source="../Images/cutting-board-with-vegetables.jpg" Height="216" Width="340" RenderTransformOrigin="0.488,0.626"/>
     </Grid>
 </Page>

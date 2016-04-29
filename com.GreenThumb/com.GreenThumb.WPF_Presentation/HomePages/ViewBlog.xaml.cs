@@ -100,6 +100,8 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
             foreach (Blog blog in blogs)
             {
                 Button button = new Button();
+                button.Style = (Style) Resources["button1"];
+                button.Margin.Equals(10);
                 button.Name = "btn" + blog.BlogID.ToString();
                 button.Content = blog.BlogTitle;
                 button.Click += new RoutedEventHandler(btnRpter_Clicked);

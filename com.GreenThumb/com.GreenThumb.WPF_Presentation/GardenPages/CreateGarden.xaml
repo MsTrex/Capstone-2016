@@ -29,7 +29,7 @@
 
         <Label x:Name="lblRegion" Margin="10 10 0 0" Grid.Row="3" Grid.Column="0" Content="Garden Region: "  />
 
-        <ComboBox x:Name="cmbGroupName" Grid.Row="0"  Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="25"  Width="201" Margin="5 5 100 5"
+        <ComboBox Style="{StaticResource comboBox1}" x:Name="cmbGroupName" Grid.Row="0"  Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="25"  Width="201" Margin="5 5 100 5"
                             ItemsSource="{Binding Path=Group}"
                             DisplayMemberPath="Name"
                             SelectedValuePath="GroupID"
@@ -47,8 +47,8 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnSubmit" Padding="10 0" Margin="100,10,225,0" Grid.Column="1" Content="Submit"  Height="19" VerticalAlignment="Top" Click="btnSubmit_Click" />
-            <Button x:Name="btnCancel" Padding="10 0" Margin="349,10,0,10" Grid.Column="1" Content="Cancel" Click="btnCancel_Click" RenderTransformOrigin="1.017,0.421"  />
+            <Button Style="{StaticResource button1}" x:Name="btnSubmit" Padding="10 0" Margin="100,10,225,0" Grid.Column="1" Content="Submit" VerticalAlignment="Top" Click="btnSubmit_Click" />
+            <Button Style="{StaticResource button1}" x:Name="btnCancel" Padding="10 0" Margin="349,10,0,10" Grid.Column="1" Content="Cancel" Click="btnCancel_Click" RenderTransformOrigin="1.017,0.421"  />
         </Grid>
     </Grid>
 </Page>

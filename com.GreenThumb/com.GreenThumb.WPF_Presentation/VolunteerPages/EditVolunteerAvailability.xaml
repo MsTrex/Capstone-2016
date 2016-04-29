@@ -58,7 +58,7 @@
             <ComboBoxItem>AM</ComboBoxItem>
             <ComboBoxItem>PM</ComboBoxItem>
         </ComboBox>
-        <Button x:Name="btnSubmitHours" Content="Submit" Height="20" Width="100"  Margin="10" Grid.Row="3" Grid.Column="0" Click="btnSubmitHours_Click" />
-        <Button x:Name="btnCanel" Content="Cancel" Height="20" Width="100"  Margin="10" Grid.Row="3" Grid.Column="1" />
+        <Button Style="{StaticResource button1}" x:Name="btnSubmitHours" Content="Submit" Margin="10" Grid.Row="3" Grid.Column="0" Click="btnSubmitHours_Click" />
+        <Button Style="{StaticResource button1}" x:Name="btnCanel" Content="Cancel" Margin="10" Grid.Row="3" Grid.Column="1" />
     </Grid>
 </Page>

@@ -15,8 +15,8 @@
         <Label Content="Description" HorizontalAlignment="Left" Margin="20,187,0,0" VerticalAlignment="Top"/>
 
         <TextBox HorizontalAlignment="Left" Height="70" Margin="150,197,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="145" x:Name="description"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="200,285,0,0" VerticalAlignment="Top" Width="75" Name="save" Click="save_Click" IsEnabled="True"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="25,285,0,0" VerticalAlignment="Top" Width="75" Name="cancel" Click="cancel_Click"/>
+        <Button Style="{StaticResource button1}" Content="Save" HorizontalAlignment="Left" Margin="150,285,0,0" VerticalAlignment="Top" Width="75" Name="save" Click="save_Click" IsEnabled="True"/>
+        <Button Style="{StaticResource button1}" Content="Cancel" HorizontalAlignment="Left" Margin="25,285,0,0" VerticalAlignment="Top" Width="75" Name="cancel" Click="cancel_Click"/>
 
 
         <Label Content="NeedID" HorizontalAlignment="Left" Margin="23,17,0,0" VerticalAlignment="Top"/>
