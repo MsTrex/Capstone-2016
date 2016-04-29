@@ -99,27 +99,33 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
             blogs = paginate.GetList(pageDetails, blogManager.GetBlogs());
             foreach (Blog blog in blogs)
             {
-                Button button = new Button();
-                button.Style = (Style) Resources["button1"];
-                button.Margin.Equals(10);
-                button.Name = "btn" + blog.BlogID.ToString();
-                button.Content = blog.BlogTitle;
-                button.Click += new RoutedEventHandler(btnRpter_Clicked);
-                stpnlBlogs.Children.Add(button);
+                Label label = new Label();
+                label.Name = "btn" + blog.BlogID.ToString();
+                label.BorderThickness = new Thickness(1);
+                label.BorderBrush = Brushes.Black;
+                label.Content = blog.BlogTitle;
+                label.MouseDown += new MouseButtonEventHandler(btnRpter_Clicked);
+                if (label.IsMouseOver) { label.Cursor = Cursors.Hand; }
+                stpnlBlogs.Children.Add(label);
+                //Button button = new Button();
+                //button.Background = 
+                //button.Margin.Equals(10);
+                //button.Name = "btn" + blog.BlogID.ToString();
+                //button.Content = blog.BlogTitle;
+                //button.Click += new RoutedEventHandler(btnRpter_Clicked);
+                //stpnlBlogs.Children.Add(button);
             }
         }
 
-        private void stpnlBlogs_MouseDown(object sender, MouseButtonEventArgs e)
-        { }
-
-        private void btnRpter_Clicked(object sender, RoutedEventArgs e)
+        private void btnRpter_Clicked(object sender, MouseButtonEventArgs e)
         {
-            Button button = (Button)sender;
+            //Button button = (Button)sender;
+            Label label = (Label)sender;
             try
             {
                 pageDetails.CurrentPage = 1;
                 lblPage.Content = "Page " + pageDetails.CurrentPage;
-                int blogId = Int32.Parse(button.Name.Substring(3));
+                int blogId = Int32.Parse(label.Name.ToString().Substring(3));
                 Blog currentBlog = new Blog();
                 currentBlog = blogManager.GetBlogById(blogId);
                 blogs = new List<Blog>();

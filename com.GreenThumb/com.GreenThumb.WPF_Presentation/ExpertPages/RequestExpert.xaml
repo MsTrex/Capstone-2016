@@ -13,9 +13,9 @@
         </Grid.RowDefinitions>
         <TextBox HorizontalAlignment="Left" Height="173" Margin="32,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="433" Name="description"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="32,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275" Name="title"/>
-        <Label Content="Apply To Become An Expert" FontSize="18" HorizontalAlignment="Left" Margin="141,10,0,0" VerticalAlignment="Top"/>
-        <Button Style="{StaticResource button1}" Content="Submit" HorizontalAlignment="Left" Margin="275,319,0,0" VerticalAlignment="Top" Width="75" Name="Submit" Click="submit_Click"/>
-        <Button Style="{StaticResource button1}" Content="Cancel" HorizontalAlignment="Left" Margin="390,319,0,0" VerticalAlignment="Top" Width="75" Name="Cancel" Click="cancel_Click"/>
+        <Label Content="Apply To Become An Expert" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" Margin="141,10,0,0" VerticalAlignment="Top"/>
+        <Button Style="{StaticResource button1}" Content="Submit" HorizontalAlignment="Left" Margin="295,319,0,0" VerticalAlignment="Top" Name="Submit" Click="submit_Click"/>
+        <Button Style="{StaticResource button1}" Content="Cancel" HorizontalAlignment="Left" Margin="390,319,0,0" VerticalAlignment="Top" Name="Cancel" Click="cancel_Click"/>
         <Label x:Name="label" Content="Subject:" HorizontalAlignment="Left" Margin="32,49,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1" Content="Description:" HorizontalAlignment="Left" Margin="32,103,0,0" VerticalAlignment="Top"/>
 

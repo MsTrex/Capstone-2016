@@ -6,6 +6,22 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="ViewBlog">
+    <Page.Resources>
+        <Style x:Key="blogNames" TargetType="StackPanel">
+            <Setter Property="Cursor" Value="Hand"></Setter>
+            <Setter Property="Background" Value="#FFF4F4F4"></Setter>
+            <Style.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="Cursor" Value="Hand"></Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True" >
+                            <Setter Property="Background" Value="#FFB9EE79" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Page.Resources>
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.25,1" StartPoint="0.25,0">
@@ -17,8 +33,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="250"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
-        <ScrollViewer Height="Auto">
+        <Grid Height="Auto">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -59,7 +74,7 @@
                                     <RowDefinition Height="*"></RowDefinition>
                                     <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <TextBlock x:Name="lblBlogTitle" Grid.Row="0" Margin="0,20,0,40" Text="{Binding BlogTitle}" FontSize="50" Foreground="#FF19320B" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="lblBlogTitle" Grid.Row="0" Margin="0,20,0,40" Text="{Binding BlogTitle}" TextWrapping="Wrap" FontSize="50" Foreground="#FF19320B" FontWeight="Bold" HorizontalAlignment="Center"/>
                                 <TextBlock x:Name="lblBlogData" Grid.Row="1" Text="{Binding BlogData}" TextWrapping="Wrap" FontSize="20"/>
                                 <TextBlock x:Name="lblDateCreated" Grid.Row="2" Margin="20,10,20,0" Text="{Binding DateCreated}" FontSize="15" Foreground="#FF19320B" />
                                 <TextBlock x:Name="lblCreatedBy" Grid.Row="3" Margin="20,0,20,20" Text="{Binding UserCreated(CreatedBy)}" FontSize="15" Foreground="#FF19320B" />
@@ -67,19 +82,18 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-
-
-
             </Grid>
-        </ScrollViewer>
-        <Grid Grid.Column="1">
-            <StackPanel>
-                <Button Style="{StaticResource button1}" x:Name="btnCreateBlog" Margin="40,5" Content="Create a Blog" FontSize="20" Click="btnCreateBlog_Click" Visibility="Hidden"></Button>
-                <Button Style="{StaticResource button1}" x:Name="allBlogs" Margin="40,5" Content="View All Blogs" FontSize="20" Click="allBlogs_Click"/>
-                <Line Height="20"></Line>
-                <StackPanel x:Name="stpnlBlogs" Initialized="stpnlBlogs_Initialized" MouseDown="stpnlBlogs_MouseDown">
-                </StackPanel>
-            </StackPanel>
         </Grid>
+        <Border Grid.Column="1" BorderBrush="black" BorderThickness="1">
+            <Grid>
+                <StackPanel Background="Transparent">
+                    <Button Style="{StaticResource button1}" x:Name="btnCreateBlog" Margin="40,5" Content="Create a Blog" FontSize="20" Click="btnCreateBlog_Click" Visibility="Hidden"></Button>
+                    <Button Style="{StaticResource button1}" x:Name="allBlogs" Margin="40,5" Content="View All Blogs" FontSize="20" Click="allBlogs_Click"/>
+                    <Line Height="20"></Line>
+                    <StackPanel Style="{StaticResource blogNames}" x:Name="stpnlBlogs" Initialized="stpnlBlogs_Initialized">
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

@@ -43,6 +43,6 @@
             <ComboBoxItem Content="8" HorizontalAlignment="Left" Width="118" Selected="eight_Item_Selected"/>
             <ComboBoxItem Content="9" HorizontalAlignment="Left" Width="118" Selected="nine_Item_Selected"/>
         </ComboBox>
-        <Image HorizontalAlignment="Left" Margin="355,230,0,0" VerticalAlignment="Top" Source="/com.GreenThumb.WPF_Presentation;component/Images/RegionId.jpeg"/>
+        <Image HorizontalAlignment="Left" Margin="355,230,0,0" VerticalAlignment="Top" Source="/com.GreenThumb.WPF_Presentation;component/Images/usda_plant.jpg"/>
     </Grid>
 </Page>

@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="1100" d:DesignWidth="900"
+      d:DesignHeight="1100" d:DesignWidth="450"
 	Title="CreatePlant">
     <Grid>
         <Grid.Background>
@@ -13,7 +13,7 @@
                 <GradientStop Color="#FFD1F7BB" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Grid Margin="-10,53,10,-53">
+        <Grid>
             <Grid>
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0.25,1" StartPoint="0.25,0">
@@ -25,25 +25,25 @@
                     <RowDefinition Height="100"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Label Content="Create Plant" VerticalAlignment="Bottom" Grid.Row="0" HorizontalAlignment="Center" FontSize="40" FontWeight="Bold"></Label>
-                <Grid Grid.Row="1" Width="800" HorizontalAlignment="Center" Margin="0,20">
+                <Label Content="Create Plant" VerticalAlignment="Bottom" Grid.Row="0" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"></Label>
+                <Grid Grid.Row="1" Width="400" HorizontalAlignment="Center" Margin="0,20">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="60"></RowDefinition>
-                        <RowDefinition Height="60"></RowDefinition>
-                        <RowDefinition Height="60"></RowDefinition>
-                        <RowDefinition Height="60"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
                         <RowDefinition Height="120"></RowDefinition>
                         <RowDefinition Height="240"></RowDefinition>
-                        <RowDefinition Height="60"></RowDefinition>
-                        <RowDefinition Height="60"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="70"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
                         <ColumnDefinition Width="300"></ColumnDefinition>
-                        <ColumnDefinition Width="500"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.Resources>
                         <Style TargetType="{x:Type Label}">
-                            <Setter Property="FontSize" Value="25"/>
+                            <Setter Property="FontSize" Value="16"/>
                             <Setter Property="Height" Value="45"/>
                         </Style>
                         <Style TargetType="{x:Type TextBox}">
@@ -82,7 +82,7 @@
                         <ComboBoxItem>Winter</ComboBoxItem>
                     </ComboBox>
                     <TextBox HorizontalAlignment="Stretch" Grid.Row="4" Grid.Column="1" Margin="5" TextWrapping="Wrap" Text="" Height="90" x:Name="description" KeyUp="Grid_KeyUp"/>
-                    <Grid Margin="5" Grid.Row="5" Grid.Column="0">
+                    <Grid Margin="5,70,5,5" Grid.Row="5" Grid.Column="1">
                         <Grid.Background>
                             <VisualBrush Viewport="0,0,0.5,0.5">
                                 <VisualBrush.Visual>
@@ -91,7 +91,7 @@
                             </VisualBrush>
                         </Grid.Background>
                     </Grid>
-                    <Button Style="{StaticResource button1}" Margin="20"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Name="btnUpload" Grid.Row="5" Grid.Column="1" Click="btnUpLoad_Click">Add Picture</Button>
+                    <Button Style="{StaticResource button1}" Margin="20"  HorizontalAlignment="Left" VerticalAlignment="Top"  Name="btnUpload" Grid.Row="5" Grid.Column="1" Click="btnUpLoad_Click">Add Picture</Button>
                     <Label Name="lblRegions" Grid.Row="6" Grid.Column="0" Content="Regions:"/>
                     <Grid Grid.Row="6" Grid.Column="2" VerticalAlignment="Center">
                         <CheckBox Name="region1"  Content="1" Grid.Row="6" Grid.Column="1" FontSize="20" Click="region_Checked"></CheckBox>
@@ -105,8 +105,8 @@
                         <CheckBox Name="region9"  Content="9" Margin="400,0,0,0"  FontSize="20" Click="region_Checked"></CheckBox>
                         <CheckBox Name="region10" Content="10" Margin="450,0,0,0" FontSize="20" Click="region_Checked"></CheckBox>
                     </Grid>
-                    <Button Style="{StaticResource button1}" Content="Cancel" Grid.Row="7" Grid.Column="0" Name="cancel" Click="cancel_Click"/>
-                    <Button Style="{StaticResource button1}" Content="Save" Grid.Row="7" Grid.Column="1" Name="save" Click="save_Click" IsEnabled="False"/>
+                    <Button Style="{StaticResource button1}" Content="Cancel" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" Name="cancel" Click="cancel_Click"/>
+                    <Button Style="{StaticResource button1}" Content="Save" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" Margin="100,0,0,0" Name="save" Click="save_Click" IsEnabled="False"/>
                 </Grid>
             </Grid>
         </Grid>

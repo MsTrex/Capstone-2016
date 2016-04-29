@@ -38,18 +38,11 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Nutrient:" VerticalAlignment="Center" Margin="0 20 0 0" />
 
-
-
                 <ComboBox x:Name="cmbNutrients1" Grid.Row="0" Grid.Column="1" Margin="0 20 0 0" DataContext="{Binding Source=list}" Visibility="Collapsed" />
-
-
 
                 <toolkit:AutoCompleteBox x:Name="cmbNutrients" Grid.Row="0" Grid.Column="1" Visibility="Visible" Margin="0 20 0 0" DataContext="{Binding Source=list}"   AllowDrop="False" FilterMode="Contains" SelectionChanged="cmbNutrients_SelectionChanged" />
 
-
-
-
-                <Button Style="{StaticResource button1}" x:Name="btnAdd" Grid.Row="1" Grid.Column="1" Margin="5" Padding="10" FontSize="15" Width="114" Content="Add Nutrient" Click="btnAdd_Click" />
+                <Button Style="{StaticResource button1}" x:Name="btnAdd" Grid.Row="1" Grid.Column="1" Margin="5" Padding="10" FontSize="15" Content="Add Nutrient" Click="btnAdd_Click" />
                 <Label x:Name="lblError" Grid.Row="1" Grid.Column="2" Content="" Foreground="Red" VerticalAlignment="Center"  />
             </Grid>
             <Grid x:Name="grdView" Grid.Row="1" Grid.Column="0">
