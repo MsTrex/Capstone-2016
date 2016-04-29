@@ -435,6 +435,15 @@ create table Expert.BlogEntry(
 	active bit not null default 1
 );
 
+create table Expert.Blueprints(
+	BlueprintID int identity(1000,1) not null,
+	Title varchar (20) not null,
+	Description varchar(200) not null,
+	DateCreated smalldatetime not null,
+	CreatedBy int null,
+	FilePath varchar(150) not null
+);
+
 create table Expert.Content(
 	ContentID int identity(1000,1) not null primary key,
 	UserID int not null,
@@ -462,6 +471,10 @@ create table Expert.Expertise(
 
 	CONSTRAINT [PK_Expertise] PRIMARY KEY ( GardenTypeID, ExpertID ASC )
 );
+
+
+
+
 
 create table Expert.GardenNotifications(
 	GardenID int not null,
@@ -612,6 +625,15 @@ create table Expert.Templates(
 	Description varchar(max) not null,
 	DateCreated smalldatetime not null,
 	Active bit not null default 1
+);
+
+create table Expert.Template(
+	TemplateID int identity(1000,1) not null,
+	Title varchar (20) not null,
+	Description varchar(200) not null,
+	DateCreated smalldatetime not null,
+	CreatedBy int null,
+	FilePath varchar(150) not null
 );
 
 
@@ -1072,6 +1094,12 @@ GO
 ALTER TABLE Expert.BlogEntry CHECK CONSTRAINT [FK_BlogEntry_ModifiedBy];
 GO
 
+ALTER TABLE Expert.Blueprints WITH NOCHECK ADD  CONSTRAINT [FK_Blueprints_CreatedBy] FOREIGN KEY(CreatedBy)
+REFERENCES Admin.Users(UserID);
+GO
+ALTER TABLE Expert.Blueprints CHECK CONSTRAINT [FK_Blueprints_CreatedBy];
+GO
+
 ALTER TABLE Expert.Content WITH NOCHECK ADD  CONSTRAINT [FK_Content_CreatedBy] FOREIGN KEY(CreatedBy)
 REFERENCES Admin.Users(UserID);
 GO
@@ -1305,6 +1333,12 @@ ALTER TABLE Expert.PlantRegions WITH NOCHECK ADD  CONSTRAINT [FK_PlantRegions_Re
 REFERENCES Admin.Regions(RegionID);
 GO
 ALTER TABLE Expert.PlantRegions CHECK CONSTRAINT [FK_PlantRegions_Regions];
+GO
+
+ALTER TABLE Expert.Template WITH NOCHECK ADD  CONSTRAINT [FK_Template_CreatedBy] FOREIGN KEY(CreatedBy)
+REFERENCES Admin.Users(UserID);
+GO
+ALTER TABLE Expert.Template CHECK CONSTRAINT [FK_Template_CreatedBy];
 GO
 
 ALTER TABLE Expert.Templates WITH NOCHECK ADD  CONSTRAINT [FK_Templates_UserID] FOREIGN KEY(UserID)
@@ -3123,6 +3157,49 @@ END;
 go
 
 ------------------------------------------
+-----------Expert.Blueprints--------------
+------------------------------------------
+
+CREATE PROCEDURE Expert.spInsertExpertBluePrints(
+@Title VARCHAR(20),
+@Description varchar(200),
+@DateCreated SMALLDATETIME,
+@CreatedBy INT,
+@FilePath VARCHAR(150)
+)
+AS
+BEGIN
+INSERT INTO Expert.Template
+(Title, Description, DateCreated, CreatedBy , FilePath )
+VALUES
+(@Title, @Description, @DateCreated, @CreatedBy, @FilePath );
+return @@ROWCOUNT;
+END;
+GO
+
+CREATE PROCEDURE Expert.spSelectAllBlueprints
+AS
+BEGIN
+SELECT Title, Description , DateCreated, CreatedBy ,FilePath 
+FROM Expert.Blueprints
+END;
+GO
+
+
+CREATE PROCEDURE Expert.spSelectBlueprintByID (
+@BlueprintID int
+)
+AS
+BEGIN
+SELECT Title,
+ Description , DateCreated, CreatedBy ,FilePath 
+FROM Expert.Blueprints
+WHERE BlueprintID
+= @BlueprintID ;
+END;
+go
+
+------------------------------------------
 -----------Expert.Content-----------------
 ------------------------------------------
 
@@ -4008,6 +4085,48 @@ values(
 	@DateCreated);
 	return @@ROWCOUNT;
 end;
+go
+
+------------------------------------------
+-----------Expert.Template----------------
+------------------------------------------
+
+CREATE PROCEDURE Expert.spInsertExpertTemplate(
+@Title VARCHAR(20),
+@Description varchar(200),
+@DateCreated SMALLDATETIME,
+@CreatedBy INT,
+@FilePath VARCHAR(150)
+)
+AS
+BEGIN
+INSERT INTO Expert.Template
+(Title, Description, DateCreated, CreatedBy , FilePath )
+VALUES
+(@Title, @Description, @DateCreated, @CreatedBy, @FilePath );
+return @@ROWCOUNT;
+END;
+GO
+
+CREATE PROCEDURE Expert.spSelectAllTemplates
+AS
+BEGIN
+SELECT Title, Description , DateCreated, CreatedBy ,FilePath 
+FROM Expert.Template
+END;
+GO
+
+CREATE PROCEDURE Expert.spSelectTemplateByID (
+@TemplateID int
+)
+AS
+BEGIN
+SELECT Title,
+ Description , DateCreated, CreatedBy ,FilePath 
+FROM Expert.Template
+WHERE TemplateID
+= @TemplateID ;
+END;
 go
 
 ------------------------------------------
