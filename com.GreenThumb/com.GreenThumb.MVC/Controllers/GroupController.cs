@@ -84,18 +84,18 @@ namespace com.GreenThumb.MVC.Controllers
         /// 
         /// Created by: Trent Cullinan 03/31/2016
         /// </summary>
-        /// <param name="group">Group Id that is being left.</param>
+        /// <param name="id">Group Id that is being left.</param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult LeaveGroup(int? group)
+        public ActionResult LeaveGroup(int? id)
         {
-            if (group.HasValue)
+            if (id.HasValue)
             {
                 int userId = RetrieveUserId();
 
                 if (0 != userId)
                 {
-                    if (new GroupManager().EditLeaveGroup(userId, group.Value))
+                    if (new GroupManager().EditLeaveGroup(userId, id.Value))
                     {
                         return RedirectToAction("Index", "Group");
                     }

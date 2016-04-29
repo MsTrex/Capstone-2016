@@ -1,4 +1,14 @@
-﻿
+﻿@*
+    <summary>
+     Author: Chris Schwebach
+     Date:  4/29/2016
+     </summary>
+     <returns></returns>
+*@
+
+@using com.GreenThumb.MVC.Models
+@model IEnumerable<ArticlesViewModel>
+
 @{
     ViewBag.Title = "Index";
 }
@@ -7,8 +17,17 @@
 
 @using (Html.BeginForm())
 { 
-    <h2>Experts post blogs about gardening techniques, plants, recipes, and nutrients. They are also encouraged to answer
+    <h2>Experts post Articles about gardening techniques, plants, recipes, and nutrients. They are also encouraged to answer
        questions that garden members may have.</h2>
     <h2>If you would like to request to be an Expert please click below!</h2>
     @Html.ActionLink("Request to be an Expert", "RequestJoinExpert", "Expert")
+    
+    <div>
+        @Html.ActionLink("To Post a Article Click Here ", "Articles", "Expert")
+    </div>
+
+   
+    <div class="tableArticles">
+        @Html.Partial("~/Views/PartialViews/_ArticlesTable.cshtml", Model)
+    </div>
 }
