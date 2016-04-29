@@ -106,6 +106,7 @@
     <Compile Include="UserRegionManager.cs" />
     <Compile Include="UserRoleManager.cs" />
     <Compile Include="VolunteerManager.cs" />
+    <Compile Include="WebMessageManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\com.GreenThumb.BusinessObjects\com.GreenThumb.BusinessObjects.csproj">

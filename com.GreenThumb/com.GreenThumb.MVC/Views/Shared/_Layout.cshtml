@@ -37,10 +37,16 @@
                     <li>@Html.ActionLink("Tasks", "Index", "GardenTask")</li>
                     <li>@Html.ActionLink("Expert", "Index", "Expert")</li>
                     <li>@Html.ActionLink("Donate", "Index", "Donation")</li>
-                    
+
                     @if (User.IsInRole("Administrator"))
                     {
-                    <li>@Html.ActionLink("Admin", "Index", "Admin")</li>}
+                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Messages", "Index", "Message")</li>
+                    }
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

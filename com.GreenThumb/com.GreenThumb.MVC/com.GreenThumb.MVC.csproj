@@ -169,6 +169,7 @@
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -178,11 +179,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-
     <Compile Include="Models\AnnouncementViewModel.cs" />
-
     <Compile Include="Models\ArticlesViewModel.cs" />
-
     <Compile Include="Models\DonationViewModels.cs" />
     <Compile Include="Models\GardenCreationViewModel.cs" />
     <Compile Include="Models\GardenTaskViewModel.cs" />
@@ -191,6 +189,7 @@
     <Compile Include="Models\GroupMemberRequestModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MessageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -486,6 +485,11 @@
     <Content Include="Views\Donation\ViewContributions.cshtml" />
     <Content Include="Views\PartialViews\_ViewContributionsTable.cshtml" />
     <Content Include="Views\Group\CreateAnnouncement.cshtml" />
+    <Content Include="Views\Message\_MessageCount.cshtml" />
+    <Content Include="Views\Message\Inbox.cshtml" />
+    <Content Include="Views\Message\Index.cshtml" />
+    <Content Include="Views\Message\Outbox.cshtml" />
+    <Content Include="Views\Message\Compose.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
