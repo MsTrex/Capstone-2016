@@ -1,41 +1,41 @@
-﻿
+﻿@*Edited by: Ash Duhautois 05/04/2016
+    Formatted styling*@
+
+@{Layout = "";}
 @model IEnumerable<com.GreenThumb.MVC.Models.MessageViewModelOutbox>
-<div class="green-btn">
-    @Html.ActionLink("Create A New Message", "Compose")
-</div>
-<div class="green-btn">
-    @Html.ActionLink("Inbox", "Inbox")
-</div>
+
 @using (Html.BeginForm("Outbox", "Message", FormMethod.Post))
 {
     if (Model != null)
     {
 
         <div class="messagebox">
-            <div class="messagebox-header">
-                <span class="user">To</span>
-                <span class="message-subject">Subject</span>
-                <span class="message-date">Date</span>
-                <span class="message-delete">Delete?</span>
-            </div>
 
             <div class="messages">
                 @foreach (var message in Model)
                 {
-                    @Html.HiddenFor(m => message.MessageID)
-                    <span class="user">@message.Receiver</span>
-                    <span class="message-subject">@message.Subject</span>
-                    <span class="message-date">@message.Date.ToString()</span>
-                    <span class="message-delete">@Html.CheckBoxFor(m => message.Delete)</span>
-                    <div class="message-content">
-                        @message.Content
+                    <div class="col-lg-2">
+                        @Html.CheckBoxFor(m => message.Delete)
+                        <p class="inline-block">@message.Date.ToString()</p>
+                    </div>
+                    <div class="col-lg-10">
+                        @Html.HiddenFor(m => message.MessageID)
+                        <h2 class="inline-block">From: </h2>
+                        <p class="inline-block">@message.Receiver</p>
+                        <br />
+                        <h2 class="inline-block">SUBJECT:</h2>
+                        <p class="inline-block">@message.Subject</p>
+                        <div class="message-content indent">
+                            @message.Content
+                        </div>
                     </div>
                     <br />
                 }
             </div>
         </div>
         <div>
-            <input type="submit" value="Delete" class="green-btn" />
+            <input type="submit" value="Delete Selected" class="green-btn" />
+            <br />
         </div>
     }
     else

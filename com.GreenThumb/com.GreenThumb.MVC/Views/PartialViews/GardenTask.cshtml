@@ -1,81 +1,28 @@
 ﻿@*Poonam Dubey*@
 @*14th April 2016*@
 @*Partial view to view garden tasks*@
+@*Edited by: Ash Duhautois 05/04/2016
+    Formatted styling*@
+
 @model IEnumerable<com.GreenThumb.BusinessObjects.Task>
 
-<h2></h2>
-<p></p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(m => m.TaskDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.AssignedTo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.AssignedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.AssignedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.CompletedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.UserNotes)
-            </th>
-            <th>
-                @Html.DisplayName("Volunteer for Task")
-            </th>
-            <th>
-                @Html.DisplayName("Mark Completed")
-            </th>
-            <th class="deactivate">
-                @Html.DisplayName("Remove Task")
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (com.GreenThumb.BusinessObjects.Task jobs in Model)
+@foreach (com.GreenThumb.BusinessObjects.Task jobs in Model){
+    <div class="group-members">
+        <h2>@jobs.TaskDescription</h2>
+        <p class="text-right">Assigned To: @jobs.AssignedTo</p>
+        <p class="text-right">Assigned By: @jobs.AssignedBy</p>
+        <p class="text-right">Assigned On: @jobs.AssignedOn</p>
+        <p class="text-right">Completed On: @jobs.CompletedOn</p>
+        <p class="text-left">Notes: @jobs.UserNotes</p>
+        <br />
+        @if (String.IsNullOrEmpty(@jobs.AssignedTo))
         {
-            <tr>
-                <td>
-                    @jobs.TaskDescription
-                </td>
-                <td>
-                    @jobs.AssignedTo
-                </td>
-                <td>
-                    @jobs.AssignedBy
-                </td>
-                <td>
-                    @jobs.AssignedOn
-                </td>
-                <td>
-                    @jobs.CompletedOn
-                </td>
-                <td>
-                    @jobs.UserNotes
-                </td>
-                <td>
-                    @if (String.IsNullOrEmpty(@jobs.AssignedTo))
-                    {
-                        @Html.ActionLink("Volunteer", "VolunteerTask", "GardenTask", new { taskID = @jobs.TaskID, gardenID = -1 }, new { @class = "volunteerTask" })
-                    }
-                </td>
-                <td>
-                    @if (String.IsNullOrEmpty(@jobs.CompletedOn) && !String.IsNullOrEmpty(@jobs.AssignedTo))
-                    {
-                        @Html.ActionLink("Mark Complete", "CompleteTask", "GardenTask", new { taskID = @jobs.TaskID, gardenID = -1 }, new { @class = "completeTask", @id=@jobs.AssignedToUserID, style="display:none;" })
-                    }
-                </td>
-                <td class="deactivate">
-                    @Html.ActionLink("Remove", "DeactivateTask", "GardenTask", new { taskID = @jobs.TaskID, gardenID = -1 }, new { @class = "deleteTask" })
-                </td>
-            </tr>
+            <button class="green-btn" onclick="location.href='@Url.Action("VolunteerTask", "GardenTask", new { taskID = @jobs.TaskID, gardenID = -1, @class = "volunteerTask" })'">Volunteer</button>
+            <br />
         }
-    </tbody>
+        <button class="green-btn" onclick="location.href='@Url.Action("DeactivateTask", "GardenTask", new { taskID = @jobs.TaskID, gardenID = -1, @class = "deleteTask" })'">Deactivate</button>
+    </div>
+}
+
 </table>
 <script src="~/Scripts/GardenTask.js"></script>

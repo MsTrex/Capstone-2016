@@ -6,50 +6,21 @@
      </summary>
      <returns>Expert Group List</returns>
 *@
+@*Edited by: Ash Duhautois 05/04/2016
+    Formatted styling*@
+
 
 @model IEnumerable<com.GreenThumb.BusinessObjects.GroupMember>
 
-
-<h2></h2>
-<p></p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Approved Date
-            </th>
-            <th>
-                Email Address
-            </th>
-            <th>
-                First Name
-            </th>
-            <th>
-                Last Name
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (com.GreenThumb.BusinessObjects.GroupMember memberInfo in Model)
-        {
-            <tr>
-                <td>
-                    @memberInfo.CreatedDate
-                </td>
-                <td>
-                    @memberInfo.User.EmailAddress
-                </td>
-                <td>
-                    @memberInfo.User.FirstName
-                </td>
-                <td>
-                    @memberInfo.User.LastName
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+<div>
+    @foreach (com.GreenThumb.BusinessObjects.GroupMember memberInfo in Model)
+    {
+        <h2>@memberInfo.User.UserName</h2>
+        <p class="text-right">Created: @memberInfo.CreatedDate</p>
+        <p><a href="mailto:@memberInfo.User.EmailAddress">@memberInfo.User.EmailAddress</a></p>
+        <p>@memberInfo.User.FirstName @memberInfo.User.LastName</p>
+    }
+</div>
 
 
 

@@ -1,6 +1,8 @@
 ﻿@*Created by:Kristine Johnson, Chris Schwebach, Nick King  04/07/2016
-  Modified by: Ashlyn Duhautois 04/15/2016
-    Styles + rearranging of Partials    
+     Modified by: Ashlyn Duhautois 04/15/2016
+        Styles + rearranging of Partials
+    Edited by: Ash Duhautois 05/04/2016
+        Formatted styling
 *@
 
 
@@ -20,8 +22,11 @@
 {
 <div class="row round dark-div">
     <div class="col-lg-12">
-        <h3>My Gardens</h3>
-        <h2>Gardens I belong to, by group:</h2>
+        <h3 class="inline-block">My Gardens</h3>
+        <img class="inline-block small-image" src="http://www.pixeledpaper.com/shared/img/minisprout.png" />
+        <br />
+        <br />
+        <p>Gardens I belong to, by group:</p>
         @foreach (com.GreenThumb.BusinessObjects.Group group in Model)
         {
             <div class="UserGardensTable">
@@ -34,15 +39,21 @@
 }
 else
 {
-    <div class="green-btn">@Html.ActionLink("Go to Groups", "Index", "Garden")</div>
-    <div class="green-btn">@Html.ActionLink("Donate To A Group", "Index", "Donation")</div>
+    <div class="dark-div round">
+        <h3>You have no gardens.</h3>
+        <p>Would you like to donate or join a group?</p>
+        <br />
+        <button class="green-btn" onclick="location.href='@Url.Action("Index", "Garden")'">Groups</button>
+        <br />
+        <button class="green-btn" onclick="location.href='@Url.Action("Index", "Donation")'">Donate</button>
+    </div>
+
 }
 
     <div class="row round dark-div garden-index-create">
         <div class="col-lg-12">
             <h3>Create a Garden</h3>
             <p>Would you like to create a garden?</p>
-            <div class="green-btn">@Html.ActionLink("Create New Garden", "CreateGarden", "Garden", new { @id=1000}, null)
-            </div>
+            <button class="green-btn" onclick="location.href='@Url.Action("CreateGarden", "Garden", new { @id = 1000 }, null)'">Create New Garden</button>
         </div>
     </div>

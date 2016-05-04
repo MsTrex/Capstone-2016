@@ -8,7 +8,6 @@
 
     STUFF TO DO:
     - FOUC
-    - Mobile tables not resizing
 
 */
 
@@ -19,6 +18,7 @@ $lightgrey: #ababa9;
 $red: #c8181c;
 $green: #e4e208;
 $blue: #0072bc;
+$superlightgrey: #cccccc;
 
 /*FONTS*/
 
@@ -107,6 +107,7 @@ a:hover {
 .home-intro-div .dark-div {
     background-color: $darkgrey;
     float: none;
+    padding: 2em;
 }
 
 .dark-div {
@@ -123,12 +124,51 @@ a:hover {
     @include transition;
     display: block;
     margin: auto;
+    text-decoration: none;
+    font-size: 1.2em;
 }
 
 .green-btn:hover {
     background-color: white;
+    color: black;
     @include transition;
+    text-decoration: none;
 }
+
+.green-btn-left {
+    border: none;
+    background-color: $green;
+    color: $darkgrey;
+    padding: 1em;
+    text-transform: uppercase;
+    @include transition;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.green-btn-left:hover {
+    @extend .green-btn:hover;
+}
+.white-btn {
+    border: 1px solid black;
+    background-color: white;
+    color: $darkgrey;
+    padding: 1em;
+    text-transform: uppercase;
+    @include transition;
+    display: block;
+    margin: auto;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.white-btn:hover {
+    background-color: $green;
+    color: black;
+    @include transition;
+    text-decoration: none;
+}
+
 .round {
     border-radius: 50px;
 }
@@ -137,6 +177,10 @@ a:hover {
     font-family: firasanslight;
 }
 
+h2 {
+    font-size: 1.5em;
+    text-transform: uppercase;
+}
 h3 {
     font-family: firasansmedium;
 }
@@ -177,6 +221,138 @@ h3 {
   
 }
 
+.user-input {
+    color: black;
+}
+
+input {
+    color: black;
+}
+
+.blog-post {
+    border-bottom: 1px solid white;
+}
+
+.blog-post:last-child {
+    border-bottom: none;
+}
+
+.green-btn a {
+    color: black;
+    text-decoration: none;
+    font-size: .8em;
+}
+
+.fourteen-em {
+    width: 14em;
+}
+
+.group-leader {
+    font-size: 1.2em;
+}
+
+.group-left {
+    float: left;
+    display: inline;
+    padding-bottom: 2em;
+}
+
+.group-right {
+    float: left;
+    display: inline;
+    padding-left: 2em;
+    padding-bottom: 2em;
+}
+
+.indent {
+    padding-left: 2em;
+}
+
+.double-indent {
+    padding-left: 4em;
+}
+
+.group-members {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    border-bottom: 1px solid white;
+}
+
+.group-members:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.group-members:last-of-type {
+    border-bottom: none;
+}
+.tab-content {
+    border: 1px solid white;        
+    background-color: white;
+    color: black;
+    overflow: auto;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.block {
+    display: block;
+}
+
+.messagebox h2 {
+    padding: 0;
+    margin: 0;
+}
+
+.messagebox p {
+    padding-left: .5em;
+}
+
+.message-content {
+    padding-top: 1em;
+    padding-bottom: 2em;
+    border: 1px solid $superlightgrey;
+    margin-bottom: 2em;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.compose select {
+    width: 14em;
+    display: inline-block;
+    margin-left: .5em;
+}
+
+.compose input[type="text"] {
+    width: 19em;
+    display: inline-block;
+    border: 1px solid $superlightgrey;
+}
+
+ul li {
+    padding-left: -1em;
+    margin-left: 0;
+}
+
+ul.nav, ul.nav li {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.logo {
+    display: block;
+    margin: auto;
+    padding-top: 1em;
+}
+
+.small-image {
+    padding-left: 1em;
+    padding-bottom: .5em;
+}
 
 /*DESKTOP*/
 
@@ -220,6 +396,30 @@ h3 {
         margin-left: 4em;
     }
 
+    .fullwidth canvas {
+        margin: auto;
+        display: block;
+    }
+
+    .textarea {
+        width: 100%;
+        max-width: 100%;
+        height: 100px;
+    }
+
+    .blog-post {
+        padding: 4em;
+    }
+
+    .tab-content {
+        padding: 2em;
+
+    }
+
+    .logo {
+        padding-bottom: 1em;
+    }
+
 }
 
 /*MOBILE*/
@@ -243,5 +443,23 @@ h3 {
         height: 200px;
         display: block;
         margin: auto;
+    }
+
+    .textarea {
+        width: 100%;
+        max-width: 100%;
+        height: 100px;
+    }
+
+    .blog-post {
+        padding: 1em;
+    }
+
+    .tab-content {
+        padding: 1em;
+    }
+
+    .compose textarea {
+        max-width: 19em;
     }
 }
