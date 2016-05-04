@@ -1,38 +1,31 @@
-﻿@* Created by: Trent Cullinan 04/05/2016 *@
+﻿@* Created by: Trent Cullinan 04/05/2016 
+   Edited by: Ash Duhautois 05/04/2016
+        Removed table formatting from viewmodel data*@
 @using com.GreenThumb.MVC.Models
 @model IEnumerable<GroupGardenViewModel>
 
-<div class="jumbotron">
+<div>
     @if (null != Model)
     {
-        <p><strong class="text text-primary">Group Gardens</strong></p>
+        <h3>Group Gardens</h3>
         if (0 < Model.Count())
         {
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>@Html.DisplayNameFor(m => m.FirstOrDefault().GardenName)</th>
-                        @* Garden description is just for testing *@
-                        <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Description)</th>
-                        @* Check roles for group leader, then add column for options *@
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (GroupGardenViewModel garden in Model)
-                    {
-                        <tr>
-                            <td>@Html.ActionLink(garden.GardenName, "GardenDetail", "Garden", new { id = garden.GardenID }, new { @class = "label label-default" })</td>
-                            @* Garden description is just for testing *@
-                            <th>@Html.DisplayName(garden.Description)</th>
-                            @* Check roles for group leader, then add column for options *@
-                        </tr>
-                    }
-                </tbody>
-            </table>
+            foreach (GroupGardenViewModel garden in Model)
+            {
+                <h2 class="indent">@Html.ActionLink(garden.GardenName, "GardenDetail", "Garden", new { id = garden.GardenID }, new { @class = "" })</h2>
+                @* Garden description is just for testing *@
+                <div class="html-content">
+                    @Html.Display(garden.Description)
+                </div>
+                @* Check roles for group leader, then add column for options *@
+                <br />
+            }
+
+
         }
         else
         {
-            <h3>@Html.DisplayText("No gardens found.")</h3>
+            <p>@Html.DisplayText("No gardens found.")</p>
         }
     }
     else

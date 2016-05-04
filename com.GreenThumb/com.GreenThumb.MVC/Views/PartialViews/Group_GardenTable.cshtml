@@ -3,8 +3,10 @@
      Partial View table of gardens by group.
      Author: Chris Schwebach
      Date:  4/03/2016
-     Modified by: Ashlyn DUhautois 04/15/2016
-     Changed table headers -> user friendly
+     Modified by: Ashlyn Duhautois 04/15/2016
+        Changed table headers -> user friendly
+     Modified by: Ashlyn Duhautois 05/04/2016
+        Adjusted model formatting, removed tables
      </summary>
      <returns>GardenList by group</returns>
 *@
@@ -12,36 +14,11 @@
 
 @model com.GreenThumb.BusinessObjects.Group
 
-<h2></h2>
-<p></p>
-<table class="table">  
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Region
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-       @foreach (com.GreenThumb.BusinessObjects.Garden GardenInfo in Model.GardenList)
-        {
-            <tr>
-                <td>
-                    @GardenInfo.GardenName
-                </td>
-                <td>
-                    @GardenInfo.GardenDescription
-                </td>
-                <td>
-                    @GardenInfo.GardenRegion
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@foreach (com.GreenThumb.BusinessObjects.Garden GardenInfo in Model.GardenList)
+{
+    <div class="group-members">
+        <h2>@Html.ActionLink(GardenInfo.GardenName, "GardenDetail", "Garden", new { id = GardenInfo.GardenID }, new { @class = "" })</h2>
+        <p class="text-right">Region: @GardenInfo.GardenRegion</p>
+        <p class="text-right">@GardenInfo.GardenDescription</p>
+    </div>
+}

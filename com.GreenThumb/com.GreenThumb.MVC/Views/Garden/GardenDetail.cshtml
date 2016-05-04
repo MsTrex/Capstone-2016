@@ -1,4 +1,7 @@
 ﻿@* Created By: Trent Cullinan 04/14/16 *@
+@* Modified By: Ash Duhautois 05/04/16
+    Formatted styles*@
+
 @using com.GreenThumb.MVC.Models;
 @using com.GreenThumb.BusinessObjects;
 @model GardenDetailViewModel
@@ -9,12 +12,12 @@
     const string nullRecords = "Unable to retrieve records.";
 }
 
-<h2>GardenDetail</h2>
+<h1>Garden Details</h1>
 
-<div>
+<div class="dark-div round">
     @if (ViewBag.GroupLeader)
     {
-        @Html.ActionLink("Add Need", "AddNeed", "Garden", new { id = Model.GardenID }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Add Need", "AddNeed", "Garden", new { id = Model.GardenID }, new { @class = "green-btn" })
     }
     <br />
     @Html.LabelFor(m => m.ActiveNeeds, new { @class = "h3" })

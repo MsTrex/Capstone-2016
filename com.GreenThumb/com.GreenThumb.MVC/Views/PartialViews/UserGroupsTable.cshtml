@@ -3,6 +3,8 @@
         Converted into partial page and updated to use new viewmodel
    Modified by: Ashlyn Duhautois 04/15/2016
         Hid 'Created On' field - not functional
+   Modified by: Ash Duhautois 05/04/2016
+        Removed tables
 *@
 @using com.GreenThumb.MVC.Models;
 @model IEnumerable<GroupIndexViewModel.UserGroupViewModel>
@@ -10,49 +12,16 @@
 @{
     ViewBag.Title = "ViewUserGroups";
 }
-
-<h2>My list of groups:</h2>
+<br />
 <p></p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Leader
-            </th>
-            <th>
-                E-mail
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(m => m.SingleOrDefault().CreatedDate)
-            </th>*@
-            <th>
-                Options
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (GroupIndexViewModel.UserGroupViewModel groupView in Model)
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(groupView.Name, "Details", "Group", new { id = groupView.GroupId }, null)
-                </td>
-                <td>
-                    @groupView.LeaderUserName
-                </td>
-                <td>
-                    @groupView.LeaderEmail
-                </td>
-                @*<td>
-                    @groupView.CreatedDate
-                </td>*@
-                <td>
-                    @Html.ActionLink("Leave Group", "LeaveGroup", "Group", new { id = groupView.GroupId }, null)
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+@foreach (GroupIndexViewModel.UserGroupViewModel groupView in Model)
+{
+    <div class="group-members">
+    <p>@Html.ActionLink(groupView.Name, "Details", "Group", new { id = groupView.GroupId }, null)</p>
+    <p class="text-right">@groupView.LeaderUserName</p>
+    <p class="text-right">@groupView.LeaderEmail</p>
+    <br />
+    <button class="green-btn" onclick="location.href='@Url.Action("LeaveGroup", "Group", new { @id = groupView.GroupId })'">Leave Group</button>
+    </div>
+}

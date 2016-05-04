@@ -1,6 +1,8 @@
 ﻿@*Poonam Dubey*@
 @*14th April 2016*@
 @*View for garden task management*@
+@*Edited by: Ash Duhautois 05/04/2016
+    Formatted styling*@
 
 @using com.GreenThumb.BusinessObjects
 @model com.GreenThumb.MVC.Models.GardenTaskViewModel
@@ -15,37 +17,43 @@
 
 @using (Html.BeginForm())
 {
-    <div>
-        <h2>Gardens you belong to by group</h2>
+    <h1>Tasks</h1>
+    <div class="dark-div round">
+        <h3 class="inline-block">My Groups</h3>
+        <img class="inline-block small-image" src="http://www.pixeledpaper.com/shared/img/groups.png" />
+        <br />
+        <br />
+        <p>Select a group to view tasks:</p>
         @foreach (Group group in Model.GroupsList)
         {
             <div class="UserGardensTable">
                 @Html.Partial("~/Views/PartialViews/GroupGardenTask.cshtml", group)
             </div>
         }
+        @Html.ActionLink("View Tasks", "ViewTask", "GardenTask", new { gardenID = -1 }, new { @id = "viewTask", @class = "green-btn", style="width: 7.5em;" })
+        <br />
+        <input type="button" id="createTask" class="green-btn" value="Create Task" />
     </div>
-    <div>
-        @Html.ActionLink("View Tasks", "ViewTask", "GardenTask", new { gardenID = -1 }, new { @id = "viewTask" })
-        <input type="button" id="createTask" value="Create Task" />
-    </div>
-    <div id="viewTaskDiv">
+    
+    <div id="viewTaskDiv" class="dark-div round">
         @if (Model.JobList != null && Model.JobList.Count() > 0)
         {
-            <h2>Tasks that belong to this garden</h2>
+            <h3>Tasks for This Garden</h3>
             <div class="UserGardensTable">
                 @Html.Partial("~/Views/PartialViews/GardenTask.cshtml", Model.JobList)
             </div>
         }
     </div>
-    <div id="createTaskDiv">
-        <h2>Create task for this garden</h2>
+    <div id="createTaskDiv" class="dark-div round">
+        <h3>Create a Task</h3>
         <div class="UserGardensTable">
             @Html.Partial("~/Views/PartialViews/TasksForGarden.cshtml")
         </div>
-        @Html.ActionLink("Save Task", "SaveTask", "GardenTask", new { gardenID = -1, description = "xxx", userNotes = "yyy" }, new { @id = "saveTask" })
+        <br />
+        @Html.ActionLink("Save Task", "SaveTask", "GardenTask", new { gardenID = -1, description = "xxx", userNotes = "yyy" }, new { id = "saveTask" })
     </div>
 
-    <div id="dialog-message" title="Error!" style=" display:none">
+    <div id="dialog-message" title="Error!" style="display:none;">
         <span id="dialogText"></span>
     </div>
 

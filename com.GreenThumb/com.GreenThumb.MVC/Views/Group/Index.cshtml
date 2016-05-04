@@ -1,25 +1,10 @@
 ﻿@*Created by Nicholas King  04/03/2016
-  Modified by Ashlyn Duhautois 04/15/2016
-    Styles + greeting    
+    Modified by Ashlyn Duhautois 04/15/2016
+      Styles
+    Edited by: Ash Duhautois 05/04/2016
+    Formatted styling
 *@
 
-@using Microsoft.AspNet.Identity
-@using System.Security.Claims
-@{
-    var greeting = "Hello";
-    if (Request.IsAuthenticated)
-    {
-        var identity = (ClaimsIdentity)User.Identity;
-        var firstName
-            = identity.FindFirstValue(ClaimTypes.GivenName) ?? identity.GetUserName();
-
-        greeting += ", " + firstName;
-    }
-    else
-    {
-        greeting = "Hello";
-    }
-}
 @model com.GreenThumb.MVC.Models.GroupIndexViewModel
 
 <div class="row">
@@ -29,7 +14,8 @@
 </div>
 <div class="row group-index dark-div round">
     <div class="col-lg-6 col-md-11 col-sm-12">
-        <h3>My Groups</h3>
+        <h3 class="inline-block">My Groups</h3>
+        <img class="inline-block small-image" src="http://www.pixeledpaper.com/shared/img/groups.png" />
         <div class="group-index-mygroups">
             @if (Model.UserGroupList.Count() > 0)
             {

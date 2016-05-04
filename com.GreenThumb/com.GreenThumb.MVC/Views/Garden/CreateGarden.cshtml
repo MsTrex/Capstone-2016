@@ -1,31 +1,42 @@
-﻿@model com.GreenThumb.MVC.Models.GardenCreationViewModel
+﻿@*Edited by: Ash Duhautois 05/04/2016
+    Formatted styling*@
+
+@model com.GreenThumb.MVC.Models.GardenCreationViewModel
 
 @{
     ViewBag.Title = "Create Garden";
 }
 
-<h2>Create a new Garden</h2>
-
+<h1>Create a Garden</h1>
 
 
 @using (Html.BeginForm("CreateGarden", "Garden", FormMethod.Post))
 {
-    <div>
-        @Html.LabelFor(m => m.GardenName)
-        @Html.TextBoxFor(m => m.GardenName)
+    
+    <div class="dark-div round col-lg-12">
+        <h3>Garden Name</h3>
         <br />
+        @Html.LabelFor(m => m.GardenName)
+        <br />
+        @Html.TextBoxFor(m => m.GardenName, new { @class = "user-input form-control" })
         <br/>
-        <p>Click garden description!</p>
-        @Html.LabelFor(m => m.GardenDescription, new { id = "gardenDescription" })
-       <div id="textEditor">
+        <br/>
+        <h3>Garden Description</h3>
+        <p>Click garden description to expand editor:</p>
+        @Html.LabelFor(m => m.GardenDescription, new { id = "gardenDescription", @class = "green-btn", style = "color: black;" })
+        <div id="textEditor">
             @Html.TextAreaFor(m => m.GardenDescription, new { id = "rich-editor" })
         </div>
-        <br />
-        <br />
-        <p>Please select a region from the map below!</p>
-        <p class="h4">Selected Region: </p>
-        @Html.TextBoxFor(m => m.RegionID, new { value = "" })
+    </div>
 
+    <div class="dark-div round col-lg-12">
+        <h3>Select a Region</h3>
+        <br/>
+        <p>Select a region from the map below!</p>
+        <br />
+        <p class="text-center">Region: @Html.TextBoxFor(m => m.RegionID, new { value = "", @class = "user-input" })</p>
+        <br />
+        <br />
 
         <div class="fullwidth">
             <canvas id='mapCanvas'></canvas>
@@ -59,17 +70,17 @@
             }
 
             var zones = [
-              new zone("0", 0, 0, 0, 0, 0),
-              new zone("0", 0, 0, 255, 255, 255),
-              new zone("2", -50, -40, 190, 163, 191),
-              new zone("3", -40, -30, 63, 37, 64),
-              new zone("4", -30, -20, 116, 117, 251),
-              new zone("5", -20, -10, 23, 142, 69),
-              new zone("6", -10, 0, 79, 204, 66),
-              new zone("7", 0, 10, 248, 251, 97),
-              new zone("8", 10, 20, 251, 149, 82),
-              new zone("9", 20, 30, 237, 109, 52),
-              new zone("10", 30, 40, 251, 176, 176)
+                new zone("0", 0, 0, 0, 0, 0),
+                new zone("0", 0, 0, 255, 255, 255),
+                new zone("2", -50, -40, 190, 163, 191),
+                new zone("3", -40, -30, 63, 37, 64),
+                new zone("4", -30, -20, 116, 117, 251),
+                new zone("5", -20, -10, 23, 142, 69),
+                new zone("6", -10, 0, 79, 204, 66),
+                new zone("7", 0, 10, 248, 251, 97),
+                new zone("8", 10, 20, 251, 149, 82),
+                new zone("9", 20, 30, 237, 109, 52),
+                new zone("10", 30, 40, 251, 176, 176)
             ]
 
             $(document).ready(function () {
@@ -102,11 +113,11 @@
             }
 
         </script>
-    </div>
     <br />
     @Html.HiddenFor(m => m.GroupID)
     <br />
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" class="green-btn"/>
+</div>
 
 
 

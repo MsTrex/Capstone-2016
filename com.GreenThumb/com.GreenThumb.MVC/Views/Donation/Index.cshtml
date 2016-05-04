@@ -1,40 +1,30 @@
-﻿@using com.GreenThumb.BusinessObjects;
+﻿@*Edited by: Ash Duhautois 05/04/2016
+    Formatted styling*@
+
+@using com.GreenThumb.BusinessObjects;
 @model IEnumerable<GroupNeedSummary>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Help out!</h2>
-@Html.ActionLink("View your contributions", "ViewContributions", "Donation", new { @class = "btn btn-default" })
-@if (0 < Model.Count())
-{
-    <table class="table table">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(m => m.GroupName)</th>
-                <th>@Html.DisplayNameFor(m => m.ActiveNeeds)</th>
-                <th>@Html.DisplayNameFor(m => m.CompletedNeeds)</th>
-                <th>@Html.DisplayNameFor(m => m.GroupLeader)</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (GroupNeedSummary summary in Model)
-            {
-                <tr>
-                    <td>@Html.ActionLink(summary.GroupName, "ViewGroupNeeds", "Donation", new { id = summary.GroupID }, null)</td>
-                    <td>@summary.ActiveNeeds</td>
-                    <td>@summary.CompletedNeeds</td>
-                    <td>@summary.GroupLeader.UserName</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <div>
-        <p class="h3">No needs found!</p>
-    </div>
-}
-
+<h1>Help out!</h1>
+<div class="dark-div round">
+    @Html.ActionLink("View your contributions", "ViewContributions", "Donation", new { @class = "btn btn-default" })
+    @if (0 < Model.Count())
+    {
+        foreach (GroupNeedSummary summary in Model)
+        {
+            <h2>@Html.ActionLink(summary.GroupName, "ViewGroupNeeds", "Donation", new { id = summary.GroupID }, null)</h2>
+            <p class="text-right">Leader: @summary.GroupLeader.UserName</p>
+            <p>@summary.ActiveNeeds</p>
+            <p>@summary.CompletedNeeds</p>
+        }
+    }
+    else
+    {
+        <div>
+            <p>No needs found!</p>
+        </div>
+    }
+</div>
