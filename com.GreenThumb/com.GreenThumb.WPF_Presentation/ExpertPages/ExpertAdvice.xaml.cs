@@ -27,6 +27,10 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
     {
         private AccessToken _accessToken = null;
         private QuestionManager questionManager = new QuestionManager();
+        private AdminExpertRequestsManager expertRequestManager = null;
+        MessageManager message = new MessageManager();
+        private IList<User> _experts
+            = null;
         public ExpertAdvice(AccessToken accessToken)
         {
             _accessToken = accessToken;
@@ -104,7 +108,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
 
                 if (created)
                 {
-                    lblSubmit.Content = "Your question has been successfully submitted.";
+                        lblSubmit.Content = "Your question has been successfully submitted.";
                     txtCategory.Text = "";
                     txtContent.Text = "";
                     txtTitle.Text = "";

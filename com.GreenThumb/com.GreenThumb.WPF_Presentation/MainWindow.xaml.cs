@@ -360,11 +360,9 @@ namespace com.GreenThumb.WPF_Presentation
         {
             mainFrame.NavigationService.Navigate(new AdminPages.AdminHome(_accessToken));
             clearSideBar();
-            btnSideBar1.Content = "User Accounts";
+            btnSideBar1.Content = "Users";
             btnSideBar2.Content = "Messages";
             btnSideBar3.Content = "Expert Requests";
-            btnSideBar4.Content = "User Role";
-            btnSideBar5.Content = "User Region";
             btnSideBar6.Content = "";
             clearUnusedSidebars();
         }
@@ -437,7 +435,7 @@ namespace com.GreenThumb.WPF_Presentation
                     case "Volunteer Sign Up":
                         page = new VolunteerPages.VolunteerSignUp(_accessToken);
                         break;
-                    case "Profile Main":
+                    case "Profile Menu":
                         page = new ProfilePages.ProfileMain(_accessToken);
                         break;
                     case "Expert Requests":
@@ -464,10 +462,10 @@ namespace com.GreenThumb.WPF_Presentation
                     case "User Region":
             //            page = new Uri("AdminPages/RegionPage.xaml", UriKind.Relative);
                         page = new AdminPages.RegionPage();
-                        return;
-                    case "User Accounts":
-                        page = new AdminPages.ProfileAdmin(_accessToken);
-                        return;
+                        break;
+                    case "Users":
+                        page = new AdminPages.AdminProfile(_accessToken);
+                        break;
                     case "Upload Garden Template":
                         page = new ExpertPages.ExpertGardenTemplate(_accessToken);
                         break;

@@ -194,8 +194,9 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
                     if (responseText.Length <= 250)
                     {
                         responseManager.AddResponse(response);
-                        if (response.BlogID == null)
-                            messageManager.SendMessage(message, "Your question has a new response", _accessToken.UserName, userManager.GetUser(question.CreatedBy).UserName);
+                        messageManager.SendMessage(message, "Your question has a new response", _accessToken.UserName, userManager.GetUser(question.CreatedBy).UserName);
+                        //if (response.BlogID == null)
+                        //    messageManager.SendMessage(message, "Your question has a new response", _accessToken.UserName, userManager.GetUser(question.CreatedBy).UserName);
                         btnResponse.Content = "Edit";
                     }
                 }
