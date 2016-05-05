@@ -1,22 +1,29 @@
-﻿@using com.GreenThumb.MVC.Models;
+﻿@*Modified by: Ash Duhautois 05/04/2016
+    Formatted styles*@
+
+@using com.GreenThumb.MVC.Models;
 @using com.GreenThumb.BusinessObjects;
 @model ContributionsDetailViewModel
 @{
     ViewBag.Title = "ViewContributions";
 }
 
-<h2>ViewContributions</h2>
-<div>
+<h1>Contributions</h1>
+<div class="dark-div round">
     <div>
-        <p class="h3">Pending Contributions</p>
+        <h3>Pending Contributions</h3>
         @Html.Partial("~/Views/PartialViews/_NeedsContributionsTable.cshtml", Model.PendingContributions)
     </div>
+</div>
+<div class="dark-div round">
     <div>
-        <p class="h3">Accepted Contributions</p>
+        <h3>Accepted Contributions</h3>
         @Html.Partial("~/Views/PartialViews/_NeedsContributionsTable.cshtml", Model.ApprovedContributions)
     </div>
+</div>
+<div class="dark-div round">
     <div>
-        <p class="h3">Declined Contributions</p>
+        <h3>Declined Contributions</h3>
         @Html.Partial("~/Views/PartialViews/_NeedsContributionsTable.cshtml", Model.DeclinedContributions)
     </div>
 </div>

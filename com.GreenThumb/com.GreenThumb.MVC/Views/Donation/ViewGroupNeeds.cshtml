@@ -1,4 +1,7 @@
 ﻿@* Created By: Trent Cullinan 04/28/16 *@
+@* Modified By: Ash Duhautois 05/04/2016
+    Formatted styles*@
+
 @using com.GreenThumb.MVC.Models;
 @using com.GreenThumb.BusinessObjects;
 @model GroupNeedsDetailViewModel
@@ -6,43 +9,34 @@
     ViewBag.Title = "ViewGroupNeeds";
 }
 
-<h2>ViewGroupNeeds</h2>
+<h1>Group Needs</h1>
 
-@if (0 < Model.GardenSummaries.Count() && 0 < Model.ActiveNeeds.Count())
-{
-    <p class="h3">Gardens in group that need help</p>
-    <table class="table table">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(m => m.GardenSummaries.FirstOrDefault().GardenName)</th>
-                <th>@Html.DisplayNameFor(m => m.GardenSummaries.FirstOrDefault().Description)</th>
-                <td>@Html.DisplayNameFor(m => m.GardenSummaries.FirstOrDefault().RegionID)</td>
-                <td>@Html.DisplayNameFor(m => m.GardenSummaries.FirstOrDefault().ActiveNeeds)</td>
-                <td>@Html.DisplayNameFor(m => m.GardenSummaries.FirstOrDefault().CompletedNeeds)</td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(GardenNeedSummary summary in Model.GardenSummaries)
+<div class="dark-div round">
+    @if (0 < Model.GardenSummaries.Count() && 0 < Model.ActiveNeeds.Count())
+    {
+        <h3>Gardens in group that need help</h3>
+
+            foreach(GardenNeedSummary summary in Model.GardenSummaries)
             {
-                <tr>
-                    <td>@Html.ActionLink(summary.GardenName, "ViewGardenNeeds", "Donation", new { id = summary.GardenID }, null)</td>
-                    <td>@summary.Description</td>
-                    <td>@summary.RegionID</td>
-                    <td>@summary.ActiveNeeds</td>
-                    <td>@summary.CompletedNeeds</td>
-                </tr>
+                    <h2>@Html.ActionLink(summary.GardenName, "ViewGardenNeeds", "Donation", new { id = summary.GardenID }, null)</h2>
+                    <p class="text-right">Region: @summary.RegionID</p>
+                    <p>@summary.Description</p>
+                    <h2>Active Needs</h2>
+                    <p>@summary.ActiveNeeds</p>
+                    <h2>Completed Needs</h2>
+                    <p>@summary.CompletedNeeds</p>
             }
-        </tbody>
-    </table>
-    <p class="h3">Active Needs for group</p>
-    @Html.Partial("~/Views/PartialViews/_NeedsAllowContribute.cshtml", Model.ActiveNeeds)
-}
-else
-{
-    <div>
-        <p class="h3">No gardens with needs found</p>
-    </div>
-}
+
+        <h3>Active Needs for group</h3>
+        @Html.Partial("~/Views/PartialViews/_NeedsAllowContribute.cshtml", Model.ActiveNeeds)
+    }
+    else
+    {
+        <div>
+            <p class="h3">No gardens with needs found</p>
+        </div>
+    }
+</div>
 
 
 

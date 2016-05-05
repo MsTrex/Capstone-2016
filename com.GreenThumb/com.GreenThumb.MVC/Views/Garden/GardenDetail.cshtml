@@ -17,10 +17,10 @@
 <div class="dark-div round">
     @if (ViewBag.GroupLeader)
     {
-        @Html.ActionLink("Add Need", "AddNeed", "Garden", new { id = Model.GardenID }, new { @class = "green-btn" })
+        <button class="green-btn" onclick="location.href='@Url.Action("AddNeed", "Garden", new { id = Model.GardenID })'">Add Need</button>
     }
     <br />
-    @Html.LabelFor(m => m.ActiveNeeds, new { @class = "h3" })
+    <h3>@Html.LabelFor(m => m.ActiveNeeds, new { style = "font-weight: normal;" })</h3>
     <div>
         @if (null != Model.ActiveNeeds)
         {
@@ -30,44 +30,37 @@
         {
             <p class="h3">@nullRecords</p>
         }
+        <br />
     </div>
-    
+</div>
+<div class="dark-div round">
     <div>
         @* If the collection is null then do not display anything *@
         @if (null != Model.PendingContributions)
         {
-            @Html.LabelFor(m => m.PendingContributions, new { @class = "h3" })
+            <h3>@Html.LabelFor(m => m.PendingContributions, new { style = "font-weight: normal;" })</h3>
             @Html.Partial("~/Views/PartialViews/_ViewContributionsTable.cshtml", Model.PendingContributions)
         }
     </div>
-    
-    @Html.LabelFor(m => m.CompletedNeeds, new { @class = "h3" })
+</div>
+<div class="dark-div round">
+    <h3>@Html.LabelFor(m => m.CompletedNeeds, new { style = "font-weight: normal;" })</h3>
     <div>
         @if (null != Model.CompletedNeeds)
         {
             if (0 < Model.CompletedNeeds.Count())
             {
-                <table class="table table">
-                    <thead>
-                        <tr>
-                            <th>@Html.DisplayNameFor(m => m.CompletedNeeds.FirstOrDefault().Title)</th>
-                            <th>@Html.DisplayNameFor(m => m.CompletedNeeds.FirstOrDefault().Description)</th>
-                            <th>@Html.DisplayNameFor(m => m.CompletedNeeds.FirstOrDefault().DateCreated)</th>
-                            <th>@Html.DisplayNameFor(m => m.CompletedNeeds.FirstOrDefault().CreatedBy.UserName)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (GardenNeed gardenNeed in Model.CompletedNeeds)
-                        {
-                            <tr>
-                                <td>@gardenNeed.Title</td>
-                                <td>@gardenNeed.Description</td>
-                                <td>@gardenNeed.DateCreated.ToShortDateString()</td>
-                                <td>@gardenNeed.CreatedBy.UserName</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+
+                foreach (GardenNeed gardenNeed in Model.CompletedNeeds)
+                {
+                    <div class="group-members">
+                        <h2>@gardenNeed.Title</h2>
+                        <p class="text-right">@gardenNeed.DateCreated.ToShortDateString()</p>
+                        <p class="text-right">Created By: @gardenNeed.CreatedBy.UserName</p>
+                        <p>@gardenNeed.Description</p>
+
+                    </div>
+                }   
             }
             else
             {
@@ -80,6 +73,5 @@
         }
 
     </div>
-    
 </div>
 

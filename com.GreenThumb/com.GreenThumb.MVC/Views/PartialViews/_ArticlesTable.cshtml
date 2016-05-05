@@ -15,37 +15,6 @@
 <h1>Articles</h1>
 <br />
 <div class="dark-div round">
-    @*<table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Article Title
-                </th>
-                <th>
-                    Article Content
-                </th>
-                <th>
-                    Authors Name
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (ArticlesViewModel blogInfo in Model)
-            {
-                <tr>
-                    <td>
-                        @blogInfo.blog.BlogTitle
-                    </td>
-                    <td>
-                        @blogInfo.blog.BlogData
-                    </td>
-                    <td>
-                        @blogInfo.FirstName @blogInfo.LastName
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>*@
     @foreach (ArticlesViewModel blogInfo in Model)
     {
         <div class="blog-post">

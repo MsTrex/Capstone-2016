@@ -292,8 +292,13 @@ ul.nav, ul.nav li {
   padding-top: 1em; }
 
 .small-image {
-  padding-left: 1em;
   padding-bottom: .5em; }
+
+.donate-form {
+  display: block;
+  margin: auto;
+  padding: 0;
+  text-align: center; }
 
 /*DESKTOP*/
 @media (min-width: 1024px) {
@@ -336,13 +341,17 @@ ul.nav, ul.nav li {
     height: 100px; }
 
   .blog-post {
-    padding: 4em; }
+    padding: 4em;
+    word-wrap: break-word; }
 
   .tab-content {
     padding: 2em; }
 
   .logo {
-    padding-bottom: 1em; } }
+    padding-bottom: 1em; }
+
+  .small-image {
+    padding-left: 1em; } }
 /*MOBILE*/
 @media screen and (max-width: 1024px) {
   body {
@@ -374,6 +383,11 @@ ul.nav, ul.nav li {
     padding: 1em; }
 
   .compose textarea {
-    max-width: 19em; } }
+    max-width: 19em; }
+
+  .small-image {
+    display: block;
+    margin: auto;
+    padding-top: 1em; } }
 
 /*# sourceMappingURL=Styles.css.map */

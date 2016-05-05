@@ -1,31 +1,20 @@
 ﻿@* Created By: Trent Cullinan 04/14/16 *@
+@* Modified By: Ash Duhautois 05/04/2016
+    Formatted Styles*@
+
 @using com.GreenThumb.BusinessObjects;
 @model IEnumerable<GardenNeed>
 
 <div>
     @if (0 < Model.Count())
     {
-        <table class="table table">
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Title)</th>
-                    <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Description)</th>
-                    <th>@Html.DisplayNameFor(m => m.FirstOrDefault().DateCreated)</th>
-                    <th>Options</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (GardenNeed need in Model)
-                {
-                    <tr>
-                        <td>@need.Title</td>
-                        <td>@need.Description</td>
-                        <td>@need.DateCreated</td>
-                        <td>@Html.ActionLink("Contribute", "SendContribution", "Donation", new { id = need.GardenNeedId }, null)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        foreach (GardenNeed need in Model)
+        {
+            <h2>@need.Title</h2>
+            <p class="text-right">Date Created: @need.DateCreated</p>
+            <p>@need.Description</p>
+            <h2>@Html.ActionLink("Contribute", "SendContribution", "Donation", new { id = need.GardenNeedId }, null)</h2>
+        }
     }
     else
     {

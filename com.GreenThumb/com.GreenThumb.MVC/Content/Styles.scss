@@ -350,8 +350,14 @@ ul.nav, ul.nav li {
 }
 
 .small-image {
-    padding-left: 1em;
     padding-bottom: .5em;
+}
+
+.donate-form {
+    display: block;
+    margin: auto;
+    padding: 0;
+    text-align: center;
 }
 
 /*DESKTOP*/
@@ -409,6 +415,7 @@ ul.nav, ul.nav li {
 
     .blog-post {
         padding: 4em;
+        word-wrap: break-word;
     }
 
     .tab-content {
@@ -418,6 +425,10 @@ ul.nav, ul.nav li {
 
     .logo {
         padding-bottom: 1em;
+    }
+
+    .small-image {
+        padding-left: 1em;
     }
 
 }
@@ -461,5 +472,11 @@ ul.nav, ul.nav li {
 
     .compose textarea {
         max-width: 19em;
+    }
+
+    .small-image {
+        display: block;
+        margin: auto;
+        padding-top: 1em;
     }
 }
