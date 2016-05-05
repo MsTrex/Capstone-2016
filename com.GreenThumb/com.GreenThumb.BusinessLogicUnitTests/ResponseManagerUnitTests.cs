@@ -19,7 +19,7 @@ namespace com.GreenThumb.BusinessLogicUnitTests
         [TestMethod]
         public void TestCreateNewResponse()
         {
-            response = new Response(1001,DateTime.Now,"this is a response",1000);
+            response = new Response(1001,DateTime.Now,"this is a response",1000, null);
             bool test = false;
 
             test = QuestionResponseAccessor.CreateResponse(response);
