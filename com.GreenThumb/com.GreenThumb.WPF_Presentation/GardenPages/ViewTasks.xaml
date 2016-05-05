@@ -7,7 +7,7 @@
       d:DesignHeight="280" d:DesignWidth="900"
 	Title="ViewTasks">
 
-    <Grid Margin="0,0,-784,28">
+    <Grid Margin="40">
         <DataGrid x:Name="grdTasks" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="172" Width="808" SelectionMode="Single" />
         <Button Style="{StaticResource button1}" Content="Select Task" HorizontalAlignment="Left" Margin="658,187,0,0" VerticalAlignment="Top" Width="160" Click="SelectGroupTask_Click" Height="30"/>
         <Button Style="{StaticResource button1}" Content="Show All Tasks for Group" HorizontalAlignment="Left" Margin="340,187,0,0" VerticalAlignment="Top" Width="160" Click="ShowGroupTasks_Click" Height="30"/>

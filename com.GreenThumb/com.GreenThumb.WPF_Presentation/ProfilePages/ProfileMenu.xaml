@@ -4,7 +4,7 @@
         
         Title="ProfileMenu" Height="515.787" Width="893.15">
 
-    <Grid>
+    <Grid Margin="40">
 
         <Button Style="{StaticResource button1}" x:Name="btnEdit" Content="Edit Profile" HorizontalAlignment="Left" Margin="13,98,0,0" VerticalAlignment="Top" Width="139" Height="34" FontSize="14" FontWeight="Bold" Click="btnEdit_Click"/>
         <Button Style="{StaticResource button1}" x:Name="btnChangePassword" Content="Change Password" HorizontalAlignment="Left" Margin="13,153,0,0" VerticalAlignment="Top" Width="139" Height="34" FontSize="14" FontWeight="Bold" Click="btnChangePassword_Click"/>

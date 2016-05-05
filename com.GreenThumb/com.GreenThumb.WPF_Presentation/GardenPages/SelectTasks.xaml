@@ -7,7 +7,7 @@
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="SelectTask" Height="280" Width="900">
 
-    <Grid Margin="0,0,-784,28">
+    <Grid Margin="40">
         <DataGrid x:Name="grdTasks" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="172" Width="808" SelectionMode="Single" />
         <Button Style="{StaticResource button1}" Content="Select Task" HorizontalAlignment="Left" Margin="480,187,0,0" VerticalAlignment="Top" Width="160" Click="SelecteTask_Click" Height="30"/>
         <Button Style="{StaticResource button1}" Content="Show All Tasks" HorizontalAlignment="Left" Margin="224,187,0,0" VerticalAlignment="Top" Width="160" Click="ShowTasks_Click" Height="30"/>

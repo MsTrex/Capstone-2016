@@ -7,7 +7,7 @@
       d:DesignHeight="300" d:DesignWidth="900"
 	Title="CreateGarden">
 
-    <Grid Margin="0,0,0,0">
+    <Grid Margin="40">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

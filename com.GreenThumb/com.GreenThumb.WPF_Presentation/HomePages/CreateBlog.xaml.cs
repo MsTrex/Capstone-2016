@@ -83,7 +83,7 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new HomePages.ViewBlog());
+            this.NavigationService.Navigate(new HomePages.ViewBlog(accessToken));
         }
     }
 }

@@ -6,7 +6,7 @@
       mc:Ignorable="d" d:DesignWidth="300"
 	Title="VolunteerSignUp" Height="327.463">
 
-    <Grid Margin="0,0,7,0.2">
+    <Grid Margin="40">
         <Label Content="UserID" HorizontalAlignment="Left" Margin="23,51,0,0" VerticalAlignment="Top"/>
         <Label Content="Date Can Volunteer" HorizontalAlignment="Left" Margin="23,87,0,0" VerticalAlignment="Top"/>
 
