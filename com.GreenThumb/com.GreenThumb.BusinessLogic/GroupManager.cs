@@ -351,7 +351,7 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                group = GroupAccessor. RetrieveGroupIdByGroupName(groupName);
+                group = GroupAccessor.RetrieveGroupIdByGroupName(groupName);
         
             }
             catch (Exception) { } // group will be null.

@@ -6,7 +6,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="900"
 	Title="RecipeInput">
-    <Grid>
+    <Grid Margin="40">
         <Label Content="Recipe Entry" HorizontalAlignment="Left" Margin="30,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
         <Label Content="Title:" HorizontalAlignment="Left" Margin="30,70,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="30" Margin="30,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="398"/>

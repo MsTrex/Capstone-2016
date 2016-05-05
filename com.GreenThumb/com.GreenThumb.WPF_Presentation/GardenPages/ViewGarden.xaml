@@ -6,7 +6,7 @@
       mc:Ignorable="d"
 	Title="ViewGarden" Width="1093.985" Height="374.436">
 
-    <Grid Margin="20,20,20,15">
+    <Grid Margin="40">
         <!--<Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="317*"/>

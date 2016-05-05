@@ -8,7 +8,7 @@
       d:DesignHeight="300" d:DesignWidth="600"
 	Title="AdminProcessExpertRequests">
 
-    <Grid>
+    <Grid Margin="40">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="auto"/>

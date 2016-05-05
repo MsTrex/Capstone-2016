@@ -7,8 +7,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="600"
 	Title="ViewPlants">
-    
-    <Grid>
+
+    <Grid Margin="40">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.25,1" StartPoint="0.25,0">
                 <GradientStop Color="White" Offset="0"/>

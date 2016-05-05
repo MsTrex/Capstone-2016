@@ -32,7 +32,7 @@
                 }
             </tbody>*@
         
-            @foreach (GroupMemberRequestModel requestInfo in Model)
+            foreach (GroupMemberRequestModel requestInfo in Model)
             {
                 <h2>@requestInfo.Requestor.UserName</h2>
                 <p class="text-right">Date: @requestInfo.Request.RequestDate</p>

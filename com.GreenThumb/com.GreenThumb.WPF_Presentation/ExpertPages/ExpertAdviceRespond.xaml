@@ -31,7 +31,7 @@
             </Setter>
         </Style>
     </Page.Resources>
-    <Grid x:Name="grid">
+    <Grid x:Name="grid"  Margin="40">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />

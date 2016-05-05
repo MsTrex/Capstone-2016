@@ -13,7 +13,7 @@
       d:DesignHeight="300"
 	Title="ManageTask"    Height="300" Width="1200.3">
 
-    <Grid Margin="-2,0,10,2">
+    <Grid Margin="40">
 
         <ComboBox Style="{StaticResource comboBox1}" x:Name="cmbGardenName" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="25"  Width="201" Margin="30,60,0,213"
                             ItemsSource="{Binding Path=Garden}"

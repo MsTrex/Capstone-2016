@@ -18,7 +18,13 @@
 {
     <div class="group-members">
         <h2>@Html.ActionLink(GardenInfo.GardenName, "GardenDetail", "Garden", new { id = GardenInfo.GardenID }, new { @class = "" })</h2>
-        <p class="text-right">Region: @GardenInfo.GardenRegion</p>
-        <p class="text-right">@GardenInfo.GardenDescription</p>
+        @*<p class="text-right">Region: @GardenInfo.GardenRegion</p>*@
+       
+        <p class="text-right">Garden Description: @GardenInfo.GardenDescription</p>
+        @*<h2>
+            @Html.ActionLink("View Tasks", "ViewTask", "GardenTask", new { gardenID = GardenInfo.GardenID }, new {@id="viewTask" })
+        </h2>*@
+        <button class="green-btn" onclick="location.href='@Url.Action("ViewTask", "GardenTask", new { gardenID = GardenInfo.GardenID, @id = "viewTask" })'">View Tasks</button>
     </div>
+    
 }
