@@ -43,5 +43,36 @@ namespace com.GreenThumb.UnitTests
             Assert.AreEqual(result, true);
 
         }
+        [TestMethod]
+        public void TestGetTaskList()
+        {
+            List<Job> jopList = new List<Job>();
+            try
+            {
+                jopList = jobManager.GetTaskList();
+                Assert.IsNotNull(jopList);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0} Exception caught.", ex);
+            }
+        }
+
+
+        [TestMethod]
+        public void TestGetJob()
+        {
+            int jobId = 1000;
+            Job jop = null;
+            try
+            {
+                jop = jobManager.GetJob(jobId);
+                Assert.IsNotNull(jop);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0} Exception caught.", ex);
+            }
+        }
     }
 }
