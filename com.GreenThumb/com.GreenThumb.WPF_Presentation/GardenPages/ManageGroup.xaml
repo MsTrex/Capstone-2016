@@ -7,7 +7,7 @@
       d:DesignHeight="300" d:DesignWidth="600"
 	Title="ManageGroup">
 
-    <Grid>
+    <Grid Margin="40">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />

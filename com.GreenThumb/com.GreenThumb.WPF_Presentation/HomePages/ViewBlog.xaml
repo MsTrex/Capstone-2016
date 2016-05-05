@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="600" d:DesignWidth="900"
 	Title="ViewBlog">
     <Page.Resources>
         <Style x:Key="blogNames" TargetType="StackPanel">
@@ -22,7 +22,7 @@
             </Style.Resources>
         </Style>
     </Page.Resources>
-    <Grid>
+    <Grid Margin="40">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.25,1" StartPoint="0.25,0">
                 <GradientStop Color="White" Offset="0"/>
@@ -77,7 +77,7 @@
                                 <TextBlock x:Name="lblBlogTitle" Grid.Row="0" Margin="0,20,0,40" Text="{Binding BlogTitle}" TextWrapping="Wrap" FontSize="50" Foreground="#FF19320B" FontWeight="Bold" HorizontalAlignment="Center"/>
                                 <TextBlock x:Name="lblBlogData" Grid.Row="1" Text="{Binding BlogData}" TextWrapping="Wrap" FontSize="20"/>
                                 <TextBlock x:Name="lblDateCreated" Grid.Row="2" Margin="20,10,20,0" Text="{Binding DateCreated}" FontSize="15" Foreground="#FF19320B" />
-                                <TextBlock x:Name="lblCreatedBy" Grid.Row="3" Margin="20,0,20,20" Text="{Binding UserCreated(CreatedBy)}" FontSize="15" Foreground="#FF19320B" />
+                                <TextBlock x:Name="lblCreatedBy" Grid.Row="3" Margin="20,0,20,20" Text="{Binding CreatedBy}" FontSize="15" Foreground="#FF19320B" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -87,8 +87,8 @@
         <Border Grid.Column="1" BorderBrush="black" BorderThickness="1">
             <Grid>
                 <StackPanel Background="Transparent">
-                    <Button Style="{StaticResource button1}" x:Name="btnCreateBlog" Margin="40,5" Content="Create a Blog" FontSize="20" Click="btnCreateBlog_Click" Visibility="Hidden"></Button>
-                    <Button Style="{StaticResource button1}" x:Name="allBlogs" Margin="40,5" Content="View All Blogs" FontSize="20" Click="allBlogs_Click"/>
+                    <Button Style="{StaticResource button1}" x:Name="btnCreateBlog" Margin="0 20 0 0" Content="Create an Article" FontSize="20" Click="btnCreateBlog_Click"></Button>
+                    <Button Style="{StaticResource button1}" x:Name="allBlogs" Margin="0 20" Content="View All Blogs" FontSize="20" Click="allBlogs_Click"/>
                     <Line Height="20"></Line>
                     <StackPanel Style="{StaticResource blogNames}" x:Name="stpnlBlogs" Initialized="stpnlBlogs_Initialized">
                     </StackPanel>

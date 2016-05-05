@@ -6,7 +6,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="500"
 	Title="CreateBlog">
-    <Grid Margin="10,10" MinWidth="400">
+    <Grid  Margin="40" MinWidth="400">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="55"></RowDefinition>

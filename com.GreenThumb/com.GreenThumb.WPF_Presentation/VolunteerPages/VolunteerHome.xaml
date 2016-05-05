@@ -7,7 +7,7 @@
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="VolunteerHome">
 
-    <Grid>
+    <Grid Margin="40">
         <TextBlock>Volunteer Home Page</TextBlock>
         
     </Grid>

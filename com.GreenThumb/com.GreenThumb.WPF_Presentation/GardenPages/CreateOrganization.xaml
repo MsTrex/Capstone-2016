@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         Title="Create a new Organization" Height="418" Width="603">
-    <Grid Margin="10,0" Height="270" VerticalAlignment="Top">
+    <Grid Margin="40" Height="270" VerticalAlignment="Top">
 
         <TextBox x:Name="txtOrganizationName" HorizontalAlignment="Left" Height="24" Margin="200,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278">
             <TextBox.RenderTransform>
