@@ -28,6 +28,14 @@ namespace com.GreenThumb.WPF_Presentation
         MessageManager messageMgr = new MessageManager();
         NewUserCreation _newUser;
 
+        public AccessToken LoggedAccessToken
+        {
+            get
+            {
+                return _accessToken;
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -131,7 +139,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// Updated: 2016/03/07
         /// Fixed the access token creation event
         /// </remarks>
-        private void Login_Click(object sender, RoutedEventArgs e)
+        public void Login_Click(object sender, RoutedEventArgs e)
         {
             if (null == _accessToken)
             {
@@ -225,8 +233,8 @@ namespace com.GreenThumb.WPF_Presentation
         /// Author: Ryan Taylor
         /// Click logic for New user button
         /// Date: 2/26/16
-        /// </summary>-
-        private void NewUser_Click(object sender, RoutedEventArgs e)
+        /// </summary>
+        public void NewUser_Click(object sender, RoutedEventArgs e)
         {
             // Made changes to login when user registers By : Poonam Dubey
             _newUser = new NewUserCreation();
