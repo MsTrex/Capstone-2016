@@ -84,31 +84,31 @@ namespace com.GreenThumb.WPF_Presentation
                 {
                     if (r.RoleID == "Admin")
                     {
-                        var adminTabs = new Label[] { btnAdmin, btnGardens, btnExpert, btnHome, btnProfile };
+                        var adminTabs = new Label[] { btnAdmin, btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(adminTabs);
                         break;
                     }
                     if (r.RoleID == "Expert")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { btnGardens, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
                     if (r.RoleID == "GroupLeader")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { btnGardens, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
                     if (r.RoleID == "GroupMember")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
                     if (r.RoleID == "User")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
@@ -276,6 +276,7 @@ namespace com.GreenThumb.WPF_Presentation
             clearSideBar();
             SetHomeButtons();
             clearUnusedSidebars();
+            boldCurrent(sender);
         }
         // Chris S - Had to refactor - using in two places
         private void SetHomeButtons()
@@ -339,7 +340,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar10.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ||
                roleManager.ConfirmUserIsAssignedRole(_accessToken, "Admin") ? "" : "Become an Expert";
             clearUnusedSidebars();
-
+            boldCurrent(sender);
             //foreach (Role r in _accessToken.Roles)
             //{
             //    if (r.RoleID == "Expert")
@@ -385,6 +386,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar3.Content = "Expert Requests";
             btnSideBar6.Content = "";
             clearUnusedSidebars();
+            boldCurrent(sender);
         }
 
         /// <summary>
@@ -398,6 +400,7 @@ namespace com.GreenThumb.WPF_Presentation
             clearSideBar();
             SetProfileButtons();
             clearUnusedSidebars();
+            boldCurrent(sender);
         }
         //Chris S - had to refactor - using in multiple places
         private void SetProfileButtons()
@@ -406,12 +409,34 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar2.Content = "Messages";
         }
 
+        //Author: Sara Nanke
         public void clearSideBar()
         {
             //clear side panel content
             foreach (Label label in sidePanel.Children)
             {
                 label.Content = "";
+            }
+        }
+
+        public void boldCurrent(Object sender)
+        {
+            try
+            {
+                foreach (Label label in grdTabs.Children)
+                {
+                    label.FontWeight = FontWeights.Regular;
+                }
+                Label current = (Label)sender;
+                current.FontWeight = FontWeights.Bold;
+
+                //open sidebar
+                sidePanelDefinition.Width = new GridLength(220);
+                btnCollapse.Content = "\u276E\u276E"; // "<<"
+            }
+            catch (Exception) 
+            { 
+                //contine 
             }
         }
 
@@ -430,11 +455,11 @@ namespace com.GreenThumb.WPF_Presentation
             ColorConverter cc = new ColorConverter();
             foreach (Label label in sidePanel.Children)
             {
-                //label.Background = new SolidColorBrush(Color.FromArgb(0,0,0,0));
+                label.FontWeight = FontWeights.Regular;
             }
-            Label lblClicked = (Label)sender;
-            //lblClicked.Background = new SolidColorBrush(Color.FromArgb(0,9,9,9));
-            String content = lblClicked.Content.ToString();
+            Label current = (Label)sender;
+            current.FontWeight = FontWeights.Bold;
+            String content = current.Content.ToString();
             Page page = new HomePages.ViewBlog();
             try
             {
