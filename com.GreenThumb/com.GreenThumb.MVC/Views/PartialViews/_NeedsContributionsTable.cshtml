@@ -12,7 +12,7 @@
             <div class="group-members">
                 <h2>@need.Need.Title</h2>
                 <p class="text-right">Date Created: @need.DateCreated</p>
-                <p>@need.Description</p>
+                <p>@Html.Raw(need.Description)</p>
             </div>
         }
     }
