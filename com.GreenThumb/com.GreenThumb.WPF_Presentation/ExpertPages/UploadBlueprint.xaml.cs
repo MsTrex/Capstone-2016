@@ -26,8 +26,8 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
     /// </summary>
     public partial class UploadBlueprint : Page
     {
-       
-        string destFilePath = System.AppDomain.CurrentDomain.BaseDirectory + @"Blueprints";         
+
+        string destFilePath = System.AppDomain.CurrentDomain.BaseDirectory + "../../" + @"Blueprints";         
         string sourceFilePath;
         string title;
         string description;
