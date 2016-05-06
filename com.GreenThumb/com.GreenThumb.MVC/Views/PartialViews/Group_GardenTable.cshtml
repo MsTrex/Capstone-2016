@@ -19,6 +19,6 @@
     <div class="group-members">
         <h2>@Html.ActionLink(GardenInfo.GardenName, "GardenDetail", "Garden", new { id = GardenInfo.GardenID }, new { @class = "" })</h2>
         <p class="text-right">Region: @GardenInfo.GardenRegion</p>
-        <p class="text-right">@GardenInfo.GardenDescription</p>
+        <div class="text-right">@Html.Raw(GardenInfo.GardenDescription)</div>
     </div>
 }
