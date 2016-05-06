@@ -34,22 +34,43 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
             this._accessToken = _accessToken;
             //      ProfileMenu profMenu = new ProfileMenu(_accessToken);
             InitializeComponent();
+            listUsers();
             populateUser();
             frmEdit.Visibility = Visibility.Hidden;
             frmPassword.Visibility = Visibility.Hidden;
             frmRole.Visibility = Visibility.Hidden;
             grdGarden.Visibility = Visibility.Hidden;
         }
+
+        private void listUsers()
+        {
+           frmEdit.Visibility = Visibility.Hidden;
+            frmPassword.Visibility = Visibility.Hidden;
+            grdGarden.Visibility = Visibility.Hidden;
+            frmRole.Visibility = Visibility.Hidden;
+            grdUserNames.Visibility = Visibility.Visible;
+            try
+            {
+                
+                var users = usrMgr.GetUserList(Active.active);
+                grdUserNames.ItemsSource = users;
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Users table.... failure here : " + ex.Message + ex.StackTrace);
+            }
+        
+        }
+
         private void populateUser()
         {
 
             try
             {
-                
+
                 var users = usrMgr.GetPersonalInfo(userId);
-           //     User user = new User();
-                //   grdUser.ItemsSource = users;
-                lblFirstName.Content = users.FirstName;
+          
 
                 if (users == null)
                 {
@@ -248,10 +269,36 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
             frmPassword.Visibility = Visibility.Hidden;
         }
 
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+      
+   
+        private void btnShowProfile_Click(object sender, RoutedEventArgs e)
         {
-
+            bool res = Int32.TryParse(txtUserId.Text, out userId);
+            populateUser();
         }
+
+        private void txtUserId_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            bool res = Int32.TryParse(txtUserId.Text, out userId);
+        }
+
+        private void grdUserNames_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+                    
+    //            txtUserId.Text = (grdUserNames.SelectedIndex + 1).ToString();
+
+                bool res = Int32.TryParse(txtUserId.Text, out userId);
+        }
+
+        private void btnSelectUser_Click(object sender, RoutedEventArgs e)
+        {
+   //         txtUserId.Text = (grdUserNames.SelectedIndex + 1).ToString();
+           
+    //        bool res = Int32.TryParse(txtUserId.Text, out userId);
+            
+    //        lblMessage.Content = "display: " + userId + " " + txtUserId.Text;
+        }
+
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (regions.SelectedIndex + 1 == 11)
@@ -264,15 +311,23 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
             }
         }
 
-        private void btnShowProfile_Click(object sender, RoutedEventArgs e)
+        private void grdUserNames_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            bool res = Int32.TryParse(txtUserId.Text, out userId);
-            populateUser();
-        }
+            try
+            {
+                ListView lv = (ListView)sender;
+                User test = (User)lv.SelectedItem;
+                userId = test.UserID;
+                txtUserId.Text = userId.ToString();
+                populateUser();
+                frmEdit.Visibility = Visibility.Hidden;
+                frmPassword.Visibility = Visibility.Hidden;
+                frmRole.Visibility = Visibility.Hidden;
+                grdMap.Visibility = Visibility.Hidden;
+                grdGarden.Visibility = Visibility.Hidden;
 
-        private void txtUserId_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            bool res = Int32.TryParse(txtUserId.Text, out userId);
+            }
+            catch (Exception ex) { }
         }
 
     }

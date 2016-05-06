@@ -13,10 +13,10 @@
             <RowDefinition Height="243"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Style="{StaticResource button1}" x:Name="btnEdit" Content="Edit Profile" HorizontalAlignment="Left" Margin="13,98,0,0" VerticalAlignment="Top" Width="139" Height="34" FontSize="14" FontWeight="Bold" Click="btnEdit_Click" Grid.ColumnSpan="2"/>
-        <Button Style="{StaticResource button1}" x:Name="btnChangePassword" Content="Change Password" HorizontalAlignment="Left" Margin="13,153,0,0" VerticalAlignment="Top" Width="139" Height="34" FontSize="14" FontWeight="Bold" Click="btnChangePassword_Click" Grid.ColumnSpan="2"/>
-        <Button Style="{StaticResource button1}" x:Name="btnUserRoles" Content="User Roles" HorizontalAlignment="Left" Margin="13,209,0,0" VerticalAlignment="Top" Width="139" Height="34" FontSize="14" FontWeight="Bold" Click="btnUserRoles_Click" Grid.ColumnSpan="2"/>
-        <Button Style="{StaticResource button1}" x:Name="btnGarden" Content="Garden Affiliation" HorizontalAlignment="Left" Margin="13,18,0,0" VerticalAlignment="Top" Width="139" Height="34" FontSize="14" FontWeight="Bold" Click="btnGarden_Click" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Button Style="{StaticResource button1}" x:Name="btnEdit" Content="Edit Profile" HorizontalAlignment="Left" Margin="13,98,0,0" VerticalAlignment="Top" Width="150" Height="34" FontSize="14" FontWeight="Bold" Click="btnEdit_Click" Grid.ColumnSpan="2"/>
+        <Button Style="{StaticResource button1}" x:Name="btnChangePassword" Content="Change Password" HorizontalAlignment="Left" Margin="13,153,0,0" VerticalAlignment="Top" Width="150" Height="34" FontSize="14" FontWeight="Bold" Click="btnChangePassword_Click" Grid.ColumnSpan="2"/>
+        <Button Style="{StaticResource button1}" x:Name="btnUserRoles" Content="User Roles" HorizontalAlignment="Left" Margin="13,209,0,0" VerticalAlignment="Top" Width="150" Height="34" FontSize="14" FontWeight="Bold" Click="btnUserRoles_Click" Grid.ColumnSpan="2"/>
+        <Button Style="{StaticResource button1}" x:Name="btnGarden" Content="Garden Affiliation" HorizontalAlignment="Left" Margin="13,18,0,0" VerticalAlignment="Top" Width="150" Height="34" FontSize="14" FontWeight="Bold" Click="btnGarden_Click" Grid.Row="1" Grid.ColumnSpan="2"/>
         <Label x:Name="lblMessage" HorizontalAlignment="Left" Margin="2,61,0,0" VerticalAlignment="Top" Width="163" Height="25" Grid.Row="1" Grid.ColumnSpan="2"/>
         <Grid x:Name="frmEdit" HorizontalAlignment="Left" Height="197" Margin="168,98,0,0" VerticalAlignment="Top" Width="277" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <TextBox x:Name="txtFirstName" BorderThickness="1" HorizontalAlignment="Left" Height="23" Margin="106,12,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="161"/>
@@ -32,8 +32,8 @@
             <Label Content="EMail: " HorizontalAlignment="Left" Margin="20,97,0,0" VerticalAlignment="Top" Width="98"/>
             <Label Content="User Name: " HorizontalAlignment="Left" Margin="20,126,0,0" VerticalAlignment="Top" Width="98"/>
             <Label Content="Region: " HorizontalAlignment="Left" Margin="20,153,0,0" VerticalAlignment="Top" Width="98"/>
-            <Button x:Name="btnUpdate" Content="SAVE" HorizontalAlignment="Left" Margin="20,202,0,-37" VerticalAlignment="Top" Width="116" Height="32" FontSize="14" FontWeight="Bold" Click="btnUpdate_Click"/>
-            <Button x:Name="btnBack" Content="BACK" HorizontalAlignment="Left" Margin="147,202,0,-37" VerticalAlignment="Top" Width="116" Height="32" FontSize="14" FontWeight="Bold" Click="btnBack_Click"/>
+            <Button Style="{StaticResource button1}" x:Name="btnUpdate" Content="SAVE" HorizontalAlignment="Left" Margin="20,202,0,-37" VerticalAlignment="Top" Width="116" Height="32" FontSize="14" FontWeight="Bold" Click="btnUpdate_Click"/>
+            <Button Style="{StaticResource button1}" x:Name="btnBack" Content="BACK" HorizontalAlignment="Left" Margin="147,202,0,-37" VerticalAlignment="Top" Width="116" Height="32" FontSize="14" FontWeight="Bold" Click="btnBack_Click"/>
             <ListBox Name="regions" HorizontalAlignment="Left" Height="79" Margin="271,155,-72,-37" VerticalAlignment="Top" Width="78" SelectionChanged="ListBox_SelectionChanged">
                 <ListBoxItem Content="Region 1"/>
                 <ListBoxItem Content="Region 2"/>
