@@ -3305,9 +3305,11 @@ CREATE PROCEDURE Gardens.spCheckLeaderStatus (
 )
 AS
 BEGIN
-        SELECT Leader
-        FROM Gardens.GroupMembers
-        WHERE GroupID = @GroupId AND UserId = @UserId
+	select u.FirstName, u.LastName, u.Zip, u.EmailAddress, u.UserName, u.RegionID, g.GroupName
+	from admin.users as u
+	inner join gardens.groups as g
+		on u.UserID = g.GroupLeaderID
+	where g.GroupLeaderID = @UserId and g.GroupID = @GroupId;
  END
  GO
  
