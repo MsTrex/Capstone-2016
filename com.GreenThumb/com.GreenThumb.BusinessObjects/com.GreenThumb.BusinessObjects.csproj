@@ -26,7 +26,7 @@
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vsB259.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs54E5.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Kristine\AppData\Local\Temp\vsAB7A.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\user\AppData\Local\Temp\vs37C8.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs4269.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -46,7 +46,7 @@
     <IntermediateOutputPath>C:\Users\nh229u10\AppData\Local\Temp\vsCF7E.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs4FCD.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Kristine\AppData\Local\Temp\vsAB7A.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\user\AppData\Local\Temp\vs37C8.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\cmsheeha\AppData\Local\Temp\vs4269.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -87,10 +87,7 @@
     <Compile Include="IAdminAccount.cs" />
     <Compile Include="IUserInterface.cs" />
     <Compile Include="Jobs.cs" />
-    <Compile Include="Land.cs" />
     <Compile Include="Message.cs" />
-    <Compile Include="Money.cs" />
-    <Compile Include="MoneyPending.cs" />
     <Compile Include="NeedContribution.cs" />
     <Compile Include="NeedType.cs" />
     <Compile Include="Notification.cs" />
