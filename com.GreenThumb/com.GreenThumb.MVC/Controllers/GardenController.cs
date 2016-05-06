@@ -50,6 +50,7 @@ namespace com.GreenThumb.MVC.Controllers
             return view;
         }
 
+
         [HttpPost]
         public ActionResult CreateGarden(GardenCreationViewModel model)
         {

@@ -27,11 +27,14 @@
         <div id="textEditor">
             @Html.TextAreaFor(m => m.GardenDescription, new { id = "rich-editor" })
         </div>
-        <div id="imageEditor">
-            
-        </div>
     </div>
 
+    <div class="dark-div round col-lg-12">
+        <div id="image-editor">
+            @Html.Partial("~/Views/PartialViews/_DesignGarden.cshtml")
+        </div>
+    </div>
+    
     <div class="dark-div round col-lg-12">
         <h3>Select a Region</h3>
         <br/>
