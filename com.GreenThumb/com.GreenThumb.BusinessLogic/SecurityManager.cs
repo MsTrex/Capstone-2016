@@ -40,7 +40,7 @@ namespace com.GreenThumb.BusinessLogic
                 }
                 else
                 {
-                    throw new ApplicationException("Data not found.");
+                    throw new ApplicationException("Invalid username or password."");
                 }
             }
             catch
