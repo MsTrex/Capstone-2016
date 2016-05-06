@@ -30,7 +30,7 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
     /// Form to upload templates to folder in project 
     /// </summary>
 
-        string destFilePath = System.AppDomain.CurrentDomain.BaseDirectory + @"Templates";
+        string destFilePath = System.AppDomain.CurrentDomain.BaseDirectory + "../../"+ @"Templates";
         string sourceFilePath;
         string title;
         string description;

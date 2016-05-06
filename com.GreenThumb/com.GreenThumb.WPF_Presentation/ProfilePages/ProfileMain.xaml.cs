@@ -173,6 +173,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             try
             {
                 var groupManager = grpMgr.GetGroupsForUser(_accessToken.UserID);
+
                 grdGarden.ItemsSource = groupManager;
             }
             catch (Exception ex)

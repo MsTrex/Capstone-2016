@@ -109,7 +109,7 @@ namespace com.GreenThumb.MVC.Controllers
                 ModelState.AddModelError("Failed", "Could not send message");
             }
 
-            return RedirectToAction("Outbox", "Message");
+            return RedirectToAction("Index", "Message");
         }
 
         #region Helper Methods

@@ -76,7 +76,7 @@
                 <TextBox x:Name="txtKeywords" Grid.Row="0" Grid.Column="1" Margin="5" MinWidth="100" MaxWidth="100" KeyUp="txtKeywords_KeyUp" />
             </Grid>
 
-            <Grid Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center">
+            <Grid Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="750">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -100,13 +100,13 @@
                 <Button Grid.Row="1" Style="{StaticResource button1}" Grid.Column="3" MinWidth="110" MaxWidth="110" x:Name="btnLast" Margin="20 5 20 5" Content="Last" Click="btnLast_Click" HorizontalAlignment="Left" />
             </Grid>
 
-            <Grid Grid.Row="3" Grid.Column="0" MaxWidth="{Binding ElementName=grid, Mode=OneWay}">
+            <Grid Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="750">
                 <Label x:Name="lblNoMatch" Visibility="Collapsed" Margin="5" Grid.Column="0" Grid.Row="1" Content="No questions based on the criteria" />
                 <DataGrid x:Name="gridQuestions" Visibility="Visible" Grid.Column="0" Grid.Row="1" Margin="20 5 20 5" MinHeight="100" MaxHeight="200" SelectedValuePath="RegionID" DataContext="{Binding Source=list}" SelectionMode="Single" AutoGenerateColumns="False" CanUserResizeColumns="True" IsReadOnly="True" MouseDoubleClick="gridQuestions_MouseDoubleClick" VerticalAlignment="Top">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Title" Width="*" Binding="{Binding Path=Title, NotifyOnTargetUpdated=True}"/>
-                        <DataGridTextColumn Header="Date" Binding="{Binding Path=CreatedDate, NotifyOnTargetUpdated=True}"/>
-                        <DataGridTextColumn x:Name="gridColRegion" Header="Region" Binding="{Binding Path=RegionID, NotifyOnTargetUpdated=True}"/>
+                        <DataGridTextColumn Header="Date" Width="*" Binding="{Binding Path=CreatedDate, NotifyOnTargetUpdated=True}"/>
+                        <DataGridTextColumn x:Name="gridColRegion" Width="*" Header="Region" Binding="{Binding Path=RegionID, NotifyOnTargetUpdated=True}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
