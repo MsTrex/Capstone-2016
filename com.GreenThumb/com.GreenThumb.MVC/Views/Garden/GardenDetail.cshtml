@@ -57,7 +57,7 @@
                         <h2>@gardenNeed.Title</h2>
                         <p class="text-right">@gardenNeed.DateCreated.ToShortDateString()</p>
                         <p class="text-right">Created By: @gardenNeed.CreatedBy.UserName</p>
-                        <p>@gardenNeed.Description</p>
+                        <p>@Html.Raw(gardenNeed.Description)</p>
 
                     </div>
                 }   

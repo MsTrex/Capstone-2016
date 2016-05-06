@@ -12,7 +12,7 @@
         <h2>@Html.RadioButton("radioSelection", false, new { @id = GardenInfo.GardenID + "_Radio", @onclick = "radioClick(" + GardenInfo.GardenID + ")" })
         @Model.Name</h2>
         <p class="text-right">Garden: @GardenInfo.GardenName</p>
-        <p class="text-right">Description: @GardenInfo.GardenDescription</p>
+        <p class="text-right">Description: @Html.Raw(GardenInfo.GardenDescription)</p>
         <p class="text-right">Region: @GardenInfo.GardenRegion</p>
     </div>
     <br />

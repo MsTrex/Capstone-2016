@@ -12,7 +12,7 @@
         {
             <h2>@need.Title</h2>
             <p class="text-right">Date Created: @need.DateCreated</p>
-            <p>@need.Description</p>
+            <p>@Html.Raw(need.Description)</p>
             <h2>@Html.ActionLink("Contribute", "SendContribution", "Donation", new { id = need.GardenNeedId }, null)</h2>
         }
     }
