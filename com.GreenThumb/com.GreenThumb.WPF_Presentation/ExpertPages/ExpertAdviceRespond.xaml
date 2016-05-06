@@ -31,7 +31,7 @@
             </Setter>
         </Style>
     </Page.Resources>
-    <Grid x:Name="grid"  Margin="40">
+    <Grid x:Name="grid"  Margin="40" MaxWidth="750" HorizontalAlignment="Left">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -99,8 +99,8 @@
             <DataGrid x:Name="gridQuestions" Grid.Column="0" Grid.Row="1" Margin="5" MinHeight="100" MaxHeight="200" SelectedValuePath="RegionID" DataContext="{Binding Source=list}" SelectionMode="Single" AutoGenerateColumns="False" CanUserResizeColumns="True" IsReadOnly="True" MouseDoubleClick="gridQuestions_MouseDoubleClick" VerticalAlignment="Top">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Title" Width="*" Binding="{Binding Path=Title, NotifyOnTargetUpdated=True}"/>
-                    <DataGridTextColumn Header="Date" Binding="{Binding Path=CreatedDate, NotifyOnTargetUpdated=True}"/>
-                    <DataGridTextColumn x:Name="gridColRegion" Header="Region" Binding="{Binding Path=RegionID, NotifyOnTargetUpdated=True}"/>
+                    <DataGridTextColumn Header="Date" Width="*" Binding="{Binding Path=CreatedDate, NotifyOnTargetUpdated=True}"/>
+                    <DataGridTextColumn x:Name="gridColRegion" Width="*" Header="Region" Binding="{Binding Path=RegionID, NotifyOnTargetUpdated=True}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

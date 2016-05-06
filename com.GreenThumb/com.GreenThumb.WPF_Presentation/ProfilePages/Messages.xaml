@@ -12,14 +12,14 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="From" Binding="{Binding MessageSender}" Width="Auto"/>
                 <DataGridTextColumn Header="Subject" Binding="{Binding MessageSubject}" Width="Auto"/>
-                <DataGridTextColumn Header="Date" Binding="{Binding MessageDate}" Width="Auto"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding MessageDate}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid HorizontalAlignment="Left" x:Name="dataOutbox" Margin="340,104,-25,0" VerticalAlignment="Top" Height="104" Width="305" SelectionMode="Single" Cursor="Hand" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="dataOutbox_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="To" Binding="{Binding MessageReceiver}" Width="Auto"/>
                 <DataGridTextColumn Header="Subject" Binding="{Binding MessageSubject}" Width="Auto"/>
-                <DataGridTextColumn Header="Date" Binding="{Binding MessageDate}" Width="Auto"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding MessageDate}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Style="{StaticResource button1}" Content="Get Messages" x:Name="btn_GetMessages"  HorizontalAlignment="Left" Margin="10,228,0,0" VerticalAlignment="Top" Width="97" Click="btn_GetMessages_Click" Visibility="Hidden"/>
