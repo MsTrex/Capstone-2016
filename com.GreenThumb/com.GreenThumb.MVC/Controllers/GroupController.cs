@@ -137,6 +137,7 @@ namespace com.GreenThumb.MVC.Controllers
         /// 
         /// Created by: Trent Cullinan 04/05/2016
         /// Modified by: Nicholas King
+        /// Last word by: Trent Cullinan 05/05/2016
         /// </summary>
         /// <param name="id">Group Id</param>
         /// <returns></returns>
@@ -146,8 +147,10 @@ namespace com.GreenThumb.MVC.Controllers
 
             if (id.HasValue)
             {
+                GroupManager groupManager = new GroupManager();
+
                 var group
-                    = new GroupManager().GetGroup(id.Value);
+                    = groupManager.GetGroup(id.Value);
 
                 var gardens
                     = new GardenManager().GetGroupGardens(id.Value);
@@ -168,10 +171,10 @@ namespace com.GreenThumb.MVC.Controllers
 
 
                 //Added by Nicholas King
-                if (true)//do check for if user is group leader
+                if (groupManager.GetLeaderStatus(RetrieveUserId(), id.Value))//do check for if user is group leader
                 {
                     viewModel.Requests = new List<GroupMemberRequestModel>();
-                    List<GroupRequest> requests = new GroupManager().GetGroupRequests(id.Value);
+                    List<GroupRequest> requests = groupManager.GetGroupRequests(id.Value);
                     foreach (GroupRequest request in requests)
                     {
                         GroupMemberRequestModel requestModel = new GroupMemberRequestModel();
@@ -220,16 +223,16 @@ namespace com.GreenThumb.MVC.Controllers
         /// 
         /// Created by: Nicholas King
         /// </summary>
-        /// <param name="groupID"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult RequestJoinGroup(int? groupID)
+        public ActionResult RequestJoinGroup(int? id)
         {
-            if (groupID != null)
+            if (id != null)
             {
                 GroupRequest request = new GroupRequest();
                 request.UserID = RetrieveUserId();
                 request.RequestDate = DateTime.Now;
-                request.GroupID = (int)groupID;
+                request.GroupID = (int)id;
 
                 GroupManager manager = new GroupManager();
                 try
