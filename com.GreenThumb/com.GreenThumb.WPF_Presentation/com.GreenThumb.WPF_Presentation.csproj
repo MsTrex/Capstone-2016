@@ -24,12 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\nh229u03\AppData\Local\Temp\vs8522.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs4592.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs5CA3.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs5079.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Kristine\AppData\Local\Temp\vsC3F5.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u12\AppData\Local\Temp\vs7CF3.tmp\Debug\</IntermediateOutputPath>
+
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,15 +34,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\nh229u03\AppData\Local\Temp\vs8522.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6A9E.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs4592.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs5CA3.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u27\AppData\Local\Temp\vsF9B8.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs8A97.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs5079.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Kristine\AppData\Local\Temp\vsC3F5.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u12\AppData\Local\Temp\vs7CF3.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -118,11 +104,20 @@
     <Compile Include="ExpertPages\SearchForQuestions.xaml.cs">
       <DependentUpon>SearchForQuestions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExpertPages\UploadTemplates.xaml.cs">
+      <DependentUpon>UploadTemplates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertPages\ViewBluePrints.xaml.cs">
+      <DependentUpon>ViewBluePrints.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExpertPages\ViewPlants.xaml.cs">
       <DependentUpon>ViewPlants.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExpertPages\ViewRecipe.xaml.cs">
       <DependentUpon>ViewRecipe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertPages\ViewTemplates.xaml.cs">
+      <DependentUpon>ViewTemplates.xaml</DependentUpon>
     </Compile>
     <Compile Include="GardenPages\AssignTask.xaml.cs">
       <DependentUpon>AssignTask.xaml</DependentUpon>
@@ -159,6 +154,9 @@
     </Compile>
     <Compile Include="ProfilePages\ProfileMenu.xaml.cs" />
     <Compile Include="RegionPage.xaml.cs" />
+    <Compile Include="ExpertPages\UploadBlueprint.xaml.cs">
+      <DependentUpon>UploadBlueprint.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VolunteerPages\EditVolunteerAvailability.xaml.cs">
       <DependentUpon>EditVolunteerAvailability.xaml</DependentUpon>
     </Compile>
@@ -236,11 +234,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ExpertPages\UploadTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpertPages\ViewBluePrints.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ExpertPages\ViewPlants.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ExpertPages\ViewRecipe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpertPages\ViewTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -438,6 +448,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ProfilePages\ProfileMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExpertPages\UploadBlueprint.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -697,7 +711,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Blueprints\" />
+    <Folder Include="Templates\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets. -->
