@@ -76,7 +76,7 @@
                 <TextBox x:Name="txtKeywords" Grid.Row="0" Grid.Column="1" Margin="5" MinWidth="100" MaxWidth="100" KeyUp="txtKeywords_KeyUp" />
             </Grid>
 
-            <Grid Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" MaxWidth="750">
+            <Grid Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="750">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
