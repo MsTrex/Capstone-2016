@@ -50,8 +50,8 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                
                 if (user == null)
                 {
-                    lblMessage.Foreground = Brushes.Red;
-                    lblMessage.Content = "Users NO: " + _accessToken.UserID + "  Not Found in DataBase, try again";      
+                    //lblMessage.Foreground = Brushes.Red;
+                    //lblMessage.Content = "Users NO: " + _accessToken.UserID + "  Not Found in DataBase, try again";      
                 }
                 else
                 {
@@ -93,17 +93,17 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
 
             if (txtOldPassword.Password != null && txtOldPassword.Password != _accessToken.Password)
             {
-                lblMessage.Content = "Invalid old Password";
+                //MessageBox.Show("Invalid old Password");
             }
 
             if (txtNewPassword2.Password == null || txtNewPassword1.Password == null)
             {
-               lblMessage.Content = "enter new Password twice";
-            } 
+                //MessageBox.Show("Enter your new password");
+            }
 
             if (txtNewPassword2.Password != txtNewPassword1.Password)
             {
-                lblMessage.Content = "new Password doesn't match!";
+                //MessageBox.Show("Passwords don't match");
             } 
 
         }
@@ -113,21 +113,27 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             
             try
             {
-                var res = usrMgr.EditPasssword(_accessToken.UserName, txtOldPassword.Password, txtNewPassword1.Password);
-                lblMessage.Content = _accessToken.UserName + "  " + txtOldPassword.Password + "   " + txtNewPassword1.Password;
-                if (res == true)
+                if (txtNewPassword1.Password.Length < 5)
                 {
-                    lblMessage.Content = "Operation Succeeded. ";
-                    
+                    MessageBox.Show("Password must be at least 5 characters.");
                 }
                 else
                 {
-                    lblMessage.Content = "Operation failed. ";
+                    var res = usrMgr.EditPasssword(_accessToken.UserName, txtOldPassword.Password, txtNewPassword1.Password);
+                    if (res == true)
+                    {
+                        MessageBox.Show("Your password has been changed. ");
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Your password failed to update. ");
+                    }
                 }
             }
             catch (Exception)
             {
-                lblMessage.Content = "Operation Failed, check out!";
+                MessageBox.Show("Your password has been changed. ");
             }
             finally
             {
