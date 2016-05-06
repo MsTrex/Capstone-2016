@@ -22,10 +22,13 @@
         <br/>
         <br/>
         <h3>Garden Description</h3>
-        <p>Click garden description to expand editor:</p>
+        <p>Click 'garden description' or 'garden image' to edit the garden description or image:</p>
         @Html.LabelFor(m => m.GardenDescription, new { id = "gardenDescription", @class = "green-btn", style = "color: black;" })
         <div id="textEditor">
             @Html.TextAreaFor(m => m.GardenDescription, new { id = "rich-editor" })
+        </div>
+        <div id="imageEditor">
+            
         </div>
     </div>
 
