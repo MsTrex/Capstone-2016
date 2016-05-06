@@ -64,6 +64,7 @@
     <Compile Include="ResponseManagerUnitTests.cs" />
     <Compile Include="RoleManagerUnitTests.cs" />
     <Compile Include="SecurityManagerUnitTests.cs" />
+    <Compile Include="GroupLeaderRequestManagerUnitTests.cs" />
     <Compile Include="UserNeedsManagerUnitTests.cs" />
     <Compile Include="UserManagerUnitTests.cs" />
     <Compile Include="UserRegionManagerTests.cs" />

@@ -8,7 +8,7 @@
       d:DesignHeight="700" d:DesignWidth="1000"
       Title="ExpertHome">
 
-    <Grid>
+    <Grid   Margin="40">
         <Label FontSize="25" Content="Expert MAIN Page Content"></Label>
     </Grid>
 </Page>

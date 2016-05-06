@@ -9,8 +9,8 @@
       ScrollViewer.VerticalScrollBarVisibility="Auto"
       Width="{Binding Source={x:Static SystemParameters.ScrollWidth}, Path=Width}"
       xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit" >
-    
-    <ScrollViewer>
+
+    <Grid   Margin="40">
         <Grid x:Name="grid">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.25,1" StartPoint="0.25,0">
@@ -77,5 +77,5 @@
                 </ItemsControl>
             </Grid>
         </Grid>
-    </ScrollViewer>
+    </Grid>
 </Page>

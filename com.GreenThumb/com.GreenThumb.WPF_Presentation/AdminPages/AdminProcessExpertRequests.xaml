@@ -8,7 +8,7 @@
       d:DesignHeight="300" d:DesignWidth="600"
 	Title="AdminProcessExpertRequests">
 
-    <Grid>
+    <Grid Margin="40">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="auto"/>
@@ -27,6 +27,7 @@
                             <DataGridTextColumn Header="First Name" Binding="{Binding Path=User.FirstName}" />
                             <DataGridTextColumn Header="Last Name" Binding="{Binding Path=User.LastName}" />
                             <DataGridTextColumn Header="Email" Binding="{Binding Path=User.EmailAddress}" />
+                            <DataGridTextColumn Header="User Name" Binding="{Binding Path=User.UserName}" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <Grid Grid.Column="1" HorizontalAlignment="Left"  Width="300" >

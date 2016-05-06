@@ -28,13 +28,13 @@ namespace com.GreenThumb.DataAccess
         /// <param name="accessToken">To confirm access as administrator.</param>
         public AdminExpertRequestsAccessor(AccessToken accessToken)
         {
-            if (RetrieveAdminRoleStatus(accessToken))
+            if (accessToken != null)
             {
                 this.accessToken = accessToken;
             }
             else
             {
-                throw new Exception("User must be an admin to access this method.");
+                throw new Exception("No Access Token.");
             }
         }
 

@@ -7,7 +7,7 @@
       d:Height="515.787" Width="893.15"
 	Title="AdminProfile">
 
-    <Grid>
+    <Grid Margin="40">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>

@@ -9,7 +9,7 @@
 	Title="MessageCompose"
     xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit">
 
-    <Grid>
+    <Grid Margin="40">
         <toolkit:AutoCompleteBox x:Name="txtTo" HorizontalAlignment="Left" Height="23" Margin="94,62,0,0" Text="" VerticalAlignment="Top" Width="120" DataContext="{Binding Source=list}" AllowDrop="False" FilterMode="Contains" SelectionChanged="txtTo_SelectionChanged" LostFocus="txtTo_LostFocus"/>
         <Label x:Name="lblError" Content="" Foreground="Red" Margin="232,59,-24,212" />
         <Label x:Name="lblTxT" Content="To:" HorizontalAlignment="Left" Margin="22,62,0,0" VerticalAlignment="Top"/>

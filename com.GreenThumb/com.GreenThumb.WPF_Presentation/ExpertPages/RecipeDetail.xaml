@@ -10,45 +10,43 @@
       ScrollViewer.VerticalScrollBarVisibility="Auto"
       Height="{Binding Source={x:Static SystemParameters.ScrollWidth}, Path=Height}">
 
-    
-    <ScrollViewer>
-    <Grid>
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="White" Offset="0"/>
-                    <GradientStop Color="#FFD1F7BB" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>
-        
+
+    <Grid Margin="40">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#FFD1F7BB" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Row="0" Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label x:Name="lblTitle" Grid.Row="0" Grid.Column="0" Content="Title:" Margin="20,0,0,0" />
-                <Label x:Name="lblCategory" Grid.Row="1" Grid.Column="0" Content="Category:" Margin="20,0,0,0" />
-                <Label x:Name="lblCreatedBy" Grid.Row="0" Grid.Column="1" Margin="0,0,0,0" Content="Created By:" />
-                <Label x:Name="lblDate" Grid.Row="1" Grid.Column="1" Margin="0,0,0,0" Content="Date:" />
-                <Border Grid.Row="2" Grid.Column="0" Margin="20 5 20 5" BorderBrush="Black" BorderThickness="1" >
-                    <TextBlock x:Name="lblDescription" Padding="7" Text="desc" TextWrapping="Wrap" Background="White" />
-                </Border>
-            </Grid>
-            <Grid Grid.Row="1" Grid.Column="0">
-                <Button  Style="{StaticResource button1}" x:Name="btnBack" Margin="20 5 20 5" Width="85" Content="Back" Click="btnBack_Click" HorizontalAlignment="Left" />
-            </Grid>
+            <Label x:Name="lblTitle" Grid.Row="0" Grid.Column="0" Content="Title:" Margin="20,0,0,0" />
+            <Label x:Name="lblCategory" Grid.Row="1" Grid.Column="0" Content="Category:" Margin="20,0,0,0" />
+            <Label x:Name="lblCreatedBy" Grid.Row="0" Grid.Column="1" Margin="0,0,0,0" Content="Created By:" />
+            <Label x:Name="lblDate" Grid.Row="1" Grid.Column="1" Margin="0,0,0,0" Content="Date:" />
+            <Border Grid.Row="2" Grid.Column="0" Margin="20 5 20 5" BorderBrush="Black" BorderThickness="1" >
+                <TextBlock x:Name="lblDescription" Padding="7" Text="desc" TextWrapping="Wrap" Background="White" />
+            </Border>
         </Grid>
-    </ScrollViewer>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Button  Style="{StaticResource button1}" x:Name="btnBack" Margin="20 5 20 5" Width="85" Content="Back" Click="btnBack_Click" HorizontalAlignment="Left" />
+        </Grid>
+    </Grid>
 </Page>

@@ -32,7 +32,7 @@
             </Setter>
         </Style>
     </Page.Resources>
-    <ScrollViewer>
+    <Grid  Margin="40">
         <Grid x:Name="grid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -164,5 +164,5 @@
             </Grid>
 
         </Grid>
-    </ScrollViewer>
+    </Grid>
 </Page>

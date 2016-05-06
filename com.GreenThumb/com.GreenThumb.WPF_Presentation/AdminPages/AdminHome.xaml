@@ -8,7 +8,7 @@
       d:DesignHeight="700" d:DesignWidth="1000"
       Title="AdminHome">
 
-    <Grid>
+    <Grid Margin="40">
         <Label FontSize="25" Content="Admin MAIN Page Content"></Label>
     </Grid>
 </Page>

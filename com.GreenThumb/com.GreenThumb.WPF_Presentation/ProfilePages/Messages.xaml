@@ -7,7 +7,7 @@
       d:DesignHeight="368.955" d:DesignWidth="600.403"
 	Title="Messages">
 
-    <Grid>
+    <Grid Margin="40">
         <DataGrid HorizontalAlignment="Left" x:Name="dataInbox" Margin="9,104,0,0" VerticalAlignment="Top" Height="104" Width="270" SelectionMode="Single" Cursor="Hand" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="dataInbox_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="From" Binding="{Binding MessageSender}" Width="Auto"/>
