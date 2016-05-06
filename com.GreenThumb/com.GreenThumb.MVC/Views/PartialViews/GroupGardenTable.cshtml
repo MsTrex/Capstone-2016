@@ -14,7 +14,7 @@
             {
                 <h2 class="indent">@Html.ActionLink(garden.GardenName, "GardenDetail", "Garden", new { id = garden.GardenID }, new { @class = "" })</h2>
                 @* Garden description is just for testing *@
-                <div class="html-content">
+                <div class="html-content double-indent">
                     @Html.Raw(garden.Description)
                 </div>
                 @* Check roles for group leader, then add column for options *@
