@@ -386,13 +386,10 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar1.Content = "Users";
             btnSideBar2.Content = "Messages";
             btnSideBar3.Content = "Expert Requests";
-<<<<<<< HEAD
             btnSideBar4.Content = "User Role";
             btnSideBar5.Content = "User Region";
             btnSideBar6.Content = "Admin User Profile";
-=======
             btnSideBar6.Content = "";
->>>>>>> origin
             clearUnusedSidebars();
             boldCurrent(sender);
         }
