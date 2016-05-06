@@ -40,7 +40,7 @@ namespace com.GreenThumb.BusinessLogic
                 }
                 else
                 {
-                    throw new ApplicationException("Invalid username or password."");
+                    throw new ApplicationException("Invalid username or password.");
                 }
             }
             catch
