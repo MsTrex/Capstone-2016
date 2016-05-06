@@ -79,6 +79,7 @@
         <Label Content="Profile Menu" HorizontalAlignment="Left" Margin="91,-51,0,0" VerticalAlignment="Top" Width="390" Height="39" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2"/>
         <DataGrid x:Name="grdGarden" HorizontalAlignment="Left" Height="222" Margin="177,73,0,0" VerticalAlignment="Top" Width="716" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
 
+
     </Grid>
 
 </Page>
