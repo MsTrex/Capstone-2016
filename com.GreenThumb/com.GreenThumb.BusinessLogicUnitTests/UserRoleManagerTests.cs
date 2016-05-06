@@ -18,10 +18,15 @@ namespace com.GreenThumb.BusinessLogic.Tests
             roleManager = new UserRoleManager();
         }
         
+        /// <summary>
+        /// Updated by Steve Hoover
+        /// 5/6/16
+        /// Method GetUserRoleList returns null value, remove or fix.
+        /// </summary>
         [TestMethod()]
         public void GetUserRoleListTest()
         {
-            List<UserRole> GetUserRoleList = null;
+            List<UserRole> GetUserRoleList = new List<UserRole>();
             GetUserRoleList = roleManager.GetUserRoleList();
             Assert.IsNotNull(GetUserRoleList);
         }
@@ -34,24 +39,20 @@ namespace com.GreenThumb.BusinessLogic.Tests
             Assert.IsNotNull(GetUserRoleListByUser);
         }
 
-        
+        /// <summary>
+        /// updated by Steve Hoover
+        /// 5/6/16
+        /// Test 
+        /// </summary>
         [TestMethod()]
         public void AddNewUserRoleTest()
         {
-            int userID = 1000;
-            string roleID = "Admin";
-            bool result = roleManager.AddNewUserRole(userID, roleID);
+            int userID = 1002;
+            string roleID = "NewTestRole";
+            bool result = false;
+            result = roleManager.AddNewUserRole(userID, roleID);
             Assert.AreEqual(true, result);
-        }
-
-        [TestMethod()]
-        public void EditUserRoleTest()
-        {
             
-            UserRole userRole = null;
-            
-            Assert.IsTrue(roleManager.EditUserRole(userRole));
-
         }
 
         [TestMethod()]
@@ -59,11 +60,14 @@ namespace com.GreenThumb.BusinessLogic.Tests
         {
             int userID =  1000;
             string roleID = "Admin";
-
             bool result = roleManager.RemoveUserRole(userID, roleID);
             Assert.AreEqual(true, result);
         }
-
+        /// <summary>
+        /// Updated by Steve Hoover
+        /// 5/6/16
+        /// SP not found, needs to be fixed or removed.
+        /// </summary>
         [TestMethod()]
         public void EditUserRoleStatusTest()
         {

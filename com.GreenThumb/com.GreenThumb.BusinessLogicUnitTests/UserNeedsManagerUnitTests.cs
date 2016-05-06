@@ -22,6 +22,12 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             contributions = userNeedsManager.GetSentContributions();
             Assert.IsNotNull(contributions);
         }
+        /// <summary>
+        /// updated by Steve Hoover
+        /// 5/6/16
+        /// Returns null because no AcceptedContributions exist. Unable to find method(s) to create
+        /// accepted contributions. Add info to DB or remove test if method not used.
+        /// </summary>
         [TestMethod]
         public void TestGetAcceptedContributions()
         {
@@ -36,6 +42,12 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             contributions = userNeedsManager.GetDeclinedContributions();
             Assert.IsNotNull(contributions);
         }
+        /// <summary>
+        /// updated by Steve Hoover
+        /// 5/6/16
+        /// Returns null because no AvailableNeeds exist. Unable to find method(s) to create
+        /// available needs. Add info to DB or remove test if method not used.
+        /// </summary>
         [TestMethod]
         public void TestGetAvailableNeeds()
         {

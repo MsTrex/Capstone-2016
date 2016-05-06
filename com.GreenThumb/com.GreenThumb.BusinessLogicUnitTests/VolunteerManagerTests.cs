@@ -17,6 +17,11 @@ namespace com.GreenThumb.BusinessLogic.Tests
         {
             volunteerManager = new VolunteerManager();
         }
+        /// <summary>
+        /// Updated by Steve Hoover
+        /// 5/6/16
+        /// Method broken, could be because of DB changes. Suggest removing.
+        /// </summary>
         [TestMethod()]
         public void AddVolunteerTest()
         {
