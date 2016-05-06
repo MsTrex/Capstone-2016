@@ -132,12 +132,12 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             if (gridQuestions.Items.Count > 0)
             {
                 //gridQuestions.Visibility = System.Windows.Visibility.Visible;
-                lblNoMatch.Visibility = System.Windows.Visibility.Collapsed;
+                //lblNoMatch.Visibility = System.Windows.Visibility.Collapsed;
             }
             else
             {
                 //gridQuestions.Visibility = System.Windows.Visibility.Collapsed;
-                lblNoMatch.Visibility = System.Windows.Visibility.Visible;
+                //lblNoMatch.Visibility = System.Windows.Visibility.Visible;
             }
         }
 

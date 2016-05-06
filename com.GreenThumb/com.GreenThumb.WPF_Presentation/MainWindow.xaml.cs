@@ -148,7 +148,6 @@ namespace com.GreenThumb.WPF_Presentation
                 {
                     // clear the access token reference
                     _accessToken = null;
-                    MessageBox.Show("Login Failed.");
                     lblLoggedIn.Content = "";
                     CheckPermissions();
                 }
@@ -161,6 +160,7 @@ namespace com.GreenThumb.WPF_Presentation
                 lblLoggedIn.Content = "";
                 CheckPermissions();
                 btnSignUp.Visibility = System.Windows.Visibility.Visible;
+                mainFrame.NavigationService.Navigate(new HomeContent(_accessToken));
             }
         }
         /// <summary>
@@ -328,7 +328,8 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar7.Content = "Plants";
             btnSideBar8.Content = "Upload Garden Template";
             btnSideBar9.Content = "View Garden Templates";
-            btnSideBar10.Content = "Become an Expert";
+            btnSideBar10.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ||
+               roleManager.ConfirmUserIsAssignedRole(_accessToken, "Admin") ? "" : "Become an Expert";
             clearUnusedSidebars();
         }
 

@@ -59,7 +59,6 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                     lblLastName.Content = _accessToken.LastName;
                     lblZip.Content = _accessToken.Zip;
                     lblMail.Content = _accessToken.EmailAddress;
-                    lblUserName.Content = _accessToken.UserName;
                     lblRegion.Content =_accessToken.RegionId;
                 } 
             }
@@ -81,7 +80,6 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             txtEmail.Text = _accessToken.EmailAddress;
             txtRegion.Text= _accessToken.RegionId.ToString();
             txtRegion.IsEnabled = false;
-            txtUserName.Text = _accessToken.UserName;
         }
 
         private void btnChangePassword_Click(object sender, RoutedEventArgs e)
@@ -115,8 +113,8 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             
             try
             {
-                var res = usrMgr.EditPasssword(txtUserName.Text, txtOldPassword.Password, txtNewPassword1.Password);
-                lblMessage.Content = txtUserName.Text + "  " + txtOldPassword.Password + "   " + txtNewPassword1.Password;
+                var res = usrMgr.EditPasssword(_accessToken.UserName, txtOldPassword.Password, txtNewPassword1.Password);
+                lblMessage.Content = _accessToken.UserName + "  " + txtOldPassword.Password + "   " + txtNewPassword1.Password;
                 if (res == true)
                 {
                     lblMessage.Content = "Operation Succeeded. ";
@@ -185,7 +183,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             user.LastName = txtLastName.Text;
             user.Zip = txtZip.Text;
             user.EmailAddress = txtEmail.Text;
-            user.UserName = txtUserName.Text;
+            user.UserName = _accessToken.UserName;
 
             if (txtRegion.Text.Trim() == "" || txtRegion.Text == null)
             {
@@ -203,7 +201,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                         if (res == true)
                         {
 
-                            lblMessage.Content = "Operation Succeeded. ";
+                            //lblMessage.Content = "Operation Succeeded. ";
                             _accessToken.FirstName = user.FirstName;
                             _accessToken.LastName = user.LastName;
                             _accessToken.UserName = user.UserName;
@@ -214,14 +212,15 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                         }
                         else
                         {
-                            lblMessage.Content = "Operation failed. ";
+                            //lblMessage.Content = "Operation failed. ";
                         }
                        
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                lblMessage.Content = "Operation Failed, check out!";
+                //lblMessage.Content = "Operation Failed, check out!";
+                MessageBox.Show(ex.Message);
             }
             finally
             {

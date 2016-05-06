@@ -23,15 +23,13 @@
             <TextBox x:Name="txtLastName" HorizontalAlignment="Left" Height="23" Margin="106,41,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="161"/>
             <TextBox x:Name="txtZip" HorizontalAlignment="Left" Height="23" Margin="106,69,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="161"/>
             <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Height="23" Margin="106,97,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="161"/>
-            <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Height="23" Margin="106,126,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="161"/>
-            <TextBox x:Name="txtRegion" HorizontalAlignment="Left" Height="23" Margin="106,155,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="161"/>
+            <TextBox x:Name="txtRegion" HorizontalAlignment="Left" Height="23" Margin="106,126,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="161"/>
 
             <Label Content="First Name :" HorizontalAlignment="Left" Margin="20,12,0,0" VerticalAlignment="Top" Width="98"/>
             <Label Content="Last Name :" HorizontalAlignment="Left" Margin="20,42,0,0" VerticalAlignment="Top" Width="98"/>
             <Label Content="Zip Code:" HorizontalAlignment="Left" Margin="20,71,0,0" VerticalAlignment="Top" Width="98"/>
             <Label Content="EMail: " HorizontalAlignment="Left" Margin="20,97,0,0" VerticalAlignment="Top" Width="98"/>
-            <Label Content="User Name: " HorizontalAlignment="Left" Margin="20,126,0,0" VerticalAlignment="Top" Width="98"/>
-            <Label Content="Region: " HorizontalAlignment="Left" Margin="20,153,0,0" VerticalAlignment="Top" Width="98"/>
+            <Label Content="Region: " HorizontalAlignment="Left" Margin="20,126,0,0" VerticalAlignment="Top" Width="98"/>
             <Button x:Name="btnUpdate" Content="SAVE" HorizontalAlignment="Left" Margin="20,202,0,-37" VerticalAlignment="Top" Width="116" Height="32" FontSize="14" FontWeight="Bold" Click="btnUpdate_Click"/>
             <Button x:Name="btnBack" Content="BACK" HorizontalAlignment="Left" Margin="147,202,0,-37" VerticalAlignment="Top" Width="116" Height="32" FontSize="14" FontWeight="Bold" Click="btnBack_Click"/>
             <ListBox Name="regions" HorizontalAlignment="Left" Height="79" Margin="271,155,-72,-37" VerticalAlignment="Top" Width="78" SelectionChanged="ListBox_SelectionChanged">
@@ -70,16 +68,14 @@
             <Label x:Name="lblFirstName" HorizontalAlignment="Left" Margin="10,28,0,0" VerticalAlignment="Top" Width="118"/>
             <Label x:Name="lblLastName" Content="Label" HorizontalAlignment="Left" Margin="142,28,0,0" VerticalAlignment="Top" Width="130"/>
             <Label x:Name="lblZip" Content="Label" HorizontalAlignment="Left" Margin="283,28,0,0" VerticalAlignment="Top" Width="68"/>
-            <Label x:Name="lblUserName" Content="Label" HorizontalAlignment="Left" Margin="591,28,0,0" VerticalAlignment="Top" Width="123"/>
-            <Label x:Name="lblRegion" Content="Label" HorizontalAlignment="Left" Margin="726, 28,0,0" VerticalAlignment="Top" Width="68"/>
+            <Label x:Name="lblRegion" Content="Label" HorizontalAlignment="Left" Margin="591, 28,0,0" VerticalAlignment="Top" Width="68"/>
             <Label x:Name="lblMail" Content="Label" HorizontalAlignment="Left" Margin="389,28,0,0" VerticalAlignment="Top" Width="188"/>
         </Grid>
         <Label Content="Last Name" HorizontalAlignment="Left" Margin="26,10,0,0" VerticalAlignment="Top" Height="23" Width="79" Grid.ColumnSpan="2"/>
         <Label Content="First Name" HorizontalAlignment="Left" Margin="155,10,0,0" VerticalAlignment="Top" Height="23" Width="79" Grid.ColumnSpan="2"/>
         <Label Content="Zip Code" HorizontalAlignment="Left" Margin="296,10,0,0" VerticalAlignment="Top" Height="23" Width="79" Grid.ColumnSpan="2"/>
         <Label Content="Email Address" HorizontalAlignment="Left" Margin="402,10,0,0" VerticalAlignment="Top" Height="23" Width="79" Grid.ColumnSpan="2"/>
-        <Label Content="User Name" HorizontalAlignment="Left" Margin="603,10,0,0" VerticalAlignment="Top" Height="23" Width="79" Grid.ColumnSpan="2"/>
-        <Label Content="Region ID" HorizontalAlignment="Left" Margin="737,10,0,0" VerticalAlignment="Top" Height="23" Width="79" Grid.ColumnSpan="2"/>
+        <Label Content="Region ID" HorizontalAlignment="Left" Margin="603,10,0,0" VerticalAlignment="Top" Height="23" Width="79" Grid.ColumnSpan="2"/>
         <Label Content="Profile Menu" HorizontalAlignment="Left" Margin="91,-51,0,0" VerticalAlignment="Top" Width="390" Height="39" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2"/>
         <DataGrid x:Name="grdGarden" HorizontalAlignment="Left" Height="222" Margin="177,73,0,0" VerticalAlignment="Top" Width="716" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
 

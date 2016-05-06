@@ -8,7 +8,8 @@
 	Title="SearchForQuestions"
       Width="{Binding Source={x:Static SystemParameters.ScrollWidth}, Path=Width}" 
       ScrollViewer.VerticalScrollBarVisibility="Auto"
-      Height="{Binding Source={x:Static SystemParameters.ScrollWidth}, Path=Height}">
+      Height="{Binding Source={x:Static SystemParameters.ScrollWidth}, Path=Height}"
+      x:Name="page">
     <Page.Resources>
         <Style x:Key="Link" TargetType="Button">
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -122,10 +123,11 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label x:Name="lblQuestion" Grid.Row="0" Grid.Column="0" FontWeight="Bold" FontSize="20" Margin="20 20 20 0" Content="Question:" />
-                <Label x:Name="lblQuestionDate" Grid.Row="1" Grid.Column="0" Margin="20 0" Content="Date" Foreground="Gray" />
-                <Border BorderThickness="0,0,0,2" BorderBrush="Black" Grid.Row="2" Grid.Column="0" Padding="5" Margin="20 0 20 0" MaxHeight="90">
-                    <TextBlock x:Name="lblContent" Text="Question Here" FontSize="20" TextWrapping="Wrap" Grid.Row="1" Grid.Column="0" Margin="20,10"/>
+                <Label x:Name="lblQuestion" Grid.Row="0" Grid.Column="0" FontWeight="Bold" FontSize="20" Margin="20 20 20 0" Content="" />
+                <Label x:Name="lblQuestionDate" Grid.Row="1" Grid.Column="0" Margin="20 0" Content="" Foreground="Gray" />
+                <Border BorderThickness="0,0,0,2" BorderBrush="Black" Grid.Row="2" Grid.Column="0" Padding="5" Margin="20 0 20 0">
+                    <TextBlock x:Name="lblContent" Text="" FontSize="20" TextWrapping="Wrap" Margin="20,10" Padding="0 0 200 0"
+                                Width="{Binding ElementName=page, Path=ActualWidth}" Height="Auto"/>
                 </Border>
             </Grid>
 

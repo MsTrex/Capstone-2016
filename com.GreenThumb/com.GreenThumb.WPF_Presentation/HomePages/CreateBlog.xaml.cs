@@ -64,7 +64,7 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
                 if (valid)
                 {
                     blogManager.AddBlog(blog);
-                    MessageBox.Show("Thank you for submitting your blog, creation sucessful!");
+                    MessageBox.Show("Thank you for submitting your blog!");
                     if (accessToken != null)
                     {
                         this.NavigationService.Navigate(new HomePages.ViewBlog(accessToken));
