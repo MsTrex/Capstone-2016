@@ -181,10 +181,14 @@ namespace com.GreenThumb.MVC.Controllers
             {
                 ContributionsDetailViewModel model = new ContributionsDetailViewModel();
 
-                model.PendingContributions = collection.Where(n => !n.Contributed.HasValue);
-                collection = collection.Where(n => n.Contributed.HasValue);
-                model.ApprovedContributions = collection.Where(n => n.Contributed.Value);
-                model.DeclinedContributions = collection.Where(n => !n.Contributed.Value);
+                model.PendingContributions 
+                    = collection.Where(n => !n.Contributed.HasValue);
+                collection 
+                    = collection.Where(n => n.Contributed.HasValue);
+                model.ApprovedContributions 
+                    = collection.Where(n => n.Contributed.Value);
+                model.DeclinedContributions 
+                    = collection.Where(n => !n.Contributed.Value);
 
                 view = View(model);
             } 
