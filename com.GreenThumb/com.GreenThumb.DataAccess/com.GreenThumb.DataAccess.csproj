@@ -46,6 +46,7 @@
     <Compile Include="AdminExpertRequestsAccessor.cs" />
     <Compile Include="AnnoucementAccessor.cs" />
     <Compile Include="BlogAccessor.cs" />
+    <Compile Include="BlueprintAccessor.cs" />
     <Compile Include="CreateOrgAccessor.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="ExpertAccessor.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="RecipeAccessor.cs" />
     <Compile Include="RegionAccessor.cs" />
     <Compile Include="RoleAccessor.cs" />
+    <Compile Include="TemplateAccessor.cs" />
     <Compile Include="TimePledgedAccessor.cs" />
     <Compile Include="UserAccessor.cs" />
     <Compile Include="UserNeedsAccessor.cs" />

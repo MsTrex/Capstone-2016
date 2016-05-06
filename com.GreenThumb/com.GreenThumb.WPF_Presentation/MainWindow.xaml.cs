@@ -337,7 +337,9 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar7.Content = "Plants";
             btnSideBar8.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ? "Upload Garden Template" : "";
             btnSideBar9.Content = "View Garden Templates";
-            btnSideBar10.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ||
+            btnSideBar10.Content = "Upload Garden Blueprints";
+            btnSideBar11.Content = "View Garden Blueprints";
+            btnSideBar12.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ||
                roleManager.ConfirmUserIsAssignedRole(_accessToken, "Admin") ? "" : "Become an Expert";
             clearUnusedSidebars();
             boldCurrent(sender);
@@ -512,13 +514,13 @@ namespace com.GreenThumb.WPF_Presentation
                         page = new AdminPages.AdminProfile(_accessToken);
                         break;
                     case "Upload Garden Template":
-                        page = new ExpertPages.ExpertGardenTemplate(_accessToken);
+                        page = new ExpertPages.UploadTemplates(_accessToken);
                         break;
                     case "Sign Up for Task":
                         page = new GardenPages.SelectTasks(_accessToken);
                         break;
                     case "View Garden Templates":
-                        page = new ExpertPages.ViewGardenTemplate();
+                        page = new ExpertPages.ViewTemplates(_accessToken);
                         break;
                     case "create garden":
                         page = new GardenPages.CreateGarden(_accessToken);
@@ -549,7 +551,13 @@ namespace com.GreenThumb.WPF_Presentation
                         break;
                     case "Become an Expert":
                         page = new ExpertPages.RequestExpert(_accessToken);
-                        break;                        
+                        break;   
+                     case "Upload Garden Blueprints":
+                        page = new ExpertPages.UploadBlueprint(_accessToken);
+                        break;
+                     case "View Garden Blueprints":
+                        page = new ExpertPages.ViewBluePrints(_accessToken);
+                        break;                          
                     default: //Blog
                         page = page = new HomePages.ViewBlog(_accessToken);
                         break;

@@ -46,7 +46,9 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -65,6 +67,11 @@
     <Compile Include="RoleManagerUnitTests.cs" />
     <Compile Include="SecurityManagerUnitTests.cs" />
     <Compile Include="GroupLeaderRequestManagerUnitTests.cs" />
+    <Compile Include="AddRequestManagerTests.cs" />
+    <Compile Include="NutrientManagerUnitTests.cs" />
+    <Compile Include="AnnouncementManagerUnitTests.cs" />
+    <Compile Include="BlogManagerUnitTests.cs" />
+    <Compile Include="DonationManagerUnitTests.cs" />
     <Compile Include="UserNeedsManagerUnitTests.cs" />
     <Compile Include="UserManagerUnitTests.cs" />
     <Compile Include="UserRegionManagerTests.cs" />

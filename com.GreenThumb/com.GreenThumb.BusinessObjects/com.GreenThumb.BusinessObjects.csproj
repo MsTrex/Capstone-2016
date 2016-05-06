@@ -20,13 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6456.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs81EF.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u03\AppData\Local\Temp\vs7FF3.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vsB259.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs54E5.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Kristine\AppData\Local\Temp\vsAB7A.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u27\AppData\Local\Temp\vsD1E8.tmp\Debug\</IntermediateOutputPath>
+
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,18 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6456.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs81EF.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vsB259.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Kristine\AppData\Local\Temp\vs1B0E.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u03\AppData\Local\Temp\vs7FF3.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs54E5.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs8883.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Dat\AppData\Local\Temp\vs866D.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u10\AppData\Local\Temp\vsCF7E.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs4FCD.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Kristine\AppData\Local\Temp\vsAB7A.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u27\AppData\Local\Temp\vsD1E8.tmp\Release\</IntermediateOutputPath>
+ 
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -64,6 +47,7 @@
     <Compile Include="AddRequest.cs" />
     <Compile Include="Advice.cs" />
     <Compile Include="Blog.cs" />
+    <Compile Include="Blueprint.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="AdministratorAccount.cs" />
     <Compile Include="BecomeExpert.cs" />
@@ -101,6 +85,7 @@
     <Compile Include="SoilDonated.cs" />
     <Compile Include="SoilNeeded.cs" />
     <Compile Include="Task.cs" />
+    <Compile Include="Template.cs" />
     <Compile Include="TimePledge.cs" />
     <Compile Include="TimePledgeDonated.cs" />
     <Compile Include="TimePledgeNeeded.cs" />
@@ -115,7 +100,6 @@
     <Compile Include="Question.cs" />
     <Compile Include="Recipe.cs" />
     <Compile Include="Response.cs" />
-    <Compile Include="Template.cs" />
     <Compile Include="UserRole.cs" />
     <Compile Include="Volunteer.cs" />
     <Compile Include="VolunteerNeeds.cs" />
