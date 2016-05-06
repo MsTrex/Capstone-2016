@@ -39,11 +39,11 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
 
         private void InitializeControls()
         {
-            lblTitle.Content = "Recipe: " + _recipe.Title;
+            lblTitle.Text =  _recipe.Title;
             lblDescription.Text = _recipe.Directions;
-            lblCreatedBy.Content = "Made by " + userManager.GetUser(_recipe.CreatedBy).UserName;
-            lblDate.Content = "Date: " + _recipe.CreatedDate.ToShortDateString();
-            lblCategory.Content = "Category: " + _recipe.Category;
+            lblCreatedBy.Text = "made by " + userManager.GetUser(_recipe.CreatedBy).UserName;
+            lblDate.Text = _recipe.CreatedDate.ToString("MMMM dd, yyyy hh:mm tt");
+            lblCategory.Text = "Category: " + _recipe.Category;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

@@ -31,11 +31,11 @@ GO
 
 create schema Admin;
 go
-create schema Donations;
-go
 create schema Expert;
 go
 create schema Gardens;
+go
+create schema Needs;
 go
 
 
@@ -140,276 +140,6 @@ create table Admin.Users(
 	RegionID int null
 	
 	CONSTRAINT ck_UserName UNIQUE(UserName) 
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.EquipmentDonated(
-	EquipmentDonatedID int identity(1000,1) not null primary key, 
-	EquipmentName varchar(50) not null,
-	EquipmentQuantity int not null,
-	DateDonated smalldatetime not null,
-	UserID int not null,
-	ShippingNotes varchar(255) not null,
-	StateLocated char(2) not null,
-	Active bit not null default 1
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.EquipmentNeeded(
-	EquipmentNeededID int identity(1000,1) not null primary key,
-	EquipmentName varchar(50) not null,
-	EquipmentQuantity int not null,
-	DateDonated smalldatetime not null,
-	UserID int not null,
-	GroupID int not null,
-	ReceivingNotes varchar(255) not null,
-	StateLocated char(2) not null,
-	Active bit not null default 1
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.EquipmentPendingTrans(
-	EquipmentDonatedID int not null, 
-	EquipmentNeededID int not null,
-	Date smalldatetime not null,
-	UserID int not null,
-	GroupID int not null,
-	Active bit not null default 1
-);
-
-create table Donations.LandDonated(
-	TransactionNum int identity(1000,1) not null primary key,
-	UserID int not null,
-	Size int not null,
-	Address varchar(100) not null,
-	City varchar(30) null,
-	state char(2) null,
-	zip char(9) null,
-	Notes varchar(255) null,
-	DateDonated smalldatetime not null,
-	Active bit not null default 1 
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.LandNeeded(
-	LandIdentifier int identity(1000,1) not null primary key,
-	UserID int not null,
-	DateNeeded smalldatetime not null,
-	DateRequested smalldatetime null,
-	Notes varchar(255) null,
-	Zip varchar(9) null,
-	City varchar(30) not null,
-	GroupID int not null,
-	Active bit not null default 1
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.LandPendingTrans(
-	LandDonated int not null,
-	LandNeeded int not null,
-	DateCompleted smalldatetime null,
-	Notes varchar(255) null,
-	ExpirationDate smalldatetime null,
-	TransDate smalldatetime not null,
-	UserID int not null,
-	GroupID int not null,
-	Active bit not null default 1
-
-	CONSTRAINT [PK_LandPendingTrans] PRIMARY KEY ( LandDonated, LandNeeded ASC )
-);
-
-create table Donations.MoneyDonated(
-	DonationID int identity(1000,1) primary key not null,
-	UserID int not null,
-	Location varchar(50) not null,
-	Amount decimal not null,
-	DateCreated smalldatetime not null,
-	Active bit not null default 1
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.MoneyNeeded(
-	NeedID int identity(1000,1) primary key not null,
-	UserID int not null,
-	Location varchar(50) not null,
-	Amount decimal not null,
-	DateCreated smalldatetime not null,
-	GroupID int not null,
-	Active bit not null default 1
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.MoneyPendingTrans(
-	NeedID int not null,
-	DonationID int not null,
-	UserID int not null,
-	Date smalldatetime not null,
-	GroupID int not null,
-	Active bit not null default 1
-
-	CONSTRAINT [PK_MoneyPendingTrans] PRIMARY KEY ( NeedID, DonationID ASC )
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.SeedsDonated(
-	DonationID int identity(1000,1) primary key not null,
-	UserID int not null,
-	Quantity int not null,
-	SeedType varchar(50) not null,
-	Date smalldatetime not null,
-	ShippingNotes varchar(255) not null,
-	StateLocated char(2) not null,
-	Active bit not null default 1
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.SeedsNeeded(
-	SeedsNeededID int identity(1000,1) primary key not null,
-	UserID int not null,
-	NeededAmount int not null,
-	SeedType varchar(50) not null,
-	Date smalldatetime not null,
-	RecievingNotes varchar(255) not null,
-	StateLocated char(2) not null,
-	GroupID int not null,
-	Active bit not null default 1
-);
-
-
-create table Donations.SeedsPendingTrans(
-	SeedsDonatedID int not null,
-	SeedsNeededID int not null,
-	UserID int not null,
-	Date smalldatetime not null,
-	GroupID int not null,
-	Active bit not null default 1
-
-	CONSTRAINT [PK_SeedsPendingTrans] PRIMARY KEY ( SeedsDonatedID, SeedsNeededID ASC )
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.SoilDonated(
-	SoilDonatedID int identity(1000,1) primary key not null,
-	SoilType varchar(50) not null,
-	UserID int not null,
-	SoilName varchar(75) not null,
-	Quantity int not null,
-	Date smalldatetime not null,
-	ShippingNotes varchar(255) not null,
-	StateLocated char(2) not null,
-	Active bit not null default 1
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.SoilNeeded(
-	SoilNeededID int identity(1000,1) primary key not null,
-	SoilType varchar(50) not null,
-	UserID int not null,
-	SoilName varchar(75) not null,
-	Quantity int not null,
-	Date smalldatetime not null,
-	RecievingNotes varchar(255) not null,
-	StateLocated char(2) not null,
-	GroupID int not null,
-	Active bit not null default 1
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.SoilPendingTrans(
-	SoilNeededID int not null,
-	SoilDonatedID int not null,
-	UserID int not null,
-	Date smalldatetime not null,
-	GroupID int not null,
-	Active bit not null default 1
-
-	CONSTRAINT [PK_SoilPendingTrans] PRIMARY KEY ( SoilNeededID, SoilDonatedID ASC )
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.SupplyDonated(
-	SupplyDonatedID int identity(1000,1) not null primary key,
-	userID int not null,
-	SupplyName varchar(50) not null,
-	SupplyAmount decimal not null,
-	Date smalldatetime not null,
-	ShippingNotes varchar(255) not null,
-	StateLocated char(2) not null,
-	active bit not null default 1
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.SupplyNeeded(
-	SupplyNeededID int identity(1000,1) not null primary key,
-	userID int not null,
-	SupplyName varchar(50) not null,
-	SupplyAmount decimal not null,
-	Date smalldatetime not null,
-	RecievingNotes varchar(255) not null,
-	StateLocated char(2) not null,
-	GroupID int not null,
-	active bit not null default 1
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.SupplyPendingTrans(
-	SupplyNeededID int not null,
-	SupplyDonatedID int not null,
-	UserID int not null,
-	Date smalldatetime not null,
-	GroupID int not null,
-	Active bit not null default 1
-
-	CONSTRAINT [PK_SupplyPendingTrans] PRIMARY KEY ( SupplyNeededID, SupplyDonatedID ASC )
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.TimeNeeded(
-	TimeNeededID int identity(1000,1) not null primary key,
-	UserID int not null, 
-	DateNeeded smalldatetime not null,
-	GardenAffiliation varchar(50) null,
-	Location char(9) null,
-	Date smalldatetime not null,
-	CityGardenLocated varchar(30) not null,
-	GroupID int not null,
-	Active bit not null default 1
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.TimePledge(
-	TimePledgeID int identity(1000,1) not null primary key,
-	UserID int not null,
-	StartTime smalldatetime null,
-	FinishTime smalldatetime null,
-	DatePledge smalldatetime null,
-	Affiliation varchar(75) null,
-	Location char(9) null,
-	Date smalldatetime not null,
-	CityPledging varchar(30) not null,
-	Active bit not null default 1
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.TimePledgeTrans(
-	TimePledgeID int not null,
-	TimeNeededID int not null,
-	DateMatched smalldatetime not null,
-	City varchar(30) not null,
-	GroupID int not null,
-	Active bit not null default 1
-	
-	CONSTRAINT [PK_TimePledgeTrans] PRIMARY KEY ( TimePledgeID, TimeNeededID ASC )
-);
-
---updated by Chris Schwebach 2-19-2016
-create table Donations.VolunteerHours(
-	UserID int not null,
-	Date smalldatetime not null,
-	HoursVolunteered int not null,
-	City varchar(30) not null
-
-	CONSTRAINT [PK_VolunteerHours] PRIMARY KEY ( UserID, Date ASC )
 );
 
 create table Expert.BecomeAnExpert(
@@ -769,6 +499,45 @@ create table Gardens.WorkLogs(
 	TimeFinished smalldatetime null
 );
 
+--created by trent cullinan 5-5-16
+create table Needs.NeedTypes(
+	NeedType			varchar(50)		not null,
+	Description			varchar(255)	not null,
+	Active				bit				not null default 1
+	constraint [pk_NeedTypes_NeedType] primary key(NeedType)
+);
+
+--created by trent cullinan 5-5-16
+create table Needs.Needs(
+	NeedID				int				not null identity(1000,1),
+	GardenID			int				not null,
+	Title				varchar(30)		not null,
+	Description			varchar(255)	not null,
+	NeedType			varchar(50)		not null default 'General',
+	Completed			bit				not null default 0,
+	DateCreated			smalldatetime	not null default getdate(),
+	CreatedBy			int				not null,
+	DateModified		smalldatetime	null,
+	ModifiedBy			int				null,
+	Active				bit				not null default 1,
+	constraint [pk_Needs_NeedID] primary key(NeedID)
+);
+
+--created by trent cullinan 5-5-16
+create table Needs.Contributions(
+	ContributionID		int				not null identity(1000,1),
+	NeedID				int				not null,
+	SentBy				int				not null,
+	Description			varchar(255)	null,
+	Contributed			bit				null,
+	DateCreated			smalldatetime	not null default getdate(),
+	DateModified		smalldatetime	null,
+	ModifiedBy			int				null,
+	Active				bit				not null default 1
+	constraint [pk_PendingContributions_ContributionID] primary key(ContributionID)
+);
+go
+
 
 /**********************************************************************************/
 /******************************* Foreign Keys *************************************/
@@ -852,216 +621,6 @@ ALTER TABLE Admin.Users WITH NOCHECK ADD  CONSTRAINT [FK_Users_RegionID] FOREIGN
 REFERENCES Admin.Regions(RegionID);
 GO
 ALTER TABLE Admin.Users CHECK CONSTRAINT [FK_Users_RegionID];
-GO
-
-ALTER TABLE Donations.EquipmentDonated WITH NOCHECK ADD  CONSTRAINT [FK_EquipmentDonated_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.EquipmentDonated CHECK CONSTRAINT [FK_EquipmentDonated_UserID];
-GO
-
-ALTER TABLE Donations.EquipmentNeeded WITH NOCHECK ADD  CONSTRAINT [FK_EquipmentNeeded_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.EquipmentNeeded CHECK CONSTRAINT [FK_EquipmentNeeded_UserID];
-GO
-
-ALTER TABLE Donations.EquipmentPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_EquipmentPendingTrans_EquipmentDonatedID] FOREIGN KEY(EquipmentDonatedID)
-REFERENCES Donations.EquipmentDonated(EquipmentDonatedID);
-GO
-ALTER TABLE Donations.EquipmentPendingTrans CHECK CONSTRAINT [FK_EquipmentPendingTrans_EquipmentDonatedID];
-GO
-
-ALTER TABLE Donations.EquipmentPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_EquipmentPendingTrans_EquipmentNeededID] FOREIGN KEY(EquipmentNeededID)
-REFERENCES Donations.EquipmentNeeded(EquipmentNeededID);
-GO
-ALTER TABLE Donations.EquipmentPendingTrans CHECK CONSTRAINT [FK_EquipmentPendingTrans_EquipmentNeededID];
-GO
-
-ALTER TABLE Donations.EquipmentPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_EquipmentPendingTrans_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.EquipmentPendingTrans CHECK CONSTRAINT [FK_EquipmentPendingTrans_UserID];
-GO
-
-ALTER TABLE Donations.LandDonated WITH NOCHECK ADD  CONSTRAINT [FK_LandDonated_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.LandDonated CHECK CONSTRAINT [FK_LandDonated_UserID];
-GO
-
-ALTER TABLE Donations.LandNeeded WITH NOCHECK ADD  CONSTRAINT [FK_LandNeeded_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.LandNeeded CHECK CONSTRAINT [FK_LandNeeded_UserID];
-GO
-
-ALTER TABLE Donations.LandPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_LandPendingTrans_LandDonated] FOREIGN KEY(LandDonated)
-REFERENCES Donations.LandDonated(TransactionNum);
-GO
-ALTER TABLE Donations.LandPendingTrans CHECK CONSTRAINT [FK_LandPendingTrans_LandDonated];
-GO
-
-ALTER TABLE Donations.LandPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_LandPendingTrans_LandNeeded] FOREIGN KEY(LandNeeded)
-REFERENCES Donations.LandNeeded(LandIdentifier);
-GO
-ALTER TABLE Donations.LandPendingTrans CHECK CONSTRAINT [FK_LandPendingTrans_LandNeeded];
-GO
-
-ALTER TABLE Donations.LandPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_LandPendingTrans_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.LandPendingTrans CHECK CONSTRAINT [FK_LandPendingTrans_UserID];
-GO
-
-ALTER TABLE Donations.MoneyDonated WITH NOCHECK ADD  CONSTRAINT [FK_MoneyDonated_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.MoneyDonated CHECK CONSTRAINT [FK_MoneyDonated_UserID];
-GO
-
-ALTER TABLE Donations.MoneyNeeded WITH NOCHECK ADD  CONSTRAINT [FK_MoneyNeeded_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.MoneyNeeded CHECK CONSTRAINT [FK_MoneyNeeded_UserID];
-GO
-
-ALTER TABLE Donations.MoneyPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_MoneyPendingTrans_NeedID] FOREIGN KEY(NeedID)
-REFERENCES Donations.MoneyNeeded(NeedID);
-GO
-ALTER TABLE Donations.MoneyPendingTrans CHECK CONSTRAINT [FK_MoneyPendingTrans_NeedID];
-GO
-
-ALTER TABLE Donations.MoneyPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_MoneyPendingTrans_DonationID] FOREIGN KEY(DonationID)
-REFERENCES Donations.MoneyNeeded(NeedID);
-GO
-ALTER TABLE Donations.MoneyPendingTrans CHECK CONSTRAINT [FK_MoneyPendingTrans_DonationID];
-GO
-
-ALTER TABLE Donations.MoneyPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_MoneyPendingTrans_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.MoneyPendingTrans CHECK CONSTRAINT [FK_MoneyPendingTrans_UserID];
-GO
-
-ALTER TABLE Donations.SeedsDonated WITH NOCHECK ADD  CONSTRAINT [FK_SeedsDonated_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.SeedsDonated CHECK CONSTRAINT [FK_SeedsDonated_UserID];
-GO
-
-ALTER TABLE Donations.SeedsNeeded WITH NOCHECK ADD  CONSTRAINT [FK_SeedsNeeded_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.SeedsNeeded CHECK CONSTRAINT [FK_SeedsNeeded_UserID];
-GO
-
-ALTER TABLE Donations.SeedsPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_SeedsPendingTrans_SeedsDonatedID] FOREIGN KEY(SeedsDonatedID)
-REFERENCES Donations.SeedsDonated(DonationID);
-GO
-ALTER TABLE Donations.SeedsPendingTrans CHECK CONSTRAINT [FK_SeedsPendingTrans_SeedsDonatedID];
-GO
-
-ALTER TABLE Donations.SeedsPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_SeedsPendingTrans_SeedsNeededID] FOREIGN KEY(SeedsNeededID)
-REFERENCES Donations.SeedsNeeded(SeedsNeededID);
-GO
-ALTER TABLE Donations.SeedsPendingTrans CHECK CONSTRAINT [FK_SeedsPendingTrans_SeedsNeededID];
-GO
-
-ALTER TABLE Donations.SeedsPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_SeedsPendingTrans_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.SeedsPendingTrans CHECK CONSTRAINT [FK_SeedsPendingTrans_UserID];
-GO
-
-ALTER TABLE Donations.SoilDonated WITH NOCHECK ADD  CONSTRAINT [FK_SoilDonated_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.SoilDonated CHECK CONSTRAINT [FK_SoilDonated_UserID];
-GO
-
-ALTER TABLE Donations.SoilNeeded WITH NOCHECK ADD  CONSTRAINT [FK_SoilNeeded_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.SoilNeeded CHECK CONSTRAINT [FK_SoilNeeded_UserID];
-GO
-
-ALTER TABLE Donations.SoilPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_SoilPendingTrans_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.SoilPendingTrans CHECK CONSTRAINT [FK_SoilPendingTrans_UserID];
-GO
-
-ALTER TABLE Donations.SoilPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_SoilPendingTrans_SoilDonatedID] FOREIGN KEY(SoilDonatedID)
-REFERENCES Donations.SoilDonated(SoilDonatedID);
-GO
-ALTER TABLE Donations.SoilPendingTrans CHECK CONSTRAINT [FK_SoilPendingTrans_SoilDonatedID];
-GO
-
-ALTER TABLE Donations.SoilPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_SoilPendingTrans_SoilNeededID] FOREIGN KEY(SoilNeededID)
-REFERENCES Donations.SoilNeeded(SoilNeededID);
-GO
-ALTER TABLE Donations.SoilPendingTrans CHECK CONSTRAINT [FK_SoilPendingTrans_SoilNeededID];
-GO
-
-ALTER TABLE Donations.SupplyDonated WITH NOCHECK ADD  CONSTRAINT [FK_SupplyDonated_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.SupplyDonated CHECK CONSTRAINT [FK_SupplyDonated_UserID];
-GO
-
-ALTER TABLE Donations.SupplyNeeded WITH NOCHECK ADD  CONSTRAINT [FK_SupplyNeeded_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.SupplyNeeded CHECK CONSTRAINT [FK_SupplyNeeded_UserID];
-GO
-
-ALTER TABLE Donations.SupplyPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_SupplyPendingTrans_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.SupplyPendingTrans CHECK CONSTRAINT [FK_SupplyPendingTrans_UserID];
-GO
-
-ALTER TABLE Donations.SupplyPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_SupplyPendingTrans_SupplyNeededID] FOREIGN KEY(SupplyNeededID)
-REFERENCES Donations.SupplyNeeded(SupplyNeededID);
-GO
-ALTER TABLE Donations.SupplyPendingTrans CHECK CONSTRAINT [FK_SupplyPendingTrans_UserID];
-GO
-
-ALTER TABLE Donations.SupplyPendingTrans WITH NOCHECK ADD  CONSTRAINT [FK_SupplyPendingTrans_SupplyDonatedID] FOREIGN KEY(SupplyDonatedID)
-REFERENCES Donations.SupplyDonated(SupplyDonatedID);
-GO
-ALTER TABLE Donations.SupplyPendingTrans CHECK CONSTRAINT [FK_SupplyPendingTrans_UserID];
-GO
-
-ALTER TABLE Donations.TimeNeeded WITH NOCHECK ADD  CONSTRAINT [FK_TimeNeeded_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.TimeNeeded CHECK CONSTRAINT [FK_TimeNeeded_UserID];
-GO
-
-ALTER TABLE Donations.TimePledge WITH NOCHECK ADD  CONSTRAINT [FK_TimePledge_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.TimePledge CHECK CONSTRAINT [FK_TimePledge_UserID];
-GO
-
-ALTER TABLE Donations.TimePledgeTrans WITH NOCHECK ADD  CONSTRAINT [FK_TimePledgeTrans_TimePledgeID] FOREIGN KEY(TimePledgeID)
-REFERENCES Donations.TimePledge(TimePledgeID);
-GO
-ALTER TABLE Donations.TimePledgeTrans CHECK CONSTRAINT [FK_TimePledgeTrans_TimePledgeID];
-GO
-
-ALTER TABLE Donations.TimePledgeTrans WITH NOCHECK ADD  CONSTRAINT [FK_TimePledgeTrans_TimeNeededID] FOREIGN KEY(TimeNeededID)
-REFERENCES Donations.TimeNeeded(TimeNeededID);
-GO
-ALTER TABLE Donations.TimePledgeTrans CHECK CONSTRAINT [FK_TimePledgeTrans_TimeNeededID];
-GO
-
-ALTER TABLE Donations.VolunteerHours WITH NOCHECK ADD  CONSTRAINT [FK_VolunteerHours_UserID] FOREIGN KEY(UserID)
-REFERENCES Admin.Users(UserID);
-GO
-ALTER TABLE Donations.VolunteerHours CHECK CONSTRAINT [FK_VolunteerHours_UserID];
 GO
 
 ALTER TABLE Expert.BecomeAnExpert WITH NOCHECK ADD  CONSTRAINT [FK_BecomeAnExpert_ApprovedBy] FOREIGN KEY(ApprovedBy)
@@ -1347,7 +906,6 @@ GO
 ALTER TABLE Expert.Templates CHECK CONSTRAINT [FK_Templates_UserID];
 GO
 
-
 -- created by luke frahm 4-22-16 FK UserName
 ALTER TABLE Gardens.Announcements WITH NOCHECK ADD CONSTRAINT [FK_Announcements_UserName] FOREIGN KEY(UserName)
 REFERENCES Admin.Users(UserName);
@@ -1519,8 +1077,6 @@ GO
 /**********************************************************************************/
 
 
-CREATE NONCLUSTERED INDEX IX_ActivityLog_UserID ON Admin.ActivityLog (UserID);
-GO
 
 --modified by ryan taylor 4-14-16
 CREATE NONCLUSTERED INDEX IX_Messages_SenderID ON Admin.Messages (Sender);
@@ -1528,6 +1084,9 @@ GO
 
 --modified by ryan taylor 4-14-16
 CREATE NONCLUSTERED INDEX IX_Messages_ReceiverID ON Admin.Messages (Receiver);
+GO
+
+CREATE NONCLUSTERED INDEX IX_Users_UserName ON Admin.Users (UserName);
 GO
 
 CREATE NONCLUSTERED INDEX IX_Users_LastName ON Admin.Users (LastName);
@@ -2338,732 +1897,6 @@ END;
 go
 
 ------------------------------------------
------------Donations.EquipmentDonated-----
-------------------------------------------
-
---updated due to Chris Schwebach's table update by Chris Sheehan 2-19-2016 
-create procedure Donations.spInsertEquipmentDonated(
-	@EquipmentName varchar(50),
-	@EquipmentQuntity int,
-	@DateDonated smalldatetime,
-	@UserID int,
-	@ShippingNotes varchar(255),
-	@StateLocated char(2))
-as
-begin
-insert into Donations.EquipmentDonated(
-	EquipmentName,
-	EquipmentQuantity,
-	DateDonated,
-	UserID,
-	ShippingNotes,
-	StateLocated)
-values(
-	@EquipmentName,
-	@EquipmentQuntity,--
-	@DateDonated,
-	@UserID,
-	@ShippingNotes,
-	@StateLocated);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.EquipmentNeeded------
-------------------------------------------
-	
---updated due to Chris Schwebach's table update by Chris Sheehan 2-19-2016 
-create procedure Donations.spInsertEquipmentNeeded(
-	@EquipmentName varchar(50),
-	@EquipmentQuantity int,
-	@dateDonated smalldatetime,
-	@UserID int,
-	@GroupID int,
-	@ReceivingNotes varchar(255),
-	@StateLocated char(2))
-as 
-begin
-insert into Donations.EquipmentNeeded(
-	EquipmentName,
-	EquipmentQuantity,
-	DateDonated,
-	UserID,
-	GroupID,
-	ReceivingNotes,
-	StateLocated)
-values(
-	@EquipmentName,
-	@EquipmentQuantity,
-	@dateDonated,
-	@UserID,
-	@GroupID,
-	@ReceivingNotes,
-	@StateLocated);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.EquipmentPendingTrans
-------------------------------------------
-
---updated due to Chris Schwebach's table update by Chris Sheehan 2-19-2016 
-create procedure Donations.spInsertEquipmentPendingTrans(
-	@EquipmentDonatedID int,
-	@EquipmentNeededID int,
-	@Date smalldatetime,
-	@UserID int,
-	@GroupID int)
-as 
-begin
-insert into Donations.EquipmentPendingTrans(
-	EquipmentDonatedID,
-	EquipmentNeededID,
-	Date,
-	UserID,
-	GroupID)
-values(
-	@EquipmentDonatedID,
-	@EquipmentNeededID,
-	@Date,
-	@UserID,
-	@GroupID);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.LandDonated----------
-------------------------------------------
-
-create procedure Donations.spInsertLandDonated(
-	@UserID int,
-	@Size int,
-	@Address varchar(100),
-	@City varchar (30),
-	@State char(2),
-	@Zip char(9),
-	@Notes varchar(255),
-	@DateDonated smalldatetime)
-as 
-begin
-insert into Donations.LandDonated(
-	UserID,
-	Size,
-	Address,
-	City,
-	state,
-	zip,
-	Notes,
-	DateDonated)
-values(
-	@UserID,
-	@Size,
-	@Address,
-	@City,
-	@State,
-	@Zip,
-	@Notes,
-	@DateDonated);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.LandNeeded-----------
-------------------------------------------
-
---updated due to Chris Schwebach's table update by Chris Sheehan 2-19-2016
-create procedure Donations.spInsertLandNeeded(
-	@UserID int,
-	@DateNeeded smalldatetime,
-	@DateRequested smalldatetime,
-	@Notes varchar(255),
-	@Zip varchar(9),
-	@City varchar(30),
-	@GroupID int)
-as
-begin
-insert into Donations.LandNeeded(
-	UserID,
-	DateNeeded,
-	DateRequested,
-	Notes,
-	Zip,
-	City,
-	GroupID)
-values(
-	@UserID,
-	@DateNeeded,
-	@DateRequested,
-	@Notes,
-	@Zip,
-	@City,
-	@GroupID);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.LandPendingTrans-----
-------------------------------------------
-
---updated due to Chris Schwebach's table update by Chris Sheehan 2-19-2016
-create procedure Donations.spInsertLandPendingTrans(
-	@LandDonated int,
-	@LandNeeded int,
-	@DateCompleted smalldatetime,
-	@Notes varchar(255),
-	@ExpirationDate smalldatetime,
-	@TransDate smalldatetime,
-	@UserID int,
-	@GroupID int)
-as
-begin
-insert into Donations.LandPendingTrans(
-	LandDonated,
-	LandNeeded,
-	DateCompleted,
-	Notes,
-	ExpirationDate,
-	TransDate,
-	UserID,
-	GroupID)
-values(
-	@LandDonated,
-	@LandNeeded,
-	@DateCompleted,
-	@Notes,
-	@ExpirationDate,
-	@TransDate,
-	@UserID,
-	@GroupID);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.MoneyDonated---------
-------------------------------------------
-
-create procedure Donations.spInsertMoneyDonated(
-	@UserID int,
-	@Location varchar(50),
-	@Amount decimal,
-	@DateCreated smalldatetime)
-as
-begin
-insert into Donations.MoneyDonated(
-	UserID,
-	Location,
-	Amount,
-	DateCreated)
-values(
-	@UserID,
-	@Location,
-	@Amount,
-	@DateCreated);
-	return @@ROWCOUNT;
-end;
-go
-
--- Ibrahim Abuzaid 4-1-2016
-CREATE PROCEDURE Admin.spUpdateUserRoleActive (
-@userID int,
-@RoleID varchar(30),
-@Active bit)
-AS
-BEGIN
-      UPDATE Admin.UserRoles 
-	    SET Active = @Active 
-		WHERE UserID = @UserID   AND
-                      RoleID = @RoleID;
-
-	return @@ROWCOUNT;  
-END;
-GO
-------------------------------------------
------------Donations.MoneyNeeded----------
-------------------------------------------
-
---updated due to Chris Schwebach's table update by Chris Sheehan 2-19-2016
-create procedure Donations.spInsertMoneyNeeded(
-	@UserId int,
-	@Location varchar(50),
-	@Amount decimal,
-	@DateCreated smalldatetime,
-	@GroupID int)
-as
-begin
-insert into Donations.MoneyNeeded(
-	UserID,
-	Location,
-	Amount,
-	DateCreated,
-	GroupID)
-values(
-	@UserId,
-	@Location,
-	@Amount,
-	@DateCreated,
-	@GroupID);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.MoneyPendingTrans----
-------------------------------------------
-
--- motified by Sara Nanke 3/5/16
--- monet > money
---updated due to Chris Schwebach's table update by Chris Sheehan 2-19-2016
-create procedure Donations.spInsertMoneyPendingTrans(
-	@NeedID int,
-	@DonationID int,
-	@UserID int,
-	@Date smalldatetime,
-	@GroupID int)
-as
-begin
-insert into Donations.MoneyPendingTrans(
-	NeedID,
-	DonationID,
-	UserID,
-	Date,
-	GroupID)
-values(
-	@NeedID,
-	@DonationID,
-	@UserID,
-	@Date,
-	@GroupID);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.SeedsDonated---------
-------------------------------------------
-
---updated due to Chris Schwebach's table update by Chris Sheehan 2-19-2016
-create procedure Donations.spInsertSeedsDonated(
-	@UserID int,
-	@Quantity int,
-	@SeedType varchar(50),
-	@Date smalldatetime,
-	@ShippingNotes varchar(255),
-	@StateLocated char(2))
-as 
-begin
-insert into Donations.SeedsDonated(
-	UserID,
-	Quantity,
-	SeedType,
-	Date,
-	ShippingNotes,
-	StateLocated)
-values(
-	@UserID,
-	@Quantity,
-	@SeedType,
-	@Date,
-	@ShippingNotes,
-	@StateLocated);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.SeedsNeeded----------
-------------------------------------------
-
-
---added by Sara Nanke 3/5/16
-create procedure Donations.spInsertSeedsNeeded(
-	@UserID int,
-	@NeededAmount int,
-	@SeedType varchar(50),
-	@Date smalldatetime,
-	@RecievingNotes varchar(255),
-	@StateLocated char(2),
-	@GroupID int)
-as
-begin
-insert into Donations.SeedsNeeded (
-	UserID,
-	NeededAmount,
-	SeedType,
-	Date,
-	RecievingNotes,
-	StateLocated,
-	GroupID)
-values(
-	@UserID,
-	@NeededAmount,
-	@SeedType,
-	@Date,
-	@RecievingNotes,
-	@StateLocated,
-	@GroupID);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.SeedsPendingTrans----
-------------------------------------------
-
---added by Sara Nanke 3/5/16
-create procedure Donations.spInsertSeedsPendingTrans(
-	@SeedsDonatedID int,
-	@SeedsNeededID int,
-	@UserID int,
-	@Date smalldatetime,
-	@GroupID int)
-as
-begin
-insert into Donations.SeedsPendingTrans (
-	SeedsDonatedID,
-	SeedsNeededID,
-	UserID,
-	Date,
-	GroupID)
-values(
-	@SeedsDonatedID,
-	@SeedsNeededID,
-	@UserID,
-	@Date,
-	@GroupID);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.SoilDonated----------
-------------------------------------------
-
---added by Sara Nanke 3/5/16
-create procedure Donations.spInsertSoilDonated(
-	@SoilType varchar(50),
-	@UserID int,
-	@SoilName varchar(75),
-	@Quantity int,
-	@Date smalldatetime,
-	@ShippingNotes varchar(255),
-	@StateLocated char(2))
-as
-begin
-insert into Donations.SoilDonated(
-	SoilType,
-	UserID,
-	SoilName,
-	Quantity,
-	Date,
-	ShippingNotes,
-	StateLocated)
-values(
-	@SoilType,
-	@UserID,
-	@SoilName,
-	@Quantity,
-	@Date,
-	@ShippingNotes,
-	@StateLocated);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.SoilNeeded-----------
-------------------------------------------
-
---added by Sara Nanke 3/5/16
-create procedure Donations.spInsertSoilNeeded(
-	@SoilType varchar(50),
-	@UserID int,
-	@SoilName varchar(75),
-	@Quantity int,
-	@Date smalldatetime,
-	@RecievingNotes varchar(255),
-	@StateLocated char(2),
-	@GroupID int)
-as
-begin
-insert into Donations.SoilNeeded(
-	SoilType,
-	UserID,
-	SoilName,
-	Quantity,
-	Date,
-	RecievingNotes,
-	StateLocated,
-	GroupID)
-values(
-	@SoilType,
-	@UserID,
-	@SoilName,
-	@Quantity,
-	@Date,
-	@RecievingNotes,
-	@StateLocated,
-	@GroupID);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.SoilPendingTrans-----
-------------------------------------------
-
---added by Sara Nanke 3/5/16
-create procedure Donations.spInsertSoilPendingTrans(
-	@SoilNeededID int,
-	@SoilDonatedID int,
-	@UserID int,
-	@Date smalldatetime,
-	@GroupID int)
-as
-begin
-insert into Donations.SoilPendingTrans(
-	SoilNeededID,
-	SoilDonatedID,
-	UserID,
-	Date,
-	GroupID)
-values(
-	@SoilNeededID,
-	@SoilDonatedID,
-	@UserID,
-	@Date,
-	@GroupID);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.SupplyDonated--------
-------------------------------------------
-
---added by Sara Nanke 3/5/16
-create procedure Donations.spInsertSupplyDonated(
-	@userID int,
-	@SupplyName varchar(50),
-	@SupplyAmount decimal,
-	@Date smalldatetime,
-	@ShippingNotes varchar(255),
-	@StateLocated char(2))
-as
-begin
-insert into Donations.SupplyDonated(
-	userID,
-	SupplyName,
-	SupplyAmount,
-	Date,
-	ShippingNotes,
-	StateLocated)
-values (
-	@userID,
-	@SupplyName,
-	@SupplyAmount,
-	@Date,
-	@ShippingNotes,
-	@StateLocated);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.SupplyNeeded---------
-------------------------------------------
-
---added by Sara Nanke 3/5/16
-create procedure Donations.spInsertSupplyNeeded(
-	@userID int,
-	@SupplyName varchar(50),
-	@SupplyAmount decimal,
-	@Date smalldatetime,
-	@RecievingNotes varchar(255),
-	@StateLocated char(2),
-	@GroupID int)
-as
-begin
-insert into Donations.SupplyNeeded(
-	userID,
-	SupplyName,
-	SupplyAmount,
-	Date,
-	RecievingNotes,
-	StateLocated,
-	GroupID)
-values(
-	@userID,
-	@SupplyName,
-	@SupplyAmount,
-	@Date,
-	@RecievingNotes,
-	@StateLocated,
-	@GroupID);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.SupplyPendingTrans---
-------------------------------------------
-
---added by Sara Nanke 3/5/16
-create procedure Donations.spInsertSupplyPendingTrans(
-	@SupplyNeededID int,
-	@SupplyDonatedID int,
-	@UserID int,
-	@Date smalldatetime,
-	@GroupID int)
-as
-begin
-insert into Donations.SupplyPendingTrans(
-	SupplyNeededID,
-	SupplyDonatedID,
-	UserID,
-	Date,
-	GroupID)
-values(
-	@SupplyNeededID,
-	@SupplyDonatedID,
-	@UserID,
-	@Date,
-	@GroupID);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.TimeNeeded-----------
-------------------------------------------
-
---added by Sara Nanke 3/5/16
-create procedure Donations.spInsertTimeNeeded(
-	@UserID int, 
-	@DateNeeded smalldatetime,
-	@GardenAffiliation varchar(50),
-	@Location char(9),
-	@Date smalldatetime,
-	@CityGardenLocated varchar(30),
-	@GroupID int)
-as
-begin
-insert into Donations.TimeNeeded(
-	UserID, 
-	DateNeeded,
-	GardenAffiliation,
-	Location,
-	Date,
-	CityGardenLocated,
-	GroupID)
-values(
-	@UserID, 
-	@DateNeeded,
-	@GardenAffiliation,
-	@Location,
-	@Date,
-	@CityGardenLocated,
-	@GroupID);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.TimePledge-----------
-------------------------------------------
-	
---added by Sara Nanke 3/5/16
-create procedure Donations.spInsertTimePledge(
-	@UserID int,
-	@StartTime smalldatetime,
-	@FinishTime smalldatetime,
-	@DatePledge smalldatetime,
-	@Affiliation varchar(75),
-	@Location char(9),
-	@Date smalldatetime,
-	@CityPledging varchar(30))
-as
-begin
-insert into Donations.TimePledge(
-	UserID,
-	StartTime,
-	FinishTime,
-	DatePledge,
-	Affiliation,
-	Location,
-	Date,
-	CityPledging)
-values(
-	@UserID,
-	@StartTime,
-	@FinishTime,
-	@DatePledge,
-	@Affiliation,
-	@Location,
-	@Date,
-	@CityPledging);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
-------Donations.TimePledgePendingTrans----
-------------------------------------------
-
---added by Sara Nanke 3/5/16
-create procedure Donations.spInsertTimePledgeTrans(
-	@TimePledgeID int,
-	@TimeNeededID int,
-	@DateMatched smalldatetime,
-	@City varchar(30),
-	@GroupID int)
-as
-begin
-insert into Donations.TimePledgeTrans(
-	TimePledgeID,
-	TimeNeededID,
-	DateMatched,
-	City,
-	GroupID)
-values(
-	@TimePledgeID,
-	@TimeNeededID,
-	@DateMatched,
-	@City,
-	@GroupID);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
------------Donations.VolunteeerHours------
-------------------------------------------
-
---added by Sara Nanke 3/5/16
-create procedure Donations.spInsertVolunteers(
-	@UserID int,
-	@Date smalldatetime,
-	@City varchar(30))
-as
-begin
-insert into Donations.VolunteerHours(
-	UserID,
-	Date,
-	City)
-values(
-	@UserID,
-	@Date,
-	@City);
-	return @@ROWCOUNT;
-end;
-go
-
-------------------------------------------
 -----------Expert.BecomeAnExpert----------
 ------------------------------------------
 
@@ -3169,7 +2002,7 @@ CREATE PROCEDURE Expert.spInsertExpertBluePrints(
 )
 AS
 BEGIN
-INSERT INTO Expert.Template
+INSERT INTO Expert.Blueprints
 (Title, Description, DateCreated, CreatedBy , FilePath )
 VALUES
 (@Title, @Description, @DateCreated, @CreatedBy, @FilePath );
@@ -4472,9 +3305,11 @@ CREATE PROCEDURE Gardens.spCheckLeaderStatus (
 )
 AS
 BEGIN
-        SELECT Leader
-        FROM Gardens.GroupMembers
-        WHERE GroupID = @GroupId AND UserId = @UserId
+	select u.FirstName, u.LastName, u.Zip, u.EmailAddress, u.UserName, u.RegionID, g.GroupName
+	from admin.users as u
+	inner join gardens.groups as g
+		on u.UserID = g.GroupLeaderID
+	where g.GroupLeaderID = @UserId and g.GroupID = @GroupId;
  END
  GO
  
@@ -4617,9 +3452,9 @@ BEGIN
 END;
 go
 
-----------------Created By : Poonam Dubey-----------------------
-----------------Created Date : 04/06/2016-----------------------
-----------------Description : SP to fetch groups to view--------
+--Created By : Poonam Dubey
+--Created Date : 04/06/2016
+--Description : SP to fetch groups to view
 
 CREATE PROCEDURE Gardens.spSelectGroupsToView(
 	@UserID 		int
@@ -4696,6 +3531,19 @@ BEGIN
 	RETURN @@rowcount
 END
 GO
+
+--created by trent cullinan 5-5-16
+create procedure Gardens.spSelectGroupByGardenID(
+	@GardenID		int
+)
+as begin
+	select g.GroupID, g.GroupLeaderID, g.GroupName, g.OrganizationID, g.Active
+	from Gardens.Groups g
+	inner join Gardens.Gardens ga
+		on g.GroupID = ga.GroupID
+	where ga.GardenID = @GardenID
+end;
+go
 
 ------------------------------------------
 -----------Gardens.Organizations----------
@@ -4999,9 +3847,341 @@ values(
 end;
 go
 
-/**********************************************************************************/
-/******************************* Triggers ****************************************/
-/**********************************************************************************/
+------------------------------------------
+-----------Needs.Contributions------------
+------------------------------------------
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spInsertContributions(
+	@NeedID			int,
+	@UserID			int,
+	@Description	varchar(255)
+)
+as begin
+	insert into Needs.Contributions(NeedID,SentBy,Description,DateCreated,Active)
+	values(@NeedID,@UserID,@Description,default,default);
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spUpdateContribution(
+	@ContributionID	int,
+	@Contributed	bit,
+	@UserID			int
+)
+as begin
+	declare @NeedID int = 0;
+	select @NeedID = NeedID
+	from Needs.Contributions
+	where ContributionID = @ContributionID;	
+	update Needs.Contributions 
+	set Contributed = @Contributed,
+		DateModified = getdate(),
+		ModifiedBy = @UserID
+	where ContributionID = @ContributionID;
+	if @Contributed = 1
+	begin
+		update Needs.Needs
+		set Completed = 1,
+			Active = 0
+		where NeedID = @NeedID;
+	end;
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spUpdateCancelContribution(
+	@ContributionID	int
+)
+as begin
+	update Needs.Contributions
+	set Contributed = 0
+	where ContributionID = @ContributionID;
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spSelectGardenPendingContributions(
+	@GardenID		int
+)
+as begin
+	select c.ContributionID, c.NeedID, c.SentBy, c.Description, 
+		c.Contributed, c.DateCreated, c.DateModified, c.ModifiedBy, c.Active, n.Title, u.UserName
+	from Needs.Contributions as c
+	inner join Needs.Needs as n
+		on c.NeedID = n.NeedID and
+			n.Active = 1 and
+			n.Completed = 0
+	inner join Admin.Users as u
+		on c.SentBy = u.UserID
+	where c.Active = 1 and 
+		c.Contributed is null and 
+		n.GardenID = @GardenID;
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spSelectUsersPendingNeeds(
+	@UserID			int
+)
+as begin
+	select c.ContributionID, c.NeedID, c.Description, 
+		c.DateCreated, c.DateModified, c.ModifiedBy
+	from Needs.Contributions as c
+	where c.Active = 1 and
+		c.Contributed is null and
+		c.SentBy = @UserID;
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spSelectUsersMetNeeds(
+	@UserID			int
+)
+as begin
+	select c.ContributionID, c.NeedID, c.Description, 
+		c.DateCreated, c.DateModified, c.ModifiedBy
+	from Needs.Contributions as c
+	where c.Active = 1 and
+		c.Contributed = 1 and
+		c.SentBy = @UserID;
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spSelectUsersNonMetMeeds(
+	@UserID			int
+)
+as begin
+	select c.ContributionID, c.NeedID, c.Description, 
+		c.DateCreated, c.DateModified, c.ModifiedBy 
+	from Needs.Contributions as c
+	where c.Active = 1 and
+		c.Contributed = 0 and
+		c.SentBy = @UserID;
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spSelectPendingNeed(
+	@ContributionID		int
+)
+as begin
+	select c.NeedID, c.SentBy, c.Description, c.Contributed,
+		c.DateCreated, c.DateModified, c.ModifiedBy
+	from Needs.Contributions as c
+	where c.ContributionID = @ContributionID;
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spSelectUsersContributions(
+	@UserID				int
+)
+as begin
+	select c.ContributionID, c.NeedID, c.Description, c.Contributed, c.DateCreated, c.DateModified, c.ModifiedBy, c.Active, 
+	n.GardenID, n.Title, n.Description, n.Completed, n.DateCreated, n.CreatedBy, n.Active
+	from needs.contributions as c
+	inner join needs.needs as n
+		on c.NeedID = n.NeedID
+	where c.SentBy = @UserID;
+end;
+go
+
+------------------------------------------
+-----------Needs.Needs--------------------
+------------------------------------------
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spSelectNeed(
+	@NeedID			int
+)
+as begin
+	select n.GardenID, n.Title, n.Description, n.NeedType, n.Active, n.Completed,
+		n.DateCreated, n.CreatedBy, n.DateModified, n.ModifiedBy
+	from Needs.Needs as n
+	where NeedID = @NeedID;
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spInsertGardenNeed(
+	@GardenID		int,
+	@UserID			int,
+	@Title			varchar(30),
+	@Description	varchar(255),
+	@DateCreated	smalldatetime,
+	@NeedType		varchar(50) = 'General'	
+)
+as begin
+	insert into Needs.Needs(GardenID,Title,Description,NeedType,DateCreated,CreatedBy,Active)
+	values(@GardenID,@Title,@Description,@NeedType,@DateCreated,@UserID,default);
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spUpdateNeed(
+	@NeedID			int,
+	@UserID			int,
+	@Title			varchar(30),
+	@Description	varchar(255),
+	@Completed		bit,
+	@NeedType		varchar(50) = 'General'
+)
+as begin
+	update Needs.Needs
+	set Title = @Title,
+		Description = @Description,
+		NeedType = @NeedType,
+		Completed = @Completed,
+		DateModified = getdate(),
+		ModifiedBy = @UserID
+	where NeedID = @NeedID;
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spUpdateRemoveNeed(
+	@NeedID			int
+)
+as begin
+	update Needs.Needs
+	set Active = 0
+	where NeedID = @NeedID;
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spSelectGardenNeeds(
+	@GardenID		int
+)
+as begin
+	select n.NeedID, n.Title, n.Description, n.NeedType, 
+		n.DateCreated, n.CreatedBy, n.DateModified, n.ModifiedBy
+	from Needs.Needs as n
+	where n.Active = 1 and n.Completed = 0 and n.GardenID = @GardenID;
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spSelectGardenActiveNeeds(
+	@GardenID		int
+)
+as begin
+	select n.NeedID, n.Title, n.Description, n.NeedType,
+		n.DateCreated, n.CreatedBy, n.DateModified, n.ModifiedBy
+	from Needs.Needs as n
+	where n.Active = 1 and 
+		n.Completed = 0 and
+		n.GardenID = @GardenID;
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spSelectGardenMetNeeds(
+	@GardenID		int
+)
+as begin
+	select n.NeedID, n.Title, n.Description, n.NeedType,
+		n.DateCreated, n.CreatedBy, n.DateModified, n.ModifiedBy
+	from Needs.Needs as n
+	left join Needs.Contributions c
+		on n.NeedID = c.NeedID
+		and c.Active = 0
+		and c.Contributed = 1
+	where n.Active = 0 and
+		n.Completed = 1 and
+		n.GardenID = @GardenID;
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spSelectGroupsInNeed
+as begin
+	select distinct
+	count(ga1.GardenID) as active_needs,
+	count(ga2.GardenID) as completed_needs,
+	g.GroupID, g.GroupName, u.UserName
+	from Needs.Needs as n
+	left join Gardens.Gardens as ga1
+		on n.GardenID = ga1.GardenID
+		and n.Active = 1
+		and n.Completed = 0
+	left join Gardens.Gardens as ga2
+		on n.GardenID = ga2.GardenID
+		and n.Active = 0
+		and n.Completed = 1
+	inner join Gardens.Gardens as ga
+		on n.GardenID = ga.GardenID
+	inner join Gardens.Groups as g
+		on ga.GroupID = g.GroupID
+	inner join Admin.Users as u
+		on g.GroupLeaderID = u.UserID
+	where g.Active = 1
+	group by g.GroupID, g.GroupName, u.UserName
+	having count(ga1.GardenID) > 0
+	order by 1 desc;
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spSelectGroupsGardenNeeds(
+	@GroupID		int
+)
+as begin
+	select distinct
+	count(g1.GardenID) as active_needs,
+	count(g2.GardenID) as completed_needs,
+	g.GardenID, g.GardenName, g.GardenDescription, g.GardenRegion
+	from Needs.Needs as n
+	inner join Gardens.Gardens as g
+		on n.GardenID = g.GardenID
+	left outer join Gardens.Gardens as g1
+		on n.GardenID = g1.GardenID
+		and n.Active = 1
+		and n.Completed = 0
+	left outer join Gardens.Gardens as g2
+		on n.GardenID = g2.GardenID
+		and n.Active = 0
+		and n.Completed = 1
+	where g1.GroupID = 1002 or g2.GroupID = @GroupID
+	group by g.GardenID, g.GardenName, g.GardenDescription, g.GardenRegion
+	having count(g1.GardenID) > 0
+	order by 1 desc;
+end;
+go
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spSelectGroupsActiveNeeds(
+	@GroupID			int
+)
+as begin
+	select n.NeedID, n.GardenID, n.Title, n.Description, n.NeedType, n.Active, n.Completed,
+		n.DateCreated, n.CreatedBy, n.DateModified, n.ModifiedBy
+	from Needs.Needs as n
+	left join Gardens.Gardens as g
+		on n.GardenID = g.GardenID
+		and g.Active = 1
+	where n.Active = 1 and n.Completed = 0 and g.GroupID = @GroupID;
+end;
+go
+
+------------------------------------------
+-----------Needs.NeedTypes----------------
+------------------------------------------
+
+--created by trent cullinan 5-5-16
+create procedure Needs.spSelectNeedTypes
+as begin
+	select nt.NeedType, nt.Description
+	from Needs.NeedTypes as nt
+	where nt.Active = 1;
+end;
+go
+
+/*********************************************************************************************/
+/******************************* Triggers ****************************************************/
+/*********************************************************************************************/
 
 --added by Ryan Taylor 3/24/16
 CREATE TRIGGER trgInsertNewGroup ON Gardens.Groups
@@ -5017,7 +4197,6 @@ BEGIN
 	VALUES(@groupID, @userID, GETDATE(), @userID, 1)
 END;
 GO
-
 
 /**********************************************************************************/
 /******************************* Test Data ****************************************/
@@ -5121,76 +4300,6 @@ exec Gardens.spInsertWorkLogs				1000			,1000			,'9/25/57'					,'9/26/57'
 --* spInsertGroupRequest				@groupid	@UserID int,	@RequestDate smalldatetime
 exec Admin.spInsertGroupRequest			1000,			1000			,'04/05/53'	
 
-----------------------------DONATIONS------------------------------------
-print 'donations'
-GO
-
---* spInsertEquipmentDonated     				@EquipmentName varchar(50),	@EquipmentQuntity int,	@DateDonated smalldatetime,	@UserID int,	@ShippingNotes varchar(255),	@StateLocated char(2) 
-exec Donations.spInsertEquipmentDonated			'shovel'					,12 					,'12/7/79'					,1002			,'shipped in good condition'	,'WA'
-	
---* spInsertEquipmentNeeded      				@EquipmentName varchar(50),	@EquipmentQuantity int,	@dateDonated smalldatetime,	@UserID int,	@GroupID int,	@ReceivingNotes varchar(255),	@StateLocated char(2)
-exec Donations.spInsertEquipmentNeeded			'rake'						,2 						,'8/9/87'					,1002 			,1000			,'Received'						,'NJ'	
-	
---* spInsertEquipmentPendingTrans				@EquipmentDonatedID int,	@EquipmentNeededID int,	@Date smalldatetime,	@UserID int,	@GroupID int
-exec Donations.spInsertEquipmentPendingTrans	1000						,1000					,'6/23/64'				,1000 			,1000
-	
---* spInsertLandDonated          				@UserID int,	@Size int,	@Address varchar(100),	@City varchar (30),	@State char(2),	@Zip char(9),	@Notes varchar(255),	@DateDonated smalldatetime
-exec Donations.spInsertLandDonated				1000			,300		,'123 1st st'			,'Cedar Rapids'		,'IA'			,'524023333'	,'dry and sandy'		,'8/24/92'
-
---* spInsertLandNeeded           				@UserID int,	@DateNeeded smalldatetime,	@DateRequested smalldatetime,	@Notes varchar(255),	@Zip varchar(9),	@City varchar(30),	@GroupID int
-exec Donations.spInsertLandNeeded				1002			,'10/3/76'					,'12/4/77'						,'best if flat'			,'5240233333'		,'Cedar Rapids'		,1000			
-
---* spInsertLandPendingTrans     				@LandDonated int,	@LandNeeded int,	@DateCompleted smalldatetime,	@Notes varchar(255),	@ExpirationDate smalldatetime,	@TransDate smalldatetime,	@UserID int,	@GroupID int
-exec Donations.spInsertLandPendingTrans			1000				,1000				,'9/22/09'						,'trans complete'		,'11/8/11'						,'12/8/11'					,1000			,1000
-			
---* spInsertMoneyDonated         				@UserID int,	@Location varchar(50),	@Amount decimal,	@DateCreated smalldatetime
-exec Donations.spInsertMoneyDonated				1001			,'Cedar Rapids'			,300.0				,'9/14/01'	
-			
---* spInsertMoneyNeeded          				@UserId int,	@Location varchar(50),	@Amount decimal,	@DateCreated smalldatetime,	@GroupID int
-exec Donations.spInsertMoneyNeeded				1002			,'Hiawatha'				,200.0				,'12/12/12'					,1000
-			
---* spInsertMoneyPendingTrans	 				@NeedID int,	@DonationID int,	@UserID int,	@Date smalldatetime,	@GroupID int
-exec Donations.spInsertMoneyPendingTrans		1000			,1000				,1003			,'11/21/10'				,1000
-			
---* spInsertSeedsDonated         				@UserID int,	@Quantity int,	@SeedType varchar(50),	@Date smalldatetime,	@ShippingNotes varchar(255),	@StateLocated char(2)
-exec Donations.spInsertSeedsDonated				1002			,2 				,'tomato'				,'5/3/09'				,'shipped'						,'IL'				
-			
---* spInsertSeedsNeeded             			@UserID int,	@NeededAmount int,	@SeedType varchar(50),	@Date smalldatetime,	@RecievingNotes varchar(255),	@StateLocated char(2),	@GroupID int
-exec Donations.spInsertSeedsNeeded				1003			,6 					,'carrot'				,'4/9/06'				,'recieved'						,'MI'					,1000
-			
---* spInsertSeedsPendingTrans       			@SeedsDonatedID int,	@SeedsNeededID int,	@UserID int,	@Date smalldatetime,	@GroupID int
-exec Donations.spInsertSeedsPendingTrans		1000					,1000				,1003			,'3/19/08'				,1000
-			
---* spInsertSoilDonated             			@SoilType varchar(50),	@UserID int,	@SoilName varchar(75),	@Quantity int,	@Date smalldatetime,	@ShippingNotes varchar(255),	@StateLocated char(2)
-exec Donations.spInsertSoilDonated				'sandy'					,1000			,'Clay'					,3 				,'9/8/98'				,'shipped'						,'PA'
-			
---* spInsertSoilNeeded              			@SoilType varchar(50),	@UserID int,	@SoilName varchar(75),	@Quantity int,	@Date smalldatetime,	@RecievingNotes varchar(255),	@StateLocated char(2),	@GroupID int
-exec Donations.spInsertSoilNeeded				'dry'					,1002			,'dry'					,5				,'4/29/14'				,'recieved'						,'PA'					,100
-			
---* spInsertSoilPendingTrans        			@SoilNeededID int,	@SoilDonatedID int,	@UserID int,	@Date smalldatetime,	@GroupID int
-exec Donations.spInsertSoilPendingTrans			1000				,1000				,1002			,'9/14/89'				,1000
-			
---* spInsertSupplyDonated           			@userID int,	@SupplyName varchar(50),	@SupplyAmount decimal,	@Date smalldatetime,	@ShippingNotes varchar(255),	@StateLocated char(2)
-exec Donations.spInsertSupplyDonated			1002			,'peppers'					,9 						,'2/28/12'				,'shipped'						,'GA'
-			
---* spInsertSupplyNeeded            			@userID int,	@SupplyName varchar(50),	@SupplyAmount decimal,	@Date smalldatetime,	@RecievingNotes varchar(255),	@StateLocated char(2),	@GroupID int
-exec Donations.spInsertSupplyNeeded				1001			,'basil'					,8.9 					,'3/4/15'				,'recieved'						,'IL'					,1000
-			
---* spInsertSupplyPendingTrans      			@SupplyNeededID int,	@SupplyDonatedID int,	@UserID int,	@Date smalldatetime,	@GroupID int
-exec Donations.spInsertSupplyPendingTrans		1000					,1000					,1001			,'5/6/09'				,1000
-			
---* spInsertTimeNeeded              			@UserID int, 	@DateNeeded smalldatetime,	@GardenAffiliation varchar(50),	@Location char(9),	@Date smalldatetime,	@CityGardenLocated varchar(30),	@GroupID int
-exec Donations.spInsertTimeNeeded				1001			,'2/3/98'					,'neighbor'						,'523413333'		,'11/9/03'				,'town square'					,1000		
-exec Donations.spInsertTimeNeeded				1001			,'2/3/98'					,'neighbor'						,'523413333'		,'11/9/03'				,'town square'					,1000		
-			
---* spInsertTimePledge              			@UserID int,	@StartTime smalldatetime,	@FinishTime smalldatetime,	@DatePledge smalldatetime,	@Affiliation varchar(75),	@Location char(9),	@Date smalldatetime,	@CityPledging varchar(30)
-exec Donations.spInsertTimePledge				1001			,'12/3/92'					,'3/9/99'					,'9/8/77'					,'volunteer'				,'128433333'		,'6/7/89'				,'Waterloo'
-			
---* spInsertTimePledgeTrans         			@TimePledgeID int,	@TimeNeededID int,	@DateMatched smalldatetime,	@City varchar(30),	@GroupID int
-exec Donations.spInsertTimePledgeTrans			1000				,1000				,'10/5/99'					,'Iowa City'		,1000
-			
---* spInsertVolunteerHours          			@UserID int,	@Date smalldatetime,	@HoursVolunteered int,	@City varchar(30)
---exec Donations.spInsertVolunteerHours			1001			,'2/22/94'				,3						,'Chicago'
 
 -------------------------------EXPERT----------------------------------------
 print 'expert'
@@ -5258,10 +4367,13 @@ exec Expert.spInsertNutrients			'Vitamin D'			,'Vitamin good for heart'	,1001			
 exec Expert.spInsertPlantNutrients		1000			,1000
 		
 --* spInsertQuestion             		@Title varchar(50),			@Category varchar(50),	@Content varchar(max),		@RegionID int,	@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
-exec Expert.spInsertQuestion			'How do I grow a grape?'	,'fruit'				,'How do I grow a grape?'	,1 				,1002			,'6/5/08'					,1000				,'4/7/07'
+exec Expert.spInsertQuestion			'worms on ears of sweet corn'	,'Corn'				,'What can I use to prevent the infestation of worms on the tassel end of the ears of sweet corn? The ears are beautifully formed but on the end of most there was a small worm.'	,1 				,1002			,'6/5/08'					,1000				,'4/7/07'
 	
---* spInsertQuestionResponse     		@QuestionID int,	@Date smalldatetime,	@Response varchar(250),		@UserID int
-exec Expert.spInsertQuestionResponse	1000				,'3/18/04'				,'Start with a grape seed'	,1002			,null
+--Expert.QuestionResponse
+EXEC [Expert].[spInsertQuestionResponse] 1000, '5/5/16', 'Apart from nipping off the damaged end, you can try to prevent the pest from entering the corn by applying a bit of mineral oil to the tassel early on. Here is more information about corn ear worms http://www.garden.org/pestlibrary/bugs.php?q=show&id=1595', 1000, null
+GO
+
+
 
 -- Expert insert Plant Category
 exec Expert.spInsertPlantCategory 		'Fruit'						,1001			,'3/12/16'
@@ -5283,9 +4395,55 @@ exec Expert.spInsertRecipeCategory		'beverage'					,1000			,'12/12/99'
 exec Expert.spInsertRecipeCategory		'grilled'					,1000			,'12/12/99'
 exec Expert.spInsertRecipeCategory		'canning'					,1000			,'12/12/99'
 	
+DECLARE @Note VARCHAR (max);
+SET @Note = 'Ingredients:[crlf]
+*1 1⁄2 lb. skinless, boneless pike or sole, roughly chopped
+*4 large eggs, lightly beaten
+*6 cups heavy cream
+*Kosher salt and freshly ground white pepper
+*Cayenne
+*Nutmeg
+*3 lb. 1 lb. crayfish or whole lobster, steamed
+*2 tbsp. olive oil
+*4 large button mushrooms, roughly chopped
+*2 carrots, peeled and roughly chopped
+*2 ribs celery, roughly chopped
+*1 leek, roughly chopped
+*1⁄4 cup tomato paste
+*2 oz. cognac[crlf]
+Instructions:[crlf]
+1)In a food processor, grind the fish until smooth. Transfer to a large bowl and gently stir in the eggs. Slowly stir in 2 cups cream, salt, pepper, cayenne, and nutmeg. Cover and refrigerate overnight.[crlf]
+2)The next day, separate the meat from the crayfish shells. Slice the tails into 1⁄2-inch-thick slices and refrigerate meat until ready to use. Heat olive oil in a large saucepan over medium-high. Add crayfish shells and cook, smashing them to extract their juices, 7 to 8 minutes. Add the mushrooms, carrots, celery, and leek and cook until soft, 10 minutes. Add tomato paste and cook 2 minutes. Stir in cognac and cook until the liquid has almost evaporated, 1 minute. Stir in remaining 4 cups cream, reduce the heat to maintain a simmer, and cook 20 minutes. Strain sauce through a fine-mesh strainer over a bowl, discarding solids. Season with salt and pepper and keep warm.[crlf]
+3)Meanwhile, line a work surface with plastic wrap. Place 1 cup mousse on the edge of the plastic wrap closest to you, leaving about a 2-inch border. Working from one long end and using plastic wrap to lift and guide, roll up mousse, creating a log. Twist the ends of the plastic wrap to secure. Wrap in plastic wrap one more time and set aside. Repeat process with remaining mousse until you have four logs.[crlf]
+4)Bring a medium saucepan of water to a low simmer. Add the mousse logs and place a smaller saucepan or weight over them to ensure they stay submerged. Cook until set, about 45 minutes, then remove from the water. Wait 5 minutes, then transfer to an ice bath until chilled.[crlf]
+5)Heat oven to 375°. Unwrap logs and place each into individual oven proof casserole dishes, or place all in one 9-by-13-inch baking dish. Cover each with 1⁄2 cup of sauce and bake until bubbling, about 12 minutes. Divide tail pieces between each baking dish and increase oven temperature to 425°. Bake until the tops of each mousse are golden brown, 6 to 8 minutes longer.
+
+'
+
+SET @Note = REPLACE(@Note,'[crlf]',CHAR(13)+CHAR(10))
 --* spInsertRecipes              		@Title varchar(50),	@Category varchar(30),	@Directions varchar(max),	@CreatedBy int,	@CreatedDate smalldatetime,	@ModifiedBy int,	@ModifiedDate smalldatetime
-exec Expert.spInsertRecipes				'Best Potato Soup'	,'soup'					,'Gather ingredents...'		,1001			,'9/12/88'					,1003				,'7/16/02'
+exec Expert.spInsertRecipes				'Pike Cakes with Crayfish Sauce'	,'Main Dish'		,@Note		,1001			,'9/12/88'					,1003				,'7/16/02'
 	
+SET @Note = 'Ingredients:[crlf]
+*2 sweet-tart apples, such as Gala, Fuji, or Empire, cored and cut into 1⁄4-inch matchsticks
+*1 tbsp. fresh lemon juice
+*8 oz. peeled celeriac, cut into 1⁄8-inch matchsticks
+*3 tbsp. golden raisins
+*2 medium carrots, cut into 1⁄8-inch matchsticks
+*3 tbsp. vegetable oil
+*1 tbsp. apple cider vinegar
+*1 tbsp. Dijon mustard
+*Kosher salt and freshly ground pepper[crlf]
+Instructions:[crlf]
+1)In a large bowl, toss the apples with the lemon juice and let stand for 5 minutes. Add the celeriac, raisins, and carrots, and toss to combine.[crlf]
+2)In a small bowl, whisk the oil with the vinegar and mustard until emulsified. Pour the vinaigrette over the apples and vegetables, season with salt and pepper, and toss until evenly combined. Let the salad stand for 10 minutes before serving.[crlf][crlf]
+'
+SET @Note = REPLACE(@Note,'[crlf]',CHAR(13)+CHAR(10))
+
+exec Expert.spInsertRecipes				'Apple, Celery Root, and Carrot Salad'	,'Salad'		,@Note		,1001			,'9/12/16'					,1003				,'7/16/16'
+
+
+
 --* spInsertTemplates            		@UserID int,	@Description varchar(max),	@DateCreated smalldatetime
 exec Expert.spInsertTemplates			1002			,'Build a box garden'		,'4/17/02'
 
@@ -5297,7 +4455,7 @@ lastname,
 groupid,
 date,
 announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 1')
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','Plant in a sunny location. Vegetables need at least 6 hours of direct sunlight per day. The more sunlight they receive, the greater the harvest and the better the taste.')
 go
 
 insert into gardens.announcements (
@@ -5307,7 +4465,7 @@ lastname,
 groupid,
 date,
 announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 2')
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','Plant in good soil. Plants’ roots penetrate soft soil easily, so you need nice loamy soil. Enriching your soil with compost provides needed nutrients. Proper drainage will ensure that water neither collects on top nor drains away too quickly.')
 go
 
 
@@ -5318,7 +4476,7 @@ lastname,
 groupid,
 date,
 announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 3')
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','Space your crops properly. For example, corn needs a lot of space and can overshadow shorter vegetables. Plants set too close together compete for sunlight, water, and nutrition and fail to mature. Pay attention to the spacing guidance on seed packets and plant tabs.')
 go
 
 insert into gardens.announcements (
@@ -5328,7 +4486,7 @@ lastname,
 groupid,
 date,
 announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 4')
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','Buy high-quality seeds. Seed packets are less expensive than individual plants. If seeds don’t germinate, your money—and time—are wasted. A few “extra” cents spent in spring for that year’s seeds will pay off in higher yields at harvesttime.')
 go
 
 insert into gardens.announcements (
@@ -5338,7 +4496,7 @@ lastname,
 groupid,
 date,
 announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 5')
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','A good-size beginner vegetable garden is about 16x10 feet and features crops that are easy to grow. A plot this size, based on the vegetables suggested below, can feed a family of four for one summer, with a little extra for canning and freezing (or giving away).')
 go
 
 insert into gardens.announcements (
@@ -5348,106 +4506,11 @@ lastname,
 groupid,
 date,
 announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 6')
+values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','Vegetables that may yield more than one crop per season are beans, beets, carrots, cabbage, kohlrabi, lettuce, radishes, rutabagas, spinach, and turnips. ')
 go
 
-insert into gardens.announcements (
-username,
-firstname,
-lastname,
-groupid,
-date,
-announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 7')
-go
 
-insert into gardens.announcements (
-username,
-firstname,
-lastname,
-groupid,
-date,
-announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 8')
-go
-
-insert into gardens.announcements (
-username,
-firstname,
-lastname,
-groupid,
-date,
-announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 9')
-go
-
-insert into gardens.announcements (
-username,
-firstname,
-lastname,
-groupid,
-date,
-announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 10')
-go
-
-insert into gardens.announcements (
-username,
-firstname,
-lastname,
-groupid,
-date,
-announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 11')
-go
-
-insert into gardens.announcements (
-username,
-firstname,
-lastname,
-groupid,
-date,
-announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 12')
-go
-
-insert into gardens.announcements (
-username,
-firstname,
-lastname,
-groupid,
-date,
-announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 13')
-go
-
-insert into gardens.announcements (
-username,
-firstname,
-lastname,
-groupid,
-date,
-announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 14')
-go
-
-insert into gardens.announcements (
-username,
-firstname,
-lastname,
-groupid,
-date,
-announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 15')
-go
-
-insert into gardens.announcements (
-username,
-firstname,
-lastname,
-groupid,
-date,
-announcement)
-values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 16')
+insert into Needs.NeedTypes(NeedType,Description)
+values	('General','General need for a garden.');
 go
 

@@ -4,7 +4,9 @@
 @{Layout = "";}
 @model IEnumerable<com.GreenThumb.MVC.Models.MessageViewModelOutbox>
 
-@using (Html.BeginForm("Outbox", "Message", FormMethod.Post))
+
+
+@using (Html.BeginForm("Index", "Message", FormMethod.Post))
 {
     if (Model != null)
     {

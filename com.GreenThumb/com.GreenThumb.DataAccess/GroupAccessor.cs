@@ -313,11 +313,8 @@ namespace com.GreenThumb.DataAccess
             {
                 conn.Open();
                 var reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    reader.Read();
-                    isLeader = reader.GetBoolean(0);
-                }
+
+                isLeader = reader.HasRows;
             }
             catch (Exception ex)
             {

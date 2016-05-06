@@ -51,8 +51,8 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                
                 if (user == null)
                 {
-                    lblMessage.Foreground = Brushes.Red;
-                    lblMessage.Content = "Users NO: " + _accessToken.UserID + "  Not Found in DataBase, try again";      
+                    //lblMessage.Foreground = Brushes.Red;
+                    //lblMessage.Content = "Users NO: " + _accessToken.UserID + "  Not Found in DataBase, try again";      
                 }
                 else
                 {
@@ -60,7 +60,6 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                     lblLastName.Content = _accessToken.LastName;
                     lblZip.Content = _accessToken.Zip;
                     lblMail.Content = _accessToken.EmailAddress;
-                    lblUserName.Content = _accessToken.UserName;
                     lblRegion.Content =_accessToken.RegionId;
                 } 
             }
@@ -82,7 +81,6 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             txtEmail.Text = _accessToken.EmailAddress;
             txtRegion.Text= _accessToken.RegionId.ToString();
             txtRegion.IsEnabled = false;
-            txtUserName.Text = _accessToken.UserName;
         }
 
         private void btnChangePassword_Click(object sender, RoutedEventArgs e)
@@ -96,17 +94,17 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
 
             if (txtOldPassword.Password != null && txtOldPassword.Password != _accessToken.Password)
             {
-                lblMessage.Content = "Invalid old Password";
+                //MessageBox.Show("Invalid old Password");
             }
 
             if (txtNewPassword2.Password == null || txtNewPassword1.Password == null)
             {
-               lblMessage.Content = "enter new Password twice";
-            } 
+                //MessageBox.Show("Enter your new password");
+            }
 
             if (txtNewPassword2.Password != txtNewPassword1.Password)
             {
-                lblMessage.Content = "new Password doesn't match!";
+                //MessageBox.Show("Passwords don't match");
             } 
 
         }
@@ -116,21 +114,27 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             
             try
             {
-                var res = usrMgr.EditPasssword(txtUserName.Text, txtOldPassword.Password, txtNewPassword1.Password);
-                lblMessage.Content = txtUserName.Text + "  " + txtOldPassword.Password + "   " + txtNewPassword1.Password;
-                if (res == true)
+                if (txtNewPassword1.Password.Length < 5)
                 {
-                    lblMessage.Content = "Operation Succeeded. ";
-                    
+                    MessageBox.Show("Password must be at least 5 characters.");
                 }
                 else
                 {
-                    lblMessage.Content = "Operation failed. ";
+                    var res = usrMgr.EditPasssword(_accessToken.UserName, txtOldPassword.Password, txtNewPassword1.Password);
+                    if (res == true)
+                    {
+                        MessageBox.Show("Your password has been changed. ");
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Your password failed to update. ");
+                    }
                 }
             }
             catch (Exception)
             {
-                lblMessage.Content = "Operation Failed, check out!";
+                MessageBox.Show("Your password has been changed. ");
             }
             finally
             {
@@ -170,6 +174,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             try
             {
                 var groupManager = grpMgr.GetGroupsForUser(_accessToken.UserID);
+
                 grdGarden.ItemsSource = groupManager;
             }
             catch (Exception ex)
@@ -186,7 +191,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             user.LastName = txtLastName.Text;
             user.Zip = txtZip.Text;
             user.EmailAddress = txtEmail.Text;
-            user.UserName = txtUserName.Text;
+            user.UserName = _accessToken.UserName;
 
             if (txtRegion.Text.Trim() == "" || txtRegion.Text == null)
             {
@@ -204,7 +209,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                         if (res == true)
                         {
 
-                            lblMessage.Content = "Operation Succeeded. ";
+                            //lblMessage.Content = "Operation Succeeded. ";
                             _accessToken.FirstName = user.FirstName;
                             _accessToken.LastName = user.LastName;
                             _accessToken.UserName = user.UserName;
@@ -215,14 +220,15 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                         }
                         else
                         {
-                            lblMessage.Content = "Operation failed. ";
+                            //lblMessage.Content = "Operation failed. ";
                         }
                        
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                lblMessage.Content = "Operation Failed, check out!";
+                //lblMessage.Content = "Operation Failed, check out!";
+                MessageBox.Show(ex.Message);
             }
             finally
             {

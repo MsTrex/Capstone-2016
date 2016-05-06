@@ -14,6 +14,6 @@
                 <h2>@groupView.Name</h2>
                 <p class="text-right">Leader: @groupView.LeaderUserName</p>
                 <p class="text-right"><a href="mailto:@groupView.LeaderEmail">@groupView.LeaderEmail</a></p>
-                <button class="green-btn" onclick="location.href='@Url.Action("RequestJoinGroup", "Group", new { @id = groupView.GroupId })'">Request to Join</button>
+                <button class="green-btn" onclick="location.href='@Url.Action("RequestJoinGroup", "Group", new { id = groupView.GroupId })'">Request to Join</button>
             </div>
         }

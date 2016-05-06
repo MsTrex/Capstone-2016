@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using com.GreenThumb.BusinessObjects;
 using com.GreenThumb.BusinessLogic;
-
+using System.Web.Configuration;
 
 namespace com.GreenThumb.MVC.Controllers
 {
@@ -57,19 +57,22 @@ namespace com.GreenThumb.MVC.Controllers
 
                 foreach (Group group in joinableGroups)
                 {
-                    model.NonUserGroupList.Add(new GroupIndexViewModel.UserGroupViewModel()
+                    if (WebConfigurationManager.AppSettings["ExpertGroup"] != group.Name)
                     {
-                        GroupId
-                            = group.GroupID,
-                        Name
-                            = group.Name,
-                        LeaderUserName
-                            = group.GroupLeader.User.UserName,
-                        LeaderEmail
-                            = group.GroupLeader.User.EmailAddress,
-                        CreatedDate
-                            = group.CreatedDate
-                    });
+                        model.NonUserGroupList.Add(new GroupIndexViewModel.UserGroupViewModel()
+                        {
+                            GroupId
+                                = group.GroupID,
+                            Name
+                                = group.Name,
+                            LeaderUserName
+                                = group.GroupLeader.User.UserName,
+                            LeaderEmail
+                                = group.GroupLeader.User.EmailAddress,
+                            CreatedDate
+                                = group.CreatedDate
+                        });
+                    }
                 }
 
 
@@ -137,6 +140,7 @@ namespace com.GreenThumb.MVC.Controllers
         /// 
         /// Created by: Trent Cullinan 04/05/2016
         /// Modified by: Nicholas King
+        /// Last word by: Trent Cullinan 05/05/2016
         /// </summary>
         /// <param name="id">Group Id</param>
         /// <returns></returns>
@@ -146,9 +150,10 @@ namespace com.GreenThumb.MVC.Controllers
 
             if (id.HasValue)
             {
-                var group
-                    = new GroupManager().GetGroup(id.Value);
+                GroupManager groupManager = new GroupManager();
 
+                var group
+                    = groupManager.GetGroup(id.Value);
                 var gardens
                     = new GardenManager().GetGroupGardens(id.Value);
 
@@ -166,12 +171,11 @@ namespace com.GreenThumb.MVC.Controllers
                         = ConvertGardenCollection(gardens)
                 };
 
-
                 //Added by Nicholas King
-                if (true)//do check for if user is group leader
+                if (ViewBag.GroupLeader = groupManager.GetLeaderStatus(RetrieveUserId(), id.Value))//do check for if user is group leader
                 {
                     viewModel.Requests = new List<GroupMemberRequestModel>();
-                    List<GroupRequest> requests = new GroupManager().GetGroupRequests(id.Value);
+                    List<GroupRequest> requests = groupManager.GetGroupRequests(id.Value);
                     foreach (GroupRequest request in requests)
                     {
                         GroupMemberRequestModel requestModel = new GroupMemberRequestModel();
@@ -182,7 +186,35 @@ namespace com.GreenThumb.MVC.Controllers
                     }
                 }
 
-                view = View(viewModel);
+                if (WebConfigurationManager.AppSettings["ExpertGroup"] == group.Name)
+                {
+                    int userId = RetrieveUserId();
+
+                    // I am mimicking what ever happens on the tasks side of things.
+                    IEnumerable<Group> groups 
+                        = new GardenManager().GetGardenByUser(userId)
+                        .Where(g => g.Name == WebConfigurationManager.AppSettings["ExpertGroup"]);
+
+                    ExpertGroupDetailViewModel model = new ExpertGroupDetailViewModel()
+                    {
+                        GroupDetail 
+                            = viewModel,
+                        ExpertTaskDetail = new GardenTaskViewModel()
+                        {
+                            GroupsList = groups,
+                        }
+                    };
+
+                    ViewBag.UserID = userId;
+
+                    view = View("ExpertDetails", model);
+                }
+                else
+                {
+                    view = View(viewModel);
+                }
+
+
             }
             return view;
         }
@@ -220,16 +252,16 @@ namespace com.GreenThumb.MVC.Controllers
         /// 
         /// Created by: Nicholas King
         /// </summary>
-        /// <param name="groupID"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public ActionResult RequestJoinGroup(int? groupID)
+        public ActionResult RequestJoinGroup(int? id)
         {
-            if (groupID != null)
+            if (id != null)
             {
                 GroupRequest request = new GroupRequest();
                 request.UserID = RetrieveUserId();
                 request.RequestDate = DateTime.Now;
-                request.GroupID = (int)groupID;
+                request.GroupID = (int)id;
 
                 GroupManager manager = new GroupManager();
                 try

@@ -20,7 +20,7 @@
                     <p>@requestInfo.Requestor.FirstName @requestInfo.Requestor.LastName</p>
                     <p class="text-right">Request Date: @requestInfo.Request.RequestDate</p>
 
-                    <button class="green-btn" onclick="location.href='@Url.Action("ApproveRequestJoin","Group", requestInfo.Request, null)'">Approve</button>
+                    <button class="green-btn" onclick="location.href='@Url.Action("ApproveRequestToJoin","Group", requestInfo.Request, null)'">Approve</button>
                 </div>
             }
         }

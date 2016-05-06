@@ -43,6 +43,7 @@
     <Compile Include="AdminExpertRequestsManager.cs" />
     <Compile Include="AnnouncementManager.cs" />
     <Compile Include="BlogManager.cs" />
+    <Compile Include="BlueprintManager.cs" />
     <Compile Include="CreateOrgManager.cs" />
     <Compile Include="DonationManager.cs" />
     <Compile Include="FakeStuff\FakeCreateOrgManager.cs" />
@@ -75,12 +76,6 @@
     <Compile Include="Interfaces\IRequesterManager.cs" />
     <Compile Include="Interfaces\IRequestManager.cs" />
     <Compile Include="Interfaces\IRequestStatusManager.cs" />
-    <Compile Include="Interfaces\ISeedDonationManager.cs" />
-    <Compile Include="Interfaces\ISeedNeedManager.cs" />
-    <Compile Include="Interfaces\ISoilDonationManager.cs" />
-    <Compile Include="Interfaces\ISoilNeedManager.cs" />
-    <Compile Include="Interfaces\ISupplyDonationManager.cs" />
-    <Compile Include="Interfaces\ISupplyNeedManager.cs" />
     <Compile Include="Interfaces\ITimePledgeDonationManager.cs" />
     <Compile Include="Interfaces\ITimePledgeNeedManager.cs" />
     <Compile Include="Interfaces\ISecurityManager.cs" />
@@ -101,6 +96,7 @@
     <Compile Include="RoleManager.cs" />
     <Compile Include="SecurityManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemplateManager.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="UserNeedsManager.cs" />
     <Compile Include="UserRegionManager.cs" />

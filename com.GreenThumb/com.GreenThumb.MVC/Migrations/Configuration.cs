@@ -6,11 +6,12 @@ namespace com.GreenThumb.MVC.Migrations
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
+    using System.Configuration;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
     using System.Security.Claims;
-
+    using System.Web.Configuration;
     internal sealed class Configuration : DbMigrationsConfiguration<com.GreenThumb.MVC.Models.ApplicationDbContext>
     {
         public Configuration()
@@ -73,8 +74,26 @@ namespace com.GreenThumb.MVC.Migrations
                         UserManager uManager = new UserManager();
                         int id = uManager.GetUserId("admin");
 
+                        string groupName = WebConfigurationManager.AppSettings["ExpertGroup"];
+
                         GroupManager groupManager = new GroupManager();
-                        groupManager.AddGroup(id, "ExpertContributor");
+                        groupManager.AddGroup(id, groupName);
+
+                        int groupId = groupManager.RetrieveGroupByName(groupName).GroupID;
+
+                        new GardenManager().AddGarden(new Garden()
+                        {
+                            UserID 
+                                = id,
+                            GardenDescription 
+                                = "Tasks to be completed by experts to fill the system.",
+                            GardenName 
+                                = "Expert Tasks",
+                            GroupID
+                                = groupId,
+                            GardenRegion 
+                                = "Unknown"
+                        });
                     }
                 }
 

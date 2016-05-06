@@ -8,27 +8,36 @@ namespace com.GreenThumb.BusinessObjects
 {
     public class Template
     {
+
+
+
         /// <summary>
-        /// Author: Luke Frahm
-        /// Data Transfer Object to represent a Garden Template
-        /// from the Database
+        /// Stenner Kvindlog
+        /// Interaction logic for Blueprint.cs
+        /// Template class 
         /// </summary>
 
         public int TemplateID { get; set; }
-        public int UserID { get; set; }
+        public string Title { get; set; }
         public string Description { get; set; }
         public DateTime DateCreated { get; set; }
-        public bool Active { get; set; }
+        public int ModifiedBy { get; set; }
+        public string FilePath { get; set; }
 
-        public Template() { }
 
-        public Template(int templateID, int userID, string description, DateTime dateCreated, bool active)
+        public Template()
         {
-            TemplateID = templateID;
-            UserID = userID;
-            Description = description;
-            DateCreated = dateCreated;
-            Active = active;
+
         }
+
+        public Template( string title, string description, DateTime dateCreated, int modifiedBy, string filePath)
+        {
+           
+            this.Title = title;
+            this.Description = description;
+            this.DateCreated = dateCreated;
+            this.ModifiedBy = modifiedBy;
+            this.FilePath = filePath;
+        }      
     }
 }

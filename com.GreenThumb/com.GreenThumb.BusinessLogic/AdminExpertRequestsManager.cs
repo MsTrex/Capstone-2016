@@ -101,7 +101,7 @@ namespace com.GreenThumb.BusinessLogic
         /// <param name="accessToken">To confirm access as administrator.</param>
         public AdminExpertRequestsManager(AccessToken accessToken)
         {
-            if (GetAdminRoleStatus(accessToken))
+            if (accessToken != null)
             {
                 try
                 {
@@ -114,7 +114,7 @@ namespace com.GreenThumb.BusinessLogic
             }
             else
             {
-                throw new Exception("User must be an admin to use this feature.");
+                throw new Exception("No access token.");
             }
         }
 

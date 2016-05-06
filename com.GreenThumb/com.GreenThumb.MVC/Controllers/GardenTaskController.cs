@@ -27,12 +27,14 @@ namespace com.GreenThumb.MVC.Controllers
         // GET: GardenTask
         public ActionResult Index()
         {
-
             int userId = RetrieveUserId();
             IEnumerable<Group> model = new com.GreenThumb.BusinessLogic.GardenManager().GetGardenByUser(userId);
             GardenTaskViewModel modelObj = new GardenTaskViewModel();
             modelObj.GroupsList = model;
             ViewBag.UserID = userId;
+
+            
+
             return View(modelObj);
 
         }
@@ -47,6 +49,12 @@ namespace com.GreenThumb.MVC.Controllers
             modelObj.JobList = jobs;
             ViewBag.GardenID = gardenID;
             ViewBag.UserID = userId;
+
+            ViewBag.GroupLeader = new GroupManager().
+                    GetLeaderStatus(
+                        userId, new GardenManager().RetrieveGardenGroupId(gardenID)
+                    );
+
             return View("Index", modelObj);
 
         }

@@ -7,7 +7,7 @@
       d:DesignHeight="409.511" d:DesignWidth="671.388"
 	Title="RegionPage">
 
-    <Grid Margin="0,0,-8,0">
+    <Grid Margin="40">
         <Image Source="images/usda_plant.jpg" HorizontalAlignment="Left" Height="301" Margin="26,26,0,0" VerticalAlignment="Top" Width="485"/>
 
         <TextBox x:Name="txtRegionID" HorizontalAlignment="Left" Height="29" Margin="538,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="101" IsEnabled="False"/>

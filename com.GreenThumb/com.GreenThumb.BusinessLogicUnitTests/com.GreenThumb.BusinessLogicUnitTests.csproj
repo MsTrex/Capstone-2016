@@ -46,7 +46,9 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -64,6 +66,12 @@
     <Compile Include="ResponseManagerUnitTests.cs" />
     <Compile Include="RoleManagerUnitTests.cs" />
     <Compile Include="SecurityManagerUnitTests.cs" />
+    <Compile Include="GroupLeaderRequestManagerUnitTests.cs" />
+    <Compile Include="AddRequestManagerTests.cs" />
+    <Compile Include="NutrientManagerUnitTests.cs" />
+    <Compile Include="AnnouncementManagerUnitTests.cs" />
+    <Compile Include="BlogManagerUnitTests.cs" />
+    <Compile Include="DonationManagerUnitTests.cs" />
     <Compile Include="UserNeedsManagerUnitTests.cs" />
     <Compile Include="UserManagerUnitTests.cs" />
     <Compile Include="UserRegionManagerTests.cs" />
@@ -82,10 +90,6 @@
     <ProjectReference Include="..\com.GreenThumb.DataAccess\com.GreenThumb.DataAccess.csproj">
       <Project>{ef319654-33fe-44a8-ab46-f89dd48f65fb}</Project>
       <Name>com.GreenThumb.DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\com.GreenThumb.WindowsForms_Presentation\com.GreenThumb.WindowsForms_Presentation.csproj">
-      <Project>{7cb11741-19f3-49ba-acfc-778c0a554831}</Project>
-      <Name>com.GreenThumb.WindowsForms_Presentation</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

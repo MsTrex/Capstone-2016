@@ -162,6 +162,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\ExpertController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\GardenController.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Models\AnnouncementViewModel.cs" />
     <Compile Include="Models\ArticlesViewModel.cs" />
     <Compile Include="Models\DonationViewModels.cs" />
+    <Compile Include="Models\ExpertViewModels.cs" />
     <Compile Include="Models\GardenCreationViewModel.cs" />
     <Compile Include="Models\GardenTaskViewModel.cs" />
     <Compile Include="Models\GroupCreationViewModels.cs" />
@@ -490,6 +492,8 @@
     <Content Include="Views\Message\Index.cshtml" />
     <Content Include="Views\Message\Outbox.cshtml" />
     <Content Include="Views\Message\Compose.cshtml" />
+    <Content Include="Views\Articles\Articles.cshtml" />
+    <Content Include="Views\Group\ExpertDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

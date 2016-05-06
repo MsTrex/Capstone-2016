@@ -7,8 +7,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="600"
 	Title="ViewPlants">
-    
-    <Grid>
+
+    <Grid Margin="40">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.25,1" StartPoint="0.25,0">
                 <GradientStop Color="White" Offset="0"/>
@@ -228,35 +228,33 @@
                 </Grid>
             </Grid>
             <Grid x:Name="grdPlantList" Visibility="Hidden">
-                <ScrollViewer x:Name="scrPlants" Grid.Column="0">
-                    <ItemsControl x:Name="icPlants">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="20">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"></RowDefinition>
-                                        <RowDefinition Height="*"></RowDefinition>
-                                        <RowDefinition Height="*"></RowDefinition>
-                                        <RowDefinition Height="*"></RowDefinition>
-                                        <RowDefinition Height="*"></RowDefinition>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition></ColumnDefinition>
-                                        <ColumnDefinition></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock x:Name="tbPlantName" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,20,0,20" Text="{Binding Name}" FontSize="50" Foreground="#FF19320B" FontWeight="Bold" HorizontalAlignment="Center"/>
-                                    <Image x:Name="imgPlant" Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" MaxHeight="200" MaxWidth="200" Source="{Binding ImageUri}"></Image>
-                                    <TextBlock x:Name="tbPlantCategory" Grid.Row="1" Grid.Column="1" Margin="20,10,20,0" Text="{Binding Category}" TextWrapping="Wrap" FontSize="15"/>
-                                    <TextBlock x:Name="tbPlantSeasont" Grid.Row="2" Grid.Column="1" Margin="20,10,20,0" Text="{Binding Season}" TextWrapping="Wrap" FontSize="15"/>
-                                    <TextBlock x:Name="tbDateCreated" Grid.Row="3" Grid.Column="1" Text="{Binding Description}" FontSize="20" Foreground="#FF19320B" />
-                                    <Button Style="{StaticResource button1}" x:Name="btnAddNutrient" Grid.Row="4" Grid.Column="1" Content="Add Nutrients" Width="150" Height="45" Command="{Binding 
+                <ItemsControl x:Name="icPlants">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="20">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="tbPlantName" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,20,0,20" Text="{Binding Name}" FontSize="50" Foreground="#FF19320B" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <Image x:Name="imgPlant" Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" MaxHeight="200" MaxWidth="200" Source="{Binding ImageUri}"></Image>
+                                <TextBlock x:Name="tbPlantCategory" Grid.Row="1" Grid.Column="1" Margin="20,10,20,0" Text="{Binding Category}" TextWrapping="Wrap" FontSize="15"/>
+                                <TextBlock x:Name="tbPlantSeasont" Grid.Row="2" Grid.Column="1" Margin="20,10,20,0" Text="{Binding Season}" TextWrapping="Wrap" FontSize="15"/>
+                                <TextBlock x:Name="tbDateCreated" Grid.Row="3" Grid.Column="1" Text="{Binding Description}" FontSize="20" Foreground="#FF19320B" />
+                                <Button Style="{StaticResource button1}" x:Name="btnAddNutrient" Grid.Row="4" Grid.Column="1" Content="Add Nutrients" Height="45" Command="{Binding 
                                         RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.MyCommand}" Click="btnAddNutrient_Click" 
                                         CommandParameter="{Binding}" Tag="{Binding}" Loaded="btnAddNutrient_Loaded" />
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Grid>
         </Grid>
     </Grid>

@@ -16,21 +16,48 @@ using com.GreenThumb.BusinessObjects;
 
 namespace com.GreenThumb.WPF_Presentation
 {
+    ///<author>
+    ///Sara Nanke
+    /// </author>
     /// <summary>
     /// Interaction logic for HomeContent.xaml
+    /// Creaged 5/5/2016
     /// </summary>
     public partial class HomeContent : Page
     {
+        private AccessToken accessToken = null;
+
         public HomeContent(AccessToken _accessToken)
         {
             InitializeComponent();
+            checkAccessToken(_accessToken);
+        }
+
+        private void Login_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = (MainWindow)Window.GetWindow(this);
+            main.Login_Click(sender, e);
+            checkAccessToken(main.LoggedAccessToken);
+        }
+
+        private void NewUser_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = (MainWindow)Window.GetWindow(this);
+            main.NewUser_Click(sender, e);
+            checkAccessToken(main.LoggedAccessToken);
+        }
+
+        private void checkAccessToken(AccessToken _accessToken)
+        {
+            MainWindow main = (MainWindow)Window.GetWindow(this);
             if (_accessToken != null)
             {
-
+                grdLogin.Visibility = Visibility.Hidden;
+                this.accessToken = _accessToken;
             }
             else
             {
-
+                grdLogin.Visibility = Visibility.Visible;
             }
         }
     }

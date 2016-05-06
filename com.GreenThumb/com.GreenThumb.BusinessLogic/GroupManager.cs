@@ -306,7 +306,7 @@ namespace com.GreenThumb.BusinessLogic
         public List<GroupRequest> GetGroupRequests(int groupid)
         {
             List<GroupRequest> requests = new List<GroupRequest>();
-            if (groupid != null)
+            if (groupid != 0)
             {
                 try
                 {
@@ -351,12 +351,39 @@ namespace com.GreenThumb.BusinessLogic
 
             try
             {
-                group = GroupAccessor. RetrieveGroupIdByGroupName(groupName);
+                group = GroupAccessor.RetrieveGroupIdByGroupName(groupName);
         
             }
             catch (Exception) { } // group will be null.
 
             return group;
+        }
+
+        /// <summary>
+        /// Really bad method, just using duct tape.
+        /// 
+        /// Created by: Trent Cullinan 05/05/2016
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public bool IsGroupMember(string groupName, int userId)
+        {
+            bool flag = false;
+
+            List<Group> groups = null;
+            try
+            {
+                groups = GroupAccessor.RetrieveUsersGroups(userId);
+            }
+            catch (Exception) { }
+
+            if (null != groups)
+            {
+                flag = 0 < groups.Where(g => g.Name == groupName).Count();
+            }
+
+            return flag;
         }
 
     }

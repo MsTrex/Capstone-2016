@@ -55,9 +55,9 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             category = "canning";
         }
 
-        private void selectDesert(object sender, RoutedEventArgs e)
+        private void selectDessert(object sender, RoutedEventArgs e)
         {
-            category = "desert";
+            category = "dessert";
         }
 
         private void selectGrilled(object sender, RoutedEventArgs e)
@@ -91,10 +91,9 @@ namespace com.GreenThumb.WPF_Presentation.ExpertPages
             try
             {
                 myRecipeManager.AddNewRecipe(title, category, directions, _accessToken.UserID);
-                MessageBox.Show("Recipe saved!");
+                this.NavigationService.Navigate(new ExpertPages.RecipeDetail(_accessToken, new Recipe(0, title, category, directions, _accessToken.UserID, new DateTime(), 0, DateTime.Now)));
                 txtTitle.Clear();
                 txtDirections.Clear();
-                NavigationService.Navigate(new ExpertPages.RecipeInput(_accessToken));
 
             }
             catch (Exception ex)

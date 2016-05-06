@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using com.GreenThumb.BusinessLogic;
 using com.GreenThumb.BusinessObjects;
 using com.GreenThumb.MVC.Models;
+using System.Web.Configuration;
 
 namespace com.GreenThumb.MVC.Controllers
 {
@@ -33,7 +34,7 @@ namespace com.GreenThumb.MVC.Controllers
             int userId = RetrieveUserId();
 
             GroupManager grMangr = new GroupManager();
-            Group grp = grMangr.RetrieveGroupByName("ExpertContributor");
+            Group grp = grMangr.RetrieveGroupByName(WebConfigurationManager.AppSettings["ExpertGroup"]);
             int groupId = grp.GroupID;
 
             var viewModel = new GroupDetailViewModel();
@@ -85,7 +86,7 @@ namespace com.GreenThumb.MVC.Controllers
             try
             {
                 GroupManager grMangr = new GroupManager();
-                Group grp = grMangr.RetrieveGroupByName("ExpertContributor");
+                Group grp = grMangr.RetrieveGroupByName(WebConfigurationManager.AppSettings["ExpertGroup"]);
                 int groupId = grp.GroupID;
                 var model = new GroupManager().GetGroupMembers(groupId);
                 return View(model);

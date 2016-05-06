@@ -28,6 +28,14 @@ namespace com.GreenThumb.WPF_Presentation
         MessageManager messageMgr = new MessageManager();
         NewUserCreation _newUser;
 
+        public AccessToken LoggedAccessToken
+        {
+            get
+            {
+                return _accessToken;
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -76,31 +84,31 @@ namespace com.GreenThumb.WPF_Presentation
                 {
                     if (r.RoleID == "Admin")
                     {
-                        var adminTabs = new Label[] { btnAdmin, btnGardens, btnExpert, btnHome, btnProfile };
+                        var adminTabs = new Label[] { btnAdmin, btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(adminTabs);
                         break;
                     }
                     if (r.RoleID == "Expert")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { btnGardens, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
                     if (r.RoleID == "GroupLeader")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { btnGardens, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
                     if (r.RoleID == "GroupMember")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
                     if (r.RoleID == "User")
                     {
-                        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+                        var expertTabs = new Label[] { btnExpert, btnHome, btnProfile };
                         visibleTabs.AddRange(expertTabs);
                         break;
                     }
@@ -131,7 +139,7 @@ namespace com.GreenThumb.WPF_Presentation
         /// Updated: 2016/03/07
         /// Fixed the access token creation event
         /// </remarks>
-        private void Login_Click(object sender, RoutedEventArgs e)
+        public void Login_Click(object sender, RoutedEventArgs e)
         {
             if (null == _accessToken)
             {
@@ -148,7 +156,6 @@ namespace com.GreenThumb.WPF_Presentation
                 {
                     // clear the access token reference
                     _accessToken = null;
-                    MessageBox.Show("Login Failed.");
                     lblLoggedIn.Content = "";
                     CheckPermissions();
                 }
@@ -161,6 +168,7 @@ namespace com.GreenThumb.WPF_Presentation
                 lblLoggedIn.Content = "";
                 CheckPermissions();
                 btnSignUp.Visibility = System.Windows.Visibility.Visible;
+                mainFrame.NavigationService.Navigate(new HomeContent(_accessToken));
             }
         }
         /// <summary>
@@ -174,7 +182,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnProfile.Focus();
             mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
             CheckPermissions();
-            SetProfileButtons();
+            //SetProfileButtons();
         }
 
         /// <summary>
@@ -225,8 +233,8 @@ namespace com.GreenThumb.WPF_Presentation
         /// Author: Ryan Taylor
         /// Click logic for New user button
         /// Date: 2/26/16
-        /// </summary>-
-        private void NewUser_Click(object sender, RoutedEventArgs e)
+        /// </summary>
+        public void NewUser_Click(object sender, RoutedEventArgs e)
         {
             // Made changes to login when user registers By : Poonam Dubey
             _newUser = new NewUserCreation();
@@ -268,6 +276,7 @@ namespace com.GreenThumb.WPF_Presentation
             clearSideBar();
             SetHomeButtons();
             clearUnusedSidebars();
+            boldCurrent(sender);
         }
         // Chris S - Had to refactor - using in two places
         private void SetHomeButtons()
@@ -326,10 +335,24 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar5.Content = "View Recipes";
             btnSideBar6.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ? "Add a Recipe" : "";
             btnSideBar7.Content = "Plants";
-            btnSideBar8.Content = "Upload Garden Template";
+            btnSideBar8.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ? "Upload Garden Template" : "";
             btnSideBar9.Content = "View Garden Templates";
-            btnSideBar10.Content = "Become an Expert";
+            btnSideBar10.Content = "Upload Garden Blueprints";
+            btnSideBar11.Content = "View Garden Blueprints";
+            btnSideBar12.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ||
+               roleManager.ConfirmUserIsAssignedRole(_accessToken, "Admin") ? "" : "Become an Expert";
             clearUnusedSidebars();
+            boldCurrent(sender);
+            //foreach (Role r in _accessToken.Roles)
+            //{
+            //    if (r.RoleID == "Expert")
+            //    {
+            //        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+            //        visibleTabs.AddRange(expertTabs);
+            //        break;
+            //    }
+            //    clearUnusedSidebars();
+            //}
         }
 
         /// <summary>
@@ -360,13 +383,18 @@ namespace com.GreenThumb.WPF_Presentation
         {
             mainFrame.NavigationService.Navigate(new AdminPages.AdminHome(_accessToken));
             clearSideBar();
-            btnSideBar1.Content = "User Accounts";
+            btnSideBar1.Content = "Users";
             btnSideBar2.Content = "Messages";
             btnSideBar3.Content = "Expert Requests";
+<<<<<<< HEAD
             btnSideBar4.Content = "User Role";
             btnSideBar5.Content = "User Region";
             btnSideBar6.Content = "Admin User Profile";
+=======
+            btnSideBar6.Content = "";
+>>>>>>> origin
             clearUnusedSidebars();
+            boldCurrent(sender);
         }
 
         /// <summary>
@@ -380,6 +408,7 @@ namespace com.GreenThumb.WPF_Presentation
             clearSideBar();
             SetProfileButtons();
             clearUnusedSidebars();
+            boldCurrent(sender);
         }
         //Chris S - had to refactor - using in multiple places
         private void SetProfileButtons()
@@ -389,12 +418,34 @@ namespace com.GreenThumb.WPF_Presentation
             
         }
 
+        //Author: Sara Nanke
         public void clearSideBar()
         {
             //clear side panel content
             foreach (Label label in sidePanel.Children)
             {
                 label.Content = "";
+            }
+        }
+
+        public void boldCurrent(Object sender)
+        {
+            try
+            {
+                foreach (Label label in grdTabs.Children)
+                {
+                    label.FontWeight = FontWeights.Regular;
+                }
+                Label current = (Label)sender;
+                current.FontWeight = FontWeights.Bold;
+
+                //open sidebar
+                sidePanelDefinition.Width = new GridLength(220);
+                btnCollapse.Content = "\u276E\u276E"; // "<<"
+            }
+            catch (Exception) 
+            { 
+                //contine 
             }
         }
 
@@ -413,11 +464,11 @@ namespace com.GreenThumb.WPF_Presentation
             ColorConverter cc = new ColorConverter();
             foreach (Label label in sidePanel.Children)
             {
-                //label.Background = new SolidColorBrush(Color.FromArgb(0,0,0,0));
+                label.FontWeight = FontWeights.Regular;
             }
-            Label lblClicked = (Label)sender;
-            //lblClicked.Background = new SolidColorBrush(Color.FromArgb(0,9,9,9));
-            String content = lblClicked.Content.ToString();
+            Label current = (Label)sender;
+            current.FontWeight = FontWeights.Bold;
+            String content = current.Content.ToString();
             Page page = new HomePages.ViewBlog();
             try
             {
@@ -438,7 +489,7 @@ namespace com.GreenThumb.WPF_Presentation
                     case "Volunteer Sign Up":
                         page = new VolunteerPages.VolunteerSignUp(_accessToken);
                         break;
-                    case "Profile Main":
+                    case "Profile Menu":
                         page = new ProfilePages.ProfileMain(_accessToken);
                         break;
                     case "Expert Requests":
@@ -466,12 +517,12 @@ namespace com.GreenThumb.WPF_Presentation
                     case "User Region":
             //            page = new Uri("AdminPages/RegionPage.xaml", UriKind.Relative);
                         page = new AdminPages.RegionPage();
-                        return;
-                    case "User Accounts":
-                        page = new AdminPages.ProfileAdmin(_accessToken);
-                        return;
+                        break;
+                    case "Users":
+                        page = new AdminPages.AdminProfile(_accessToken);
+                        break;
                     case "Upload Garden Template":
-                        page = new ExpertPages.ExpertGardenTemplate(_accessToken);
+                        page = new ExpertPages.UploadTemplates(_accessToken);
                         break;
                     case "Sign Up for Task":
                         page = new GardenPages.SelectTasks(_accessToken);
@@ -482,7 +533,7 @@ namespace com.GreenThumb.WPF_Presentation
                         break;
 
                     case "View Garden Templates":
-                        page = new ExpertPages.ViewGardenTemplate();
+                        page = new ExpertPages.ViewTemplates(_accessToken);
                         break;
                     case "create garden":
                         page = new GardenPages.CreateGarden(_accessToken);
@@ -513,7 +564,13 @@ namespace com.GreenThumb.WPF_Presentation
                         break;
                     case "Become an Expert":
                         page = new ExpertPages.RequestExpert(_accessToken);
-                        break;                        
+                        break;   
+                     case "Upload Garden Blueprints":
+                        page = new ExpertPages.UploadBlueprint(_accessToken);
+                        break;
+                     case "View Garden Blueprints":
+                        page = new ExpertPages.ViewBluePrints(_accessToken);
+                        break;                          
                     default: //Blog
                         page = page = new HomePages.ViewBlog(_accessToken);
                         break;

@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections;
 
 namespace com.GreenThumb.WPF_Presentation.HomePages
 {
@@ -27,6 +28,7 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
         Blog blog = new Blog();
         List<Blog> blogs = new List<Blog>();
         BlogManager blogManager = new BlogManager();
+        UserManager userManager = new UserManager();
         List<DateTime> dates = new List<DateTime>();
         AccessToken accessToken = null;
         List<String> roles = new List<String>();
@@ -39,7 +41,7 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
         {
             InitializeComponent();
             blogs = blogManager.GetBlogs();
-            icBlogs.ItemsSource = blogs;
+            icBlogs.ItemsSource = ConvertBlogsToAnonymous(blogs);
 
             pageDetails = InitializePageDetails();
             fullList = blogManager.GetBlogs();
@@ -55,7 +57,7 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
 
             blogs = paginate.GetList(pageDetails, blogManager.GetBlogs());
 
-            icBlogs.ItemsSource = blogs;
+            icBlogs.ItemsSource = ConvertBlogsToAnonymous(blogs);
             foreach (Role role in accessToken.Roles)
             {
                 roles.Add(role.RoleID);
@@ -77,7 +79,7 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
             blogs = new List<Blog>();
             blogs.Add(blogManager.GetBlogById(blogID));
 
-            icBlogs.ItemsSource = blogs;
+            icBlogs.ItemsSource = ConvertBlogsToAnonymous(blogs); 
             foreach (Role role in accessToken.Roles)
             {
                 roles.Add(role.RoleID);
@@ -86,6 +88,26 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
             {
                 btnCreateBlog.Visibility = System.Windows.Visibility.Visible;
             }
+        }
+
+        /// <summary>
+        /// Rhett Allen
+        /// Created Date: 5/6/16
+        /// Converts a list of blogs into anonymous objects to inlude the
+        /// username for the blog instead of a userID
+        /// </summary>
+        /// <param name="blogs">The list of blogs to convert</param>
+        /// <returns>The blogs converted into IEnumerable to include usernames</returns>
+        private IEnumerable ConvertBlogsToAnonymous(List<Blog> blogs)
+        {
+            return blogs.ConvertAll(blog => new
+            {
+                BlogData = blog.BlogData,
+                BlogID = blog.BlogID,
+                BlogTitle = blog.BlogTitle,
+                DateCreated = blog.DateCreated,
+                CreatedBy = userManager.GetUser(blog.CreatedBy)
+            });
         }
 
         public string UserCreated(int userId)
@@ -152,7 +174,7 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
                 currentBlog = blogManager.GetBlogById(blogId);
                 blogs = new List<Blog>();
                 blogs.Add(currentBlog);
-                icBlogs.ItemsSource = blogs;
+                icBlogs.ItemsSource = ConvertBlogsToAnonymous(blogs);
             }
             catch (Exception ex)
             {
@@ -163,7 +185,7 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
         private void allBlogs_Click(object sender, RoutedEventArgs e)
         {
             SelectBlogs();
-            icBlogs.ItemsSource = blogs;
+            icBlogs.ItemsSource = ConvertBlogsToAnonymous(blogs);
         }
 
         /* Rhett Allen - adding pages */
@@ -203,7 +225,7 @@ namespace com.GreenThumb.WPF_Presentation.HomePages
         {
             try
             {
-                icBlogs.ItemsSource = paginate.GetList(pageDetails, fullList);
+                icBlogs.ItemsSource = ConvertBlogsToAnonymous(paginate.GetList(pageDetails, fullList)); 
                 lblPage.Content = "Page " + pageDetails.CurrentPage;
                 CreateBlogStack();
             }

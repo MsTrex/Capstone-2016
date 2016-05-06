@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Web.Configuration;
 
 namespace com.GreenThumb.MVC.Controllers
 {
@@ -36,6 +37,9 @@ namespace com.GreenThumb.MVC.Controllers
                 model.blog = blog;
                 blogs.Add(model);
             }
+
+            ViewBag.IsExpert = new GroupManager().IsGroupMember(WebConfigurationManager.AppSettings["ExpertGroup"], RetrieveUserId());
+
             return View(blogs);
         }
 
@@ -50,7 +54,7 @@ namespace com.GreenThumb.MVC.Controllers
         public ActionResult RequestJoinExpert()
         {
             GroupManager grMangr = new GroupManager();
-            Group grp = grMangr.RetrieveGroupByName("ExpertContributor");       
+            Group grp = grMangr.RetrieveGroupByName(WebConfigurationManager.AppSettings["ExpertGroup"]);       
             int groupId = grp.GroupID;
             GroupRequest request = new GroupRequest();
             request.UserID = RetrieveUserId();

@@ -29,9 +29,9 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
             = null;
         private AdminExpertRequestsManager adminExpertRequestsManager
             = null;
+        MessageManager messageManager = new MessageManager();
 
         /// <summary>
-        /// Constructor that cannot be used unless accessToken has an admin role.
         /// 
         /// Created By: Trent Cullinan 03/15/2016
         /// </summary>
@@ -46,7 +46,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
             {
                 adminExpertRequestsManager
                     = new AdminExpertRequestsManager(accessToken);
-                lblResponseMessage.Content = ErrorMessage("ehhhhh");
+                lblResponseMessage.Content = ErrorMessage("Succesful");
             }
             catch (Exception ex)
             {
@@ -55,13 +55,14 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
 
             this.accessToken = accessToken;
             BindExpertRequests();
-            lblResponseMessage.Content = ErrorMessage("What'sup");
+            lblResponseMessage.Content = ErrorMessage("Failed");
         }
     //}
 
         // Created By: Trent Cullinan 03/15/2016
         private void btnActionOne_Click(object sender, RoutedEventArgs e)
         {
+
             if (tiRequests.IsSelected)
             {
                 var request = (ExpertRequest)dgExpertRequests.SelectedItem;
@@ -76,6 +77,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
                             BindExpertRequests();
 
                             lblResponseMessage.Content = "Request approved.";
+                            messageManager.SendMessage("Your request to become an expert has been approved", "Request to Become Expert", accessToken.UserName, request.User.UserName);
 
                             ClearRequestContent();
                         
@@ -105,6 +107,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
                             BindCurrentUsers();
 
                             lblResponseMessage.Content = "User promoted.";
+                            messageManager.SendMessage("You have been promoted to Expert status.  Congrats.", "Expert Promotion", accessToken.UserName, user.UserName);
                         
                     }
                     catch (Exception ex)
@@ -131,6 +134,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
                             BindCurrentExperts();
 
                             lblResponseMessage.Content = "Expert Demoted.";
+                            messageManager.SendMessage("You have been demoted from Expert status.  Feel free to reapply.", "Expert Demotion", accessToken.UserName, expert.UserName);
                         }
                         else
                         {
@@ -166,6 +170,7 @@ namespace com.GreenThumb.WPF_Presentation.AdminPages
                             BindExpertRequests();
 
                             lblResponseMessage.Content = "Request declined.";
+                            messageManager.SendMessage("Your request to become an expert has been devlined.  Thank you for your submission.", "Expert Request Declined", accessToken.UserName, request.User.UserName);
 
                             ClearRequestContent();
                         }

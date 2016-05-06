@@ -24,7 +24,10 @@
 
     <div class="dark-div round">
         @Html.Partial("~/Views/PartialViews/GroupGardenTable.cshtml", Model.Gardens)
-        @Html.ActionLink("Add Garden", "CreateGarden", "Garden", new { @id = Model.GroupID }, new { @class = "green-btn text-center", style = "width: 14em;" })
+        @if (ViewBag.GroupLeader)
+        {
+                @Html.ActionLink("Add Garden", "CreateGarden", "Garden", new { @id = Model.GroupID }, new { @class = "green-btn text-center", style = "width: 14em;" })
+        }
     </div>
 
     <div class="dark-div round">
@@ -32,7 +35,8 @@
     </div>
 
     @*Add groupleader check here*@
-    @if(true){
+    @if(ViewBag.GroupLeader)
+    {
     <div class="dark-div round">
         @Html.Partial("~/Views/PartialViews/_GroupRequestTable.cshtml", Model.Requests)
     </div>

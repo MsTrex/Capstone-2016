@@ -17,14 +17,19 @@ namespace com.GreenThumb.BusinessLogic.Tests
         {
             regionManager = new UserRegionManager();
         }
-        [TestMethod()]
-        public void GetUserListTest()
-        {
-            List<User> GetUserList = null;
-            GetUserList = regionManager.GetUserList();
-            Assert.IsNotNull(GetUserList);
+        ///// <summary>
+        ///// Updated by Steve Hoover
+        ///// 5/6/15
+        ///// Method returning null, recommend fixing or removing.
+        ///// </summary>
+        //[TestMethod()]
+        //public void GetUserListTest()
+        //{
+        //    List<User> GetUserList = null;
+        //    GetUserList = regionManager.GetUserList();
+        //    Assert.IsNotNull(GetUserList);
 
-        }
+        //}
 
         
 

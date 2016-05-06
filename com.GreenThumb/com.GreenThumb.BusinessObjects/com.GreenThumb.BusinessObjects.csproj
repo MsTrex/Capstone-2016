@@ -20,12 +20,15 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6456.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs81EF.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u03\AppData\Local\Temp\vs7FF3.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vsB259.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs54E5.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs5B5E.tmp\Debug\</IntermediateOutputPath>
+=======
+>>>>>>> origin
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,6 +37,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6456.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs81EF.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vsB259.tmp\Release\</IntermediateOutputPath>
@@ -45,6 +49,8 @@
     <IntermediateOutputPath>C:\Users\nh229u10\AppData\Local\Temp\vsCF7E.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u01\AppData\Local\Temp\vs4FCD.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Ibrahim\AppData\Local\Temp\vs5B5E.tmp\Release\</IntermediateOutputPath>
+=======
+>>>>>>> origin
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -62,6 +68,7 @@
     <Compile Include="AddRequest.cs" />
     <Compile Include="Advice.cs" />
     <Compile Include="Blog.cs" />
+    <Compile Include="Blueprint.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="AdministratorAccount.cs" />
     <Compile Include="BecomeExpert.cs" />
@@ -85,10 +92,7 @@
     <Compile Include="IAdminAccount.cs" />
     <Compile Include="IUserInterface.cs" />
     <Compile Include="Jobs.cs" />
-    <Compile Include="Land.cs" />
     <Compile Include="Message.cs" />
-    <Compile Include="Money.cs" />
-    <Compile Include="MoneyPending.cs" />
     <Compile Include="NeedContribution.cs" />
     <Compile Include="NeedType.cs" />
     <Compile Include="Notification.cs" />
@@ -98,19 +102,11 @@
     <Compile Include="Region.cs" />
     <Compile Include="ResponseView.cs" />
     <Compile Include="Role.cs" />
-    <Compile Include="Seed.cs" />
-    <Compile Include="SeedDonated.cs" />
-    <Compile Include="SeedNeeded.cs" />
-    <Compile Include="SeedPending.cs" />
     <Compile Include="Soil.cs" />
     <Compile Include="SoilDonated.cs" />
     <Compile Include="SoilNeeded.cs" />
-    <Compile Include="SoilPending.cs" />
-    <Compile Include="Supply.cs" />
-    <Compile Include="SupplyDonated.cs" />
-    <Compile Include="SupplyNeeded.cs" />
-    <Compile Include="SupplyPending.cs" />
     <Compile Include="Task.cs" />
+    <Compile Include="Template.cs" />
     <Compile Include="TimePledge.cs" />
     <Compile Include="TimePledgeDonated.cs" />
     <Compile Include="TimePledgeNeeded.cs" />
@@ -125,7 +121,6 @@
     <Compile Include="Question.cs" />
     <Compile Include="Recipe.cs" />
     <Compile Include="Response.cs" />
-    <Compile Include="Template.cs" />
     <Compile Include="UserRole.cs" />
     <Compile Include="Volunteer.cs" />
     <Compile Include="VolunteerNeeds.cs" />
