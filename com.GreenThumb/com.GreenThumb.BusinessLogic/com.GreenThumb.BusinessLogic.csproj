@@ -75,12 +75,6 @@
     <Compile Include="Interfaces\IRequesterManager.cs" />
     <Compile Include="Interfaces\IRequestManager.cs" />
     <Compile Include="Interfaces\IRequestStatusManager.cs" />
-    <Compile Include="Interfaces\ISeedDonationManager.cs" />
-    <Compile Include="Interfaces\ISeedNeedManager.cs" />
-    <Compile Include="Interfaces\ISoilDonationManager.cs" />
-    <Compile Include="Interfaces\ISoilNeedManager.cs" />
-    <Compile Include="Interfaces\ISupplyDonationManager.cs" />
-    <Compile Include="Interfaces\ISupplyNeedManager.cs" />
     <Compile Include="Interfaces\ITimePledgeDonationManager.cs" />
     <Compile Include="Interfaces\ITimePledgeNeedManager.cs" />
     <Compile Include="Interfaces\ISecurityManager.cs" />
