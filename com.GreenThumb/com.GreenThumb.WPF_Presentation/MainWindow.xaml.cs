@@ -365,7 +365,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar3.Content = "Expert Requests";
             btnSideBar4.Content = "User Role";
             btnSideBar5.Content = "User Region";
-            btnSideBar6.Content = "";
+            btnSideBar6.Content = "Admin User Profile";
             clearUnusedSidebars();
         }
 
@@ -386,6 +386,7 @@ namespace com.GreenThumb.WPF_Presentation
         {
             btnSideBar1.Content = "Profile Menu";
             btnSideBar2.Content = "Messages";
+            
         }
 
         public void clearSideBar()
@@ -449,6 +450,7 @@ namespace com.GreenThumb.WPF_Presentation
                     case "Complete A Task":
                         page = new ProfilePages.Messages(_accessToken);
                         break;
+
                     case "Ask a Question":
                         page = new ExpertPages.ExpertAdvice(_accessToken);
                         break;
@@ -474,6 +476,11 @@ namespace com.GreenThumb.WPF_Presentation
                     case "Sign Up for Task":
                         page = new GardenPages.SelectTasks(_accessToken);
                         break;
+
+                    case "Admin User Profile":
+                        page = new AdminPages.AdminUserProfile(_accessToken);
+                        break;
+
                     case "View Garden Templates":
                         page = new ExpertPages.ViewGardenTemplate();
                         break;

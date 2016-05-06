@@ -14,24 +14,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace com.GreenThumb.WPF_Presentation.ProfilePages
+namespace com.GreenThumb.WPF_Presentation.AdminPages
 {
     /// <summary>
     /// Interaction logic for ProfileMenu.xaml
     /// Added by Ibrahim Abuzaid 04-15-2016
     /// </summary>
-    public partial class ProfileMain : Page
+    public partial class AdminUserProfile : Page
     {
         UserManager usrMgr = new UserManager();
         UserRoleManager usrRoleMgr = new UserRoleManager();
         GroupManager grpMgr = new GroupManager();
+        int userId;
 
         private AccessToken _accessToken;
-        
-        public ProfileMain(AccessToken _accessToken)
+
+        public AdminUserProfile(AccessToken _accessToken)
         {
             this._accessToken = _accessToken;
-      //      ProfileMenu profMenu = new ProfileMenu(_accessToken);
+            //      ProfileMenu profMenu = new ProfileMenu(_accessToken);
             InitializeComponent();
             populateUser();
             frmEdit.Visibility = Visibility.Hidden;
@@ -41,28 +42,29 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
         }
         private void populateUser()
         {
+
             try
             {
+                
+                var users = usrMgr.GetPersonalInfo(userId);
+           //     User user = new User();
+                //   grdUser.ItemsSource = users;
+                lblFirstName.Content = users.FirstName;
 
-                var users = usrMgr.GetPersonalInfo(_accessToken.UserID);
-                User user = new User();
-             //   grdUser.ItemsSource = users;
-                lblFirstName.Content = user.FirstName;
-               
-                if (user == null)
+                if (users == null)
                 {
                     lblMessage.Foreground = Brushes.Red;
-                    lblMessage.Content = "Users NO: " + _accessToken.UserID + "  Not Found in DataBase, try again";      
+                    lblMessage.Content = "Users NO: " + userId + "  Not Found in DataBase, try again";
                 }
                 else
                 {
-                    lblFirstName.Content = _accessToken.FirstName;
-                    lblLastName.Content = _accessToken.LastName;
-                    lblZip.Content = _accessToken.Zip;
-                    lblMail.Content = _accessToken.EmailAddress;
-                    lblUserName.Content = _accessToken.UserName;
-                    lblRegion.Content =_accessToken.RegionId;
-                } 
+                    lblFirstName.Content = users.FirstName;
+                    lblLastName.Content = users.LastName;
+                    lblZip.Content = users.Zip;
+                    lblMail.Content = users.EmailAddress;
+                    lblUserName.Content = users.UserName;
+                    lblRegion.Content = users.RegionId;
+                }
             }
             catch (Exception ex)
             {
@@ -72,48 +74,49 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
+            var users = usrMgr.GetPersonalInfo(userId);
             frmPassword.Visibility = Visibility.Hidden;
             frmRole.Visibility = Visibility.Hidden;
             grdGarden.Visibility = Visibility.Hidden;
             frmEdit.Visibility = Visibility.Visible;
-            txtFirstName.Text = _accessToken.FirstName;
-            txtLastName.Text = _accessToken.LastName;
-            txtZip.Text = _accessToken.Zip;
-            txtEmail.Text = _accessToken.EmailAddress;
-            txtRegion.Text= _accessToken.RegionId.ToString();
+            txtFirstName.Text = users.FirstName;
+            txtLastName.Text = users.LastName;
+            txtZip.Text = users.Zip;
+            txtEmail.Text = users.EmailAddress;
+            txtRegion.Text = users.RegionId.ToString();
             txtRegion.IsEnabled = false;
-            txtUserName.Text = _accessToken.UserName;
+            txtUserName.Text = users.UserName;
         }
 
         private void btnChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            var users = usrMgr.GetPersonalInfo(_accessToken.UserID);
+            var users = usrMgr.GetPersonalInfo(userId);
             User user = new User();
             frmEdit.Visibility = Visibility.Hidden;
             frmRole.Visibility = Visibility.Hidden;
             grdGarden.Visibility = Visibility.Hidden;
             frmPassword.Visibility = Visibility.Visible;
 
-            if (txtOldPassword.Password != null && txtOldPassword.Password != _accessToken.Password)
+            if (txtOldPassword.Password != null && txtOldPassword.Password != users.Password)
             {
                 lblMessage.Content = "Invalid old Password";
             }
 
             if (txtNewPassword2.Password == null || txtNewPassword1.Password == null)
             {
-               lblMessage.Content = "enter new Password twice";
-            } 
+                lblMessage.Content = "enter new Password twice";
+            }
 
             if (txtNewPassword2.Password != txtNewPassword1.Password)
             {
                 lblMessage.Content = "new Password doesn't match!";
-            } 
+            }
 
         }
         private void btnPasswordSave_Click(object sender, RoutedEventArgs e)
         {
             User user = new User();
-            
+
             try
             {
                 var res = usrMgr.EditPasssword(txtUserName.Text, txtOldPassword.Password, txtNewPassword1.Password);
@@ -121,7 +124,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                 if (res == true)
                 {
                     lblMessage.Content = "Operation Succeeded. ";
-                    
+
                 }
                 else
                 {
@@ -141,7 +144,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                 populateUser();
             }
         }
-         
+
         private void btnUserRoles_Click(object sender, RoutedEventArgs e)
         {
             frmEdit.Visibility = Visibility.Hidden;
@@ -150,7 +153,8 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             frmRole.Visibility = Visibility.Visible;
             try
             {
-                var userRoles = usrRoleMgr.GetUserRoleListByUser(_accessToken.UserID);
+                
+                var userRoles = usrRoleMgr.GetUserRoleListByUser(userId);
                 grdUserRoleList.ItemsSource = userRoles;
             }
             catch (Exception ex)
@@ -159,17 +163,18 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             }
         }
 
-        
+
         private void btnGarden_Click(object sender, RoutedEventArgs e)
         {
             frmEdit.Visibility = Visibility.Hidden;
-            frmPassword.Visibility = Visibility.Hidden;         
+            frmPassword.Visibility = Visibility.Hidden;
             frmRole.Visibility = Visibility.Hidden;
             grdMap.Visibility = Visibility.Hidden;
             grdGarden.Visibility = Visibility.Visible;
             try
             {
-                var groupManager = grpMgr.GetGroupsForUser(_accessToken.UserID);
+                
+                var groupManager = grpMgr.GetGroupsForUser(userId);
                 grdGarden.ItemsSource = groupManager;
             }
             catch (Exception ex)
@@ -181,7 +186,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             User user = new User();
-            user.UserID = _accessToken.UserID;
+            user.UserID = userId;
             user.FirstName = txtFirstName.Text;
             user.LastName = txtLastName.Text;
             user.Zip = txtZip.Text;
@@ -196,28 +201,28 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             {
                 user.RegionId = int.Parse(txtRegion.Text);
             }
-            
-            try
-            {                  
-                        var res = usrMgr.EditUserPersonalInfo(user.UserID, user.FirstName, user.LastName,
-                                 user.Zip, user.EmailAddress, user.RegionId);
-                        if (res == true)
-                        {
 
-                            lblMessage.Content = "Operation Succeeded. ";
-                            _accessToken.FirstName = user.FirstName;
-                            _accessToken.LastName = user.LastName;
-                            _accessToken.UserName = user.UserName;
-                            _accessToken.EmailAddress = user.EmailAddress;
-                            _accessToken.Zip = user.Zip;
-                            _accessToken.RegionId = user.RegionId;
-                            populateUser();
-                        }
-                        else
-                        {
-                            lblMessage.Content = "Operation failed. ";
-                        }
-                       
+            try
+            {
+                var res = usrMgr.EditUserPersonalInfo(user.UserID, user.FirstName, user.LastName,
+                         user.Zip, user.EmailAddress, user.RegionId);
+                if (res == true)
+                {
+
+                    lblMessage.Content = "Operation Succeeded. ";
+                    //_accessToken.FirstName = user.FirstName;
+                    //_accessToken.LastName = user.LastName;
+                    //_accessToken.UserName = user.UserName;
+                    //_accessToken.EmailAddress = user.EmailAddress;
+                    //_accessToken.Zip = user.Zip;
+                    //_accessToken.RegionId = user.RegionId;
+                    populateUser();
+                }
+                else
+                {
+                    lblMessage.Content = "Operation failed. ";
+                }
+
 
             }
             catch (Exception)
@@ -226,13 +231,13 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
             }
             finally
             {
-                
-               
+
+
             }
         }
         public void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            frmEdit.Visibility = Visibility.Hidden;       
+            frmEdit.Visibility = Visibility.Hidden;
         }
         public void btnPasswordBack_Click(object sender, RoutedEventArgs e)
         {
@@ -240,7 +245,7 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
         }
         public void DataGrid_SelectionChanged(object sender, RoutedEventArgs e)
         {
-             frmPassword.Visibility = Visibility.Hidden;
+            frmPassword.Visibility = Visibility.Hidden;
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -258,6 +263,17 @@ namespace com.GreenThumb.WPF_Presentation.ProfilePages
                 txtRegion.Text = (regions.SelectedIndex + 1).ToString();
             }
         }
-        
+
+        private void btnShowProfile_Click(object sender, RoutedEventArgs e)
+        {
+            bool res = Int32.TryParse(txtUserId.Text, out userId);
+            populateUser();
+        }
+
+        private void txtUserId_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            bool res = Int32.TryParse(txtUserId.Text, out userId);
+        }
+
     }
 }
