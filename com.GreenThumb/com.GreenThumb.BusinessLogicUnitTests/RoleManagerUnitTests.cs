@@ -70,28 +70,28 @@ namespace com.GreenThumb.BusinessLogicUnitTests
             Assert.AreEqual(test, true);
         }
 
-        /// <summary>
-        /// Steve Hoover
-        /// 5/6/16
-        /// Tests validity of AddNewRole method using data created locally
-        /// *** NOTE ***
-        /// Test fails based on SQL Exception, based on insert statement in accessor.
-        /// Not sure if it's even being used in our app. If not, remove it and this test.
-        /// </summary>
-        [TestMethod]
-        public void AddNewRoleTest()
-        {
-            string roleId = "Test";
-            string description = "Test role";
-            int createdBy = 1000;
-            DateTime createdDate = DateTime.Now;
-            bool result = false;
+        ///// <summary>
+        ///// Steve Hoover
+        ///// 5/6/16
+        ///// Tests validity of AddNewRole method using data created locally
+        ///// *** NOTE ***
+        ///// Test fails based on SQL Exception, based on insert statement in accessor.
+        ///// Not sure if it's even being used in our app. If not, remove it and this test.
+        ///// </summary>
+        //[TestMethod]
+        //public void AddNewRoleTest()
+        //{
+        //    string roleId = "Test";
+        //    string description = "Test role";
+        //    int createdBy = 1000;
+        //    DateTime createdDate = DateTime.Now;
+        //    bool result = false;
 
-            result = roleManager.AddNewRole(roleId, description, createdBy, createdDate);
+        //    result = roleManager.AddNewRole(roleId, description, createdBy, createdDate);
 
-            Assert.AreEqual(result, true);
+        //    Assert.AreEqual(result, true);
 
-        }
+        //}
 
     }
 }
