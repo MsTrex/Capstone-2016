@@ -4472,9 +4472,11 @@ CREATE PROCEDURE Gardens.spCheckLeaderStatus (
 )
 AS
 BEGIN
-        SELECT Leader
-        FROM Gardens.GroupMembers
-        WHERE GroupID = @GroupId AND UserId = @UserId
+	SELECT u.FirstName, u.LastName, u.Zip, u.EmailAddress, u.UserName, u.RegionID, g.GroupName
+	FROM Admin.Users AS u
+	INNER JOIN gardens.groups AS g
+	ON u.UserID = g.GroupLeaderID
+	WHERE g.GroupLeaderID = @UserId AND g.GroupID = @GroupId;
  END
  GO
  
@@ -5451,3 +5453,336 @@ announcement)
 values('jeffB','Jeff','Bridges','1000','04/28/2016 00:00:00','this is an announcement 16')
 go
 
+-- Needs section added by Trent Cullinan 04/01/2016
+create schema Needs;
+go
+create table Needs.NeedTypes(
+	NeedType			varchar(50)		not null,
+	Description			varchar(255)	not null,
+	Active				bit				not null default 1
+	constraint [pk_NeedTypes_NeedType] primary key(NeedType)
+);
+create table Needs.Needs(
+	NeedID				int				not null identity(1000,1),
+	GardenID			int				not null,
+	Title				varchar(30)		not null,
+	Description			varchar(255)	not null,
+	NeedType			varchar(50)		not null default 'General',
+	Completed			bit				not null default 0,
+	DateCreated			smalldatetime	not null default getdate(),
+	CreatedBy			int				not null,
+	DateModified		smalldatetime	null,
+	ModifiedBy			int				null,
+	Active				bit				not null default 1,
+	constraint [pk_Needs_NeedID] primary key(NeedID)
+);
+create table Needs.Contributions(
+	ContributionID		int				not null identity(1000,1),
+	NeedID				int				not null,
+	SentBy				int				not null,
+	Description			varchar(255)	null,
+	Contributed			bit				null,
+	DateCreated			smalldatetime	not null default getdate(),
+	DateModified		smalldatetime	null,
+	ModifiedBy			int				null,
+	Active				bit				not null default 1
+	constraint [pk_PendingContributions_ContributionID] primary key(ContributionID)
+);
+go
+insert into Needs.NeedTypes(NeedType,Description)
+values	('General','General need for a garden.');
+go
+create procedure Needs.spInsertGardenNeed(
+	@GardenID		int,
+	@UserID			int,
+	@Title			varchar(30),
+	@Description	varchar(255),
+	@DateCreated	smalldatetime,
+	@NeedType		varchar(50) = 'General'
+	
+)
+as begin
+	insert into Needs.Needs(GardenID,Title,Description,NeedType,DateCreated,CreatedBy,Active)
+	values(@GardenID,@Title,@Description,@NeedType,@DateCreated,@UserID,default);
+end;
+go
+create procedure Needs.spInsertContributions(
+	@NeedID			int,
+	@UserID			int,
+	@Description	varchar(255)
+)
+as begin
+	insert into Needs.Contributions(NeedID,SentBy,Description,DateCreated,Active)
+	values(@NeedID,@UserID,@Description,default,default);
+end;
+go
+create procedure Needs.spUpdateContribution(
+	@ContributionID	int,
+	@Contributed	bit,
+	@UserID			int
+)
+as begin
+	declare @NeedID int = 0;
+
+	select @NeedID = NeedID
+	from Needs.Contributions
+	where ContributionID = @ContributionID;
+	
+	update Needs.Contributions 
+	set Contributed = @Contributed,
+		DateModified = getdate(),
+		ModifiedBy = @UserID
+	where ContributionID = @ContributionID;
+
+	if @Contributed = 1
+	begin
+		update Needs.Needs
+		set Completed = 1,
+			Active = 0
+		where NeedID = @NeedID;
+	end;
+end;
+go
+create procedure Needs.spUpdateCancelContribution(
+	@ContributionID	int
+)
+as begin
+	update Needs.Contributions
+	set Contributed = 0
+	where ContributionID = @ContributionID;
+end;
+go
+create procedure Needs.spUpdateNeed(
+	@NeedID			int,
+	@UserID			int,
+	@Title			varchar(30),
+	@Description	varchar(255),
+	@Completed		bit,
+	@NeedType		varchar(50) = 'General'
+)
+as begin
+	update Needs.Needs
+	set Title = @Title,
+		Description = @Description,
+		NeedType = @NeedType,
+		Completed = @Completed,
+		DateModified = getdate(),
+		ModifiedBy = @UserID
+	where NeedID = @NeedID;
+end;
+go
+create procedure Needs.spUpdateRemoveNeed(
+	@NeedID			int
+)
+as begin
+	update Needs.Needs
+	set Active = 0
+	where NeedID = @NeedID;
+end;
+go
+create procedure Needs.spSelectGardenNeeds(
+	@GardenID		int
+)
+as begin
+	select n.NeedID, n.Title, n.Description, n.NeedType, 
+		n.DateCreated, n.CreatedBy, n.DateModified, n.ModifiedBy
+	from Needs.Needs as n
+	where n.Active = 1 and n.Completed = 0 and n.GardenID = @GardenID;
+end;
+go
+create procedure Needs.spSelectGardenPendingContributions(
+	@GardenID		int
+)
+as begin
+	select c.ContributionID, c.NeedID, c.SentBy, c.Description, 
+		c.Contributed, c.DateCreated, c.DateModified, c.ModifiedBy, c.Active, n.Title, u.UserName
+	from Needs.Contributions as c
+	inner join Needs.Needs as n
+		on c.NeedID = n.NeedID and
+			n.Active = 1 and
+			n.Completed = 0
+	inner join Admin.Users as u
+		on c.SentBy = u.UserID
+	where c.Active = 1 and 
+		c.Contributed is null and 
+		n.GardenID = @GardenID;
+end;
+go
+create procedure Needs.spSelectGardenActiveNeeds(
+	@GardenID		int
+)
+as begin
+	select n.NeedID, n.Title, n.Description, n.NeedType,
+		n.DateCreated, n.CreatedBy, n.DateModified, n.ModifiedBy
+	from Needs.Needs as n
+	where n.Active = 1 and 
+		n.Completed = 0 and
+		n.GardenID = @GardenID;
+end;
+go
+create procedure Needs.spSelectGardenMetNeeds(
+	@GardenID		int
+)
+as begin
+	select n.NeedID, n.Title, n.Description, n.NeedType,
+		n.DateCreated, n.CreatedBy, n.DateModified, n.ModifiedBy
+	from Needs.Needs as n
+	left join Needs.Contributions c
+		on n.NeedID = c.NeedID
+		and c.Active = 0
+		and c.Contributed = 1
+	where n.Active = 0 and
+		n.Completed = 1 and
+		n.GardenID = @GardenID;
+end;
+go
+create procedure Needs.spSelectNeedTypes
+as begin
+	select nt.NeedType, nt.Description
+	from Needs.NeedTypes as nt
+	where nt.Active = 1;
+end;
+go
+create procedure Needs.spSelectUsersPendingNeeds(
+	@UserID			int
+)
+as begin
+	select c.ContributionID, c.NeedID, c.Description, 
+		c.DateCreated, c.DateModified, c.ModifiedBy
+	from Needs.Contributions as c
+	where c.Active = 1 and
+		c.Contributed is null and
+		c.SentBy = @UserID;
+end;
+go
+create procedure Needs.spSelectUsersMetNeeds(
+	@UserID			int
+)
+as begin
+	select c.ContributionID, c.NeedID, c.Description, 
+		c.DateCreated, c.DateModified, c.ModifiedBy
+	from Needs.Contributions as c
+	where c.Active = 1 and
+		c.Contributed = 1 and
+		c.SentBy = @UserID;
+end;
+go
+create procedure Needs.spSelectUsersNonMetMeeds(
+	@UserID			int
+)
+as begin
+	select c.ContributionID, c.NeedID, c.Description, 
+		c.DateCreated, c.DateModified, c.ModifiedBy 
+	from Needs.Contributions as c
+	where c.Active = 1 and
+		c.Contributed = 0 and
+		c.SentBy = @UserID;
+end;
+go
+create procedure Needs.spSelectNeed(
+	@NeedID			int
+)
+as begin
+	select n.GardenID, n.Title, n.Description, n.NeedType, n.Active, n.Completed,
+		n.DateCreated, n.CreatedBy, n.DateModified, n.ModifiedBy
+	from Needs.Needs as n
+	where NeedID = @NeedID;
+end;
+go
+create procedure Needs.spSelectPendingNeed(
+	@ContributionID		int
+)
+as begin
+	select c.NeedID, c.SentBy, c.Description, c.Contributed,
+		c.DateCreated, c.DateModified, c.ModifiedBy
+	from Needs.Contributions as c
+	where c.ContributionID = @ContributionID;
+end;
+go
+create procedure Gardens.spSelectGroupByGardenID(
+	@GardenID		int
+)
+as begin
+	select g.GroupID, g.GroupLeaderID, g.GroupName, g.OrganizationID, g.Active
+	from Gardens.Groups g
+	inner join Gardens.Gardens ga
+		on g.GroupID = ga.GroupID
+	where ga.GardenID = @GardenID
+end;
+go
+create procedure Needs.spSelectGroupsInNeed
+as begin
+	select distinct
+	count(ga1.GardenID) as active_needs,
+	count(ga2.GardenID) as completed_needs,
+	g.GroupID, g.GroupName, u.UserName
+	from Needs.Needs as n
+	left join Gardens.Gardens as ga1
+		on n.GardenID = ga1.GardenID
+		and n.Active = 1
+		and n.Completed = 0
+	left join Gardens.Gardens as ga2
+		on n.GardenID = ga2.GardenID
+		and n.Active = 0
+		and n.Completed = 1
+	inner join Gardens.Gardens as ga
+		on n.GardenID = ga.GardenID
+	inner join Gardens.Groups as g
+		on ga.GroupID = g.GroupID
+	inner join Admin.Users as u
+		on g.GroupLeaderID = u.UserID
+	where g.Active = 1
+	group by g.GroupID, g.GroupName, u.UserName
+	having count(ga1.GardenID) > 0
+	order by 1 desc;
+end;
+go
+create procedure Needs.spSelectGroupsGardenNeeds(
+	@GroupID		int
+)
+as begin
+	select distinct
+	count(g1.GardenID) as active_needs,
+	count(g2.GardenID) as completed_needs,
+	g.GardenID, g.GardenName, g.GardenDescription, g.GardenRegion
+	from Needs.Needs as n
+	inner join Gardens.Gardens as g
+		on n.GardenID = g.GardenID
+	left outer join Gardens.Gardens as g1
+		on n.GardenID = g1.GardenID
+		and n.Active = 1
+		and n.Completed = 0
+	left outer join Gardens.Gardens as g2
+		on n.GardenID = g2.GardenID
+		and n.Active = 0
+		and n.Completed = 1
+	where g1.GroupID = @GroupID or g2.GroupID = @GroupID
+	group by g.GardenID, g.GardenName, g.GardenDescription, g.GardenRegion
+	having count(g1.GardenID) > 0
+	order by 1 desc;
+end;
+go
+create procedure Needs.spSelectGroupsActiveNeeds(
+	@GroupID			int
+)
+as begin
+	select n.NeedID, n.GardenID, n.Title, n.Description, n.NeedType, n.Active, n.Completed,
+		n.DateCreated, n.CreatedBy, n.DateModified, n.ModifiedBy
+	from Needs.Needs as n
+	left join Gardens.Gardens as g
+		on n.GardenID = g.GardenID
+		and g.Active = 1
+	where n.Active = 1 and n.Completed = 0 and g.GroupID = @GroupID;
+end;
+go
+create procedure Needs.spSelectUsersContributions(
+	@UserID				int
+)
+as begin
+	select c.ContributionID, c.NeedID, c.Description, c.Contributed, c.DateCreated, c.DateModified, c.ModifiedBy, c.Active, 
+	n.GardenID, n.Title, n.Description, n.Completed, n.DateCreated, n.CreatedBy, n.Active
+	from needs.contributions as c
+	inner join needs.needs as n
+		on c.NeedID = n.NeedID
+	where c.SentBy = @UserID;
+end;
