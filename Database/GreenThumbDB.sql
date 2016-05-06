@@ -2002,7 +2002,7 @@ CREATE PROCEDURE Expert.spInsertExpertBluePrints(
 )
 AS
 BEGIN
-INSERT INTO Expert.Template
+INSERT INTO Expert.Blueprints
 (Title, Description, DateCreated, CreatedBy , FilePath )
 VALUES
 (@Title, @Description, @DateCreated, @CreatedBy, @FilePath );
