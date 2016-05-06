@@ -494,6 +494,7 @@
     <Content Include="Views\Message\Compose.cshtml" />
     <Content Include="Views\Articles\Articles.cshtml" />
     <Content Include="Views\Group\ExpertDetails.cshtml" />
+    <Content Include="Views\PartialViews\_DesignGarden.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
