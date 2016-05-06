@@ -174,7 +174,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnProfile.Focus();
             mainFrame.NavigationService.Navigate(new ProfilePages.ProfileMain(_accessToken));
             CheckPermissions();
-            SetProfileButtons();
+            //SetProfileButtons();
         }
 
         /// <summary>
@@ -326,11 +326,22 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar5.Content = "View Recipes";
             btnSideBar6.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ? "Add a Recipe" : "";
             btnSideBar7.Content = "Plants";
-            btnSideBar8.Content = "Upload Garden Template";
+            btnSideBar8.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ? "Upload Garden Template" : "";
             btnSideBar9.Content = "View Garden Templates";
             btnSideBar10.Content = roleManager.ConfirmUserIsAssignedRole(_accessToken, "Expert") ||
                roleManager.ConfirmUserIsAssignedRole(_accessToken, "Admin") ? "" : "Become an Expert";
             clearUnusedSidebars();
+
+            //foreach (Role r in _accessToken.Roles)
+            //{
+            //    if (r.RoleID == "Expert")
+            //    {
+            //        var expertTabs = new Label[] { btnGardens, btnExpert, btnHome, btnProfile };
+            //        visibleTabs.AddRange(expertTabs);
+            //        break;
+            //    }
+            //    clearUnusedSidebars();
+            //}
         }
 
         /// <summary>

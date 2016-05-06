@@ -84,10 +84,6 @@
       <Project>{ef319654-33fe-44a8-ab46-f89dd48f65fb}</Project>
       <Name>com.GreenThumb.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\com.GreenThumb.WindowsForms_Presentation\com.GreenThumb.WindowsForms_Presentation.csproj">
-      <Project>{7cb11741-19f3-49ba-acfc-778c0a554831}</Project>
-      <Name>com.GreenThumb.WindowsForms_Presentation</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="scripts\tinymce\jquery.tinymce.min.js" />
