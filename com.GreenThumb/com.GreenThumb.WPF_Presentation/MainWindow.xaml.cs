@@ -389,7 +389,7 @@ namespace com.GreenThumb.WPF_Presentation
             btnSideBar4.Content = "User Role";
             btnSideBar5.Content = "User Region";
             btnSideBar6.Content = "Admin User Profile";
-            btnSideBar6.Content = "";
+            btnSideBar7.Content = "";
             clearUnusedSidebars();
             boldCurrent(sender);
         }
